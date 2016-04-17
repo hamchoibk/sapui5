@@ -18,6 +18,10 @@
  specific language governing permissions and limitations
  under the License.
 */
+/*
+ * 
+ * @returns {undefined}copy right
+ */
 ;(function() {
 var PLATFORM_VERSION_BUILD_LABEL = '4.0.2';
 // file: src/scripts/require.js
