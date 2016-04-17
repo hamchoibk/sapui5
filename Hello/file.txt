@@ -1,0 +1,23 @@
+setAccountToSettlement: function() {
+		var Currency = this.byId("currency").getValue();
+		var len = this.oFromAccountList.length;
+		var data = {
+			results: []
+		};
+		
+		for(var i = 0; i < len; i++) {
+			if(this.oFromAccountList[i].CURRENCY === Currency) {
+				data.results.push(this.oFromAccountList[i]);
+			}
+		}
+		
+		var jModel = new sap.ui.model.json.JSONModel();				
+		jModel.setData(data);
+		this.getView().setModel(jModel, "ACCOUNTS_TO_SETTLEMENT");
+		
+		var defaultValue = new sap.ui.core.ListItem({
+			text : "Please select a from account",
+			key : "-1"
+		});
+		this.getView().byId("settlementAccount").insertItem(defaultValue, 0);
+	},

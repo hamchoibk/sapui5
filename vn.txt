@@ -1,0 +1,51 @@
+    1  cd D
+    2  cd gits
+    3  cd DD| ;
+    4  cd D:ls
+    5  dir
+    6  ls
+    7  cd ;
+    8  D:
+    9  cd D:
+   10  dir
+   11  ls
+   12  cd gits/
+   13  dir
+   14  git init
+   15  git remote add origin git@github.com:hamchoibk/sapui5.git
+   16  git pull git@github.com:hamchoibk/sapui5.git
+   17  ls
+   18  echo ha>>ha.txt
+   19  echo PhanHoangMai >>mai.kute
+   20  git status
+   21  git commit -a -m "May tinh win7"
+   22  git push -u origin master
+   23  git push -u origin master
+   24  git branch -a
+   25  git status
+   26  git add -A
+   27  git commit -a -m "Van Ha change new FILE ha.txt ,maikute"
+   28  git push -u orgin master
+   29  git push -u origin master
+   30  git add -A
+   31  git commit -a -m "Them hinh anh moi"
+   32  git push -u origin master
+   33  git add -A
+   34  git commit -a -m "Them 1 project quan ly diem"
+   35  git push -u origin master
+   36  git add -A
+   37  git commit -a -m "Them project HTTP request"
+   38  git push -u origin master
+   39  git add -A
+   40  git commit -a -m "Them project HTTP request"
+   41  git push -u origin master
+   42  git add -A
+   43  git commit -a -m "Them project HTTP request"
+   44  git commit -a -m "Them Node Js"
+   45  git commit -a -m "Them Node Js"
+   46  git add -A
+   47  git commit -a -m "Them Node Js"
+   48  git push -u origin master
+   49  ls
+   50  history
+   51  history >>vn.txt
