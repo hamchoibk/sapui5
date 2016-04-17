@@ -1,0 +1,45 @@
+<div ng-controller="loginController">
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <div class="container">
+        <div class="button-back" ng-click="clickBack()"></div>
+        <!--<div class="onoffswitch"  ng-controller="TranslateController" ng-click="onoffswitch()">-->
+            <!--<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" ng-model="languageCode">-->
+            <!--<label class="onoffswitch-label">-->
+                <!--<span class="onoffswitch-inner onoffswitch-inner-on" ng-show="firstTimeOn"></span>-->
+                <!--<span class="onoffswitch-switch onoffswitch-switch-on" ng-show="firstTimeOn"></span>-->
+                <!--<span class="onoffswitch-inner"  ng-show="!firstTimeOn"></span>-->
+                <!--<span class="onoffswitch-switch" ng-show="!firstTimeOn"></span>-->
+            <!--</label>-->
+        <!--</div>-->
+        <div id="logo">
+        </div>
+
+        <div id="footerBox">
+            <div id="panel" class="redBorderBottom">
+                <form id="loginForm" name="loginForm" ng-keypress="clickSubmit($event)">
+                    <div class="input-withIcon">
+                      <input id="input-username" type="text"
+                           class="whiteborderBottom login input-withIcon"
+                           ng-model="login.username" placeholder="{{'LOGIN_USERNAME' | translate}}"
+                           ng-maxlength="40" required  autocomplete="off" ng-change="didChangeUserName()"/>
+                      <i class="clearText inputIcon glyphicon pull-right" ng-click="clearUserName()" ng-show="showClearUserName"/>
+                    </div>
+                  <div class="input-withIcon">
+                    <input id="input-password" type="password"  ng-model="login.password"
+                           placeholder="{{'LOGIN_PASSWORD' | translate}}" class="login input-withIcon"
+                           ng-change="didChangePassword()"/>
+                    <i class="clearText inputIcon glyphicon pull-right" ng-click="clearPassword()" ng-show="showClearPassword"/>
+                  </div>
+
+                </form>
+            </div>
+            <div class="boxContainer">
+                <input type="submit" value="{{'LOGIN_BUTTON' | translate}}" class="button-home button-Login-panel" ng-click="submit()"/>
+                <!--<i class="forgotPassword" ng-click="forgotPassword()" style="display: none"></i>-->
+            </div>
+            </form>
+            <div class="socially-tcb"></div>
+        </div>
+
+    </div>
+</div>

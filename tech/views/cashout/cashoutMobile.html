@@ -1,0 +1,47 @@
+    <div>
+    <navigation-bar status="status"></navigation-bar>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <div class="scrollBox-withFooter formContainer" id="scrollArea">
+        <form id="cashoutmobileform" name="cashoutmobileform">
+            <div class="cashoutInfo greyBorderBottom" ng-show="!forOwner">{{'CASHOUT_MOBILE_TITLE_LINE_1' | translate}}<br />{{'CASHOUT_MOBILE_TITLE_LINE_2' | translate}}<br />{{'CASHOUT_MOBILE_TITLE_LINE_3' | translate}}</div>
+            <div class="cashoutInfo greyBorderBottom" ng-show="forOwner">{{'CASHOUT_ATM_TITLE_LINE_1' | translate}}<br />{{'CASHOUT_ATM_TITLE_LINE_2' | translate}}</div>
+            <div class="greyBorderBottom">
+                <ul class="arrowlist">
+                    <li class="fromRow" ng-click="selectAccount()">
+                        <a class="labelKey"><b>{{ 'COMMON_FROM' | translate }}</b></span><br>
+                              <span class="detail">
+                                  {{selectedAccountName}}<br>
+                                  {{selectedAccountNumber}}<br>
+                                  {{currencyCode}} {{selectedAvailableBalance}}<br>
+                              </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="greyBorderBottom" style="padding-top:10px;" ng-show="{{forOwner}}"> <b>{{'COMMON_BY' | translate }}</b>
+                <input type="text" placeholder="{{'CASHOUT_MOBILE_MOBILE_NUMBER' | translate}}" ng-model="cashout.mobile" mobile-check="ERROR_CODE_30003" disabled />
+            </div>
+            <div class="greyBorderBottom input-withIcon" style="padding-top:10px;" ng-show="{{!forOwner}}"><b>{{'COMMON_TO' | translate }}</b>
+                <input type="tel" pattern="[0-9]*" placeholder="{{'CASHOUT_MOBILE_MOBILE_NUMBER' | translate}}" ng-model="cashout.mobile" mobile-check="ERROR_CODE_30003" required />
+                <i id="beneficiaryListIcon" class="selectAccount inputIcon glyphicon pull-right" ng-click="openBenificiaryList()"></i>
+            </div>
+            <div>
+                <input type="text" placeholder="VND" value="VND"  class="greyBorderBottom greyBorderRight currencycode" readonly="readonly" />
+                <!--<input type="number" pattern="[0-9]*" placeholder="{{ 'CASHOUT_MOBILE_AMOUNT' | translate }}"  name="smscode" class="greyBorderBottom amt" numbers-only="numbers-only" numeric-check="ERROR_CODE_30016" ng-model="cashout.amount" required/>-->
+                <input type="text" id="amount" placeholder="{{ 'CASHOUT_MOBILE_AMOUNT' | translate }}"  onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="smscode" class="greyBorderBottom amt" ng-model="cashout.parsedAmount" ng-change="change()" length-check="ERROR_CODE_30016" required pattern="[0-9]*"/>
+            </div>
+			<br clear="all">
+            <div class="footnote">{{'CASHOUT_MOBILE_GUIDE_AMOUNT_LIMIT_LINE_1' | translate}}
+                <br />{{'CASHOUT_MOBILE_GUIDE_AMOUNT_LIMIT_LINE_2' | translate}}
+            </div>
+        </form>
+        <div class="buttonBox">
+            <button ng-class="{true: 'button base inactive', false: 'button base active'}[!(cashout.mobile && validAmount)]" ng-disabled=" !(cashout.mobile && validAmount)" ng-click="confirm()">{{'CASHOUT_MOBILE_SEND' | translate}}</button>
+        </div>
+
+    </div>
+
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

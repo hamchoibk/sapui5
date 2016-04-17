@@ -1,0 +1,60 @@
+<div ng-init="init()">
+    <div id="page-loader" ng-if="loading">
+        <img src="images/loader.gif" class="ajax-loader"/>
+    </div>
+    <div class="container-home">
+
+        <!-- select server -->
+        <!--<div style="position: relative; width: 66px;-webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;position: absolute;left: 10px;top: 30px;">-->
+            <!--<select class="form-control" ng-model="selectedServer" ng-change="didSelectServer()" style="margin-top: 0px">-->
+                <!--<option value="0">DEV</option>-->
+                <!--<option value="1">UAT</option>-->
+                <!--<option value="2">LIVE</option>-->
+            <!--</select>-->
+        <!--</div>-->
+        <!-- end select server -->
+
+        <div class="onoffswitch"  ng-controller="TranslateController" ng-click="onoffswitch()">
+            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" ng-model="languageCode">
+            <label class="onoffswitch-label">
+                <span class="onoffswitch-inner onoffswitch-inner-on" ng-show="firstTimeOn"></span>
+                <span class="onoffswitch-switch onoffswitch-switch-on" ng-show="firstTimeOn"></span>
+                <span class="onoffswitch-inner"  ng-show="!firstTimeOn"></span>
+                <span class="onoffswitch-switch" ng-show="!firstTimeOn"></span>
+            </label>
+        </div>
+        <div id="logo">
+        <!--<div id="banner">-->
+        </div>
+
+
+        <div id="footerBox">
+            <div class="footerMedia">
+                <div class="redBorderBottom">
+                    <div owlcarousel my-id='mainPage' id="home-carousel" class="owl-carousel">
+                        <div class="atm item"><a href="" target="_blank" ng-click="clickATMLocator()"><p>{{ 'MAIN_BEST_ATM_BRANCH_LOCATOR_LINE1' | translate}}<br>{{ 'MAIN_BEST_ATM_BRANCH_LOCATOR_LINE2' | translate}}</p></a></div>
+                        <div class="promo item">
+                            <a href="" target="_blank" ng-click="clickPromos()">
+                                <p>{{ 'MAIN_PROMOTIONS' | translate}}</p>
+                            </a>
+                        </div>
+                        <div class="deal item"><a href="" target="_blank" ng-click="clickDeals()"><p>{{ 'MAIN_BEST_DEALS_LINE1' | translate}}<br>{{ 'MAIN_BEST_DEALS_LINE2' | translate}}</p></a></div>
+                        <div class="contact item"><a href="" target="_blank" ng-click="clickContactus()"><p>{{ 'MAIN_CONTACT_US' | translate}}</p></a></div>
+                        <div class="product item"><a href="" target="_blank" ng-click="clickProduct()"><p>{{ 'MAIN_PRODUCT_AND_SERVICES_LINE1' | translate}}<br>{{ 'MAIN_PRODUCT_AND_SERVICES_LINE2' | translate}}</p></a></div>
+                        <div class="demo item"><a href="" target="_blank" ng-click="clickDemo()"><p>{{ 'MAIN_DEMO' | translate}}</p></a></div>
+                    </div>
+                </div>
+
+                <!--<input class="button-index button-Signup" type="submit" value="{{'MAIN_SIGNUP_BUTTON' | translate}}" ng-click="signup()"/>-->
+                <!--<input class="button-index button-Login" type="submit" value="{{'MAIN_LOGIN_BUTTON' | translate}}" ng-click="login()" />-->
+            </div>
+            <div class="boxContainer">
+                <input type="submit" value="{{'MAIN_LOGIN_BUTTON' | translate}}" class="button-home button-Login-panel" ng-click="login()"/>
+            </div>
+            <div class="socially-tcb"></div>
+        </div>
+    </div>
+
+</div>
+
+

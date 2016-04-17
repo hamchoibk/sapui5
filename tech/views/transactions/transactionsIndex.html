@@ -1,0 +1,116 @@
+<div>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <navigation-bar status="status"></navigation-bar>
+    <div class="scrollBox-withFooter">
+        <accordion close-others="false">
+            <accordion-group is-open="socialTransactionsAccordion.isOpen">
+                <accordion-heading>
+                    {{socialTransactionsAccordion.heading | translate}}<i style="top: 0px" class="pull-right glyphicon" ng-class="{'arrow-down': socialTransactionsAccordion.isOpen, 'arrow-up': !socialTransactionsAccordion.isOpen}" ng-click="clickSocialTransaction()"></i>
+                </accordion-heading>
+                <div style="padding:4px">
+                <accordion-group is-open="statusListIsOpen">
+                <accordion-heading>
+                    {{'TRANSACTIONS_INDEX_STATUS' | translate}}<i class="pull-right glyphicon" ng-class="{'arrow-down': statusListIsOpen, 'arrow-up': !statusListIsOpen}"></i>
+                </accordion-heading>
+                <ul class="arrowlist">
+                    <li class="greyBorderBottom" ng-click="acceptedClicked()">
+                        <a> {{'TRANSACTIONS_INDEX_ACCEPTED' | translate}}</a>
+                    </li>
+                    <li class="greyBorderBottom" ng-click="rejectedClicked()">
+                        <a> {{'TRANSACTIONS_INDEX_REJECTED' | translate}}</a>
+                    </li>
+                    <li class="greyBorderBottom" ng-click="pendingClicked()">
+                        <a> {{'TRANSACTIONS_INDEX_PENDING' | translate}}</a>
+                    </li>
+                    <li class="greyBorderBottom" ng-click="cancelledClicked()">
+                        <a> {{'TRANSACTIONS_INDEX_CANCELLED' | translate}}</a>
+                    </li>
+                    <li ng-click="expiredClicked()">
+                        <a> {{'TRANSACTIONS_INDEX_EXPIRED' | translate}}</a>
+                    </li>
+                </ul>
+            </accordion-group>
+                    </div>
+                <ul class="arrowlist">
+                    <li ng-repeat="transaction in socialTransactions | limitTo: 10" class="greyBorderBottom" ng-click="clickTransaction(transaction)" ng-show="(transaction.status != 'Unknown') && !(transaction.fastalink && !transaction.additionalInfos)">
+                        <a class="transactionContainer short transactionIndex"><div class="avatar"> <img style="background-color: #ffffff" src="{{transaction.photo}}"/></div>
+                            <div class="rowContainer">
+                                <!--<div class="name1">{{(transaction.name.length>20)?transaction.name.substr(0,17) + "...":transaction.name }}</div>-->
+                                <div class="name1">
+                                    <span class="prefixName-{{transaction.Linktype}}" ng-if="showLinkTyeIcon(transaction)">{{showPrefixDecs(transaction)? 'SOCIAL_TRANSACTION_FROM':'SOCIAL_TRANSACTION_TO' | translate}} </span>
+                                    {{transaction.name}}
+                                </div>
+                                <div class="amount"><i class="linkType {{transaction.Linktype}}" ng-if="showLinkTyeIcon(transaction)"></i>
+                                    <span class="prefixType-{{transaction.Linktype}}" ng-if="showLinkTyeIcon(transaction) && !showReceiveLabel(transaction)">{{showPrefixType(transaction)? 'SOCIAL_TRANSACTION_SENT':'SOCIAL_TRANSACTION_ASKED' | translate}}</span>
+                                    <span class="prefixType-{{transaction.Linktype}}" ng-if="showLinkTyeIcon(transaction) && showReceiveLabel(transaction)">{{'SOCIAL_TRANSACTION_RECEIVE' | translate}}</span>
+                                    <b>VND {{transaction.formatedAmount}}</b>
+                                </div>
+                                <div class="date">{{'BANK_TRANSACTION_SUMMARY_DATE' | translate}}<b> {{transaction.date}}</b></div>
+                                <div class="link" ng-show="transaction.fastalink"><b>{{transaction.fullLink}}</b></div>
+                            </div>
+                            <div class="channelstatus"> <div class="status {{transaction.status}}" >{{transaction.status}}</div> <i class="channel {{transaction.additionalInfos.otherData.data.value}}" ng-if="showChannelIcon(transaction)"></i> </div>
+                        </a>
+                    </li>
+                </ul>
+            </accordion-group>
+            <div style="border-bottom: 1px #ddd solid;"></div>
+            <accordion-group is-open="bankTransactionsListIsOpen">
+                <accordion-heading>
+                    {{'TRANSACTIONS_INDEX_BANK_TRANSACTIONS' | translate}}<i style="top: 0px;" class="pull-right glyphicon" ng-class="{'arrow-down': bankTransactionsListIsOpen, 'arrow-up': !bankTransactionsListIsOpen}"></i>
+                </accordion-heading>
+
+                <div ng-model="search.accountType">
+                        <accordion-group is-open="accountListAccordion.isOpen">
+                            <accordion-heading>
+                                <div style="font-size:13px;color:rgba(0,0,0,.5);">
+                                {{accountListAccordion.accountType  | translate}} - {{accountListAccordion.accountNumber}}<i class="pull-right glyphicon" ng-class="{'arrow-down': accountListAccordion.isOpen, 'arrow-up': !accountListAccordion.isOpen}"></i>
+                                </div>
+                            </accordion-heading>
+                            <ul class="panelList account">
+                                <li ng-repeat="account in userAccountDetails" class="greyBorderBottom" ng-click="clickAccountType(account)">
+                                        <a>
+                                            <name>{{account.accountType | translate}} - {{account.accountNumber}}</name>
+                                            <balance>{{account.balance}}</balance>
+                                        </a>
+                                </li>
+                            </ul>
+                        </accordion-group>
+                </div>
+                <ul class="arrowlist">
+                    <li class="greyBorderBottom">
+                        <p class="labelKey" ng-show="isiOsDevice">{{ 'TRANSACTIONS_INDEX_FROM_DATE' | translate }}</p>
+                        <input type="date" placeholder=" {{'TRANSACTIONS_INDEX_FROM_DATE' | translate}}" class="inputDate" id="frmDtiOS" ng-model="search.fromDate" ng-show="isiOsDevice" style="height: 24px"/>
+                        
+                        <input type="text" placeholder=" {{'TRANSACTIONS_INDEX_FROM_DATE' | translate}}" class="inputDate" id="frmDt" ng-model="search.fromDate" ng-click="selectDate('frmDt')" ng-readonly="isMobile" ng-show="!isiOsDevice"/>
+                    </li>
+                    <li class="greyBorderBottom">
+                        <p class="labelKey" ng-show="isiOsDevice">{{ 'TRANSACTIONS_INDEX_TO_DATE' | translate }}</p>
+                        <input type="date" placeholder=" {{'TRANSACTIONS_INDEX_TO_DATE' | translate}}" class="inputDate" id="toDtiOS" ng-model="search.toDate" ng-show="isiOsDevice" style="height: 24px"/>
+                        <input type="text" placeholder=" {{'TRANSACTIONS_INDEX_TO_DATE' | translate}}" class="inputDate" id="toDt" ng-model="search.toDate" ng-click="selectDate('toDt')"  ng-readonly="isMobile" ng-show="!isiOsDevice"/>
+                    </li>
+                    <li class="greyBorderBottom" style="display:none">
+                        
+                        <input type="number" pattern="[0-9]*" placeholder=" {{'TRANSACTIONS_INDEX_FROM_AMOUNT' | translate}}" ng-model="search.fromAmount" />
+                    </li>
+                    <li class="greyBorderBottom" style="display:none">
+                        <input type="number" pattern="[0-9]*" placeholder=" {{'TRANSACTIONS_INDEX_TO_AMOUNT' | translate}}" ng-model="search.toAmount" />
+                    </li>
+                    <li class="greyBorderBottom" ng-click="showTransactions(1)">
+                        <a>  {{'TRANSACTIONS_INDEX_LAST_10_TRANSACTIONS' | translate}}</a>
+                    </li>
+                    <li class="greyBorderBottom" ng-click="showTransactions(2)">
+                        <a>{{'TRANSACTIONS_INDEX_1_MONTH_TRANSACTIONS' | translate}}</a>
+                    </li>
+                    <br clear="all">
+                    <button class="button base active" ng-click="clickSearch()">{{'TRANSACTIONS_INDEX_SEARCH' | translate}}</button>
+
+                </ul>
+            </accordion-group>
+        </accordion>
+
+    </div>
+
+    <div class="stickyBottom">
+        <div class="socially grey"></div>
+    </div>
+</div>

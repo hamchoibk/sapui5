@@ -1,0 +1,54 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <div class="formContainer scrollBox-withFooter ">
+        <!--<div class="labelKey" style="padding-top:15px;padding-bottom:10px;"><span >{{'COMMON_FROM' | translate }}</span></div>-->
+        <div class="labelKey" style="margin-bottom: 5px"><span >{{'COMMON_FROM' | translate }}</span></div>
+        <div>
+            <p class="number" style="margin-bottom: 0px"><b>{{account.accountType|translate}}</b></p>
+            <p class="number" style="margin-bottom: 0px"><b>{{account.accountNumber}}</b></p>
+            <p class="number" ><b>{{currencyCode}} {{account.availableBalance}}</b></p>
+        </div>
+        <div class="space"></div>
+        <div class="labelKey" style="padding-bottom:10px;"><span >{{'COMMON_TO' | translate }}</span></div>
+        <div>
+            <i class="icon-value smallicon pull-right {{channelType}}" />
+            <div class="avatar"> <img src="{{friend.friendDetail.profile.photo}}"/></div>
+            <div class="rowContainer">
+                <div class="row">
+                        <div class="number"><b>{{friend.name}}<br>
+                        <span class="number" ng-show="showMobile">{{friend.mobileNumber}}</span></b>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="space"></div>
+        <div class=" iconField">
+            <i class="icon-value askSocial  glyphicon pull-left"/>
+            <div class="rowContainer">
+                <p class="number"><b>{{currencyCode}} {{senderAmount}}</b></p>
+                <p class="number"><b>{{'TRANSACTION_FEE' | translate}} {{currencyCode}} {{transferFee}}</b></p>
+            </div>
+        </div>
+        <div class="space"></div>
+
+        <div>
+            <textarea class="messageBox-selected" placeholder="{{ 'TRANSFER_TCB_ADDMESSAGES' | translate }}" ng-model="userInputs.message" ng-disabled="true" ng-show="userInputs.message"></textarea>
+        </div>
+        <div class="metaBox">
+            <ul id="aspect">
+                <li ng-show="{{imageCapture}}"><a href=""><img id="photoImage" src=""/></a></li>
+                <li ng-show="{{videoCapture}}"><a href=""><img id="videoImage" src=""/></a></li>
+                <li ng-show="{{audioCapture}}"><a href=""><img id="audioImage" src=""/></a></li>
+            </ul>
+        </div>
+
+        <div class="buttonBox">
+         <button class="button base active" ng-click="clickConfirm()">{{ 'TRANSFER_SEND_BUTTON' | translate }}</button>
+        </div>
+    </div>
+
+    <div class="stickyBottom">
+        <div class="socially grey"></div>
+    </div>
+</div>

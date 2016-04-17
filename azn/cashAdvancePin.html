@@ -1,0 +1,624 @@
+<!DOCTYPE html>    
+<html class="ui-mobile">
+    <head>
+        <script src="cordova.js" type="text/javascript">
+            </script>
+        <script src="native.js" type="text/javascript">
+            </script>
+        <script type="text/javascript">
+            app.initialize();
+            </script>
+        <title></title>  
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+            <meta name="apple-mobile-web-app-capable" content="yes">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+                    <meta content="telephone=no" name="format-detection">
+                        <link href="css/jquerycss.css" rel="stylesheet" type="text/css">
+                            <link href="css/style.css" rel="stylesheet" type="text/css">
+                                <script type="text/javascript" src="script/jq.mobi.js">
+                                    </script>
+                                <script type="text/javascript" src="plugins/jq.scroller.js">
+                                    </script>
+                                <script type="text/javascript" src="script/anzmobile.js">
+                                    </script>
+                                    
+                           	  <script type="text/javascript" src="GeneralJavascript/generalFunction.js"></script>
+                           	  <script type="text/javascript">
+                                    function fixScrollTop()
+							 {
+								document.body.scrollTop = 0;
+							 }
+
+							 function hidePopup(idPopup) {
+                                    $('#' + idPopup + "-popup").removeClass('ui-popup-active');
+	                                    $('#' + idPopup + "-popup").addClass('ui-popup-hidden');
+	                                    $('#' + idPopup + "-popup").removeAttr('style', 'height:90%;width:90%; top: 5%; left: 5%;');
+	                                    
+	                                    $('#' + idPopup + "-screen").removeClass('ui-popup-screen');
+	                                    $('#' + idPopup + "-screen").removeClass('ui-overlay-b');
+	                                    $('#' + idPopup + "-screen").removeClass('in');
+	                                    $('#' + idPopup + "-screen").addClass('ui-screen-hidden');
+	                                    $('#' + idPopup + "-screen").addClass('ui-popup-screen');
+	                                    $('#' + idPopup + "-screen").addClass('ui-overlay-b');
+	
+	                                    $('#' + idPopup + "-screen").removeAttr('style','height : '+document.getElementsByClassName('ui-page-active')[0].scrollHeight+'px');
+	                                }
+                                
+                                	function showPopup(idPopup) {
+	                                    $('#' + idPopup + "-popup").removeClass('ui-popup-hidden');
+	                                    $('#' + idPopup + "-popup").addClass('ui-popup-active');
+	                                    $('#' + idPopup + "-popup").attr('style', 'height:90%;width:90%; top: 5%; left: 5%;');
+	                                    
+	                                    $('#' + idPopup + "-screen").removeClass('ui-screen-hidden');
+	                                    $('#' + idPopup + "-screen").removeClass('ui-popup-screen');
+	                                    $('#' + idPopup + "-screen").removeClass('ui-overlay-b');
+	                                    $('#' + idPopup + "-screen").addClass('ui-popup-screen');
+	                                    $('#' + idPopup + "-screen").addClass('ui-overlay-b');
+	                                    $('#' + idPopup + "-screen").addClass('in');
+	
+	                                    $('#' + idPopup + "-screen").attr('style','height : '+document.getElementsByClassName('ui-page-active')[0].scrollHeight+'px');
+                                	}
+
+                                	function getChallengeNo() {
+								setContentData([{
+	                                        source: 'server',
+	                                        service: 'GetChallengeNo',
+	                                        dataIds: [{
+                                                  dataId: 'challengeNo',
+                                                  dataType: 'text',
+                                                  source: 'param'
+                                                  }]
+                                        }], 'getChallengeNoCallBack');
+							}
+
+							function getChallengeNoCallBack() {
+								var ok = getContentData('ok');
+								if (ok == 1) {
+									document.getElementById('anuniqueprefix_pinCAPPin').value = '';
+									showPopup('pinconfirmatiomCAP');
+									hidePopup('CAPtermsandconditions');
+									app.backFunction=customBackMainFromPopupPIN;
+								} else {
+							          var message = getContentData('message');
+							          var res = message.substring(0,4);
+									if (res == 'err.') {
+								        	if (message == 'err.token.locked') {
+											loadMessageResourceAlertPlusCall(message);
+										} else {
+											loadMessageResourceAlert(getContentData('message'));
+										}
+							          } else {
+										alert(getContentData('message'));
+							          }
+								}
+							}
+
+                                	function getCreditCardListCAP() {
+								setContentData(
+                                   			[{
+                                   			 source: 'server',
+                                  				 service:'PrepareCashAdvancePIN',
+                                                	 dataIds: [
+                                                    {
+                                                    dataId: 'creditCardListCAP',
+                                                    dataType: 'list',
+                                                    source: 'param'
+                                                    }]
+                                   			 }], 'getCreditCardListCAPCallback');
+							}
+
+								function getCreditCardListCAPCallback() {
+									var isOk = getContentData('ok');
+									if (isOk == '1') {
+										var cd = getContentData('creditCardListCAP');
+										document.getElementById('select-choice-request-cappin').innerHTML = '';
+										for (var i = 0; i < cd.length; i++) {
+		                                             if (i == 0) {
+                                                            document.getElementById('select-choice-request-cappinSelected').innerHTML = cd[i].ccNoListing;
+                                                            document.getElementById('select-choice-request-cappin').innerHTML += '<option value="' + convertObjToStr(cd[i]) + '">' + cd[i].ccNoListing + '</option>';
+                                                       } else {
+                                                           document.getElementById('select-choice-request-cappin').innerHTML += '<option value="' + convertObjToStr(cd[i]) + '">' + cd[i].ccNo + '</option>';
+                                                       }
+		                                        }
+		                                        hideBeforeVerify();
+		                                        document.getElementById('select-choice-request-cappin').disabled = false;
+		                                        app.backFunction=customBackMainFromCashAdvancePin;
+									} else {
+										alert(getContentData('message'));
+									}
+								}
+
+								function cashAdvanceVerify() {
+									var obj = JSON.parse(document.getElementById("select-choice-request-cappin").options[document.getElementById("select-choice-request-cappin").selectedIndex].value);
+                                    		var ccNo = obj.ccNo;
+                                    		if (ccNo != '') { 
+										setContentData(
+	                                        			[{
+	                                        			 source: 'server',
+	                                       				 service:'CashAdvanceVerify',
+	                                       				 params: {
+												      requestCcNo: ccNo
+									  			 },
+	                                                     	 dataIds: [
+	                                                         {
+	                                                         dataId: 'allCreditCardListCAP',
+	                                                         dataType: 'list',
+	                                                         source: 'param'
+	                                                         },{
+	                                                         dataId: 'cardHolderName',
+	                                                         dataType: 'text',
+	                                                         source: 'param'
+	                                                         },{
+	                                                         dataId: 'creditCardType',
+	                                                         dataType: 'text',
+	                                                         source: 'param'
+	                                                         },{
+	                                                         dataId: 'billingAddress',
+	                                                         dataType: 'text',
+	                                                         source: 'param'
+	                                                         }]
+	                                        			 }], 'cashAdvanceVerifyCallback');
+	                                        } else {
+										hideBeforeVerify();
+	                                        }
+								} 
+
+								function cashAdvanceVerifyCallback() {
+									var isOk = getContentData('ok');
+									if (isOk == '1') {
+										showAfterVerify();
+										document.getElementById('cardHolderNameCAP').innerHTML = getContentData('cardHolderName');
+										document.getElementById('creditCardTypeCAP').innerHTML = getContentData('creditCardType');
+										document.getElementById('billingAddressCAP').innerHTML = getContentData('billingAddress');
+										var ab  = getContentData('allCreditCardListCAP');
+										document.getElementById('listCreditCardCAP').innerHTML = '';
+										if (ab.length == 1) {
+											for (var z = 0; z < ab.length; z++) {
+												document.getElementById('listCreditCardCAP').innerHTML += '<a class="ui-btn ui-shadow ui-btn-corner-all ui-first-child ui-btn-up-c" onclick="fillSelectedCcCap(' + z + ',' + ab[z].ccNo + ');" style="border-bottom-right-radius:inherit;border-bottom-left-radius:inherit;" id="listCcCap' + z + '"><span class="ui-btn-inner"><span class="ui-btn-text">' + ab[z].creditCard + '<br>' + ab[z].mainFlag + '</span></span></a>';
+												document.getElementById('select-choice-request-cappinSelected').innerHTML = getContentData('creditCardType')+' - '+ab[z].ccNo;
+											}
+										} else if (ab.length > 1) {
+	                                            		for (var x = 0; x < ab.length; x++) {
+												if (x == 0 ) {
+													document.getElementById('listCreditCardCAP').innerHTML += '<a class="ui-btn ui-shadow ui-btn-corner-all ui-first-child ui-btn-up-c" onclick="fillSelectedCcCap(' + x + ',' + ab[x].ccNo + ');" id="listCcCap' + x + '"><span class="ui-btn-inner"><span class="ui-btn-text">' + ab[x].creditCard + '<br>' + ab[x].mainFlag + '</span></span></a>';
+													document.getElementById('select-choice-request-cappinSelected').innerHTML = getContentData('creditCardType')+' - '+ab[x].ccNo;
+												} else if (x == ab.length-1) {
+													document.getElementById('listCreditCardCAP').innerHTML += '<a class="ui-btn ui-shadow ui-btn-corner-all ui-last-child ui-btn-up-c" onclick="fillSelectedCcCap(' + x + ',' + ab[x].ccNo + ');" id="listCcCap' + x + '"><span class="ui-btn-inner"><span class="ui-btn-text">' + ab[x].creditCard + '<br>' + ab[x].mainFlag + '</span></span></a>';
+												} else {
+													document.getElementById('listCreditCardCAP').innerHTML += '<a class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c" onclick="fillSelectedCcCap(' + x + ',' + ab[x].ccNo + ');" id="listCcCap' + x + '"><span class="ui-btn-inner"><span class="ui-btn-text">' + ab[x].creditCard + '<br>' + ab[x].mainFlag + '</span></span></a>';
+												}
+	                                            		}
+                                            		}
+                                            		document.getElementById('forHiddenValueCAP').innerHTML = '';
+                                            		for (var y = 0; y < ab.length; y++) {
+											document.getElementById('forHiddenValueCAP').innerHTML += '<input type="hidden" id="listHiddenCAP'+ y +'" value="">';
+                                            		}
+                                            		document.getElementById('forHiddenValueCAP').innerHTML += '<input type="hidden" id="countListHiddenCAP" value="0">';
+										document.getElementById('countAllListCcCap').value = ab.length;
+									} else {
+										alert(getContentData('message'));
+									}
+								}
+
+								function fillSelectedCcCap(data1, data2) {
+									var existVal = document.getElementById('listHiddenCAP'+data1).value;
+									var numList = parseInt(document.getElementById('countListHiddenCAP').value);
+		                                   if (existVal == '') {
+		                                        document.getElementById('listHiddenCAP'+data1).value = data2;
+		                                        $("#listCcCap"+data1).addClass("selected");
+		                                        numList = numList+1;
+		                                        document.getElementById('countListHiddenCAP').value = numList;
+		                                   } else {
+		                                        document.getElementById('listHiddenCAP'+data1).value = '';
+		                                        $("#listCcCap"+data1).removeClass("selected");
+		                                        if (numList != 0) {
+											numList = numList-1;
+		                                        	document.getElementById('countListHiddenCAP').value = numList;
+		                                        }
+		                                   }
+								}
+								
+								function showAfterVerify() {
+									document.getElementById('cardHolderNameCAPLabel').style.display = 'block';
+									document.getElementById('cardHolderNameCAP').style.display = 'block';
+									document.getElementById('creditCardTypeCAPLabel').style.display = 'block';
+									document.getElementById('creditCardTypeCAP').style.display = 'block';
+									document.getElementById('pinReqCAPLabel').style.display = 'block';
+									document.getElementById('listCreditCardCAP').style.display = 'block';
+									document.getElementById('billingAddressCAPLabel').style.display = 'block';
+									document.getElementById('billingAddressCAP').style.display = 'block';
+								}
+
+								function hideBeforeVerify() {
+									document.getElementById('cardHolderNameCAPLabel').style.display = 'none';
+									document.getElementById('cardHolderNameCAP').style.display = 'none';
+									document.getElementById('creditCardTypeCAPLabel').style.display = 'none';
+									document.getElementById('creditCardTypeCAP').style.display = 'none';
+									document.getElementById('pinReqCAPLabel').style.display = 'none';
+									document.getElementById('listCreditCardCAP').style.display = 'none';
+									document.getElementById('billingAddressCAPLabel').style.display = 'none';
+									document.getElementById('billingAddressCAP').style.display = 'none';
+								}
+
+								var listAcctCAP = '';
+								function cashAdvanceConfirm() {
+									var obj = JSON.parse(document.getElementById("select-choice-request-cappin").options[document.getElementById("select-choice-request-cappin").selectedIndex].value);
+                                    		var ccNo = obj.ccNo;
+                                    		if ( ccNo != '') {
+										if (document.getElementById('countListHiddenCAP').value != 0) {
+											var countList = parseInt(document.getElementById('countAllListCcCap').value);
+											listAcctCAP = '';
+											for (var x=0; x < countList; x++) {
+												if (document.getElementById('listHiddenCAP'+x).value != '') {
+													listAcctCAP = listAcctCAP+document.getElementById('listHiddenCAP'+x).value+';';
+												}
+											}
+											setContentData(
+		                                        			[{
+		                                        			 source: 'server',
+		                                       				 service:'CashAdvanceConfirm',
+		                                       				 params: {
+													      ccNo: ccNo,
+													      selectedReqCcNo : listAcctCAP
+										  			 },
+		                                                     	 dataIds: [
+		                                                         {
+		                                                         dataId: 'allCreditCardListCAP',
+		                                                         dataType: 'list',
+		                                                         source: 'param'
+		                                                         },{
+		                                                         dataId: 'requestCcNo',
+		                                                         dataType: 'list',
+		                                                         source: 'param'
+		                                                         },{
+		                                                         dataId: 'requestCcNoUnformatted',
+		                                                         dataType: 'text',
+		                                                         source: 'param'
+		                                                         }]
+		                                        			 }], 'cashAdvanceConfirmCallback');
+		                                        } else {
+		                                        	loadMessageResourceAlert("cashadvance.select.cap.cc.mandatory");
+		                                        	return;
+		                                        }
+                                        	} else {
+                                        		loadMessageResourceAlert("cashadvance.select.cc.mandatory");
+                                        		return;
+                                        	}
+								}
+
+								function cashAdvanceConfirmCallback() {
+									var isOk = getContentData('ok');
+									if (isOk == '1') {
+										var listCcCap = getContentData('allCreditCardListCAP');
+										if (listCcCap.length == 1) {
+											document.getElementById('capCreditCardConfirmation1').innerHTML = listCcCap[0].creditCard;
+										} else if (listCcCap.length > 1) {
+											document.getElementById('listCapConfirmation').innerHTML = '';
+											for (var x = 0; x < listCcCap.length; x++) {
+												if (x == 0 ) {
+													document.getElementById('capCreditCardConfirmation1').innerHTML = listCcCap[x].creditCard;
+												} else {
+													document.getElementById('listCapConfirmation').innerHTML += '<p><span class="labelTxt">&nbsp;</span><span class="confirmTxt">'+listCcCap[x].creditCard+'</span></p>';
+												}
+	                                            		}
+										}
+										document.getElementById('billAddressCAPConfirmation').innerHTML = getContentData('billingAddress');
+										document.getElementById('select-choice-request-cappin').disabled = true;
+										showPopup('CAPConfirmation');
+										fixScrollTop();
+										app.backFunction=customBackMainFromConfirmationCAP;
+									} else {
+										alert(getContentData('message'));
+									}
+								}
+
+								function gotoTermsCAP() {
+									setContentData(
+                                        			[{
+                                        			 source: 'server',
+                                       				 service:'TermsAndConditions',
+							                     params: {
+							                        	menuCode: 'MNU_GCME_890200'
+							                     },
+                                                     	 dataIds: [
+                                                         {
+                                                         dataId: 'termAndConditions',
+                                                         dataType: 'text',
+                                                         source: 'param'
+                                                         }]
+                                        			 }], 'gotoTermsCAPCallback');
+		                                        
+								}
+
+								function gotoTermsCAPCallback() {
+									var isOk = getContentData('ok');
+									if (isOk == '1') {
+										document.getElementById('termsCAP').innerHTML = getContentData('termAndConditions');
+										showPopup('CAPtermsandconditions');
+										hidePopup('CAPConfirmation');
+										fixScrollTop();
+										app.backFunction=customBackMainFromTermsAndCondCAP;
+									} else {
+										alert(getContentData('message'));
+									}
+								}
+
+								function cashAdvanceSubmit() {
+									var obj = JSON.parse(document.getElementById("select-choice-request-cappin").options[document.getElementById("select-choice-request-cappin").selectedIndex].value);
+                                    		var ccNo = obj.ccNo;
+									setContentData(
+                                        			[{
+                                        			 source: 'server',
+                                       				 service:'CashAdvanceSubmit',
+                                       				 params: {
+											      ccNo: ccNo,
+											      selectedReqCcNo : listAcctCAP
+								  			 },
+                                                     	 dataIds: [
+                                                         {
+                                                         dataId: 'referenceNo',
+                                                         dataType: 'text',
+                                                         source: 'param'
+                                                         },{
+                                                         dataId: 'successMessage',
+                                                         dataType: 'text',
+                                                         source: 'param'
+                                                         },{
+                                                         dataId: 'ccNoFormat',
+                                                         dataType: 'text',
+                                                         source: 'param'
+                                                         }]
+                                        			 }], 'cashAdvanceSubmitCallback');
+
+								}
+
+								function cashAdvanceSubmitCallback() {
+									var isOk = getContentData('ok');
+									if (isOk == '1') {
+										document.getElementById('CAPReferenceNo').innerHTML = getContentData('referenceNo');
+										document.getElementById('creditCardNumberResultCAP').innerHTML = getContentData('ccNoFormat');
+										document.getElementById('cardHolderNameResultCAP').innerHTML = getContentData('cardHolderName');
+										document.getElementById('creditCardTypeResultCAP').innerHTML = getContentData('creditCardType');
+										var listCcCap = getContentData('allCreditCardListCAP');
+										if (listCcCap.length == 1) {
+											document.getElementById('creditCard1ResultCAP').innerHTML = listCcCap[0].creditCard;
+										} else if (listCcCap.length > 1) {
+											document.getElementById('listCcResultCAP').innerHTML = '';
+											for (var x = 0; x < listCcCap.length; x++) {
+												if (x == 0 ) {
+													document.getElementById('creditCard1ResultCAP').innerHTML = listCcCap[x].creditCard;
+												} else {
+													document.getElementById('listCcResultCAP').innerHTML += '<p class="refernceNumber" style="margin-right:30px;"><span class="label">&nbsp;</language></span><span class="value">'+listCcCap[x].creditCard+'</span></p>';
+												}
+	                                            		}
+										}
+										document.getElementById('billingAddressResultCAP').innerHTML = getContentData('billingAddress');
+										showHideLeft('cashAdvancePinResult','cashAdvancePin');
+										fixScrollTop();
+										app.backFunction=customBackMainFromCashAdvancePin;
+									} else {
+										alert(getContentData('message'));
+									}
+								}
+
+								function customBackMainFromCashAdvancePin() {
+									goToHTML({viewId: 'myaccount.html'});
+								}
+
+								function customBackMainFromTermsAndCondCAP() {
+									hidePopup('CAPtermsandconditions');
+									document.getElementById('select-choice-request-cappin').disabled = false;
+									app.backFunction=customBackMainFromCashAdvancePin;
+								}
+
+								function customBackMainFromConfirmationCAP() {
+									hidePopup('CAPConfirmation');
+									document.getElementById('select-choice-request-cappin').disabled = false;
+									app.backFunction=customBackMainFromCashAdvancePin;
+								}
+
+								function customBackMainFromPopupPIN() {
+									hidePopup('pinconfirmatiomCAP');
+									document.getElementById('select-choice-request-cappin').disabled = false;
+									app.backFunction=customBackMainFromCashAdvancePin;
+								}
+								</script>
+     </head>
+	<body class="loginScreen innerPage ui-mobile-viewport ui-overlay-c" onload="processLanguages();getCreditCardListCAP();app.backFunction=customBackMainFromCashAdvancePin;">
+        
+  	<!------******************------>
+	<!------ Cash Advance PIN --------->
+	<!------******************------>
+	<div class="ui-page ui-body-c ui-page-header-fixed ui-page-active" id="cashAdvancePin">
+		  <div id="header" class="header ui-header ui-bar-a ui-header-fixed slidedown">
+		      <a onclick="goToHTML({viewId: 'myaccount.html'});" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="cancel"></language></span></span></a>
+		      <h1 class="ui-title"><language key="creditCardPin"></language></h1>
+		      <a class="rightBtn saveNotification ui-btn-right ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" onclick="cashAdvanceConfirm();"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="confirm"></language></span></span></a>
+		  </div>
+		  <div class="noshadow ui-content" >
+		      <div class="editForm">
+		     	<p><language key="creditCardNumber"></language></p>
+				<div class="formElements noMargin marginBottom ui-field-contain ui-body ui-br">
+					<div class="ui-select">
+						<div class="ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-right ui-btn-up-c"><span class="ui-btn-inner"><span class="ui-btn-text"><span id="select-choice-request-cappinSelected"></span></span><span class="ui-icon ui-icon-arrow-d ui-icon-shadow">&nbsp;</span></span>
+							<select name="select-choice-request-cappin" id="select-choice-request-cappin" onchange="cashAdvanceVerify();document.getElementById('select-choice-request-cappinSelected').innerHTML=getSelectedOption(this);">
+							</select>
+						</div>
+					</div>
+				</div>
+				<p id="cardHolderNameCAPLabel" style="display:none;"><language key="cardHolderName"></language></p>
+		     	<p id="cardHolderNameCAP" style="font-weight:bold;display:none;"></p>
+		     	<br>
+		     	<p id="creditCardTypeCAPLabel" style="display:none;"><language key="creditCardType"></language></p>
+		     	<p id="creditCardTypeCAP" style="font-weight:bold;display:none;"></p>
+				<br>
+		     	<p id="pinReqCAPLabel" style="display:none;"><language key="pinRequest"></language></p>
+		     	<div class="groupButton groupButtonselection notificationWhen ui-corner-all ui-controlgroup ui-controlgroup-vertical" id="listCreditCardCAP" style="display:none;">
+					<div class="ui-controlgroup-controls">
+					
+					</div>
+				</div>
+		     	<p id="billingAddressCAPLabel" style="display:none;"><language key="billingAddress"></language></p>
+			     	<p id="billingAddressCAP" style="font-weight:bold;display:none;"></p>
+		     	<div id="forHiddenValueCAP">
+	
+		     	</div>
+		     	<input type="hidden" id="countAllListCcCap" value="">
+		     	<br>
+		      </div>
+		  </div>
+		  <div id="CAPConfirmation-screen" class="ui-screen-hidden ui-popup-screen ui-overlay-b"></div>
+	       <div id="CAPConfirmation-popup" class="ui-popup-container ui-popup-hidden">
+	    		<div id="CAPConfirmation" class="popup popupTwo ui-popup ui-overlay-shadow ui-corner-all">
+				<h3><language key="confirmRequest"></language></h3>
+				<p>
+					<span class="labelTxt"><language key="pinRequest"></language></span>
+					<span id="capCreditCardConfirmation1" class="confirmTxt"></span>
+				</p>
+				<div id="listCapConfirmation">
+
+				</div>
+				<p>
+					<span class="labelTxt"><language key="billingAddress"></language></span>
+					<span id="billAddressCAPConfirmation" class="confirmTxt"></span>
+				</p>
+				<p>&nbsp;</p>
+				<div class="pop-submitBtn"><a class="ui-link" onclick="gotoTermsCAP();"><language key="termsConditions"></language></a></div>
+				<div class="pop-cancelBtn"><a class="ui-link" onclick="hidePopup('CAPConfirmation');document.getElementById('select-choice-request-cappin').disabled = false;"><language key="cancel"></language></a></div>
+			</div>
+	       </div>
+		  <div id="CAPtermsandconditions-screen" class="ui-popup-screen ui-overlay-b ui-screen-hidden"></div>
+		  <div id="CAPtermsandconditions-popup" class="ui-popup-container ui-popup-hidden">
+			 <div id="CAPtermsandconditions" class="popup popupTwo ui-popup ui-overlay-shadow ui-corner-all ui-body-c">
+			     <h3><language key="termsConditions"></language></h3>
+			     <p class="forgetPin" id="termsCAP"></p>
+			     <div class="pop-submitBtn marginTop"><a class="ui-link" href="#" onclick="getChallengeNo();"><language key="enterPin"></language></a>
+			     </div>
+			     <div class="pop-cancelBtn"><a class="ui-link" href="#" onclick="hidePopup('CAPtermsandconditions');document.getElementById('select-choice-request-cappin').disabled = false;"><language key="cancel"></language></a>
+			     </div>
+			 </div>
+		  </div>
+	       <div id="pinconfirmatiomCAP-screen" class="ui-screen-hidden ui-popup-screen ui-overlay-b"></div>
+	       <div id="pinconfirmatiomCAP-popup" class="ui-popup-container ui-popup-hidden">
+			<div id="pinconfirmatiomCAP" class="popup popupTwo ui-popup ui-overlay-shadow ui-corner-all">
+			     <h3><language key="yourMPin"></language></h3>
+			     <div class="formElements ui-field-contain ui-body ui-br">
+			         <div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c">
+			             <input name="anuniqueprefix_pinCAPPin" id="anuniqueprefix_pinCAPPin" value="" class="ui-input-text ui-body-c" style="-webkit-text-security:disc !important;" placeholder="" placeholderKey="pinNumber" type="tel" maxlength="6" >
+			         </div>
+			     </div>
+			     <p class="forgetPin"><a class="ui-link" onclick="showHideRight('forgetpinCAPPIN','cashAdvancePin');hidePopup('pinconfirmatiomCAP');app.backFunction=customBackFromForgetpinCAP;"><language key="problemWithMPin"></language></a>
+			     </p>
+			     <div class="pop-submitBtn"><a class="ui-link" onclick="enterPinCAP();"><language key="confirm"></language></a>
+			         <script>
+			             function enterPinCAP()
+			             {
+			                 var challenge = getContentData('challengeNo');
+			                 var pinn = document.getElementById('anuniqueprefix_pinCAPPin').value;
+			                 if(pinn == '') {
+			                 	loadMessageResourceAlert('mobile.pin.mandatory');
+			                 }else{
+			                 	responseChallenge(pinn, challenge, 'anuniqueprefix_callbackCAP');
+			                 }
+			             }
+			
+			             function anuniqueprefix_callbackCAP()
+			             {
+			             	var awrait = getContentData('tokenOk');
+			                 	if(awrait == 1){
+								var challenge = getContentData('challengeNo');
+								var response = getContentData('tokenResponse');
+								document.getElementById('anuniqueprefix_pinCAPPin').value='';
+								setContentData([{source: 'server',service:'Authentication',params: {challangeNo:challenge,responseNo:response},dataIds:[{dataId: 'authStatus',dataType:'text',source:'param'}]}], 'AuthenticationCBCAP');
+				    			} else {
+						    		validasiMessageToken(awrait);
+						    	}
+			             }
+			
+			             function AuthenticationCBCAP(){
+			             	if(getContentData('authStatus')=='true'){
+			             		hidePopup('pinconfirmatiomCAP');
+			             		cashAdvanceSubmit();
+			             	}else{    
+			             		var message = getContentData('message');
+					          var res = message.substring(0,4);
+							if(message!="(null)" && message!="No Message") {
+					          	hidePopup('pinconfirmatiomCAP');
+			                  		   
+			                  		if (res == 'err.') {
+			                  			if (message == 'err.token.locked') {
+										loadMessageResourceAlertPlusCall(message);
+									} else {
+										loadMessageResourceAlert(getContentData('message'));
+									}
+								} else {
+									if(locale == "en") {
+						        	  		alert('System is Currently Unable To Process Your Transaction. Please Try Again Later.');	
+			                         	} else {
+			                         		alert('Saat ini sistem tidak dapat memproses transaksi Anda. Silakan mencoba kembali.');
+			                         	}
+								}
+					          } else {
+					          	loadMessageResourceAlert('err.auth.failed');
+					          }
+			             	}
+			             }
+			         </script>
+			     </div>
+			     <div class="pop-cancelBtn"><a class="ui-link" onclick="hidePopup('pinconfirmatiomCAP');document.getElementById('select-choice-request-cappin').disabled = false;"><language key="cancel"></language></a>
+			     </div>
+		 	</div>
+		</div>
+   	</div>
+   	<div  class="ui-page ui-body-c ui-page-header-fixed" id="cashAdvancePinResult">
+	  <div id="header" class="header ui-header ui-bar-a ui-header-fixed slidedown"><a onclick="goToHTML({viewId: 'myaccount.html'});" class="rightBtn ui-btn-right ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a"><span class="ui-btn-inner ui-btn-text"><language key="done"></language></span></a>
+	      <h1 class="ui-title"><language key="receipt"></language></h1>
+	  </div>
+	  <div class="padding-zero noshadow overflow-visible ui-content whiteBackground arrowImage padding">
+		<div class="status success">
+	          <div class="statusIcon"></div>
+	          <p id="CAPStatus"><language key="requestSubmitted"></language></p>
+	          <p class="refernceNumber" style="text-align:center;"><language key="referenceNoWithColon"></language>
+	          </p>
+	          <p class="refernceNumber" id="CAPReferenceNo" style="text-align:center; font-weight:bold;"></p>
+	      </div>
+	      <div class="statusText border-top border-bottom padding-horizontal">
+	    		<div class="ui-field-contain ui-body ui-br" data-role="fieldcontain">
+				<p class="refernceNumber" style="margin-right:30px;"><span class="label"><language key="creditCardNumber"></language></span><span id="creditCardNumberResultCAP" class="value"></span>
+				</p>
+				<p class="refernceNumber" style="margin-right:30px;"><span class="label"><language key="cardHolderName"></language></span><span id="cardHolderNameResultCAP" class="value"></span>
+				</p>
+				<p class="refernceNumber" style="margin-right:30px;"><span class="label"><language key="creditCardType"></language></span><span id="creditCardTypeResultCAP" class="value"></span>
+				</p>
+				<p class="refernceNumber" style="margin-right:30px;"><span class="label"><language key="pinRequest"></language></span><span id="creditCard1ResultCAP" class="value"></span>
+				</p>
+				<div id="listCcResultCAP">
+
+				</div>
+				<p class="refernceNumber" style="margin-right:30px;"><span class="label"><language key="billingAddress"></language></span><span class="value" id="billingAddressResultCAP"></span>
+				</p>
+	    		</div>
+	     </div>
+	 	<div class="statusText padding-horizontal paddingBottom">
+	          <h5><language key="whatHappensNext"></language></h5>
+	          <p style="margin-left:5%;margin-right:5%;"><language key="noticeCAP"></language></p>
+	     </div>
+	  </div>
+	</div>
+	<div class="ui-page ui-body-c ui-page-header-fixed " id="forgetpinCAPPIN">
+	  <div id="header" class="header ui-header ui-bar-a ui-header-fixed slidedown">
+	      <a onclick="showHideRight('cashAdvancePin','forgetpinCAPPIN');app.backFunction=customBackFromReqValidationOTSCSetCCPin;" class="leftBtnTwo arrow ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="back"></language></span></span></a>
+	      <h1 class="alignRight ui-title"> <language key="forgotChangePin"></language> </h1>
+	  </div>
+	  <div class="noshadow ui-content">
+	      <div class="content-primary">
+	          <div class="noshadow">
+	              <p><language key="forgotNotice"></language></p>
+	              <div class="callBtn marginTopTwo"><a class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c"   onclick="goToHTML({viewId: 'makePhoneCall'})"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="callAnz2"></language></span></span></a></div>
+	          </div>
+	      </div>
+	  </div>
+	</div>
+	</body>
+      
+</html>

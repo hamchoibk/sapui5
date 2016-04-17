@@ -1,0 +1,38 @@
+<div>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <div class="overlay " ng-click="dimissPopUp()"></div>
+    <div class="moreMenu">
+        <div class="inquiry" style="margin-left:10px" ng-click="clickViewDetail()"><span style="margin-bottom:-10px" >{{'DEPOSIT_VIEW_DETAIL' | translate }}</span></div>
+        <div class="deposit-diabled" style="margin-left:25px" ng-click="clickDeposit()"><span style="margin-bottom:-10px" >{{'DEPOSIT_DEPOSIT' | translate }}</span></div>
+        <div class="close-diabled" style="margin-left:25px" ng-click="clickClose()"><span style="margin-bottom:-10px" >{{'DEPOSIT_CLOSE' | translate }}</span></div>
+    </div>
+    <navigation-bar status="status"></navigation-bar>
+    <div class="scrollBox-withFooter">
+        <div class="formContainer flexibleMargin">
+            <accordion close-others="false">
+                <accordion-group ng-repeat="account in deposits" is-open="account.open">
+                    <accordion-heading>
+                        <div>
+                            {{account.mainDepositName | translate}}
+                            <i class="pull-right glyphicon" style="top: 0 !important;" ng-class="{'arrow-down': account.open, 'arrow-up': !account.open}"></i>
+                        </div>
+                    </accordion-heading>
+                    <ul class="panelList">
+                        <div class="cashoutInfo" style="margin-top: -15px;" ng-show="account.havingNoDeposit"> {{'HAVE_NO_DEPOSIT_MESSAGE' | translate}}</div>
+                        <li ng-repeat="subAccount in account.subAccounts" class="greyBorderBottom">
+                            <a>
+                                <name ng-click="clickDepositDetail(subAccount.accountIndex)">{{subAccount.productName}} - {{subAccount.accountNo}}</name>
+                                <balance ng-click="clickDepositDetail(subAccount.accountIndex)">{{subAccount.currency}} {{subAccount.principleAmount}}</balance>
+                                <name ng-click="clickDepositDetail(subAccount.accountIndex)">{{'DEPOSIT_INTEREST' | translate}} {{subAccount.intRate}}% -  {{'DEPOSIT_MATURITY_DATE' | translate}} {{subAccount.matDate}}</name>
+                                <i class="glyphicon moreMenutrigger" ng-click="showMoreMenu($event, subAccount.accountIndex)"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </accordion-group>
+            </accordion>
+        </div>
+    </div>
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

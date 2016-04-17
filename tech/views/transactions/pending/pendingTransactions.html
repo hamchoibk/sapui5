@@ -1,0 +1,23 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+
+    <div class="scrollBox-withFooter">
+        <ul class="arrowlist">
+            <li ng-repeat="transaction in transactions" class="greyBorderBottom" ng-click="clickTransaction(transaction.id)">
+                <a class="pendingTransactionsContainer short"><div class="avatar"> <img src="https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg?sz=50"/></div>
+                    <div class="rowContainer">
+                        <div class="name">{{transaction.name}}</div>
+                        <div class="amount">VND {{transaction.amount}}</div>
+                        <div class="date">{{transaction.date}}</div>
+                        <div class="link">{{transaction.link}}</div>
+                    </div>
+                    <div class="channelstatus"> <div class="status {{transaction.status}}" >{{transaction.status}}</div> <i class="channel fb"></i> </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="stickyBottom">
+        <div class="socially grey"></div>
+    </div>
+</div>

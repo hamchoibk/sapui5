@@ -1,0 +1,74 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <div class="scrollBox-withFooter formContainer" id="scrollArea">
+        <div class="cashoutInfo greyBorderBottom">{{'SEND_MONEY_MAIN_TIP' | translate}} </div>
+        <div class="labelKey"><span ><b>{{'COMMON_FROM' | translate }}</b></span></div>
+        <div class=" greyBorderBottom">
+            <ul class="arrowlist">
+                <li class="fromRow" ng-click="clickSelectAccount()">
+                    <a class="labelKey">
+                       <span class="detail">
+                          {{account.accountName}}<br>
+                          {{account.accountNumber}}<br>
+                          {{currencyCode}} {{account.availableBalance}}<br>
+                       </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="labelKey" style="padding-top:15px;"><span ><b>{{'COMMON_TO' | translate }}</b></span>
+            <button class="sendToWhom" ng-click="clickSendToWhom()">{{friend}}</button>
+        </div>
+        <div class="beneficiaryList sendToWhom" ng-click="clickSendToWhom()">
+            <i class="icon-value smallicon pull-right {{channelType}}" />
+            <div class="avatar"> <img src="{{friendPhoto}}"/></div>
+            <div class="rowContainer">
+                <div class="detailtable">
+                    <div class="row">
+                        <div class="friendLabel">{{friend}} <br> {{friendNumber}}</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="" style="display:none">
+            <p class="labelKey">{{'SEND_MONEY_MAIN_ACCOUNT_LIMIT' | translate }} </p>
+            <p class="labelValue" ><b>{{account.transactionLimit}}</b></p>
+        </div>
+        <div class="space" style="margin-top:0px;margin-bottom:0px;"></div>
+
+        <div>
+            <input type="text" placeholder="VND" value="VND"  class="greyBorderBottom greyBorderRight currencycode" readonly="readonly" />
+            <input type="text" id="amount" placeholder="{{ 'SEND_MONEY_MAIN_KEY_AMOUNT' | translate }}"  onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="smscode" class="greyBorderBottom amt" ng-change="change()" ng-model="sendMoneyUserInputs.parsedAmount" length-check="ERROR_CODE_30016" required pattern="[0-9]*"/>
+        </div>
+
+        <input type="text" class="sendToWhom" id="pin" placeholder="{{'SEND_MONEY_MAIN_LINK_PIN' | translate }}" send-pin-check="ERROR_CODE_30012 4" numeric-check="ERROR_CODE_30012" ng-model="sendMoneyUserInputs.linkPinCode" style="padding-top: 15px;" pattern="[0-9]*"/>
+        <div class="space"></div>
+
+        <input class="messageBox" placeholder="{{'SEND_MONEY_MAIN_ADD_MESSAGE' | translate }}" maxlength="80" ng-model="sendMoneyUserInputs.message"></input>
+        <div class="metaBox">
+            <ul id="aspect">
+                <li ng-click="clickPhoto()"><a href=""><img id="photoImage" src=""/></a></li>
+                <li ng-click="clickVideo()"><a href=""><img id="videoImage" src=""/></a></li>
+                <li ng-click="clickAudio()"><a href=""><img id="audioImage" src=""/></a></li>
+            </ul>
+        </div>
+
+        <div class="selectSocialMode" ng-show="showSocialMode">
+            <p class="labelKey" style="font-weight: bold ">{{'SELECT_MODE_SEND_LINK' | translate }} </p>
+            <label for="private">{{'MODE_PRIVATE' | translate}}
+            <input type="radio" name="socialMode" id="private" ng-model="socialMode" value="private"/></label>
+            <label for="public">{{'MODE_PUBLIC' | translate}}
+            <input type="radio" name="socialMode" id="public" ng-model="socialMode" value="public"/></label>
+        </div>
+
+        <div>
+            <button ng-class="{true: 'button base inactive buttonBox', false: 'button base active buttonBox'}[!(sendMoneyUserInputs.parsedAmount && friendSelected && validatePin)]" ng-click="clickSend()"  ng-disabled="!(sendMoneyUserInputs.parsedAmount && friendSelected && validatePin)">{{'SEND_MONEY_MAIN_SEND' | translate }}</button>
+        </div>
+    </div>
+
+    <div class="stickyBottom">
+        <div class="socially grey"></div>
+    </div>
+</div>

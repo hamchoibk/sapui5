@@ -1,0 +1,38 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <div class="profile-cover hideforshortscreen" style="background-image: url({{profile.background}})">
+        <div class="profile-image" ng-click="clickProfile()" style="background-image:url({{profile.photo}})" id="profileImage"></div>
+        <div class="profile-name"><h1 style="color:white">{{profile.name}}</h1></div>
+        <div class="accountBalance" ng-click="swapAccountValue()" >
+            <div id="eWalletAccount">
+                <div class="accountType">{{account.displayName}}<br>{{account.accountNumber}}</div>
+                <div class="accountArrow" ></div>
+                <div class="amount small">
+                    <span>{{account.currency}}</span><span class="number">{{account.balance}} </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="formContainer flexible-Margin">
+        <form ng-submit="saveSocial()">
+            <div class="labelKey" style="color: #BABCBE">{{'SOCIAL_CONNECT_TITLE_TEXT' | translate}}</div>
+            <div class="space">
+                <div class="SociallabelFacebook" style="background: url(images/icon-fb.png) no-repeat;
+    background-size: 27px 27px;">Facebook</div>
+                <input type="checkbox" class="toggle-input" name="toggle" id="fbToggle" ng-model="fbSwitch" ng-change="clickFacebook()"/>
+                <label for="fbToggle"></label>
+            </div>
+            <div class="space box">
+                <div class="SociallabelGplus" style="background: url(images/icon-gplus.png) no-repeat;
+    background-size: 27px 27px;">Google +</div>
+                <input type="checkbox" class="toggle-input" name="toggle" id="gpToggle" ng-model="gpSwitch" ng-change="clickGoogle()"/>
+                <label for="gpToggle"></label>
+            </div>
+            <div class="space"><div>
+            <button class="button base active" style="margin-top: 10px;">{{'SOCIAL_CONNECT_DONE' | translate }}</button>
+        </form>
+    </div>
+    <div class="socially grey"></div>
+</div>

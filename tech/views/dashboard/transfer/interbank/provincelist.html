@@ -1,0 +1,26 @@
+<div>
+  <div class="overlay " ng-click="dimissPopUp()"></div>
+  <div ng-include src="'views/loading/loading.html'"></div>
+
+  <navigation-bar status="status"></navigation-bar>
+  <div>
+    <input type="text" class="seachBar" placeholder="{{'SEARCH_PROVINCE' | translate }}" ng-model="searchText"/>
+  </div>
+    <div class="labelValue bankName"> {{bankName}}</div>
+  <div class="scrollBox-withSearchFooter">
+
+    <ul class="arrowlist">
+      <li ng-repeat="province in provinces|filter:searchText" ng-click="selectProvince(province)" style="padding: 0">
+        <a class="provinceList greyBorderBottom">
+          {{province.name}}
+        </a>
+      </li>
+    </ul>
+  </div>
+
+
+    <div class="stickyBottom">
+
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

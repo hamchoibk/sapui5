@@ -1,0 +1,68 @@
+<div>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <navigation-bar status="status"></navigation-bar>
+    <div class="formContainer flexible-Margin scrollBox-withFooter" id="scrollArea">
+        <form name="signupform" id="signupform">
+            <div>
+                <input type="text" placeholder="+84" ng-model="countryCode" class="greyBorderBottom greyBorderRight countrycode" readonly="readonly" />
+                <input type="tel" style="width: 80%;padding-left: 20px" pattern="[0-9]*" placeholder="{{ 'SIGNUP_USERDETAILS_MOBILENUMBER' | translate }}" ng-model="signup.mobileNumber" class="greyBorderBottom mobilenumber" mobile-check="ERROR_CODE_30003" required/>
+            </div>
+            <div>
+                <input type="text" placeholder= "{{ 'SIGNUP_USERDETAILS_USERNAME' | translate }}" ng-maxlength="40" ng-model="signup.userName" alphabet-check="ERROR_CODE_30014" maxlength-check="ERROR_CODE_30006 40" class="greyBorderBottom inputgap" required/>
+            </div>
+            <div>
+                <input style="margin-top: -10px" type="text" placeholder="{{ 'SIGNUP_USERDETAILS_IDENTITYNUMBER' | translate }}" ng-model="signup.identityNumber"  alphanumeric-check="ERROR_CODE_30008" class="greyBorderBottom" required/>
+            </div>
+            <div>
+                <div class="labelKey signup-issueDate" style="color: #000000" ng-show="isiOsDevice"> {{'SIGNUP_USERDETAILS_ISSUEDATE' | translate}} </div>
+                <div class="labelKey greyBorderBottom" ng-show="isiOsDevice"> <input style="padding-top: 10px; width: 60%;" type="date" class= "inputDate" ng-model="signup.issueFormatedDate" id="iosIssueDate" date-check="SIGNUP_MAIN_ISSUE_DATE_VALIDATION" input-check="SIGNUP_MAIN_ISSUEDATE_VALIDATION" required/></div>
+                <input type="text" placeholder=" {{'SIGNUP_USERDETAILS_ISSUEDATE' | translate}}" class="inputDate greyBorderBottom" ng-model="signup.issueFormatedDate" id="issueDate" name="issueDate" ng-click="focusIssueDate($event)" required  ng-readonly="isAndroid" ng-show="!isiOsDevice" input-check="SIGNUP_MAIN_ISSUEDATE_VALIDATION"/>
+            </div>
+            <div>
+                <div class="labelKey signup-issueDate" style="color: #000000" ng-show="isiOsDevice">{{'SIGNUP_USERDETAILS_DOB' | translate}}</div>
+                <div class="labelKey greyBorderBottom" ng-show="isiOsDevice"> <input style="padding-top: 10px; width: 60%;" type="date" class="inputDate" ng-model="signup.dobFormatedDate" id="iosDOB" dob-check="{{'SIGNUP_MAIN_DOB_VALIDATION' | translate}}" input-check="SIGNUP_MAIN_DOB_VALIDATION2" required/></div>
+                <input type="text" placeholder=" {{'SIGNUP_USERDETAILS_DOB' | translate}}" class="inputDate greyBorderBottom" ng-model="signup.dobFormatedDate" id="DOB" name="DOB" ng-click="focusDOB($event)" required  ng-readonly="isAndroid" ng-show="!isiOsDevice" input-check="SIGNUP_MAIN_DOB_VALIDATION2"/>
+            </div>
+            <div>
+                <select id="city" class="form-control" ng-model="signup.city" style="font-size: 1.1em !important;" ng-options="province.name as province.name for province in provinceList" city-check="{{'SIGNUP_MAIN_SELECT_CITY ' | translate}}" required>
+                    <option value="">{{'SIGNUP_MAIN_CHOOSE_CITY' | translate}}</option>
+                </select>
+                <div class="space"></div>
+                <input class="signup-address" type="text" style="margin: -10px 0;" placeholder= "{{ 'SIGNUP_USERDETAILS_ADDRESS' | translate }}" ng-model="signup.address" address-check="SIGNUP_MAIN_ADDRESS_VALIDATION2" required/>
+            </div>
+            <div class="space"></div>
+            <div>
+                <input style="margin-top: -10px;" type="email" placeholder= "{{ 'SIGNUP_USERDETAILS_EMAIL' | translate }}" ng-maxlength="40" email-check="{{'SIGNUP_MAIN_EMAIL_CHECKSIGNUP_MAIN_EMAIL_CHECK' | translate}}" ng-model="signup.email" class="greyBorderBottom inputgap" id="email" required />
+            </div>
+
+            <div>
+                <input style="margin-top: -10px" type="password" placeholder="{{ 'SIGNUP_USERDETAILS_PASSWORD' | translate }}" id="password" name="password" ng-model="signup.password" password-length-check="ERROR_CODE_30004" class="greyBorderBottom" required/>
+                <input type="password" placeholder="{{ 'SIGNUP_USERDETAILS_CONFIRMPASSWORD' | translate }}"  id="confirmPassword" name="confirmPassword" pw-check="password" ng-model="signup.confirmPassword" class="greyBorderBottom inputgap" required/>
+            </div>
+
+            <div>
+                <input style="margin-top: -10px;" type="text" placeholder= "{{ 'SIGNUP_USERDETAILS_PROMOTION_CODE' | translate }}" class="greyBorderBottom inputgap" ng-model="signup.promotionCode" ref-code-check="{{'SIGNUP_MAIN_REF_CODE_CHECK' | translate}}"/>
+            </div>
+            <div class="metaBox">
+                <div class="labelKey signup-issueDate column40" style="margin-top: -8px;color: #000000">{{'SIGNUP_USERDETAILS_SCAN' | translate}}</div>
+                <div class="column60">
+                    <ul id="aspect">
+                        <li ng-click="clickPhoto1()"><a href=""><img id="photoImage1" src=""/></a></li>
+                        <li ng-click="clickPhoto2()"><a href=""><img id="photoImage2" src=""/></a></li>
+                    </ul>
+                </div>
+                <p class="signup-identity">{{'SIGNUP_USERDETAILS_SCAN_FRONT_BACK' | translate}}</p>
+
+            </div>
+            <div class="space"></div>
+
+            <button ng-class="{true: 'button base inactive buttonBox', false: 'button base active buttonBox'}[(signupform.$invalid)]" ng-click="clickNext()" ng-disabled="(signupform.$invalid)">{{ 'SIGNUP_USERDETAILS_NEXT_BUTTON' | translate }}</button>
+
+        </form>
+    </div>
+    <div class="stickyBottom">
+        <!--<button ng-class="{true: 'button base inactive', false: 'button base active'}[signupform.$invalid]" ng-click="clickNext()" ng-disabled=" signupform.$invalid">{{ 'SIGNUP_USERDETAILS_NEXT_BUTTON' | translate }}</button>-->
+
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

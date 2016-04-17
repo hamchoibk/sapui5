@@ -1,0 +1,40 @@
+<div>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <div class="overlay " ng-click="dimissPopUp()"></div>
+    <div class="moreMenu">
+<!--        <div class="detail" ng-click="clickViewDetails()"><span>{{'ACCOUNTS_VIEW_DETAIL' | translate }}</span></div>-->
+        <div class="inquiry" style="margin-left:10px" ng-click="clickInquiry()"><span style="margin-bottom:-10px" >{{'ACCOUNTS_INQUIRY' | translate }}</span></div>
+        <div class="banktrsf" style="margin-left:25px" ng-if="!disableBankTransfer" ng-click="clickBankTransfer()" ng-disable=""><span style="margin-bottom:-10px" >{{'ACCOUNTS_BANK_TRANSFER' | translate }}</span></div>
+        <div class="banktrsf-disabled" style="margin-left:25px" ng-if="disableBankTransfer"><span style="margin-bottom:-10px" >{{'ACCOUNTS_BANK_TRANSFER' | translate }}</span></div>
+        <div class="sendMoney" style="margin-left:25px" ng-if="!disableSendMoney" ng-click="clickSendMoney()"><span style="margin-bottom:-10px" >{{'ACCOUNTS_SEND_MONEY' | translate }}</span></div>
+        <div class="sendMoney-disabled" style="margin-left:25px" ng-if="disableSendMoney"><span style="margin-bottom:-10px" >{{'ACCOUNTS_SEND_MONEY' | translate }}</span></div>
+    </div>
+    <navigation-bar status="status"></navigation-bar>
+    <div class="scrollBox-withFooter">
+            <div class="formContainer flexibleMargin">
+                    <accordion close-others="false">
+                        <accordion-group ng-repeat="account in accounts" is-open="account.open">
+                            <accordion-heading>
+                                <div>
+                                    {{account.mainAccountName | translate}}
+                                    <i class="pull-right glyphicon" style="top: 0 !important;" ng-class="{'arrow-down': account.open, 'arrow-up': !account.open}"></i>
+                                </div>
+                            </accordion-heading>
+                            <!--ng-click="showAlert(account.mainAccountName,subAccount.accountNumber)"-->
+                            <ul class="panelList">
+                                <li ng-repeat="subAccount in account.subAccounts" class="greyBorderBottom">
+                                    <a>
+                                        <name>{{subAccount.accountName}} - {{subAccount.accountNumber}}</name>
+                                        <balance>{{subAccount.accountBalance}}</balance>
+                                        <i class="glyphicon moreMenutrigger" ng-click="showMoreMenu($event, subAccount.accountIndex)"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </accordion-group>
+                    </accordion>
+            </div>
+    </div>
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

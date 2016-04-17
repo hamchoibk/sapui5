@@ -1,0 +1,27 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div class="profile-cover" style="background-image: url({{profile.background}})">
+
+        <div class="profile-image" ng-click="clickProfile()" style="background-image:url({{profile.photo}})" id="profileImage"></div>
+        <div class="profile-name"><h1 style="color:white">{{profile.name}}</h1></div>
+
+        <div class="accountBalance" ng-click="swapAccountValue()">
+            <div id="eWalletAccount">
+                <div class="accountType">{{account.displayName}}<br>{{account.accountNumber}}</div>
+
+                <div class="accountArrow" > </div>
+                <div class="amount small">
+                    <span>{{account.currency}}</span><span class="number">{{account.balance}} </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dashboardContainer">
+        <div class="select">{{'ASK_YOUR_CHOICE' | translate }}</div>
+        <div class="dashboardGreyBox askMoneyBox">
+            <div class="instantTransfer-to-card" ng-click="clickInstantTransferViaCard()"><span>{{'INSTANT_TRANSFER_TO_CARD_TITLE' | translate}}</span></div>
+            <div class="instantTransfer-to-account" ng-click="clickInstantTransferViaAccount()"><span>{{'INSTANT_TRANSFER_TO_ACCOUNT_TITLE' | translate}}</span></div>
+        </div>
+    </div>
+
+</div>

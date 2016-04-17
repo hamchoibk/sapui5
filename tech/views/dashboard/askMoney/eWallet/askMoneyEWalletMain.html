@@ -1,0 +1,43 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div class="scrollBox-withFooter">
+        <div class="formContainer">
+            <div class="cashoutInfo greyBorderBottom">
+                {{'ASK_MONEY_E_WALLET_MAIN_TIP' | translate }}
+            </div>
+            <div class="greyBorderBottom" style="display:none">
+                <ul class="arrowlist">
+                    <li ng-click="clickBenficiaryList()">
+                        <a class="largeText">{{'ASK_MONEY_E_WALLET_MAIN_CHOOSE_LIST' | translate }}</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <div class="greyBorderBottom input-withIcon" style="padding-top:15px;"><b>{{'COMMON_TO' | translate }}</b>
+                <input type="text" ng-change="getWalletUser()" placeholder="{{'ASK_MONEY_E_WALLET_MAIN_MOBILE_NUMBER' | translate }}" ng-model="transferDetails.payerMobileNumber" required /><i class="selectAccount inputIcon glyphicon pull-right" ng-click="openBenificiaryList()"></i>
+            </div>
+            </div>
+            <div class="greyBorderBottom">
+                <input type="text" readonly="readonly" placeholder="{{'ASK_MONEY_E_WALLET_MAIN_RECIPIENT' | translate }}" value="{{transferDetails.payerName}}" />
+            </div>
+            <!--<div class="greyBorderBottom">
+                <input type="text" placeholder="{{'ASK_MONEY_E_WALLET_MAIN_AMOUNT' | translate }}" numeric-check="ERROR_CODE_30016" ng-model="transferDetails.amount" />
+            </div>-->
+            <div>
+                <input type="text" placeholder="VND" value="VND"  class="greyBorderBottom greyBorderRight currencycode" style="margin-bottom:10px;" readonly="readonly" />
+                <!--<input type="number" pattern="[0-9]*" placeholder="{{ 'ASK_MONEY_E_WALLET_MAIN_AMOUNT' | translate }}"  name="smscode" class="greyBorderBottom amt" style="margin-bottom:10px;" numbers-only="numbers-only" numeric-check="ERROR_CODE_30016" ng-model="transferDetails.amount" required/>-->
+                <input type="text" id="amount" placeholder="{{ 'ASK_MONEY_E_WALLET_MAIN_AMOUNT' | translate }}"  onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="smscode" class="greyBorderBottom amt" style="margin-bottom:10px" ng-model="transferDetails.parsedAmount" ng-change="change()" length-check="ERROR_CODE_30016" required pattern="[0-9]*"/>
+            </div>
+            <div>
+                <div ng-disabled="true">{{'ASK_MONEY_E_WALLET_MAIN_ADD_CONTENT' | translate }}</div>
+                <input class="messageBox" placeholder="{{'ASK_MONEY_E_WALLET_MAIN_ADD_MESSAGE' | translate }}" maxlength="80" ng-model="transferDetails.message" />
+            </div>
+            <div>
+                <button ng-class="{true: 'button base active buttonBox', false: 'button base inactive buttonBox'}[(transferDetails.amount>=50000 && transferDetails.payerName.length>0)]" ng-click="clickSend()" ng-disabled="!(transferDetails.parsedAmount && transferDetails.payerName.length>0 && transferDetails.amount>=50000)">{{'ASK_MONEY_E_WALLET_MAIN_SEND' | translate }}</button>
+            </div>
+        </div>
+    </div>
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

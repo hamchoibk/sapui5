@@ -1,0 +1,156 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <div class="profile-cover" style="background-image: url(images/fbcover.jpg)">
+        <div class="profile-image"><img src="{{transaction.photo}}"  /></div>
+        <div class="profile-name"><h1 style="color:white; word-break: break-word;font-size: 19px">{{transaction.name}}</h1></div>
+        <div class="accountBalance">
+            <div class="accountType success">
+                {{'SOCIAL_DETAIL_AMOUNT' | translate}}
+            </div>
+            <div class="amount">
+                <span class="currency">{{transaction.debitCurrency}}</span> <span class="number">{{transaction.formatedAmount}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="scrollBox-withCoverAndFooter resultContainer" >
+        <div class="greyBorderBottom">
+            <i class="channel {{transactionIcon}} pull-left"></i>  <p class="transactionStatus">{{'SOCIAL_DETAIL_TRANSACTION' | translate}} {{ "TRANSACTIONS_INDEX_" + transaction.status.toUpperCase() | translate}}</p>
+        </div>
+		<!--<div class="space"></div>-->
+        
+		<accordion close-others="false">
+			<accordion-group is-open="socialMoreDetailFlag">
+					<accordion-heading>
+						<div class="metadata link">
+							<div class="value">{{transaction.fullLink}}</div>
+							<div style="padding-top: 5px" class="expire" ng-show="transaction.status == 'Sent' || transaction.status == 'Pending'">{{'SOCIAL_DETAIL_EXPIRES' | translate}} {{transaction.expiredDate}}
+                                <i class="pull-right-social glyphicon" ng-show="transaction.status == 'Sent' || transaction.status == 'Pending'" ng-class="{'arrow-down': socialMoreDetailFlag, 'arrow-up': !socialMoreDetailFlag}"></i>
+                                <i class="pull-right-social glyphicon-{{transaction.status}}" ng-class="{'arrow-down': socialMoreDetailFlag, 'arrow-up': !socialMoreDetailFlag}" ng-show="transaction.status != 'Sent' || transaction.status != 'Pending'"></i>
+                            </div>
+							<div class="copylink" ng-click="clickCopyLink()">Copy</div>
+
+						</div>
+						
+					</accordion-heading>
+					
+					<div ng-show="(transaction.status != 'Pending')">
+						<p class="labelKey">{{'SOCIAL_DETAIL_TOTAL_AMOUNT' | translate}}</p>
+						<p class="labelValue">VND {{transaction.formatedAmount}}</p>
+					</div>
+					<div class="space" ng-show="(transaction.status != 'Pending')"></div>
+					<div style="display:none">
+						<p class="labelKey">{{'SOCIAL_DETAIL_FEE' | translate}}</p>
+						<p class="labelValue">{{transaction.fee}}</p>
+					</div>
+					
+					<div ng-show="transaction.txnRef">
+						<p class="labelKey">{{'SOCIAL_DETAIL_TRANSACTION_REFERENCE' | translate}}</p>
+						<p class="labelValue">{{transaction.txnRef}}</p>
+					</div>
+					<div class="space" ng-show="transaction.txnRef"></div>
+					
+					
+					<div>
+						<p class="labelKey">{{'SOCIAL_DETAIL_TRANSACTION_DATE' | translate}}</p>
+						<p class="labelValue">{{transaction.formatedDate}}</p>
+					</div>
+					<div class="space" ng-show="transaction.formatedDate"></div>
+					
+					
+					<div ng-show="(transaction.status != 'Pending')">
+						<p class="labelKey">{{'SOCIAL_DETAIL_TRANSACTION_SOURCE' | translate}}</p>
+						<p class="labelValue">{{transaction.payer.accountName}} {{transaction.payer.accountNumber}}</p>
+					</div>
+					<div class="space" ng-show="(transaction.status != 'Pending')"></div>
+					
+					
+					<div ng-show="(transaction.status != 'Pending')">
+						<p class="labelKey">{{'SOCIAL_DETAIL_TRANSACTION_BENEFICIARY' | translate}}</p>
+						<p class="labelValue">{{transaction.payee.accountName}} {{transaction.payee.accountNumber}}</p>
+					</div>
+					<div class="space" ng-show="(transaction.status != 'Pending')"></div>
+					
+					
+					<div ng-show="(transaction.status != 'Pending')" style="display:none">
+						<p class="labelKey">{{'SOCIAL_DETAIL_TRANSACTION_KIND' | translate}}</p>
+						<p class="labelValue">{{transactionType}}</p>
+					</div>
+					<div class="space" ng-show="(transaction.status != 'Pending')"  style="display:none"></div>
+					
+					<div>
+						<p class="labelKey">{{'SOCIAL_DETAIL_TRANSACTION_REMARKS' | translate}}</p>
+						<p class="labelValue">{{transaction.txnDesc}}</p>
+					</div>
+					<div class="space"></div>
+										
+					<div class="metadata message" style="display:none">
+						<div class="dialog">
+							<div class="dialog-top"></div>
+							<div class="dialog-mid">
+								{{messageContent}}
+							</div>
+							<div class="dialog-bottom"></div>
+						</div>
+					</div>
+					<div class="space" ng-show="metadata.photo"></div>
+					<div class="metadata photo" ng-show="metadata.photo">
+						<img src="{{metadata.photo}}" />
+					</div>
+					<div class="space" ng-show="metadata.video"></div>
+					<div class="metadata video" ng-show="metadata.video">
+						<img src="{{metadata.video.preview}}" />
+						<button class="video playButton" ng-click="clickVideo(metadata.video.url)"></button>
+					</div>
+					<div class="space" ng-show="metadata.audio"></div>
+					<div class="metadata audio" ng-show="metadata.audio">
+						<div class="audio_holder">
+							<div class="media">
+								<button class="audio playButton" ng-click="clickAudio(metadata.audio.url)"></button>
+							</div>
+						</div>
+					</div>
+			</accordion-group>
+		</accordion>
+		
+        
+        <!--<div class="metadata audio"  ng-show="metadata.audio">-->
+            <!--<div class="audio_holder">-->
+                <!--<audio media-player="audioPlayer" data-playlist="audioPlaylist">-->
+                <!--</audio>-->
+                <!--<div class="media">-->
+                    <!--<a class="pull-left icon" href="" ng-click="togglePlayState($event)">-->
+                    <!--<span class="glyphicon" ng-class="{true: 'glyphicon-pause', false: 'glyphicon-play'}[audioInPlay]"></span>-->
+                <!--</a>-->
+                    <!--<div class="progress" ng-click="seek($event)">-->
+                        <!--<div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" ng-style="{ width: audioPlayer.currentTime*100/audioPlayer.duration + '%' }"></div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        
+        <div class="greyBorderBottom" ng-show="canAccept" ng-click="clickSelectAccount()" style="padding-bottom: 10px">
+            <p class="labelKey">{{ sourceAccountLable | translate}} </p>
+            <p class="labelValue">{{account.accountName | translate}} </p>
+            <i class="arrow-up glyphicon pull-right-social" ng-show="selectVisible" ></i>
+            <p class="labelValue" ><b>{{account.accountNumber}}
+            <br/>VND {{account.availableBalance}}</b>
+            </p>
+            
+        </div>
+        <div ng-show="hasPinCode">
+            <p class="labelKey">{{ 'COMMON_PINCODE' | translate }}</p>
+            <input type="text" pattern="[0-9]*" id="pinCode" style="width:100%" ng-show="hasPinCode" placeholder= "{{ 'COMMON_ENTER_PINCODE' | translate }}" ng-model="pinCode" class="greyBorderBottom inputgap" />
+        </div>
+        <div class="buttonBox">
+                <!--<button ng-class="{true:'button base inactive',false:'button base active'}[(hasPinCode && (pinCode.toString()).length!= 4)]" ng-click="clickAccept()" ng-show="canAccept" ng-disabled="(hasPinCode && (pinCode.toString()).length!= 4)">{{'SOCIAL_DETAIL_ACCEPT' | translate}}</button>-->
+            <button ng-class="{true:'button base inactive',false:'button base active'}[(hasPinCode && (pinCode.toString()).length!= 4)]" ng-click="clickAccept()" ng-show="canAccept" ng-disabled="(hasPinCode && (pinCode.toString()).length!= 4)">{{acceptButton | translate}}</button>
+                <button ng-class="{true:'button base inactive',false:'button base active'}[(hasPinCode && (pinCode.toString()).length!= 4)]" ng-click="clickReject()" ng-show="canReject" ng-disabled="(hasPinCode && (pinCode.toString()).length!= 4)">{{'SOCIAL_DETAIL_REJECT' | translate}}</button>
+                <button class="button base active" ng-click="clickCancel()" ng-show="canCancel" style="width: 70%">{{'SOCIAL_DETAIL_CANCEL' | translate}}</button>
+        </div>
+    </div>
+    <div class="stickyBottom">
+        <div class="socially grey"></div>
+    </div>
+
+</div>

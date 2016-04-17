@@ -1,0 +1,27 @@
+<div>
+  <div class="overlay " ng-click="dimissPopUp()"></div>
+  <div ng-include src="'views/loading/loading.html'"></div>
+
+  <navigation-bar status="status"></navigation-bar>
+  <div>
+    <input type="text" class="seachBar" placeholder="{{'TCB_BENEFICIARY_LIST_SEARCH' | translate }}" ng-model="searchText"/>
+  </div>
+  <div class="scrollBox-withSearchFooter">
+
+    <ul class="panelList beneficiaryList-interbank">
+      <li ng-repeat="ben in benList|filter:searchText" class="greyBorderBottom" ng-click="selectBeneficiary(ben)">
+        <a class="interbank">
+          <div class="rowContainer">
+            <p class="name">{{ben.benName}}</p>
+            <p class="name">{{ben.branchName}}</p>
+            <p class="number">{{ben.accountNumber}}</p>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="stickyBottom">
+
+  </div>
+</div>

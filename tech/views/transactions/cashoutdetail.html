@@ -1,0 +1,57 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <div class="profile-cover" style="background-image: url(images/fbcover.jpg)">
+        <!--<div class="profile-image" style="background-color: #ffffff"><img src="{{transaction.photo}}"  /></div>-->
+        <div class="profile-name noprofilephoto"><h1 style="color:white">{{(transaction.name)}}</h1></div>
+        <div class="accountBalance">
+            <div class="accountType success">
+                {{'CASHOUT_DETAIL_AMOUNT' | translate}}
+            </div>
+            <div class="amount">
+                <span class="currency">{{transaction.debitCurrency}}</span> <span class="number">{{transaction.formatedAmount}} </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="scrollBox-withCoverAndFooter resultContainer">
+        <div class="infolist">
+                <p class="labelValue"> <font color="#ff0000">{{'CASHOUT_DETAIL_TRANSACTION' | translate}} {{"TRANSACTIONS_INDEX_" + transaction.status.toUpperCase() | translate}}</font></p>
+            </div>
+        <div class="formContainer" style="min-height: 35%">
+            <!--<div>-->
+                <!--<p class="labelKey">{{'CASHOUT_DETAIL_BENEFICIARY_NAME' | translate}}</p>-->
+                <!--<p class="labelValue">{{transaction.payee.accountName}}</p>-->
+            <!--</div>-->
+
+            <div>
+                <p class="labelKey">{{'CASHOUT_DETAIL_REFERENCE_ID' | translate}}</p>
+                <p class="labelValue">{{transaction.txnRef}}</p>
+            </div>
+            <div>
+                <p class="labelKey">{{'CASHOUT_DETAIL_DATE' | translate}}</p>
+                <p class="labelValue">{{transaction.date}}</p>
+            </div>
+            
+        </div>
+        <div class="greyBorderBottom" ng-show="canAccept" ng-click="clickSelectAccount()">
+            <p class="labelKey">{{ sourceAccountLable | translate}} </p>
+            <p class="labelValue">{{account.accountName | translate}} </p>
+            <i class="arrow-up glyphicon pull-right" ng-show="selectVisible" ></i>
+            <p class="labelValue" ><b>{{account.accountNumber}}</b></p>
+            <p class="labelValue" ><b>VND {{account.availableBalance}}</b></p>
+        </div>
+        <div class="buttonBox">
+                <!--<button class="button base active" ng-click="clickAccept()" ng-show="canAccept">{{'CASHOUT_DETAIL_ACCEPT' | translate}}</button>-->
+                <button class="button base active" ng-click="clickAccept()" ng-show="canAccept">{{acceptButton | translate}}</button>
+                <button class="button base active" ng-click="clickReject()" ng-show="canReject">{{'CASHOUT_DETAIL_REJECT' | translate}}</button>
+                <button class="button base active" ng-click="clickCancel()" ng-show="canCancel" style="width: 70%">{{'CASHOUT_DETAIL_CANCEL' | translate}}</button>
+        </div>
+
+     </div>
+
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+
+  </div>

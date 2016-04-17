@@ -1,0 +1,22 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div>
+        <input type="text" class="seachBar" placeholder="{{'ASK_MONEY_E_WALLET_BENEFICIARY_LIST_SEARCH' | translate }}" ng-model="search.mobile" ng-change="filterByMobile(search)"/>
+    </div>
+    <div class="scrollBox-withSearchFooter">
+        <ul class="panelList beneficiaryList">
+            <li ng-repeat="account in beneficiaryListWalletAccount|filter:search" class="greyBorderBottom" ng-click="payeeSelected(account)">
+                <a>
+                    <div class="avatar"> <img src="{{account.image}}"/></div>
+                    <div class="rowContainer">
+                        <p class="name">{{account.name}}</p>
+                        <p class="number">{{account.accountNumber}}</p>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div ng-include src="'views/loading/loading.html'"></div>
+
+    <!--<div>-->
+        <!--<input type="text" class="seachBar" placeholder="{{'SEARCH_GAME' | translate }}" ng-model="searchText"/>-->
+    <!--</div>-->
+
+    <div class="scrollBox-withSearchFooter" id="gameList">
+        <div>
+            <ul class="arrowlist fav-friendList">
+                <li ng-repeat="game in topupGames | filter:searchText" class="greyBorderBottom" ng-click="selectGame(game)">
+                    <a class="favouritesContainer friendsList">
+                        <div class="avatar-game"> <img src="{{game.iconUrl}}"/></div>
+                        <div class="rowContainer">
+                            <div class="detailtable" style="text-align: match-parent">
+                                <div class="row">
+                                    <div class="friendLabel">{{game.name}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

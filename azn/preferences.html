@@ -1,0 +1,2029 @@
+<!DOCTYPE html>
+<html class="ui-mobile">
+    <head>
+        <script src="cordova.js"></script>
+        <script src="native.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+            </script>
+        <title>
+            Preferences
+        </title>
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+            <meta name="apple-mobile-web-app-capable" content="yes">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+                    <meta content="telephone=no" name="format-detection">
+                        <link href="css/jquerycss.css" rel="stylesheet" type="text/css">
+                            <link href="css/style.css" rel="stylesheet" type="text/css">
+                            <script type="text/javascript" src="script/jq.mobi.js">
+                                    </script>
+                                <script type="text/javascript" src="plugins/jq.scroller.js">
+                                    </script>
+                            <script type="text/javascript" src="script/anzmobile.js"></script>
+                            <script type="text/javascript" src="GeneralJavascript/generalFunction.js"></script>
+                                <style>
+                                    .pop-deleteBtn{
+                                        clear:both;
+                                        padding:5px 0px;
+                                    }
+                                .pop-deleteBtn a{
+                                    background: rgb(219, 37, 37); /* Old browsers */
+                                    background: -moz-linear-gradient(top, rgb(219, 37, 37) 0%, rgb(142, 22, 22) 100%); /* FF3.6+ */
+                                    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgb(219, 37, 37)), color-stop(100%, rgb(142, 22, 22))) ; /* Chrome,Safari4+ */
+                                    background: -webkit-linear-gradient(top, rgb(219, 37, 37) 0%, rgb(142, 22, 22) 100%); /* Chrome10+,Safari5.1+ */
+                                    background: -o-linear-gradient(top, rgb(219, 37, 37) 0%, rgb(142, 22, 22) 100%); /* Opera 11.10+ */
+                                    background: -ms-linear-gradient(top, rgb(219, 37, 37) 0%, rgb(142, 22, 22) 100%); /* IE10+ */
+                                    background: linear-gradient(to bottom, rgb(219, 37, 37) 0%, rgb(142, 22, 22) 100%); /* W3C */
+                                    border:1px solid #0a2838;
+                                    padding:13px 6px;
+                                    border-radius:3px;
+                                    border-bottom:1px solid #00131e;
+                                    width:100%;
+                                    display:inline-block;
+                                }
+                                
+                                .pop-deleteBtn a:hover{
+                                    background: rgb(142, 22, 22); /* Old browsers */
+                                    background: -moz-linear-gradient(top, rgb(142, 22, 22) 0%, rgb(219, 37, 37) 100%); /* FF3.6+ */
+                                    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgb(142, 22, 22)), color-stop(100%, rgb(219, 37, 37))) ; /* Chrome,Safari4+ */
+                                    background: -webkit-linear-gradient(top, rgb(142, 22, 22) 0%, rgb(219, 37, 37) 100%); /* Chrome10+,Safari5.1+ */
+                                    background: -o-linear-gradient(top, rgb(142, 22, 22) 0%, rgb(219, 37, 37) 100%); /* Opera 11.10+ */
+                                    background: -ms-linear-gradient(top, rgb(142, 22, 22) 0%, rgb(219, 37, 37) 100%); /* IE10+ */
+                                    background: linear-gradient(to bottom, rgb(142, 22, 22) 0%, rgb(219, 37, 37) 100%); /* W3C */
+                                    border:1px solid #0a2838;
+                                    padding:13px 6px;
+                                    border-radius:3px;
+                                    border-bottom:1px solid #00131e;
+                                    width:100%;
+                                    display:inline-block;
+                                }
+                                
+                                .pop-deleteBtn a.ui-link {
+                                    color: #FFF;
+                                    text-shadow: 0px -1px #082637;
+                                    text-align: center;
+                                    font-weight: 600;
+                                }
+                                </style>
+                                <script type="text/javascript" src="script/jq.mobi.js"></script>
+                                <script>
+                                    /*var init_swipe = function () {
+                                     $(".swipe_area").swipeListener({
+                                     vthreshold: 30,
+                                     hthreshold: 80,
+                                     callBack: function (dir) {
+                                     if(dir.left) {
+                                     alert("go to menulink3");
+                                     }
+                                     else if(dir.right) {
+                                     alert("go to menulink2");
+                                     }
+                                     }
+                                     });
+                                     };
+                                     window.addEventListener("load", init_swipe, false);*/
+                                </script>
+                                <script>
+                                	 var changeRenameAccount = '0';
+
+                                	 function checkMobileBanking() {
+								//sementara di mark dulu sampai ada keputusan di implement
+								setContentData([{source: 'server',service:'checkMobileBanking'}], 'checkMobileBankingCallback');
+							 }
+
+							 function checkMobileBankingCallback() {
+						   		var ok = getContentData('ok');
+								if(ok == 1) {
+									   goToHTML({viewId:'myaccount.html'});
+								} else {
+		                                       alert(getContentData('message'));
+		                                }
+						   	}
+
+                                	 function fixScrollTop()
+							 {
+								if(document.body.scrollTop > 0)
+								{
+								document.body.scrollTop = 0;
+								}
+							 }
+                                    function hidePopup(idPopup) {
+                                        $('#' + idPopup + "-popup").removeClass('ui-popup-active');
+                                        $('#' + idPopup + "-popup").addClass('ui-popup-hidden');
+                                        $('#' + idPopup + "-popup").removeAttr('style', 'height:90%;width:90%; top: 5%; left: 5%;');
+                                        
+                                        $('#' + idPopup + "-screen").removeClass('ui-popup-screen');
+                                        $('#' + idPopup + "-screen").removeClass('ui-overlay-b');
+                                        $('#' + idPopup + "-screen").removeClass('in');
+                                        $('#' + idPopup + "-screen").addClass('ui-screen-hidden');
+                                        $('#' + idPopup + "-screen").addClass('ui-popup-screen');
+                                        $('#' + idPopup + "-screen").addClass('ui-overlay-b');
+                                        $('#' + idPopup + "-screen").removeAttr('style','height : '+document.getElementsByClassName('ui-page-active')[0].scrollHeight+'px');
+                                    }
+                                
+                                    function showPopup(idPopup) {
+                                        $('#' + idPopup + "-popup").removeClass('ui-popup-hidden');
+                                        $('#' + idPopup + "-popup").addClass('ui-popup-active');
+                                        $('#' + idPopup + "-popup").attr('style', 'height:90%;width:90%; top: 5%; left: 5%;');
+                                        $('#' + idPopup + "-screen").removeClass('ui-screen-hidden');
+                                        $('#' + idPopup + "-screen").removeClass('ui-popup-screen');
+                                        $('#' + idPopup + "-screen").removeClass('ui-overlay-b');
+                                        $('#' + idPopup + "-screen").addClass('ui-popup-screen');
+                                        $('#' + idPopup + "-screen").addClass('ui-overlay-b');
+                                        $('#' + idPopup + "-screen").addClass('in');
+                                        $('#' + idPopup + "-screen").attr('style','height : '+document.getElementsByClassName('ui-page-active')[0].scrollHeight+'px');
+                                    } 
+                                </script>
+                                <script> 
+                                	 var lastIdToRemove = 'preferences';
+                                    function prepareChangeEmail() {
+                                        setContentData([{
+                                                        source: 'server',
+                                                        service: 'PrepareChangeEmail',
+                                                        dataIds: [{
+                                                                  dataId: 'oldEmailAddress',
+                                                                  dataType: 'text',
+                                                                  source: 'param'
+                                                                  }]
+                                                        }], 'fillChangeEmail');
+                                    }
+                                
+                                function fillChangeEmail() {
+                                    var ok = getContentData('ok');
+                                    if (ok == 1) {
+                                        var oldEmailAddress = getContentData('oldEmailAddress');
+                                        document.getElementById('oldEmailAddress').innerHTML = oldEmailAddress;
+                                        showHideLeft('changeEmail', 'preferences');
+                                        app.backFunction=customBackFromChangeEmail;
+                                    } else {
+                                        alert(getContentData('message'));
+                                    }
+                                }
+                                
+                                function processEditEmail() {
+                                    var currentEmailVal = $('#currentemail').val();
+                                    
+                                    if (currentEmailVal == "") {
+                                        //alert('Email Address is mandatory');
+                                        loadMessageResourceAlert("change.email.mandatory");
+                                        return;
+                                    } else if (!validateEmail(currentEmailVal)) {
+                                        //alert('Format Email Address not valid');
+                                        loadMessageResourceAlert("change.email.not.valid");
+                                    	return;
+                                    } else {
+                                        setContentData([{
+                                                        source: 'server',
+                                                        service: 'changeEmailAddress',
+                                                        params: {
+                                                        currentEmail: currentEmailVal
+                                                        }
+                                                        }], 'editEmailCallback');
+                                    }
+                                }
+                                
+                                function validateEmail(email) {
+                                    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                                return re.test(email);
+                                }
+                                
+                                function editEmailCallback() {
+                                var ok = getContentData('ok');
+                                if (ok == 1) {
+                                showHideLeft('preferences', 'changeEmail');
+                                showPopup("changeEmailConfirmmsg");
+                                } else {
+                                alert(getContentData('message'));
+                                }
+                                $('#currentemail').val('');
+                                }
+                                
+                                function getListScheduledTransactions() {
+                                	setContentData([{
+                                      source: 'server',
+                                      service: 'GetListScheduledTransactions',
+                                      dataIds: [{
+                                                dataId: 'listScheduledTransactions',
+                                                dataType: 'entity',
+                                                source: 'param'
+                                                },
+                                                {
+                                                dataId: 'locale',
+                                                dataType:'text',
+                                                source: 'param'
+                                                }]
+                                      }], 'scheduledTransactionsCallback');
+                                }
+                                
+                                function scheduledTransactionsCallback() {
+                                 var ok = getContentData('ok');
+                                 if (ok == 1) {
+                                  document.getElementById('scheduledTransactionList').innerHTML = '';
+                                  var cd = getContentData('listScheduledTransactions');
+                                  if (cd[1] == null){
+                                   	document.getElementById('scheduledTransactionList').innerHTML = '<li class="ui-li ui-li-divider ui-bar-b ui-first-child" role="heading" ><language key="noRecords"></language></li>';
+                                  }
+                                  var count = 0;
+                                   for (var a in cd) {
+                                        document.getElementById('scheduledTransactionList').innerHTML += '<li class="ui-li ui-li-divider ui-bar-b ui-first-child" role="heading"><h3 class="ui-li-heading">' + cd[count+1].header + '</h3></li>';
+                                        for (var b = 0; b < cd[count+1].data.length; b++) {
+                                        	//document.getElementById('scheduledTransactionList').innerHTML += '<li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-btn-up-c"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a class="ui-link-inherit" onclick="fixScrollTop();getDetailSchTrx(\'' + convertObjToStr(cd[count+1].data[b]) + '\');" ><p class="ui-li-aside ui-li-desc">' + cd[count+1].data[b].amount + '</p><h2 class="ui-li-heading">' + cd[count+1].data[b].instructionDateView + '</h2><p class="ui-li-desc">' +cd[count+1].data[b].functionTrxName+','+cd[count+1].data[b].acctToNo + '</p></a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>';
+                                        	document.getElementById('scheduledTransactionList').innerHTML += '<li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-btn-up-c"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a class="ui-link-inherit" data-transition="slide" onclick="fixScrollTop();getDetailSchTrx(\'' + convertObjToStr(cd[count+1].data[b]) + '\');"><p class="ui-li-aside ui-li-desc">' + cd[count+1].data[b].amount + '</p><h3 class="ui-li-heading">' + cd[count+1].data[b].instructionDateView + '</h3><p class="ui-li-desc">' +cd[count+1].data[b].functionTrxName+' <br> '+cd[count+1].data[b].acctToNo + '</p></a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>';
+                                        
+                                        }
+                                        count++;
+                                   }
+                                  // alert(document.getElementById('scheduledTransactionList').innerHTML);
+                                  // alert($('#scheduledTransactionList').innerHTML);
+                                  processLanguagesDiv('scheduledTransactions');
+                                  showHideLeft('scheduledTransactions', lastIdToRemove);
+                                  app.backFunction=customBackFromScheduledTrx;
+                                 } else {
+                                 	alert(getContentData('message'));
+                                 }
+                                }
+                                </script>
+                                <script>
+                                    function getDetailSchTrx(obj) {
+                                        //alert(obj);
+                                        obj = JSON.parse(obj);
+                                        document.getElementById('refNoDetail').value = obj.refNo;
+                                        document.getElementById('detailRefNoDetail').value = obj.detailRefNo;
+                                        document.getElementById('menuCdDetail').value = obj.menuCd;
+                                        var loc = getContentData('locale');
+                                        var functionTrx = obj.functionTrx;
+                                        if (functionTrx == 'menu.child.domestictransfer') {
+                                            functionTrx = 'Transfer Other Banks';
+                                            document.getElementById('repeatOnWeekType').style.display = 'block';
+                                            document.getElementById('repeatOnMonthType').style.display = 'block';
+                                        } else if (functionTrx == "menu.child.inhousetransfer") {
+                                            functionTrx = 'Transfer between ANZ Accounts';
+                                            document.getElementById('repeatOnWeekType').style.display = 'block';
+                                            document.getElementById('repeatOnMonthType').style.display = 'block';
+                                        } else {
+                                            functionTrx = 'Bill Payment';
+                                            document.getElementById('repeatOnWeekType').style.display = 'none';
+                                            document.getElementById('repeatOnMonthType').style.display = 'block';
+                                        }
+                                        var fromAccount = obj.acctNo;
+                                        var toAccount = obj.acctToNo;
+                                        var scheduleType = obj.instructionDisplay;
+                                        
+                                        document.getElementById('functionDetail').innerHTML = obj.functionTrxName;
+                                        document.getElementById('fromAccountDetail').innerHTML = fromAccount;
+                                        document.getElementById('toAccountDetail').innerHTML = toAccount;
+                                        document.getElementById('scheduleTypeValue').value = scheduleType;
+                                        document.getElementById('scheduleTypeDivDetail').style.display = 'block';
+                                        
+                                        if (scheduleType == '3') {
+                                            var scheduleDate = obj.transferDate;
+                                            if (loc == 'id') {
+                                            	document.getElementById('scheduleTypeDetail').innerHTML = "Tanggal Tertentu";
+                                            } else {
+									document.getElementById('scheduleTypeDetail').innerHTML = "Specific Date";
+                                            }
+                                            document.getElementById('scheduleDateDetail').innerHTML = scheduleDate;
+                                            document.getElementById('scheduleDateValue').value = scheduleDate;
+                                            document.getElementById('scheduleDateDivDetail').style.display = 'block';
+                                            document.getElementById('repeatOnDivDetail').style.display = 'none';
+                                            document.getElementById('repeatDayDivDetail').style.display = 'none';
+                                            document.getElementById('repeatDateDivDetail').style.display = 'none';
+                                            document.getElementById('fromDateDivDetail').style.display = 'none';
+                                            document.getElementById('toDateDivDetail').style.display = 'none';
+                                        } else {
+                                            var repeatOn = obj.instructionEvery;
+                                            
+                                            var startDate = obj.instructionStartDate;
+                                            var endDate = obj.instructionExpiredDate;
+                                            
+                                            document.getElementById('scheduleDateDivDetail').style.display = 'none';
+                                            if (loc == 'id') {
+                                            	document.getElementById('scheduleTypeDetail').innerHTML = "Transaksi Berulang";
+                                            } else {
+									document.getElementById('scheduleTypeDetail').innerHTML = "Repeat";
+                                            }
+                                            document.getElementById('repeatOnValue').value = repeatOn;
+                                            document.getElementById('fromDateDetail').innerHTML = startDate;
+                                            document.getElementById('toDateDetail').innerHTML = endDate;
+                                            document.getElementById('fromDateValue').value = startDate;
+                                            document.getElementById('toDateValue').value = endDate;
+                                            
+                                            document.getElementById('repeatOnDivDetail').style.display = 'block';
+                                            document.getElementById('fromDateDivDetail').style.display = 'block';
+                                            document.getElementById('toDateDivDetail').style.display = 'block';
+                                            if (repeatOn == 'W') {
+									   var dayExc = obj.instructionValueDisplay;
+	                                           
+                                                if (loc == 'id') {
+                                                	document.getElementById('repeatOnDetail').innerHTML = "Hari tertentu dalam seminggu";
+                                                } else {
+                                                	document.getElementById('repeatOnDetail').innerHTML = "Specific day of the week";
+                                                }
+                                                document.getElementById('repeatDayDetail').innerHTML = dayExc;
+                                                document.getElementById('repeatDayValue').value = obj.instructionValue;
+                                                document.getElementById('repeatDayDivDetail').style.display = 'block';
+                                                document.getElementById('repeatDateDivDetail').style.display = 'none';
+                                            } else if (repeatOn == 'M') {
+                                                var dateExc = obj.instructionEveryDisplay;
+
+                                                if (loc == 'id') {
+                                                	document.getElementById('repeatOnDetail').innerHTML = "Tanggal tertentu dalam sebulan";
+                                                } else {
+                                                	document.getElementById('repeatOnDetail').innerHTML = "Specific day of the month";
+                                                }
+                                                document.getElementById('repeatDateDetail').innerHTML = dateExc;
+                                                document.getElementById('repeatDateValue').value = dateExc;
+                                                document.getElementById('repeatDateDivDetail').style.display = 'block';
+                                            	   document.getElementById('repeatDayDivDetail').style.display = 'none';
+                                            }
+                                        }
+                                        showHideLeft('scheduledDetails', 'scheduledTransactions');
+                                        app.backFunction=customBackFromScheduledDtl;
+                                    }
+                                
+                                    </script>
+                                <script>
+                                    
+                                    function selectScheduleType() {
+                                        var type = $("#scheduleTypeValue").val();
+                                        if (type == '3') {
+                                            $("#sendNowCheck").removeClass("selected");
+                                            $("#specificCheck").addClass("selected");
+                                            $("#repeatCheck").removeClass("selected");
+                                        } else if (type == '4') {
+                                            $("#sendNowCheck").removeClass("selected");
+                                            $("#specificCheck").removeClass("selected");
+                                            $("#repeatCheck").addClass("selected");
+                                        } else {
+                                            $("#sendNowCheck").addClass("selected");
+                                            $("#specificCheck").removeClass("selected");
+                                            $("#repeatCheck").removeClass("selected");
+                                        }
+                                        showHideLeft('scheduleType','scheduledDetails');
+                                    }
+                                
+                                function selectRepeatOn() {
+                                    var repOn = $("#repeatOnValue").val();
+                                    if (repOn == 'W') {
+                                        $("#repeatWeek").addClass("selected");
+                                        $("#repeatMonth").removeClass("selected");
+                                    } else {
+                                        $("#repeatWeek").removeClass("selected");
+                                        $("#repeatMonth").addClass("selected");
+                                    }
+                                    showHideLeft('repeatType','scheduledDetails');
+                                }
+                                
+                                function selectRepeatDate() {
+                                    var repDate = $("#repeatDateValue").val();
+                                    
+                                    for (var i = 0; i < 31; i++) {
+                                        $('#repeat' + i).removeClass("selected");
+                                    }
+                                    for (var i = 0; i < 31; i++) {
+                                        if (i == repDate) {
+                                            $('#repeat' + i).addClass("selected");
+                                        }
+                                    }
+                                    showHideLeft('repeatDate','scheduledDetails');
+                                }
+                                
+                                function selectRepeatDay(){
+                                    var repDay = $("#repeatDayValue").val();
+                                    
+                                    $('#repeatSunday').removeClass("selected");
+                                    $('#repeatMonday').removeClass("selected");
+                                    $('#repeatTuesday').removeClass("selected");
+                                    $('#repeatWednesday').removeClass("selected");
+                                    $('#repeatThursday').removeClass("selected");
+                                    $('#repeatFriday').removeClass("selected");
+                                    $('#repeatSaturday').removeClass("selected");
+                                    
+                                    $('#repeat' + repDay).addClass("selected");
+                                    
+                                    showHideLeft('repeatDay','scheduledDetails');
+                                }
+                                
+                                function fillRepeatOn(data) {
+                                    document.getElementById('repeatOnValue').value = data;
+                                    var loc = getContentData('locale');
+                                    if (data == "W") {
+                                        if (loc == 'en') {
+                                        	document.getElementById('repeatOnDetail').innerHTML = "Specific day of the week";
+                                        } else {
+                                        	document.getElementById('repeatOnDetail').innerHTML = "Hari tertentu dalam seminggu";
+                                        }
+                                        document.getElementById('repeatDayDivDetail').style.display = 'block';
+                                        document.getElementById('repeatDayValue').value = '';
+                                        document.getElementById('repeatDateDivDetail').style.display = 'none';
+                                        document.getElementById('repeatDateValue').value = '';
+                                    } else {
+                                        if (loc == 'en') {
+                                        	document.getElementById('repeatOnDetail').innerHTML = "Specific day of the Month";
+                                        } else {
+                                        	document.getElementById('repeatOnDetail').innerHTML = "Tanggal tertentu dalam sebulan";
+                                        }
+                                        document.getElementById('repeatDayDivDetail').style.display = 'none'
+                                        document.getElementById('repeatDayValue').value = '';
+                                        document.getElementById('repeatDateDivDetail').style.display = 'block';
+                                        document.getElementById('repeatDateValue').value = '';
+                                    }
+                                    
+                                    showHideLeft('scheduledDetails','repeatType');
+                                }
+                                
+                                function fillRepeatDay(data) {
+							 //document.getElementById('repeatDayValue').value = data;
+                                    var loc = getContentData("locale");
+                                    if (data == 'Monday') {
+								document.getElementById('repeatDayValue').value = "2";
+								if (loc == 'en') {
+									document.getElementById('repeatDayDetail').innerHTML = data;
+								} else {
+									document.getElementById('repeatDayDetail').innerHTML = "Senin";
+								}
+                                    } else if (data == 'Tuesday') {
+								document.getElementById('repeatDayValue').value = "3";
+								if (loc == 'en') {
+									document.getElementById('repeatDayDetail').innerHTML = data;
+								} else {
+									document.getElementById('repeatDayDetail').innerHTML = "Selasa";
+								}
+                                    } else if (data == 'Wednesday') {
+								document.getElementById('repeatDayValue').value = "4";
+								if (loc == 'en') {
+									document.getElementById('repeatDayDetail').innerHTML = data;
+								} else {
+									document.getElementById('repeatDayDetail').innerHTML = "Rabu";
+								}
+                                    } else if (data == 'Thursday') {
+								document.getElementById('repeatDayValue').value = "5";
+								if (loc == 'en') {
+									document.getElementById('repeatDayDetail').innerHTML = data;
+								} else {
+									document.getElementById('repeatDayDetail').innerHTML = "Kamis";
+								}
+                                    } else if (data == 'Friday') {
+								document.getElementById('repeatDayValue').value = "6";
+								if (loc == 'en') {
+									document.getElementById('repeatDayDetail').innerHTML = data;
+								} else {
+									document.getElementById('repeatDayDetail').innerHTML = "Jumat";
+								}
+                                    } else if (data == 'Saturday') {
+								document.getElementById('repeatDayValue').value = "7";
+								if (loc == 'en') {
+									document.getElementById('repeatDayDetail').innerHTML = data;
+								} else {
+									document.getElementById('repeatDayDetail').innerHTML = "Sabtu";
+								}
+                                    } else if (data == 'Sunday') {
+								document.getElementById('repeatDayValue').value = "1";
+								if (loc == 'en') {
+									document.getElementById('repeatDayDetail').innerHTML = data;
+								} else {
+									document.getElementById('repeatDayDetail').innerHTML = "Minggu";
+								}
+                                    }
+                                    
+                                    showHideLeft('scheduledDetails','repeatDay');
+                                }
+                                
+                                function fillRepeatDate(data) {
+                                    document.getElementById('repeatDateValue').value = data;
+                                    document.getElementById('repeatDateDetail').innerHTML = data;
+                                    showHideLeft('scheduledDetails','repeatDate');
+                                }
+                                
+                                function fillScheduleType(data) {
+                                    document.getElementById('scheduleTypeValue').value = data;
+                                    var loc = getContentData('locale');
+                               	 var today = new Date();
+                                    var dd = today.getDate();
+                                    var mm = today.getMonth()+1;
+                                    var yyyy = today.getFullYear();
+                                    if(dd<10){dd='0'+dd;}
+                                    if(mm<10){mm='0'+mm;}
+                                    today = yyyy+'-'+mm+'-'+dd;
+                                    
+                                    if (data == 3) {
+                                        if (loc == 'en') {
+                                        	document.getElementById('scheduleTypeDetail').innerHTML = "Specific Date";
+                                        } else {
+									document.getElementById('scheduleTypeDetail').innerHTML = "Tanggal Tertentu";
+                                        }
+                                        
+                                        
+                                        document.getElementById('scheduleDate').value= today;
+                                        document.getElementById('scheduleDateDetail').innerHTML = '';
+                                        document.getElementById('scheduleDateValue').value = '';
+                                        document.getElementById('scheduleDateDivDetail').style.display = 'block';
+                                        document.getElementById('repeatOnDetail').innerHTML = '';
+                                        document.getElementById('repeatOnValue').value = '';
+                                        document.getElementById('fromDateDetail').innerHTML = '';
+                                        document.getElementById('toDateDetail').innerHTML = '';
+                                        document.getElementById('fromDateValue').value = '';
+                                        document.getElementById('toDateValue').value = '';
+                                        document.getElementById('repeatDayDetail').innerHTML = '';
+                                        document.getElementById('repeatDayValue').value = '';
+                                        document.getElementById('repeatDateDetail').innerHTML = '';
+                                        document.getElementById('repeatDateValue').value = '';
+                                        document.getElementById('repeatDayDivDetail').style.display = 'none';
+                                        document.getElementById('repeatOnDivDetail').style.display = 'none';
+                                        document.getElementById('fromDateDivDetail').style.display = 'none';
+                                        document.getElementById('toDateDivDetail').style.display = 'none';
+                                        document.getElementById('repeatDateDivDetail').style.display = 'none';
+                                    } else if (data == 4) {
+                                        if (loc == 'en') {
+                                        	document.getElementById('scheduleTypeDetail').innerHTML = "Repeat";
+                                        } else {
+                                        	document.getElementById('scheduleTypeDetail').innerHTML = "Transaksi berulang";
+                                        }
+                                        
+                                        document.getElementById('repeatFrom').value = today;
+                                        document.getElementById('repeatto').value = today;
+                                        
+                                        document.getElementById('scheduleDateDetail').innerHTML = '';
+                                        document.getElementById('scheduleDateValue').value = '';
+                                        document.getElementById('repeatOnDetail').innerHTML = '';
+                                        document.getElementById('repeatOnValue').value = '';
+                                        document.getElementById('fromDateDetail').innerHTML = '';
+                                        document.getElementById('toDateDetail').innerHTML = '';
+                                        document.getElementById('fromDateValue').value = '';
+                                        document.getElementById('toDateValue').value = '';
+                                        document.getElementById('repeatDayDetail').innerHTML = '';
+                                        document.getElementById('repeatDayValue').value = '';
+                                        document.getElementById('repeatDateDetail').innerHTML = '';
+                                        document.getElementById('repeatDateValue').value = '';
+                                        document.getElementById('scheduleDateDivDetail').style.display = 'none';
+                                        document.getElementById('repeatOnDivDetail').style.display = 'block';
+                                        document.getElementById('fromDateDivDetail').style.display = 'block';
+                                        document.getElementById('toDateDivDetail').style.display = 'block';
+                                    } else {
+                                        if (loc == 'en') {
+                                        	document.getElementById('scheduleTypeDetail').innerHTML = "Send Now";
+                                        } else {
+                                        	document.getElementById('scheduleTypeDetail').innerHTML = "Sekarang";
+                                        }
+                                        document.getElementById('scheduleDateDetail').innerHTML = '';
+                                        document.getElementById('scheduleDateValue').value = '';
+                                        document.getElementById('scheduleDateDivDetail').style.display = 'none';
+                                        document.getElementById('repeatOnDetail').innerHTML = '';
+                                        document.getElementById('repeatOnValue').value = '';
+                                        document.getElementById('fromDateDetail').innerHTML = '';
+                                        document.getElementById('toDateDetail').innerHTML = '';
+                                        document.getElementById('fromDateValue').value = '';
+                                        document.getElementById('toDateValue').value = '';
+                                        document.getElementById('repeatDayDetail').innerHTML = '';
+                                        document.getElementById('repeatDayValue').value = '';
+                                        document.getElementById('repeatDateDetail').innerHTML = '';
+                                        document.getElementById('repeatDateValue').value = '';
+                                        document.getElementById('repeatDayDivDetail').style.display = 'none';
+                                        document.getElementById('repeatOnDivDetail').style.display = 'none';
+                                        document.getElementById('fromDateDivDetail').style.display = 'none';
+                                        document.getElementById('toDateDivDetail').style.display = 'none';
+                                        document.getElementById('repeatDateDivDetail').style.display = 'none';
+                                    }
+                                    showHideLeft('scheduledDetails','scheduleType');
+                                }
+                                
+                                function performEditScheduled() {
+                                    var detailRefNo = $('#detailRefNoDetail').val();
+                                    var refNo = $('#refNoDetail').val();
+                                    var menuCode = $('#menuCdDetail').val();
+                                    var instructionCode = $('#scheduleTypeValue').val();
+                                    var repeatOn = $('#repeatOnValue').val();
+                                    var specificDate = $('#scheduleDateValue').val();
+                                    var fromDate = $('#fromDateValue').val();
+                                    var toDate = $('#toDateValue').val();
+                                    var repeatDate = $('#repeatDateValue').val();
+                                    var repeatDay = $('#repeatDayValue').val();
+                                    
+                                    //alert('detailRefNo:'+ detailRefNo+' refNo: '+refNo+' menuCd: '+menuCode+' instructionCode: '+instructionCode+' repeatOn: '+repeatOn+' specificDate: '+specificDate+'fromDate: '+fromDate+ 'toDate: '+toDate+' repeatDate: '+repeatDate+' repeatDay: '+repeatDay);
+                               	if (instructionCode == '3' && specificDate == '') {
+								//alert('Future Date is mandatory');
+								loadMessageResourceAlert("schedule.trx.future.date.mandatory");
+								return;
+							} else if (instructionCode == '4') {
+								//alert(repeatOn);
+							   if (repeatOn != null || repeatOn != '') {
+							   	   if (repeatOn == '') {
+							   	   	loadMessageResourceAlert("schedule.trx.valid.repeat.on.mandatory");
+									return;
+								   } else if (repeatOn == 'M' && repeatDate=='') {
+								       //alert('Validity Date is mandatory');
+									  loadMessageResourceAlert("schedule.trx.valid.date.mandatory");
+									  return;
+								   } else if (repeatOn == 'W' && repeatDay=='') {
+								   	  loadMessageResourceAlert("schedule.trx.valid.day.mandatory");
+									  return;
+								   } else {
+									  if (fromDate == '') {
+									  	loadMessageResourceAlert("schedule.trx.from.date.mandatory");
+								           return;
+									  } else if ( toDate == '') {
+								           //alert("Validity Date is mandatory");
+								           loadMessageResourceAlert("schedule.trx.to.date.mandatory");
+								           return;
+								       }
+								   }
+							   } else {
+									loadMessageResourceAlert("schedule.trx.valid.repeat.on.mandatory");
+									return;
+							   }
+							}
+							//alert(repeatDay);
+                                    setContentData([{
+                                                    source: 'server',
+                                                    service: 'EditScheduledTransaction',
+                                                    params: {
+                                                    detailRefNo: detailRefNo,
+                                                    refNo: refNo,
+                                                    menuCd: menuCode,
+                                                    instructionCode: instructionCode,
+                                                    repeatOn: repeatOn,
+                                                    specificDate: specificDate,
+                                                    fromDate: fromDate,
+                                                    toDate: toDate,
+                                                    repeatDate: repeatDate,
+                                                    repeatDay: repeatDay
+                                                    }
+                                                    }], 'performEditScheduleCallBack');
+                                }
+
+                                function performEditScheduleCallBack() {
+							var ok = getContentData('ok');
+							if (ok == 1) {
+								lastIdToRemove ='scheduledDetails';
+								getListScheduledTransactions();
+								showPopup('scheduleupdatemsg');
+							} else {
+								alert(getContentData('message'));
+							}
+                                }
+                                
+                                function performDeleteSchedule() {
+                                    var detailRefNo = $('#detailRefNoDetail').val();
+                                    var refNo = $('#refNoDetail').val();
+                                    var menuCode = $('#menuCdDetail').val();
+                                    var instructionCode = $('#scheduleTypeValue').val();
+                                    setContentData([{
+                                                    source: 'server',
+                                                    service: 'DeleteScheduledTransaction',
+                                                    params: {
+                                                    detailRefNo: detailRefNo,
+                                                    refNo: refNo,
+                                                    menuCd: menuCode,
+                                                    instructionMode: instructionCode
+                                                    }
+                                                    }], 'performDeleteScheduleCallBack');
+                                }
+
+                                function performDeleteScheduleCallBack() {
+							var ok = getContentData('ok');
+							if (ok == 1) {
+								hidePopup('deleteScheduledConfirmation');
+								lastIdToRemove ='scheduledDetails';
+								getListScheduledTransactions();
+							} else {
+								alert(getContentData('message'));
+							}
+                                }
+
+                                function setSpecificDate() {
+                                    var scheduleDate = $('#scheduleDate').val();
+                                    document.getElementById('scheduleDateDetail').innerHTML = scheduleDate;
+                                    document.getElementById('scheduleDateValue').value = scheduleDate;
+                                    showHideRight('scheduledDetails','scheduledDate');
+                                }
+                                
+                                function setFromDate() {
+                                    var fromDate = $('#repeatFrom').val();
+                                    document.getElementById('fromDateDetail').innerHTML = fromDate;
+                                    document.getElementById('fromDateValue').value = fromDate;
+                                    showHideRight('scheduledDetails','scheduledFrom');
+                                }
+                                
+                                function setToDate() {
+                                    var toDate = $('#repeatto').val();
+                                    document.getElementById('toDateDetail').innerHTML = toDate;
+                                    document.getElementById('toDateValue').value = toDate;
+                                    showHideRight('scheduledDetails','scheduledTo');
+                                }
+                                
+                                function prepareNotification() {
+                                    setContentData([{
+                                                    source: 'server',
+                                                    service: 'PrepareNotification',
+                                                    dataIds: [{
+                                                              dataId: 'categoryUserList',
+                                                              dataType: 'list',
+                                                              source: 'param'
+                                                              }, {
+                                                              dataId: 'listNotifCat',
+                                                              dataType: 'list',
+                                                              source: 'param'
+                                                              }, {
+                                                              dataId: 'paymentUserList',
+                                                              dataType: 'list',
+                                                              source: 'param'
+                                                              }, {
+                                                              dataId: 'paymentOldUserList',
+                                                              dataType: 'list',
+                                                              source: 'param'
+                                                              }]
+                                                    }], 'notifRollBack');
+                                }
+                                
+                                function notifRollBack() {
+                                    var ok = getContentData('ok');
+                                    if (ok == 1) {
+                                        document.getElementById('userNotification').innerHTML = '';
+                                        var ab = getContentData('categoryUserList');
+                                        var xy = getContentData('listNotifCat');
+                                        var locale = getContentData('locale');
+                                        if (ab.length > 0) {
+                                            for (var x = 0; x < xy.length; x++) {
+                                                if (x == 0 ) {
+										document.getElementById('userNotification').innerHTML += '<a class="ui-btn ui-shadow ui-btn-corner-all ui-first-child ui-btn-up-c" onclick="fill' + xy[x].code + 'Value();" id="' + xy[x].code + '"><span class="ui-btn-inner"><span class="ui-btn-text">' + xy[x].description + '</span></span></a>';
+                                                } else if (x == 2) {
+										document.getElementById('userNotification').innerHTML += '<a class="ui-btn ui-shadow ui-btn-corner-all ui-last-child ui-btn-up-c" onclick="fill' + xy[x].code + 'Value();" id="' + xy[x].code + '"><span class="ui-btn-inner"><span class="ui-btn-text">' + xy[x].description + '</span></span></a>';
+                                                } else {
+										document.getElementById('userNotification').innerHTML += '<a class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c" onclick="fill' + xy[x].code + 'Value();" id="' + xy[x].code + '"><span class="ui-btn-inner"><span class="ui-btn-text">' + xy[x].description + '</span></span></a>';
+                                                }
+                                            }
+                                            for (var y = 0; y < ab.length; y++) {
+                                                
+                                                if (ab[y].inactiveFlag == 'N') {
+                                                    $('#' + ab[y].code).addClass("selected");
+                                                    if (ab[y].code === "PWD_LOCK")
+                                                    document.getElementById('accountLockedValue').value = ab[y].code;
+                                                    else if (ab[y].code === "PWD_EXP")
+                                                    document.getElementById('passwordExpValue').value = ab[y].code;
+                                                    else if (ab[y].code === "USR_INACTIVE")
+                                                    document.getElementById('ibInactiveValue').value = ab[y].code;
+                                                }
+                                            }
+                                        } else {
+                                            document.getElementById('userNotification').innerHTML += '<a class="ui-btn ui-shadow ui-btn-corner-all ui-first-child ui-btn-up-c" onclick="fillPWD_LOCKValue();" id="PWD_LOCK"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="accountIsLocked"></language></span></span></a><a class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c" onclick="fillPWD_EXPValue();" id="PWD_EXP"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="passwordIsExp"></language></span></span></a><a class="ui-btn ui-shadow ui-btn-corner-all ui-last-child ui-btn-up-c" onclick="fillUSR_INACTIVEValue();" id="USR_INACTIVE"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="ibIsinActive"></language></span></span></a>';
+                                            document.getElementById('accountLockedValue').value = 'false';
+                                            document.getElementById('passwordExpValue').value = 'false';
+                                            document.getElementById('ibInactiveValue').value = 'false';
+                                        }
+                                        
+                                        // payment notification
+                                        document.getElementById('accDaysDisplay').innerHTML = '';
+                                        document.getElementById('ccDaysDisplay').innerHTML = '';
+                                        var cd = getContentData('paymentUserList');
+                                        if (cd.length > 0) {
+                                            for (var a = 0; a < cd.length; a++) {
+                                                if (cd[a].code == 'INST_DATE') {
+                                                    if (locale == 'en') {
+                                                    	document.getElementById('accDaysDisplay').innerHTML = 'Before ' + cd[a].value + ' days';
+                                                    } else {
+											document.getElementById('accDaysDisplay').innerHTML = ''+ cd[a].value + ' hari sebelum';
+                                                    }
+                                                    document.getElementById('accDaysValue').value = cd[a].value;
+                                                } else if (cd[a].code == 'DUE_DATE') {
+                                                    if (locale == 'en') {
+                                                    	document.getElementById('ccDaysDisplay').innerHTML = 'Before ' + cd[a].value + ' days';
+                                                    } else {
+                                                    	document.getElementById('ccDaysDisplay').innerHTML = '' + cd[a].value + ' hari sebelum';
+                                                    }
+                                                    document.getElementById('ccDaysValue').value = cd[a].value;
+                                                }
+                                            }
+                                        } else {
+                                            document.getElementById('accDaysValue').value = '';
+                                            document.getElementById('ccDaysValue').value = '';
+                                        }
+                                        var fg = getContentData('paymentOldUserList');
+                                        if (fg.length > 0) {
+                                            for (var j = 0; j < fg.length;j++) {
+                                                if (fg[j].code == 'INST_DATE') {
+                                                    document.getElementById('oldAccDaysValue').value = fg[j].value;
+                                                } else if (fg[j].code == 'DUE_DATE') {
+                                                    document.getElementById('oldCcDaysValue').value = fg[j].value;
+                                                }
+                                            }
+                                        } else {
+                                            document.getElementById('oldAccDaysValue').value = '';
+                                            document.getElementById('oldCcDaysValue').value = '';
+                                        }
+                                        processLanguagesDiv('notifications');
+                                        showHideLeft('notifications', 'preferences');
+                                        app.backFunction=customBackFromNotif;
+                                    } else {
+                                        alert(getContentData('message'));
+                                    }
+                                }
+                                
+								function goToAccDays(){
+									var accDaysValue = document.getElementById('accDaysValue').value;
+									for (var a=0; a<8; a++){
+										$('#acc'+a+'day').removeClass("selected");
+									}
+									if (accDaysValue == null || accDaysValue == '') {
+										for (var a=0; a<8; a++){
+											$('#acc'+a+'day').removeClass("selected");
+										}
+										$('#acc0day').addClass("selected");
+									} else {
+										$('#acc'+accDaysValue+'day').addClass("selected");
+									}
+									
+									 showHideLeft('accDays','notifications');
+								}
+								
+								function goToCCDays() {
+									var ccDaysValue = document.getElementById('ccDaysValue').value;
+									for (var a=0; a<8; a++){
+										$('#credit'+a+'day').removeClass("selected");
+									}
+									if (ccDaysValue == null || ccDaysValue == '') {
+										for (var a=0; a<8; a++){
+											$('#credit'+a+'day').removeClass("selected");
+										}
+										$('#credit0day').addClass("selected");
+									} else {
+										$('#credit'+ccDaysValue+'day').addClass("selected");
+									}
+									
+									showHideLeft('creditcardDays','notifications');
+								}
+								
+                                function fillPWD_LOCKValue() {
+                                    var existVal = document.getElementById('accountLockedValue').value;
+                                    var acctLockCode = 'PWD_LOCK';
+                                    if (existVal == 'false') {
+                                        document.getElementById('accountLockedValue').value = acctLockCode;
+                                        $("#PWD_LOCK").addClass("selected");
+                                    } else {
+                                        document.getElementById('accountLockedValue').value = 'false';
+                                        $("#PWD_LOCK").removeClass("selected");
+                                    }
+                                }
+                                
+                                function fillPWD_EXPValue() {
+                                    var existVal = document.getElementById('passwordExpValue').value;
+                                    var passLockCode = 'PWD_EXP';
+                                    if (existVal == 'false') {
+                                        document.getElementById('passwordExpValue').value = passLockCode;
+                                        $("#PWD_EXP").addClass("selected");
+                                    } else {
+                                        document.getElementById('passwordExpValue').value = 'false';
+                                        $("#PWD_EXP").removeClass("selected");
+                                    }
+                                }
+                                
+                                function fillUSR_INACTIVEValue() {
+                                    var existVal = document.getElementById('ibInactiveValue').value;
+                                    var userInactiveCode = 'USR_INACTIVE'
+                                    if (existVal == 'false') {
+                                        document.getElementById('ibInactiveValue').value = userInactiveCode;
+                                        $("#USR_INACTIVE").addClass("selected");
+                                    } else {
+                                        document.getElementById('ibInactiveValue').value = 'false';
+                                        $("#USR_INACTIVE").removeClass("selected");
+                                    }
+                                }
+                                
+                                var accDaysValueLast;
+                                
+                                function fillAccDaysValue(val, id) {
+                                	 var locale = getContentData('locale');
+                                    if (val > 0) {
+	                                    document.getElementById('accDaysValue').value = val;
+	                                    if (locale == 'en') {
+                                          	document.getElementById('accDaysDisplay').innerHTML = 'Before ' + val + ' days';
+                                         } else {
+									document.getElementById('accDaysDisplay').innerHTML = ''+ val + ' hari sebelum';
+                                         }
+	                                    $('#' + accDaysValueLast).removeClass('selected');
+	                                    $('#' + id).addClass('selected');
+	                                    accDaysValueLast = id;
+	                               } else {
+								 document.getElementById('accDaysValue').value = '';
+	                                    document.getElementById('accDaysDisplay').innerHTML = '';
+	                                    $('#' + accDaysValueLast).removeClass('selected');
+	                                    $('#' + id).addClass('selected');
+	                                    accDaysValueLast = id;
+	                               }
+                                    showHideRight('notifications', 'accDays');
+                                }
+                                
+                                function fillAccDaysCustomValue() {
+                                	var locale = getContentData('locale');
+                                    var val = document.getElementById('acctdays').value;
+                                    var a = isNaN(val);
+                                    if (val == '') {
+                                        //alert('Value is required');
+                                        loadMessageResourceAlert("notification.value.required");
+                                        return;
+                                    } else if (a == false) {
+                                        $('#' + accDaysValueLast).removeClass('selected');
+                                        document.getElementById('accDaysValue').value = val;
+                                        if (locale == 'en') {
+                                          	document.getElementById('accDaysDisplay').innerHTML = 'Before ' + val + ' days';
+                                         } else {
+									document.getElementById('accDaysDisplay').innerHTML = ''+ val + ' hari sebelum';
+                                         }
+                                        showHideRight('notifications', 'accountcustomSelection');
+                                    } else {
+                                        //alert('Value must be numeric');
+                                        loadMessageResourceAlert("notification.value.must.numeric");
+                                        return;
+                                    }
+                                }
+                                
+                                var creditCardsValueLast;
+                                
+                                function fillCreditCardsValue(val, id) {
+                                	var locale = getContentData('locale');
+                                    if (val > 0) {
+	                                    document.getElementById('ccDaysValue').value = val;
+	                                    if (locale == 'en') {
+                                          	document.getElementById('ccDaysDisplay').innerHTML = 'Before ' + val + ' days';
+                                         } else {
+									document.getElementById('ccDaysDisplay').innerHTML = ''+ val + ' hari sebelum';
+                                         }
+	                                    $('#' + creditCardsValueLast).removeClass('selected');
+	                                    $('#' + id).addClass('selected');
+                                    	 creditCardsValueLast = id;
+                                    } else {
+                                    	 document.getElementById('ccDaysValue').value = '';
+	                                    document.getElementById('ccDaysDisplay').innerHTML = '';
+	                                    $('#' + creditCardsValueLast).removeClass('selected');
+	                                    $('#' + id).addClass('selected');
+                                    	 creditCardsValueLast = id;
+                                    }
+                                    showHideRight('notifications', 'creditcardDays');
+                                }
+                                
+                                function fillCreditCardDaysCustomValue() {
+                                	var locale = getContentData('locale');
+                                    var val = document.getElementById('ccdays').value;
+                                    var a = isNaN(val);
+                                    if (val == '') {
+                                        //alert('Value is required');
+                                        loadMessageResourceAlert("notification.value.required");
+                                        return;
+                                    } else if (a == false) {
+                                        $('#' + creditCardsValueLast).removeClass('selected');
+                                        document.getElementById('ccDaysValue').value = val;
+                                         if (locale == 'en') {
+                                          	document.getElementById('ccDaysDisplay').innerHTML = 'Before ' + val + ' days';
+                                         } else {
+									document.getElementById('ccDaysDisplay').innerHTML = ''+ val + ' hari sebelum';
+                                         }
+                                        showHideRight('notifications', 'creditcardcustomSelection');
+                                    } else {
+                                        //alert('Value must be numeric');
+                                        loadMessageResourceAlert("notification.value.required");
+                                        return;
+                                    }
+                                }
+
+                                function validationAccDays() {
+							var accDaysValue = $('#acctdays').val();
+							if (accDaysValue != "" && accDaysValue < 1 ) {
+								//alert('Future and recurring cannot be less than 1 day');
+								loadMessageResourceAlert("notification.future.trx.greater.1.day");
+                                        return;
+                                    } else if (accDaysValue != "" && accDaysValue > 98 ) {
+								//alert('Future and recurring cannot be more than 98 days');
+								loadMessageResourceAlert("notification.future.trx.must.be.less.98.days");
+								return;
+                                    } else {
+								fillAccDaysCustomValue();
+                                    }
+                                }
+
+                                function validationCcDays() {
+                                    var ccDaysValue = $('#ccdays').val();
+                                    if (ccDaysValue != "" && ccDaysValue < 1 ) {
+								//alert('Credit card Payment cannot be less than 1 day');
+								loadMessageResourceAlert("notification.cc.payment.greater.1.day");
+								return;
+                                    } else if (ccDaysValue != "" && ccDaysValue > 28 ) {
+								//alert('Credit card Payment cannot be more than 28 days');
+								loadMessageResourceAlert("notification.cc.payment.must.be.less.28.days");
+								return;
+                                    } else {
+								fillCreditCardDaysCustomValue();
+                                    }
+                                }
+                                
+                                function saveNotification() {
+                                    var accountLockedValue = $('#accountLockedValue').val();
+                                    var passwordExpValue = $('#passwordExpValue').val();
+                                    var ibInactiveValue = $('#ibInactiveValue').val();
+                                    var accDaysValue = $('#accDaysValue').val();
+                                    var ccDaysValue = $('#ccDaysValue').val();
+                                    var oldAccDaysValue = $('#oldAccDaysValue').val();
+                                    var oldCcDaysValue = $('#oldCcDaysValue').val();
+                                    var custType = getContentData('custType');
+                                    //alert(accountLockedValue+'/'+passwordExpValue+'/'+ibInactiveValue+'/'+accDaysValue+'/'+ccDaysValue);
+                                    
+                                    
+                                    if (accDaysValue != "" && accDaysValue < 1 ) {
+								//alert('Future and recurring cannot be less than 1 day');
+								loadMessageResourceAlert("notification.future.trx.greater.1.day");
+                                        return;
+                                    }
+                                    if (ccDaysValue != "" && ccDaysValue < 1 ) {
+								//alert('Credit card Payment cannot be less than 1 day');
+								loadMessageResourceAlert("notification.cc.payment.greater.1.day");
+								return;
+                                    }
+                                    if (accDaysValue != "" && accDaysValue > 98 ) {
+								//alert('Future and recurring cannot be more than 98 days');
+								loadMessageResourceAlert("notification.future.trx.must.be.less.98.days");
+								return;
+                                    }
+                                    if (ccDaysValue != "" && ccDaysValue > 28 ) {
+								//alert('Credit card Payment cannot be more than 28 days');
+								loadMessageResourceAlert("notification.cc.payment.must.be.less.28.days");
+								return;
+                                    }
+                                    
+                                    setContentData([{
+                                                    source: 'server',
+                                                    service: 'SaveNotification',
+                                                    params: {
+                                                    accountLockedValue: accountLockedValue,
+                                                    passwordExpValue: passwordExpValue,
+                                                    ibInactiveValue: ibInactiveValue,
+                                                    custType: custType,
+                                                    accDaysValue: accDaysValue,
+                                                    ccDaysValue: ccDaysValue,
+                                                    oldAccDaysValue : oldAccDaysValue,
+                                                    oldCcDaysValue : oldCcDaysValue
+                                                    }
+                                                    }], 'saveNotificationCallback');
+                                }
+                                
+                                function saveNotificationCallback() {
+                                    var ok = getContentData('ok');
+                                    if (ok == 1) {
+                                        showHideRight('preferences', 'notifications');
+                                    } else {
+                                        alert(getContentData('message'));
+                                    }
+                                }
+                                
+                                function processSavePassword() {
+                                    var var1 = $('#currentPass').val();
+                                    var var2 = $('#newPassword').val();
+                                    var var3 = $('#confirmPassword').val();
+                                    
+                                    if (var1 == "") {
+                                        loadMessageResourceAlert("changePassword.currentPass.mandatory");
+                                    } else if (var2 == "") {
+                                        loadMessageResourceAlert("changePassword.newPass.mandatory");
+                                    } else if (var3 == "") {
+                                        loadMessageResourceAlert("changePassword.confirmPass.mandatory");
+                                    } else if (var3 != var2) {
+                                        loadMessageResourceAlert("changePassword.password.different");
+                                    } else {
+                                        setContentData([{
+                                                        source: 'server',
+                                                        service: 'changePassword',
+                                                        params: {
+                                                        oldPassword: $('#currentPass').val(),
+                                                        newPassword: $('#newPassword').val(),
+                                                        confirmPassword: $('#confirmPassword').val()
+                                                        }
+                                                        }], 'passValidation');
+                                    }
+                                }
+                                
+                                function passValidation() {
+                                    var ok = getContentData('ok');
+                                    if (ok == 1) {
+                                        document.getElementById('currentPass').value = '';
+                                   	document.getElementById('newPassword').value = '';
+                                   	document.getElementById('confirmPassword').value = '';
+
+                                   	showHideRight('preferences','changePassword');
+                                        showPopup("changePasswordConfirmmsg");
+                                    } else {
+                                        alert(getContentData('message'));
+                                    }
+                                }
+                                
+                                    </script>
+                                <script>
+                                    function getCustomerAccount(){
+                                        setContentData([{source: 'server',service:'GetCustomerAccountById',dataIds:[{dataId: 'listAccountAlias',dataType:'list',source:'param'}, {dataId: 'newListSize',dataType:'text',source:'param'}]}], 'loadAccountAlias');
+                                    }
+                                </script>
+                                <script>
+                                    function loadAccountAlias() {
+                                        var ok = getContentData('ok');
+                                        var message = getContentData('message');
+                                        document.getElementById('depositList').innerHTML = '';
+                                        if(ok==1){
+                                            //document.getElementById('depositListHeader').innerHTML = '<li class="ui-li ui-li-divider ui-bar-b ui-first-child"><language key="savingCurrentTD"></language></li>';
+                                            document.getElementById('depositList').innerHTML='';
+                                            var cd = getContentData('listAccountAlias');
+                                            var listSize = getContentData('newListSize');
+		                                  if (listSize==0) {
+		                                        document.getElementById('depositList').innerHTML = '<li class="ui-li ui-li-divider ui-bar-b ui-first-child"><language key="noRecords"></language></li>';
+		                                  }else{ 
+	                                            for(var i=0;i<cd.length;i++){
+		                                           if(i == 0){
+		                                           	document.getElementById('depositList').innerHTML = '<li class="ui-li ui-li-divider ui-bar-b ui-first-child"><language key="savingCurrentTD"></language></li>';
+		                                           }else{
+	                                                	document.getElementById('depositList').innerHTML += '<li class="ui-btn ui-btn-icon-right ui-li ui-btn-up-c"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a class="ui-link-inherit" onclick="accountAliasDetail(\''+cd[i].accountNo+'\',\''+cd[i].accountAlias+'\');"><p style="font-size:12px;font-weight:400;display:block;margin:-.5em 0 .6em;text-overflow:ellipsis;overflow:hidden;white-space:nowrap">'+cd[i].accountAlias+'</p><p class="accountDetails ui-li-desc">'+cd[i].accountNo+'</p></a></div></div></li>';
+	                                                }
+	                                            }
+                                            }
+                                            processLanguagesDiv('renameAccount');
+                                            showHideLeft('renameAccount','preferences');
+                                            app.backFunction=customBackFromRenameAcct;
+                                        }else{
+                                            alert(message);
+                                        }
+                                    }
+                                </script>
+                                <script>
+                                    function accountAliasDetail(accountNo, accountAlias){
+                                        document.getElementById('renametextbox').value=accountAlias;
+                                        document.getElementById('accountNoRenameAccount').innerHTML=accountNo;
+                                        document.getElementById('accountNoRenameAccountHidden').value=accountNo;
+                                        
+                                        showHideLeft('renameaccounts','renameAccount');
+                                        app.backFunction=customBackFromRenameAcctInside;
+                                    }
+                                </script>
+                                <script>
+                                    function executeUpdateRenameAccount(){
+                                        var accountNo = $('#accountNoRenameAccountHidden').val();
+                                        var accountAliasNew = $('#renametextbox').val();
+                                        if(accountAliasNew == ""){
+                                        	loadMessageResourceAlert("rename.account.accountname.mandatory");
+                                        }else{
+                                        	invokeService({action: [{source: 'server', service: 'ExecuteUpdateAccountAlias',params:{accountNo: accountNo,accountAlias: accountAliasNew}}]},"executeUpdateCallback");
+                                        }
+                                    }
+                                
+                                function executeUpdateCallback(){
+                                    var ok = getContentData('ok');
+                                    var message = getContentData('message');
+                                    if(ok==1){
+                                    	
+                                    	setContentData([{source: 'server',service:'GetCustomerAccountById',dataIds:[{dataId: 'listAccountAlias',dataType:'list',source:'param'}]}], 'loadAccountAlias2');
+                                    }
+                                    else{
+                                        alert(message);
+                                    }
+                                }
+
+                                function loadAccountAlias2() {
+                                        var ok = getContentData('ok');
+                                        var message = getContentData('message');
+                                        document.getElementById('depositList').innerHTML = '';
+                                        if(ok==1){
+                                            //document.getElementById('depositListHeader').innerHTML = '<li class="ui-li ui-li-divider ui-bar-b ui-first-child"  ><language key="savingCurrentTD"></language></li>';
+                                            var cd = getContentData('listAccountAlias');
+                                            var listSize = getContentData('newListSize');
+		                                  if (listSize==0) {
+		                                        document.getElementById('depositList').innerHTML = '<li class="ui-li ui-li-divider ui-bar-b ui-first-child"><language key="noRecords"></language></li>';
+		                                  }else{
+	                                            for(var i=0;i<cd.length;i++){
+	                                             if(i == 0){
+		                                           	document.getElementById('depositList').innerHTML = '<li class="ui-li ui-li-divider ui-bar-b ui-first-child"><language key="savingCurrentTD"></language></li>';
+		                                         }else{
+	                                                	document.getElementById('depositList').innerHTML += '<li class="ui-btn ui-btn-icon-right ui-li ui-btn-up-c"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a class="ui-link-inherit" onclick="accountAliasDetail(\''+cd[i].accountNo+'\',\''+cd[i].accountAlias+'\');"><p style="font-size:12px;font-weight:400;display:block;margin:-.5em 0 .6em;text-overflow:ellipsis;overflow:hidden;white-space:nowrap">'+cd[i].accountAlias+'</p><p class="accountDetails ui-li-desc">'+cd[i].accountNo+'</p></a></div></div></li>';
+	                                              }
+	                                            }
+                                            }
+                                            changeRenameAccount = '1';
+                                            processLanguagesDiv('renameAccount');
+                                            showHideLeft('renameAccount', 'renameaccounts');
+                                            app.backFunction=customBackFromRenameAcctInside;
+                                            showPopup('accnameupdatedConfirm');
+                                        }else{
+                                            alert(message);
+                                        }
+                                    }
+
+                                  function getPasswordRules(){
+                                  		document.getElementById('currentPass').value = '';
+                                   	document.getElementById('newPassword').value = '';
+                                   	document.getElementById('confirmPassword').value = '';
+                                   	
+                                  		setContentData([{source: 'server',service:'GetPasswordLength',dataIds:[{dataId: 'minLenPass',dataType:'text',source:'param'},{dataId: 'maxLenPass',dataType:'text',source:'param'},{dataId: 'minLowerCase',dataType:'text',source:'param'},{dataId: 'minUpperCase',dataType:'text',source:'param'},{dataId: 'minNumeric',dataType:'text',source:'param'},{dataId: 'pwdAlphaNumeric',dataType:'text',source:'param'}]}], 'pwdLengthCB');
+                                  }
+
+                                  function pwdLengthCB(){
+			                        	if(getContentData('ok')==1){
+		                            		//var minLenUserId = getContentData('minLenUserId');
+									var minLenPass = getContentData('minLenPass');
+									var maxLenPass = getContentData('maxLenPass');
+									var minUpperCase = getContentData('minUpperCase');
+									var minLowerCase = getContentData('minLowerCase');
+									var minNumeric = getContentData('minNumeric');
+									var rangeLenPwd = minLenPass+"-"+maxLenPass;
+									
+									//document.getElementById('minLenUserId').innerHTML = minLenUserId;
+									document.getElementById('rangeLenPwd').innerHTML = rangeLenPwd;
+									document.getElementById('minUppercase').innerHTML = minUpperCase;
+									document.getElementById('minLowercase').innerHTML = minLowerCase;
+									document.getElementById('minNumeric').innerHTML = minNumeric;
+									
+									showHideLeft('changePassword','preferences');
+									app.backFunction=customBackFromChangePwd;
+		                            	}else{
+		                            		alert(getContentData('message'));
+		                            	}
+	                        		
+	                        		}
+
+	                        		function menuSelection(){
+	                        			var menuList = getContentData('menuLogin');
+	                        			setContentData([{source: 'server',service:'PreferenceMenuMapping',params:{menuList:menuList}, dataIds:[{dataId: 'menuListResult',dataType:'list',source:'param'}]}], 'menuCB');       			
+	                        		}
+
+	                        		function menuCB(){
+	                        			if(getContentData('ok')==1){
+	                        				var menuListResults = getContentData('menuListResult');
+	                        				var custType = getContentData('custType');
+	                        				for (var j = 0; j < menuListResults.length; j++) {
+	                        					var divIdMenu = menuListResults[j].divId;
+	                        					if(divIdMenu!=''){
+		                        					if(divIdMenu == "transactionReminder" || divIdMenu == "userProfileNotification"){
+		                        						document.getElementById('notificationMenu').style.display='block';
+		                        						if(divIdMenu == "transactionReminder"){
+		                        							document.getElementById('title2').style.display='block';
+		                        							document.getElementById('trxReminder').style.display='block';
+		                        						}else if(divIdMenu == "userProfileNotification"){
+		                        							document.getElementById('title1').style.display='block';
+		                        							document.getElementById('userNotification').style.display='block';
+		                        						}
+		                        					}else{
+		                        						document.getElementById(divIdMenu).style.display='block';
+		                        					}
+		                        					if (custType == "CC") {
+												document.getElementById('renameAccountParent').style.display='none';
+												document.getElementById('mobilePinParent').style.display='none';
+												$('#notificationMenu').addClass('ui-last-child');
+		                        					}
+	                        					}
+	                        				}
+	                        			}else{
+	                        				alert(getContentData('message'));
+	                        			}
+	                        		}
+                                </script>
+                                <script>
+                                	function customBackMainPreferences(){
+                                		checkMobileBanking();
+                                	}
+
+                                	//change email
+
+                                	function customBackFromChangeEmail(){
+                                		showHideLeft('preferences','changeEmail');
+                                		app.backFunction=customBackMainPreferences;
+                                	}
+
+                                	//change pwd
+
+                                	function customBackFromChangePwd(){
+                                		showHideLeft('preferences','changePassword');
+                                		app.backFunction=customBackMainPreferences;
+                                	}
+
+                                	//forgot pin
+
+                                	function customBackFromForgetPin(){
+                                		showHideLeft('preferences','forgetpin');
+                                		app.backFunction=customBackMainPreferences;
+                                	}
+
+                                	//scheduled trx
+
+                                	function customBackFromScheduledTrx(){
+                                		showHideLeft('preferences','scheduledTransactions');
+                                		app.backFunction=customBackMainPreferences;
+                                	}
+
+                                	function customBackFromScheduledDtl(){
+                                		showHideLeft('scheduledTransactions','scheduledDetails');
+                                		app.backFunction=customBackFromScheduledTrx;
+                                	}
+
+                                	//notif
+
+                                	function customBackFromNotif(){
+                                		showHideLeft('preferences','notifications');
+                                		app.backFunction=customBackMainPreferences;
+                                	}
+
+                                	//rename acct
+                                	
+                                	function customBackFromAccDays(){
+                                		showHideLeft('notifications','accDays');
+                                		app.backFunction=customBackFromNotif;
+                                	}
+
+									function customBackFromCcDays(){
+                                		showHideLeft('notifications','creditcardDays');
+                                		app.backFunction=customBackFromNotif;
+                                	}
+
+                                	function customBackFromRenameAcct(){
+                                		showHideLeft('preferences','renameAccount');
+                                		app.backFunction=customBackMainPreferences;
+                                	}
+
+                                	function customBackFromRenameAcctInside(){
+                                		showHideLeft('renameAccount','renameaccounts');
+                                		app.backFunction=customBackFromRenameAcct;
+                                	}
+
+                                </script>
+                                <script>
+							function getAccountList(){
+								setContentData([{source: 'server',service:'AccountList',dataIds:[{dataId: 'accounts',dataType:'list',source:'param'},{dataId: 'ccAccounts',dataType:'list',source:'param'},{dataId:'depositBalance',dataType:'text',source:'param'},{dataId:'depositBalanceDisplay',dataType:'text',source:'param'},{dataId:'ccOutstanding',dataType:'text',source:'param'},{dataId:'ccOutstandingDisplay',dataType:'text',source:'param'},{dataId:'bankAccountSystemViolation',dataType:'text',source:'param'},{dataId:'ccAccountSystemViolation',dataType:'text',source:'param'}]}], 'accountListPage');
+							}
+							
+							function accountListPage(){
+								if(getContentData('ok')==1){
+									goToHTML({viewId: 'myaccount.html'});
+								}else{
+									alert(getContentData('message'));
+								}
+							}
+
+							function backToAccountList() {
+								if (changeRenameAccount != '0') {
+									getAccountList();
+								} else {
+									checkMobileBanking();
+								}
+							}
+                                </script>
+                                </head>
+    <body class="loginScreen innerPage ui-mobile-viewport ui-overlay-c" onload="menuSelection();processLanguages();app.backFunction=customBackMainPreferences">
+        <!----*****************------->
+        <!------* preferences *------->
+        <!----****************-------->
+        <div class="ui-page ui-body-c ui-page-header-fixed ui-page-active" id="preferences">
+            <div id="header" class="header ui-header ui-bar-a ui-header-fixed slidedown">
+                <a onclick="backToAccountList();" class="leftBtnTwo arrow ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all ui-btn-up-a"><span class="ui-btn-inner ui-btn-text"><language key="account1"></language></span></a>
+                <h1 class="ui-title">
+                    <language key="preferences"></language>
+                </h1>
+            </div>
+            <div class="productView noshadow ui-content">
+                <div class="content-primary">
+                    <ul class="listtype whiteList ui-listview ui-listview-inset ui-corner-all ui-shadow" >
+                        <li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li ui-first-child" id="changeEmailAddress" style="display:none">
+                            <div class="ui-btn-inner ui-li">
+                                <div class="ui-btn-text"><a class="ui-link-inherit" onclick="fixScrollTop();prepareChangeEmail();"><span class="linkText"><language key="changeEmail"></language></span></a></div>
+                                <span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span>
+                            </div>
+                        </li>
+                        <li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-btn-up-c" id="changePasswordParent" style="display:none">
+                            <div class="ui-btn-inner ui-li">
+                                <div class="ui-btn-text"><a class="ui-link-inherit" onclick="fixScrollTop();getPasswordRules();"><span class="linkText"><language key="changePassword"></language></span></a></div>
+                                <span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span>
+                            </div>
+                        </li>
+                        <li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li" id="mobilePinParent" style="display:block;">
+                            <div class="ui-btn-inner ui-li">
+                                <div class="ui-btn-text"><a class="ui-link-inherit" onclick="fixScrollTop();showHideLeft('forgetpin','preferences');app.backFunction=customBackFromForgetPin"><span class="linkText"><language key="mobilePin1"></language></span></a></div>
+                                <span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span>
+                            </div>
+                        </li>
+                        <li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li" id="scheduledTransaction" style="display:none">
+                            <div class="ui-btn-inner ui-li">
+                                <div class="ui-btn-text"><a class="ui-link-inherit" onclick="fixScrollTop();getListScheduledTransactions();lastIdToRemove='preferences';"><span class="linkText"><language key="scheduledTrans"></language></span></a></div>
+                                <span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span>
+                            </div>
+                        </li>
+                        <li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li" id="notificationMenu" style="display:none">
+                            <div class="ui-btn-inner ui-li">
+                                <div class="ui-btn-text"><a class="ui-link-inherit"><span class="linkText" onclick="fixScrollTop();prepareNotification();"><language key="notifications"></language></span></a></div>
+                                <span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span>
+                            </div>
+                        </li>
+                        <li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li ui-last-child" id="renameAccountParent" style="display:none">
+                            <div class="ui-btn-inner ui-li">
+                                <div class="ui-btn-text"><a class="ui-link-inherit" onclick="fixScrollTop();getCustomerAccount();"><span class="linkText"><language key="renameAccounts"></language></span></a></div>
+                                <span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span>
+                            </div>
+                        </li>
+                    </ul>
+                    <div style="display: none;">
+                        <!-- placeholder for changeEmailConfirmmsg -->
+                    </div>
+                    <div style="display: none;">
+                        <!-- placeholder for changepasswordConfirmmsg -->
+                    </div>
+                </div>
+            </div>
+            <div id="changeEmailConfirmmsg-screen" class="ui-screen-hidden ui-popup-screen ui-overlay-b"></div>
+            <div id="changeEmailConfirmmsg-popup" class="ui-popup-container ui-popup-hidden">
+                <div id="changeEmailConfirmmsg" class="popup popupTwo ui-popup ui-overlay-shadow ui-corner-all" >
+                    <h3><language key="emailAddrChanged"></language></h3>
+                    <p><language key="successChangedEmail"></language></p>
+                    <div class="pop-submitBtn marginTop">
+                        <a class="ui-link" onclick="fixScrollTop();hidePopup('changeEmailConfirmmsg');" ><language key="ok"></language></a>
+                    </div>
+                </div>
+            </div>
+            <div id="changePasswordConfirmmsg-screen" class="ui-screen-hidden ui-popup-screen ui-overlay-b"></div>
+            <div id="changePasswordConfirmmsg-popup" class="ui-popup-container ui-popup-hidden">
+                <div id="changePasswordConfirmmsg" class="popup popupTwo ui-popup ui-overlay-shadow ui-corner-all" >
+                    <h3>Password Successfully changed</h3>
+                    <p>You have successfully changed your password.</p>
+                    <div class="pop-submitBtn marginTop">
+                        <a class="ui-link" onclick="hidePopup('changePasswordConfirmmsg');" >OK</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <!------  Forget PIN ------->
+        <div class="ui-page ui-body-c ui-page-header-fixed " id="forgetpin">
+            <div id="header" class="header ui-header ui-bar-a ui-header-fixed slidedown">
+                <a onclick="fixScrollTop();showHideRight('preferences','forgetpin');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="preferences"></language></span></span></a>
+                <h1 class="alignRight ui-title"> <language key="forgotChangePin"></language> </h1>
+            </div>
+            <div class="noshadow ui-content">
+                <div class="content-primary">
+                    <div class="noshadow">
+                        <p><language key="forgotNotice"></language></p>
+                        <div class="callBtn marginTopTwo"><a class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c"   onclick="fixScrollTop();goToHTML({viewId: 'makePhoneCall'})"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="callANZ1"></language></span></span></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!----*****************------->
+        <!------* Rename Account *------->
+        <!----****************-------->
+        <div class="ui-page ui-body-c ui-page-header-fixed" id="renameAccount">
+            <div id="header" class="header ui-header ui-bar-a ui-header-fixed slidedown">
+                <a onclick="fixScrollTop();showHideRight('preferences','renameAccount');"  class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="preferences"></language></span></span></a>
+                <h1 class="alignLeft ui-title"><language key="renameAcct"></language></h1>
+            </div>
+            <div class="productView whiteBgTwo ui-content">
+                <div class="content-primary">
+                    <ul class="listtype listViewTwo ui-listview" id="depositList">
+                        
+                    </ul>
+                    <div style="display: none;">
+                        <!--placeholder for accnameupdatedConfirm-->
+                    </div>
+                </div>
+            </div>
+            <div id="accnameupdatedConfirm-screen" class="ui-screen-hidden ui-popup-screen ui-overlay-b"></div>
+            <div id="accnameupdatedConfirm-popup" class="ui-popup-container ui-popup-hidden">
+                <div id="accnameupdatedConfirm" class="popup popupTwo ui-popup ui-overlay-shadow ui-corner-all" >
+                    <h3><language key="renameAcctMsg"></language></h3>
+                    <p><language key="renameAcctMsgDetail"></language></p>
+                    <div class="pop-submitBtn marginTop">
+                        <a class="ui-link" onclick="fixScrollTop();hidePopup('accnameupdatedConfirm');">OK</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!------* Rename Account form *------->
+        <div class="ui-page ui-body-c ui-page-header-fixed" id="renameaccounts">
+            <div id="header" class="header ui-header ui-bar-a ui-header-fixed slidedown">
+                <a onclick="fixScrollTop();fixScrollTop();showHideRight('preferences','renameaccounts');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="preferences"></language></span></span></a>
+                <h1 class="alignLeft ui-title"><language key="renameAcct"></language></h1>
+                <a class="rightBtn renameAccount ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" onclick="fixScrollTop();fixScrollTop();executeUpdateRenameAccount();" id="renameAccount"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="save"></language></span></span></a>
+            </div>
+            <div class="noshadow ui-content">
+                <div class="content-primary editForm">
+                    <div class="noshadow">
+                        <p><language key="accountName"></language></p>
+                        <div class="formField textboxMargin firstChild lastChild">
+                            <div class="ui-hide-label smTextbox ui-field-contain ui-body ui-br">
+                                <label class="ui-input-text" for="renametextbox"></label>
+                                <div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="renametextbox" id="renametextbox" placeholder="" type="text"></div>
+                            </div>
+                        </div>
+                        <p>
+                        <span class="emailLabel"><language key="accountNo"></language></span>
+                        <span class="emailValue" id="accountNoRenameAccount"></span>
+                        <input type="hidden" value="" id="accountNoRenameAccountHidden"/>
+                        </p>
+                        <p></p>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <!--
+            <div id="accnameupdatedConfirm-screen" class="ui-popup-screen ui-overlay-b ui-screen-hidden"></div>
+            <div id="accnameupdatedConfirm-popup" class="ui-popup-container ui-popup-hidden">
+                <div id="accnameupdatedConfirm" class="popup popupTwo ui-popup ui-overlay-shadow ui-corner-all ui-body-c" >
+                    <h3>Account Name updated</h3>
+                    <p>Your saving Account Name has been successfully updated.</p>
+                    <div class="pop-submitBtn marginTop"><a class="ui-link" onclick="loadAccountAlias2();hidePopup('accnameupdatedConfirm');">OK</a>
+                    </div>
+                </div>
+            </div>
+            -->
+
+        </div>
+        
+        <!------******************------>
+        <!--- Scheduled Transactions --->
+        <!------******************------>
+        <div class="ui-page ui-body-c ui-page-header-fixed" id="scheduledTransactions">
+            <div id="header" class="header ui-header ui-bar-a ui-header-fixed slidedown">
+                <a onclick="fixScrollTop();showHideRight('preferences','scheduledTransactions');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="preferences"></language></span></span></a>
+                <h1 class="alignRight ui-title"><language key="scheduledTrans"></language></h1>
+            </div>
+            <div class="content-primary">
+			  <div class="ui-collapsible-set ui-corner-all" data-role="collapsible-set">
+	          	 <div class="ui-collapsible ui-collapsible-inset ui-first-child ui-last-child" data-role="collapsible" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-iconpos="right" data-collapsed="false">
+	          	 	<div aria-hidden="false" style="display: block;" class="ui-collapsible-content">
+		                    <ul class="listtype listViewTwo schList ui-listview" id="scheduledTransactionList">
+		                        
+		                    </ul>
+		                    <div style="display: none;">
+		                        <!-- placeholder for scheduleupdatemsg -->
+		                    </div>
+		               </div>
+	                </div>
+	            </div>
+	            <div id="scheduleupdatemsg-screen" class="ui-screen-hidden ui-popup-screen ui-overlay-b"></div>
+	            <div id="scheduleupdatemsg-popup" class="ui-popup-container ui-popup-hidden">
+	                <div id="scheduleupdatemsg" class="popup popupTwo ui-popup ui-overlay-shadow ui-corner-all" >
+	                    <h3><language key="updateComplete"></language></h3>
+	                    <p><language key="scheduledTypeChangedSuccess"></language></p>
+	                    <div class="pop-submitBtn marginTop">
+	                        <a class="ui-link" href="#" onclick="fixScrollTop();hidePopup('scheduleupdatemsg');"><language key="ok"></language></a>
+	                    </div>
+	                </div>
+	            </div>
+		 </div>
+        </div>
+        
+        <!--- Scheduled Transactions details --->
+        <div class="ui-page ui-body-c ui-page-header-fixed" id="scheduledDetails">
+            <div id="header" class="header ui-header ui-bar-a ui-header-fixed slidedown">
+                <a onclick="fixScrollTop();showHideRight('scheduledTransactions','scheduledDetails');" class="leftBtnTwo ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="cancel"></language></span></span></a>
+                <h1 class="ui-title"> <language key="details"></language> </h1>
+                <a onclick="fixScrollTop();performEditScheduled();" class="rightBtn saveSchedule ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="save"></language></span></span></a>
+            </div>
+            <div class="noshadow ui-content">
+                <div class="editForm scheDetails">
+                    <input type="hidden" id="refNoDetail" />
+                    <input type="hidden" id="detailRefNoDetail" />
+                    <input type="hidden" id="menuCdDetail" />
+                    <p>
+                    <span class="emailLabel"><language key="transType"></language></span>
+                    <span id="functionDetail" class="emailValue"></span>
+                    </p>
+                    <p>
+                    <span class="emailLabel"><language key="from"></language></span>
+                    <span id="fromAccountDetail" class="emailValue"></span>
+                    </p>
+                    <p>
+                    <span class="emailLabel"><language key="to"></language></span>
+                    <span id="toAccountDetail" class="emailValue"></span>
+                    </p>
+                    <div id="scheduleTypeDivDetail" class="formElements button scheduleTypeBtn ui-field-contain ui-body ui-br"><a class="ui-btn ui-btn-corner-all ui-btn-icon-right ui-btn-up-c" onclick="fixScrollTop();selectScheduleType();" ><span class="ui-btn-inner"><span class="ui-btn-text"><span class="sLeft"><language key="scheduleType"></language></span><span id="scheduleTypeDetail" class="sRight"></span></span><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></span></a></div>
+                    <input type="hidden" id="scheduleTypeValue" value=""/>
+                    <div id="scheduleDateDivDetail" class="formElements button scheduleTypeBtn ui-field-contain ui-body ui-br" style="display:none;"><a class="ui-btn ui-btn-up-c ui-btn-corner-all ui-btn-icon-right" onclick="fixScrollTop();setSpecificDateExisting();showHideLeft('scheduledDate','scheduledDetails');" ><span class="ui-btn-inner"><span class="ui-btn-text"><span class="sLeft"><language key="transactionDate"></language></span><span id="scheduleDateDetail" class="sRight"></span></span><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></span></a></div>
+                    <input type="hidden" id="scheduleDateValue" value=""/>
+                    <div id="repeatOnDivDetail" class="formElements button repeatBtn ui-field-contain ui-body ui-br" style="display:none;"><a class="ui-btn ui-btn-up-c ui-btn-corner-all ui-btn-icon-right" onclick="fixScrollTop();selectRepeatOn();" ><span class="ui-btn-inner"><span class="ui-btn-text"><span class="sLeft"><language key="repeatOn"></language></span><span class="sRight" id="repeatOnDetail"></span></span><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></span></a></div>
+                    <input type="hidden" id="repeatOnValue" value=""/>
+                    <div id="repeatDayDivDetail" class="formElements button dayBtn ui-field-contain ui-body ui-br" style="display:none;"><a class="ui-btn ui-btn-up-c ui-btn-corner-all ui-btn-icon-right" onclick="fixScrollTop();selectRepeatDay();" ><span class="ui-btn-inner"><span class="ui-btn-text"><span class="sLeft"><language key="day"></language></span><span class="sRight" id="repeatDayDetail"></span></span><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></span></a></div>
+                    <input type="hidden" id="repeatDayValue" value=""/>
+                    <div id="repeatDateDivDetail" class="formElements button dayBtn ui-field-contain ui-body ui-br" style="display:none;"><a class="ui-btn ui-btn-up-c ui-btn-corner-all ui-btn-icon-right" onclick="fixScrollTop();selectRepeatDate();" ><span class="ui-btn-inner"><span class="ui-btn-text"><span class="sLeft"><language key="date"></language></span><span class="sRight" id="repeatDateDetail"></span></span><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></span></a></div>
+                    <input type="hidden" id="repeatDateValue" value=""/>
+                    <div id="fromDateDivDetail" class="formElements button fromBtn ui-field-contain ui-body ui-br" style="display:none;"><a class="ui-btn ui-btn-up-c ui-btn-corner-all ui-btn-icon-right" onclick="fixScrollTop();setFromDateExisting();showHideLeft('scheduledFrom','scheduledDetails');" ><span class="ui-btn-inner"><span class="ui-btn-text"><span class="sLeft"><language key="from"></language></span><span class="sRight" id="fromDateDetail"></span></span><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></span></a></div>
+                    <input type="hidden" id="fromDateValue" value=""/>
+                    <div id="toDateDivDetail" class="formElements button toBtn ui-field-contain ui-body ui-br" style="display:none;"><a class="ui-btn ui-btn-up-c ui-btn-corner-all ui-btn-icon-right" onclick="fixScrollTop();setToDateExisting();showHideLeft('scheduledTo','scheduledDetails');" ><span class="ui-btn-inner"><span class="ui-btn-text"><span class="sLeft"><language key="to2"></language></span><span class="sRight" id="toDateDetail"></span></span><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></span></a></div>
+                    <input type="hidden" id="toDateValue" value=""/>
+                    <div class="pop-deleteBtn marginTop" style="align:center;">
+                        <a href="#" data-transition="slide" class="deleteyes ui-link" onclick="fixScrollTop();showPopup('deleteScheduledConfirmation');"><language key="delete"></language></a>
+                    </div>
+                </div>
+            </div>
+            <script>
+            	function setSpecificDateExisting() {
+				var scheduleDateValue = $("#scheduleDateValue").val();
+				if (scheduleDateValue != null && scheduleDateValue != '') {
+					document.getElementById('scheduleDate').value=scheduleDateValue;
+				}
+            	}
+            	function setFromDateExisting() {
+				var fromDateValue = $("#fromDateValue").val();
+				if (fromDateValue != null && fromDateValue != '') {
+					document.getElementById('repeatFrom').value=fromDateValue;
+				}
+            	}
+            	function setToDateExisting() {
+				var toDateValue = $("#toDateValue").val();
+				if (toDateValue != null && toDateValue != '') {
+					document.getElementById('repeatto').value=toDateValue;
+				}
+            	}
+            </script>
+            <div id="deleteScheduledConfirmation-screen" class="ui-popup-screen ui-overlay-b ui-screen-hidden"></div>
+            <div id="deleteScheduledConfirmation-popup" class="ui-popup-container ui-popup-hidden">
+                <div id="deleteScheduledConfirmation" class="popup popupTwo ui-popup ui-overlay-shadow ui-corner-all ui-body-c">
+                    <h3><language key="deleteTransaction"></language></h3>
+                    <p class="forgetPin"><language key="confirmDeleteScheduled"></language>
+                    </p>
+                    <div class="pop-submitBtn marginTop"><a class="ui-link" href="#" onclick="fixScrollTop();performDeleteSchedule();"><language key="deleteTransaction"></language></a>
+                    </div>
+                    <div class="pop-cancelBtn"><a class="ui-link" onclick="fixScrollTop();hidePopup('deleteScheduledConfirmation');"><language key="cancel"></language></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!--- Scheduled Type --->
+        <div class="ui-page ui-body-c ui-page-header-fixed" id="scheduleType">
+            <div id="header" class="header ui-header ui-bar-a ui-header-fixed slidedown">
+                <a onclick="fixScrollTop();showHideRight('scheduledDetails','scheduleType');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="details"></language></span></span></a>
+                <h1 class="alignRight ui-title"><language key="scheduleType"></language></h1>
+            </div>
+            <div class="noshadow ui-content">
+                <div class="editForm">
+                    <div  class="groupButton groupButtonselection scheduleType ui-corner-all ui-controlgroup ui-controlgroup-vertical">
+                        <div class="ui-controlgroup-controls">
+                            <a class="ui-btn ui-shadow ui-btn-corner-all ui-first-child ui-btn-up-c" id="sendNowCheck" onclick="fixScrollTop();fillScheduleType('1');"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="sendNow"></language></span></span></a>
+                            <a class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c" id="specificCheck" onclick="fixScrollTop();fillScheduleType('3');"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="spesificDate"></language></span></span></a>
+                            <a class="ui-btn ui-shadow ui-btn-corner-all ui-last-child ui-btn-up-c" id="repeatCheck" onclick="fixScrollTop();fillScheduleType('4');"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="repeat"></language></span></span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+		<!--- Scheduled Date --->
+		<div class="ui-page ui-body-c ui-page-header-fixed" id="scheduledDate">
+            <div id="header" class="header ui-header ui-bar-a ui-header-fixed slidedown">
+                <a onclick="fixScrollTop();showHideRight('scheduledDetails','scheduledDate')" class="leftBtnTwo arrow ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="details"></language></span></span></a>
+                <h1 class="ui-title"> <language key="transactionDate"></language> </h1>
+				<a onclick="fixScrollTop();setSpecificDate();" class="rightBtn ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="done"></language></span></span></a>
+            </div>
+            <div class="noshadow ui-content">
+                <div class="editForm">
+                    <div class="formField textboxMargin">
+                        <div class="ui-hide-label smTextbox ui-field-contain ui-body ui-br">
+                        	<label class="ui-input-text" for="transactionDate"><language key="transactionDate"></language></label>
+                        	<div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c">
+                        		<input class="ui-input-text ui-body-c" name="scheduleDate" id="scheduleDate" value="" placeholderKey="transactionDate" type="date">
+                                    </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		
+        <!--- Repeat Type --->
+        <div class="ui-page ui-body-c ui-page-header-fixed" id="repeatType">
+            <div id="header" class="header ui-header ui-bar-a ui-header-fixed slidedown">
+                <a onclick="showHideRight('scheduledDetails','repeatType');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="details"></language></span></span></span></a>
+                <h1 class="alignRight ui-title"><language key="repeatOn"></language></h1>
+            </div>
+            <div class="noshadow ui-content" >
+                <div class="editForm">
+                    <div  class="groupButton groupButtonselection repeatType ui-corner-all ui-controlgroup ui-controlgroup-vertical">
+                        <div class="ui-controlgroup-controls">
+                            <div id="repeatOnWeekType" style="display:none;"><a class="ui-btn ui-shadow ui-btn-corner-all ui-first-child ui-btn-up-c" id="repeatWeek" onclick="fillRepeatOn('W');"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="spesificDayWeek"></language></span></span></a></div>
+                            <div id="repeatOnMonthType" style="display:none;"><a class="ui-btn ui-shadow ui-btn-corner-all ui-last-child ui-btn-up-c" id="repeatMonth" onclick="fillRepeatOn('M');"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="spesificDayMonth"></language></span></span></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!--- Repeat Day --->
+        <div class="ui-page ui-body-c ui-page-header-fixed" id="repeatDay">
+            <div id="header" class="header ui-header ui-bar-a ui-header-fixed slidedown">
+                <a onclick="showHideRight('scheduledDetails','repeatDay');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="details"></language></span></span></a>
+                <h1 class="ui-title"> <language key="day"></language> </h1>
+            </div>
+            <div class="noshadow ui-content" >
+                <div class="editForm">
+                    <div  class="groupButton groupButtonselection repeatday ui-corner-all ui-controlgroup ui-controlgroup-vertical">
+                        <div class="ui-controlgroup-controls">
+                            <a class="ui-btn ui-shadow ui-btn-corner-all ui-first-child ui-btn-up-c" id="repeatSunday" onclick="fillRepeatDay('Sunday');"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="sunday"></language></span></span></a>
+                            <a class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c" id="repeatMonday" onclick="fillRepeatDay('Monday');"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="monday"></language></span></span></a>
+                            <a class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all" id="repeatTuesday" onclick="fillRepeatDay('Tuesday');"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="tuesday"></language></span></span></a>
+                            <a class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all" id="repeatWednesday" onclick="fillRepeatDay('Wednesday');"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="wednesday"></language></span></span></a>
+                            <a class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all" id="repeatThursday" onclick="fillRepeatDay('Thursday');"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="thursday"></language></span></span></a>
+                            <a class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c" id="repeatFriday" onclick="fillRepeatDay('Friday');"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="friday"></language></span></span></a>
+                            <a class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all ui-last-child" id="repeatSaturday" onclick="fillRepeatDay('Saturday');"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="saturday"></language></span></span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!--- Repeat Date --->
+        <div class="ui-page ui-body-c ui-page-header-fixed" id="repeatDate">
+            <div id="header" class="header ui-header ui-bar-a ui-header-fixed slidedown">
+                <a onclick="fixScrollTop();showHideRight('scheduledDetails','repeatDate');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="details"></language></span></span></a>
+                <h1 class="ui-title"> <language key="date"></language> </h1>
+            </div>
+            <div class="noshadow ui-content" >
+                <div class="editForm">
+                    <div  class="groupButton groupButtonselection repeatday ui-corner-all ui-controlgroup ui-controlgroup-vertical">
+                        <div class="ui-controlgroup-controls">
+                            <a id="repeat1" onclick="fillRepeatDate('1');" class="ui-btn ui-shadow ui-btn-corner-all ui-first-child ui-btn-up-c"><span class="ui-btn-inner"><span class="ui-btn-text">1</span></span></a>
+                            <a id="repeat2" onclick="fillRepeatDate('2');" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c"><span class="ui-btn-inner"><span class="ui-btn-text">2</span></span></a>
+                            <a id="repeat3" onclick="fillRepeatDate('3');" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c"><span class="ui-btn-inner"><span class="ui-btn-text">3</span></span></a>
+                            <a id="repeat4" onclick="fillRepeatDate('4');" class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text">4</span></span></a>
+                            <a id="repeat5" onclick="fillRepeatDate('5');" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c"><span class="ui-btn-inner"><span class="ui-btn-text">5</span></span></a>
+                            <a id="repeat6" onclick="fillRepeatDate('6');" class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text">6</span></span></a>
+                            <a id="repeat7" onclick="fillRepeatDate('7');" class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text">7</span></span></a>
+                            <a id="repeat8" onclick="fillRepeatDate('8');" class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text">8</span></span></a>
+                            <a id="repeat9" onclick="fillRepeatDate('9');" class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text">9</span></span></a>
+                            <a id="repeat10" onclick="fillRepeatDate('10');" class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text">10</span></span></a>
+                            <a id="repeat11" onclick="fillRepeatDate('11');" class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text">11</span></span></a>
+                            <a id="repeat12" onclick="fillRepeatDate('12');" class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text">12</span></span></a>
+                            <a id="repeat13" onclick="fillRepeatDate('13');" class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text">13</span></span></a>
+                            <a id="repeat14" onclick="fillRepeatDate('14');" class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text">14</span></span></a>
+                            <a id="repeat15" onclick="fillRepeatDate('15');" class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text">15</span></span></a>
+                            <a id="repeat16" onclick="fillRepeatDate('16');" class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text">16</span></span></a>
+                            <a id="repeat17" onclick="fillRepeatDate('17');" class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text">17</span></span></a>
+                            <a id="repeat18" onclick="fillRepeatDate('18');" class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text">18</span></span></a>
+                            <a id="repeat19" onclick="fillRepeatDate('19');" class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text">19</span></span></a>
+                            <a id="repeat20" onclick="fillRepeatDate('20');" class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text">20</span></span></a>
+                            <a id="repeat21" onclick="fillRepeatDate('21');" class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text">21</span></span></a>
+                            <a id="repeat22" onclick="fillRepeatDate('22');" class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text">22</span></span></a>
+                            <a id="repeat23" onclick="fillRepeatDate('23');" class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text">23</span></span></a>
+                            <a id="repeat24" onclick="fillRepeatDate('24');" class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text">24</span></span></a>
+                            <a id="repeat25" onclick="fillRepeatDate('25');" class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text">25</span></span></a>
+                            <a id="repeat26" onclick="fillRepeatDate('26');" class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text">26</span></span></a>
+                            <a id="repeat27" onclick="fillRepeatDate('27');" class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text">27</span></span></a>
+                            <a id="repeat28" onclick="fillRepeatDate('28');" class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text">28</span></span></a>
+                            <a id="repeat29" onclick="fillRepeatDate('29');" class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text">29</span></span></a>
+                            <a id="repeat30" onclick="fillRepeatDate('30');" class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text">30</span></span></a>
+                            <a id="repeat31" onclick="fillRepeatDate('31');" class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all ui-last-child"><span class="ui-btn-inner"><span class="ui-btn-text">31</span></span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		
+        <!--- Scheduled From --->
+        <div class="ui-page ui-body-c ui-page-header-fixed" id="scheduledFrom">
+            <div id="header" class="header ui-header ui-bar-a ui-header-fixed slidedown">
+                <a onclick="fixScrollTop();showHideRight('scheduledDetails','scheduledFrom');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="details"></language></span></span></a>
+                <h1 class="ui-title"> <language key="from"></language> </h1>
+                <a onclick="fixScrollTop();setFromDate();" class="rightBtn ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="done"></language></span></span></a>
+            </div>
+            <div class="noshadow darkBg ui-content" >
+                <div class="editForm">
+                    <div class="formField noMargin">
+                        <div class="ui-hide-label smTextbox ui-field-contain ui-body ui-br">
+                            <label class="ui-input-text" for="repeatFrom"><language key="repeatFrom"></language></label>
+                            <div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="repeatFrom" id="repeatFrom" value="" placeholderKey="repeatFrom" type="date"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        <!--- Scheduled To --->
+        <div class="ui-page ui-body-c ui-page-header-fixed" id="scheduledTo">
+            <div id="header" class="header ui-header ui-bar-a ui-header-fixed slidedown">
+                <a onclick="fixScrollTop();showHideRight('scheduledDetails','scheduledTo');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="details"></language></span></span></a>
+                <h1 class="ui-title"> <language key="to2"></language> </h1>
+                <a onclick="fixScrollTop();setToDate();" class="rightBtn ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="done"></language></span></span></a>
+            </div>
+            <div class="noshadow ui-content" >
+                <div class="editForm">
+                    <div class="formField textboxMargin">
+                        <div class="ui-hide-label smTextbox ui-field-contain ui-body ui-br">
+                            <label class="ui-input-text" for="repeatto"><language key="repeatTo"></language></label>
+                            <div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="repeatto" id="repeatto" value="" placeholderKey="repeatTo" type="date"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!------******************------>
+        <!------ Notifications --------->
+        <!------******************------>
+        <div class="ui-page ui-body-c ui-page-header-fixed" id="notifications">
+            <div id="header" class="header ui-header ui-bar-a ui-header-fixed slidedown">
+                <a onclick="showHideRight('preferences','notifications');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="preferences"></language></span></span></a>
+                <h1 class="alignRight ui-title"><language key="notifications"></language></h1>
+                <a class="rightBtn saveNotification ui-btn-right ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" onclick="saveNotification();"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="save"></language></span></span></a>
+            </div>
+            <div class="noshadow ui-content" >
+                <div class="editForm">
+                    <p id="title1" style="display:none"><language key="getEmailNotifWhen"></language></p>
+                    <div  class="groupButton groupButtonselection notificationWhen ui-corner-all ui-controlgroup ui-controlgroup-vertical" id="userNotification" style="display:none">
+                        <div class="ui-controlgroup-controls">
+                            <!--<a onclick="fillPWD_LOCKValue();">Account is Locked</a>
+                             <a onclick="fillPWD_EXPValue();">Password is Expired</a>
+                             <a onclick="fillUSR_INACTIVEValue();">Internet banking is inactive</a-->
+                        </div>
+                    </div>
+                    <p id="title2" style="display:none"><language key="getEmailNotifFor"></language></p>
+                    <div  class="formElements customNotification ui-corner-all ui-controlgroup ui-controlgroup-vertical" id="trxReminder" style="display:none">
+                        <div class="ui-controlgroup-controls">
+                            <a class="ui-btn ui-btn-corner-all ui-btn-icon-right ui-first-child ui-btn-up-c" onclick="app.backFunction=customBackFromAccDays;goToAccDays();" ><span class="ui-btn-inner"><span class="ui-btn-text"><span class="sLeft"><language key="futureRecurringTrans"></language></span><span class="sRight" id="accDaysDisplay"></span></span><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></span></a>
+	                            <input id="accDaysValue" value="" type="hidden">
+	                            <input id="oldAccDaysValue" value="" type="hidden">
+                            <a class="ui-btn ui-btn-corner-all ui-btn-icon-right ui-last-child ui-btn-up-c" onclick="app.backFunction=customBackFromCcDays;goToCCDays();"  ><span class="ui-btn-inner"><span class="ui-btn-text"><span class="sLeft"><language key="creditCardPayment"></language></span><span class="sRight" id="ccDaysDisplay"></span></span><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></span></a>
+                        </div>
+                        <input id="ccDaysValue" value="" type="hidden">
+                                <input id="oldCcDaysValue" value="" type="hidden">
+                                    <input id="accountLockedValue" value="" type="hidden">
+                                        <input id="passwordExpValue" value="" type="hidden">
+                                            <input id="ibInactiveValue" value="" type="hidden">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ui-page ui-body-c ui-page-header-fixed" id="accDays">
+            <div id="header" class="header ui-header ui-bar-a ui-header-fixed slidedown">
+                <a onclick="showHideRight('notifications','accDays');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="notifications"></language></span></span></a>
+                <h1 class="ui-title"> <language key="transactions"></language> </h1>
+            </div>
+            <div class="noshadow ui-content" >
+                <div class="editForm">
+                    <p><language key="selectDayForReceivingNotif"></language></p>
+                    <div  class="groupButton groupButtonselection accnotification ui-corner-all ui-controlgroup ui-controlgroup-vertical">
+                        <div class="ui-controlgroup-controls">
+                            <a class="ui-btn ui-shadow ui-btn-corner-all ui-first-child ui-btn-up-c"  onclick="fillAccDaysValue(0,'acc0day');" id="acc0day"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="none"></language></span></span></a>
+                            <a class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c"  onclick="fillAccDaysValue(1,'acc1day');" id="acc1day"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="before1days"></language></span></span></a>
+                            <a class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c" onclick="fillAccDaysValue(2,'acc2day');" id="acc2day"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="before2days"></language></span></span></a>
+                            <a class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c" onclick="fillAccDaysValue(3,'acc3day');" id="acc3day"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="before3days"></language></span></span></a>
+                            <a class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c"  onclick="fillAccDaysValue(4,'acc4day');" id="acc4day"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="before4days"></language></span></span></a>
+                            <a class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all" onclick="fillAccDaysValue(5,'acc5day');" id="acc5day"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="before5days"></language></span></span></a>
+                            <a class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c" onclick="fillAccDaysValue(6,'acc6day');" id="acc6day"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="before6days"></language></span></span></a>
+                            <a class="ui-btn ui-shadow ui-btn-corner-all ui-last-child ui-btn-up-c"  onclick="fillAccDaysValue(7,'acc7day');" id="acc7day"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="before7days"></language></span></span></a>
+                        </div>
+                    </div>
+                    <div class="formElements moreBtn ui-field-contain ui-body ui-br"><a class="ui-btn ui-btn-up-c ui-btn-corner-all ui-btn-icon-right" onclick="showHideLeft('accountcustomSelection','accDays');" ><span class="ui-btn-inner"><span class="ui-btn-text"><span class="sLeft"><language key="more"></language></span></span><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></span></a></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ui-page ui-body-c ui-page-header-fixed" id="creditcardDays">
+            <div id="header" class="header ui-header ui-bar-a ui-header-fixed slidedown">
+                <a onclick="showHideRight('notifications','creditcardDays');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="notifications"></language></span></span></a>
+                <h1 class="ui-title"> <language key="transactions"></language> </h1>
+            </div>
+            <div class="noshadow ui-content" >
+                <div class="editForm">
+                    <p><language key="selectDayForReceivingNotif"></language></p>
+                    <div  class="groupButton groupButtonselection ccnotification ui-corner-all ui-controlgroup ui-controlgroup-vertical">
+                        <div class="ui-controlgroup-controls">
+                            <a class="ui-btn ui-shadow ui-btn-corner-all ui-first-child ui-btn-up-c" onclick="fillCreditCardsValue(0,'credit0day');" id="credit0day"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="none"></language></span></span></a>
+                            <a class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c" onclick="fillCreditCardsValue(1,'credit1day');" id="credit1day"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="before1days"></language></span></span></a>
+                            <a class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c" onclick="fillCreditCardsValue(2,'credit2day');" id="credit2day"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="before2days"></language></span></span></a>
+                            <a class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c" onclick="fillCreditCardsValue(3,'credit3day');" id="credit3day"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="before3days"></language></span></span></a>
+                            <a class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c" onclick="fillCreditCardsValue(4,'credit4day');" id="credit4day"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="before4days"></language></span></span></a>
+                            <a class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c" onclick="fillCreditCardsValue(5,'credit5day');" id="credit5day"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="before5days"></language></span></span></a>
+                            <a class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c" onclick="fillCreditCardsValue(6,'credit6day');" id="credit6day"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="before6days"></language></span></span></a>
+                            <a class="ui-btn ui-shadow ui-btn-corner-all ui-last-child ui-btn-up-c" onclick="fillCreditCardsValue(7,'credit7day');" id="credit7day"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="before7days"></language></span></span></a>
+                        </div>
+                    </div>
+                    <div class="formElements moreBtn ui-field-contain ui-body ui-br"><a class="ui-btn ui-btn-corner-all ui-btn-icon-right ui-btn-up-c" onclick="showHideLeft('creditcardcustomSelection','creditcardDays');" ><span class="ui-btn-inner"><span class="ui-btn-text"><span class="sLeft"><language key="more"></language></span></span><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></span></a></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ui-page ui-body-c ui-page-header-fixed" id="accountcustomSelection">
+            <div id="header" class="header ui-header ui-bar-a ui-header-fixed slidedown">
+                <a onclick="fixScrollTop();showHideRight('accDays','accountcustomSelection');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="transactions"></language></span></span></a>
+                <h1 class="ui-title"> <language key="more"></language> </h1>
+                <a class="rightBtn saveNotification ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" onclick="validationAccDays();fixScrollTop();"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="submit"></language></span></span></a>
+            </div>
+            <div class="noshadow ui-content" >
+                <div class="editForm">
+                    <p><language key="selectDayForReceivingNotif"></language></p>
+                    <div class="formField textboxMargin">
+                        <div class="ui-hide-label smTextbox ui-field-contain ui-body ui-br">
+                            <label class="ui-input-text" for="acctdays">Repeating from</label>
+                            <div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="acctdays" id="acctdays" value="" placeholder="" type="tel" maxlength="2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ui-page ui-body-c ui-page-header-fixed" id="creditcardcustomSelection">
+            <div id="header" class="header ui-header ui-bar-a ui-header-fixed slidedown">
+                <a onclick="fixScrollTop();showHideRight('creditcardDays','creditcardcustomSelection');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="transactions"></language></span></span></a>
+                <h1 class="ui-title"> <language key="more"></language> </h1>
+                <a class="rightBtn saveNotification ui-btn-right ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" onclick="validationCcDays();fixScrollTop();"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="submit"></language></span></span></a>
+            </div>
+            <div class="noshadow ui-content" >
+                <div class="editForm">
+                    <p><language key="selectDayForReceivingNotif"></language></p>
+                    <div class="formField textboxMargin">
+                        <div class="ui-hide-label smTextbox ui-field-contain ui-body ui-br">
+                            <label class="ui-input-text" for="ccdays">Repeating from</label>
+                            <div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="ccdays" id="ccdays" value="" placeholder="" type="tel" maxlength="2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <!------******************------>
+        <!------- Change E-mail ------>
+        <!------******************------>
+        <div class="ui-page ui-body-c ui-page-header-fixed " id="changeEmail">
+            <div id="header" class="header ui-header ui-bar-a ui-header-fixed slidedown">
+                <a onclick="fixScrollTop();showHideRight('preferences','changeEmail');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="preferences"></language></span></span></a>
+                <h1 class="alignRight ui-title"> <language key="emailAddressNoColon"></language> </h1>
+                <a class="rightBtn saveEmail ui-btn-right ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" onclick="fixScrollTop();processEditEmail();"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="change"></language></span></span></a> 
+            </div>
+            <div class="noshadow ui-content">
+                <div class="content-primary editForm">
+                    <div class="noshadow">
+                        <p>
+                        <span class="emailLabel"><language key="currentEmailAddress"></language></span>
+                        <span id="oldEmailAddress" class="emailValue"></span>
+                        </p>
+                        <div class="formField textboxMargin firstChild lastChild">
+                            <div class="whiteLabel smTextbox ui-field-contain ui-body ui-br">
+                                <label class="ui-input-text" for="currentemail"><language key="enterNewEmail"></language></label>
+                                <div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="currentemail" id="currentemail" value="" placeholder="" type="text"></div>
+                            </div>
+                        </div>
+                        <h5><language key="importantNote"></language></h5>
+                        <p><language key="transUpdateLatestOffersNotif"></language></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!------******************------>
+        <!------- Change Password ------>
+        <!------******************------>
+        <div class="ui-page ui-body-c ui-page-header-fixed " id="changePassword">
+            <div id="header" class="header ui-header ui-bar-a ui-header-fixed slidedown">
+                <a onclick="fixScrollTop();showHideRight('preferences','changePassword');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="preferences"></language></span></span></a>
+                <h1 class="ui-title"><language key="changePassword1"></h1>
+                <a onclick="fixScrollTop();processSavePassword();" class="rightBtn savePassword ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="save"></span></span></a> 
+            </div>
+            <div class="noshadow ui-content">
+                <div class="content-primary editForm">
+                    <div class="noshadow">
+                        <p><language key="changePassword2"></p>
+                        <div class="formField textboxMargin firstChild">
+                            <div class="ui-hide-label smTextbox ui-field-contain ui-body ui-br">
+                                <label class="ui-input-text" for="currentPass"><language key="currentPass"></label>
+                                <div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="currentPass" id="currentPass" value="" placeholder="" placeholderKey="currentPassword"  type="password"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="formField textboxMargin">
+                        <div class="ui-hide-label smTextbox ui-field-contain ui-body ui-br">
+                            <label class="ui-input-text" for="newPassword"><language key="newPassword"></label>
+                            <div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="newPassword" id="newPassword" value="" placeholder="" placeholderKey="newPassword" type="password"></div>
+                        </div>
+                    </div>
+                    <div class="formField textboxMargin lastChild">
+                        <div class="ui-hide-label smTextbox ui-field-contain ui-body ui-br">
+                            <label class="ui-input-text" for="confirmPassword"><language key="confirmPassword"></label>
+                            <div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="confirmPassword" id="confirmPassword" value="" placeholder="" placeholderKey="confirmPassword" type="password"></div>
+                        </div>
+                    </div>
+                    <h5><language key="rulesPassword"></h5>
+                    <p>
+                    	<a id="rangeLenPwd"></a>
+					<language key="pwdCharLimit"></language>
+					<a id="minUppercase"></a>
+					<language key="pwdUppercase"></language>
+					<a id="minLowercase"></a>
+					<language key="pwdLowercase"></language>
+					<a id="minNumeric"></a>
+					<language key="pwdNumerals"></language>
+				</p>
+                    <div style="display: none;">
+                        <!-- placeholder for changePasswordConfirmmsg -->
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="ui-loader ui-corner-all ui-body-a ui-loader-default">
+            <span class="ui-icon ui-icon-loading"></span>
+            <h1>Loading...</h1>
+        </div>
+    </body>
+</html>

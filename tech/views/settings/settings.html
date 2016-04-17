@@ -1,0 +1,23 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div class="formContainer scrollBox-withFooter">
+        <div class="greyBorderBottom">
+            <p class="labelKey">{{'SETTINGS_VERSION_1' | translate}}</p>
+        </div>
+        <div class="greyBorderBottom">
+            <p class="labelKey ng-binding" style="height: 35px;">{{'SETTING_LANGUAGE_LABLE' | translate}}</p>
+        </div>
+        <div class="onoffswitch"  ng-controller="TranslateController" ng-click="onoffswitch()" style="top: 40px">
+            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" ng-model="languageCode">
+            <label class="onoffswitch-label">
+                <span class="onoffswitch-inner onoffswitch-inner-on" ng-show="firstTimeOn"></span>
+                <span class="onoffswitch-switch onoffswitch-switch-on" ng-show="firstTimeOn"></span>
+                <span class="onoffswitch-inner"  ng-show="!firstTimeOn"></span>
+                <span class="onoffswitch-switch" ng-show="!firstTimeOn"></span>
+            </label>
+        </div>
+    </div>
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+<div class="modal-header" ng-show="modalOptions.headerText">
+    <p>{{modalOptions.headerText | translate}}</p>
+</div>
+<div class="modal-body">
+    <p>{{modalOptions.bodyText|translate}}</p>
+</div>
+<div class="modal-footer">
+    <button type="button" class="button base active buttonBox" data-ng-click="modalOptions.close()">{{modalOptions.closeButtonText|translate}}</button>
+</div>

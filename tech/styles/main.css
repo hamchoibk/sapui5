@@ -1,0 +1,2709 @@
+/* Main Page */
+.container{
+    background-image: url("../images/background.png");
+    background-repeat : no-repeat;
+    background-position: top center;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    padding: 0px;margin: 0px auto;
+}
+
+.container-home{
+    background-image: url("../images/background.png");
+    background-repeat : no-repeat;
+    background-position: top center;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    padding: 0px;margin: 0px auto;
+}
+
+.container-white{
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    margin: 20px auto;
+}
+
+#logo{
+    background-image: url("../images/logo.png");
+    background-repeat : no-repeat;
+    background-position: center;
+    background-size: contain;
+    text-align: center;
+    width: 80%;
+    height: 95px;
+    padding: 20px 0px;
+    border-radius:10px;
+    position: absolute;
+    top: 9%;
+    left:0; right: 0;
+    margin: 0 auto;
+}
+
+#footerBox{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: auto;
+    background-image: url("../images/transparent_box2.png"); background-repeat: repeat-x;
+    background-size: 100% 100%;
+    opacity: .9;
+
+}
+
+.redBorderBottom{
+    border-bottom: 1px #FF003D solid;
+}
+.footerMedia ul{
+    color: #ffffff;
+    margin: 0;
+    padding: 0 0 10px 10px;
+
+}
+
+.footerMedia ul li {
+     display: inline-block;
+     width: 32%;
+     font-size: 12px;
+}
+
+.new-badge {
+    background-image: url("../images/new-badge.png");
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+    background-position: top right;
+}
+
+
+.footerMedia div p{
+    margin-bottom: 0px;
+}
+.footerMedia div a{
+    padding-top: 45px;
+    background-position: 50% 25%;
+    background-repeat: no-repeat;
+    background-size: 30px 30px;
+    font-size: 12px;
+    display: block;
+    height: 70px;
+    line-height: 10px;
+}
+.footerMedia .product a{
+    background-image: url("../images/product&service.png");
+}
+.footerMedia .promo a{
+    background-image: url("../images/promo.png");
+}
+.footerMedia .deal a{
+    /*background-image: url("../images/bestdeal.png");*/
+    background-image: url("../images/xsmile.png");
+    background-size: 40px 35px;
+}
+.footerMedia .atm a{
+    background-image: url("../images/atm.png");
+}
+.footerMedia .demo a{
+    background-image: url("../images/demo.png");
+}
+.footerMedia .contact a{
+    background-image: url("../images/contact.png");
+}
+.footerMedia div a{
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.footerMedia div a:hover{
+    text-decoration: underline;
+}
+
+.footerMedia{
+    text-align: center;
+    width: 100%;
+}
+
+
+.kycBox{
+    height: 60px;
+    border-top: 1px #cccccc solid;
+    padding-top: 16px;
+    padding-bottom: 10px;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    text-align: left;
+    color: #A9A9A9;
+    font-size: 1.28em;
+
+}
+#footerBox .kycBox label{
+
+    font-weight: normal;
+}
+#footerBox .kycBox  input[type='checkbox'] {
+
+    opacity: 0;
+
+    float: right;
+    width: 1px;
+    height:1px;
+    cursor: pointer;
+}
+
+.kycBox  input[type='checkbox'] + label {
+    text-indent: -999em;
+    margin: 0;
+    margin-left:-18px;
+    clear: none;
+    padding: 6px 0 5px 24px;
+    background: url("../images/tickbox.png") center no-repeat;
+    background-size: 24px 24px;
+    width: 21px;
+    float: right;
+}
+
+
+
+.kycBox  input[type='checkbox']:checked + label {
+    background: url("../images/tickbox-checked.png") center  no-repeat;
+    background-size: 24px 24px;
+}
+.button{
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    overflow: hidden;
+    padding: 8px 20px;
+    color: #ffffff;
+    font-size: 1.28em;
+
+}
+.button-home, .button-index{
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    overflow: hidden;
+    padding: 8px 20px;
+    color: #ffffff;
+    font-size: 1.28em;
+
+}
+.button-home:active, .button-index:active{
+	color: #8C8E9B;
+}
+
+.button-Signup {
+    float: left;
+    font-size: 18px;
+}
+
+.button-Version {
+   position:absolute;
+   left: 35%;
+   top: 45%;
+   width: 100px;
+   font-size: 15px;
+   color: #fff;
+}
+
+.button-Login {
+    float: right;
+    /*float: center;*/
+    font-size: 18px
+;
+}
+.socially{
+    margin-top: 10px;
+    margin-bottom: 15px;
+    float: left;
+    background-image: url("../images/FC_Signature.png");
+    height: 20px;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.socially.grey{
+    margin-top: 5px;
+    background-image: url("../images/FC_Signature_grey.png");
+    background-size: 54%;
+}
+
+.socially-tcb{
+    margin-top: 10px;
+    margin-bottom: 15px;
+    float: left;
+    background-image: url("../images/chuyentien.png");
+    height: 20px;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.socially.grey-tcb{
+    margin-top: 10px;
+    margin-bottom: 5px;
+    background-image: url("../images/chuyentien-grey.png");
+    background-size: contain;
+}
+
+
+@media (min-width: 320px) and (max-height: 480px) {
+    .footerMedia ul li{
+        font-size: 12px;
+        line-height: 12px;
+        width: 32%;
+    }
+
+    .socially.grey{
+        background-size: 60%;
+    }
+
+    .dashboardGreyBox{
+        max-height: 228px;
+        padding: 0px 5px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 800px) {
+    .footerMedia ul li{
+        font-size: 12px;
+        line-height: 12px;
+        width: 32%;
+    }
+
+    .socially.grey{
+        background-size: 35%;
+    }
+
+    .dashboardGreyBox{
+        padding: 0px 5px;
+    }
+}
+
+
+@media (min-width: 801px) and (max-width: 1200px){
+    .footerMedia ul li{
+        font-size: 12px;
+        width: 32%;
+    }
+
+    .socially.grey{
+        background-size: 22%;
+    }
+    .dashboardGreyBox{
+        overflow-y: scroll;
+        padding: 0px 5px;
+    }
+}
+
+
+@media (min-width: 1000px) {
+    .socially.grey{
+        background-size: 18%;
+    }
+
+    .dashboardGreyBox{
+        overflow-y: scroll;
+        padding: 0px 5px;
+    }
+}
+
+
+
+
+/* Login Page */
+#panel{
+    margin: 20px auto 0px auto;
+    padding: 0 10%;
+    width: 100%;
+    display: block;
+    text-align: center;
+}
+#panel input{
+    color: #ffffff;
+    width: 100%;
+    font-size: 1.28em;
+    border-radius: 0px;
+}
+input{
+    height: 48px;
+    display: block;
+    background:  transparent;
+    border: none;
+    margin: auto;
+}
+
+input.login{
+    height: 60px;
+}
+
+.button-Login-panel{
+    width: 90%;
+}
+
+.formContainer input{
+    height: 40px;
+}
+
+/* Sign up */
+.preview-Signup.account-Details{
+}
+.preview-Signup .account-Details .account-Details label{ font-size: .6em}
+.preview-Signup .account-Details p{ font-size: 1em; }
+.preview-Signup .account-Details p:first-child{margin-bottom: 0px;}
+
+
+.tncBox {
+    height: 50px;
+    border-top: 1px #f1f1f1 solid;
+    border-bottom: 1px #f1f1f1 solid;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-sizing: border-box;
+}
+.icon-i{
+    float: right;
+    /*background: url(../images/info.png) no-repeat center transparent;*/
+    background: url("../images/arrow.png") 97% no-repeat;
+    width: 32px;
+    background-size:  16px 16px;
+    border: none;
+    text-indent: -999em;
+    margin-top: 5px; margin-bottom: 0px;
+
+}
+.icon-refresh{
+    float: right;
+    background: url(../images/refresh.png) no-repeat center transparent;
+    width: 32px;
+    height: 32px;
+    background-size:  25px 25px;
+    border: none;
+    text-indent: -999em;
+    margin-top: 10px; margin-bottom: 0px;
+}
+.tncBox  input[type='checkbox'] {
+
+    opacity: 0;
+
+    float: right;
+    width: 1px;
+    height:1px;
+    cursor: pointer;
+}
+
+.signup-issueDate {
+    padding-top: 10px;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    color: #999;
+    font-size: 1.1em !important;
+    float: left;
+    width: 40%;
+}
+
+.signup-identity{
+    font-size: 0.8em;
+}
+
+.signup-identity-alert {
+    color: red;
+    font-weight: bold;
+}
+
+.tncBox .terms{
+    margin-top: 5px;
+    font-size: 1em;
+    float: left;
+    width: 75%;
+    color: blue;
+    font-weight: lighter;
+    text-align: center;
+}
+
+.tncBox  input[type='checkbox'] + label {
+    text-indent: -999em;
+    margin: 0;
+    /*margin-left:-18px;*/
+    clear: none;
+    padding: 6px 0 5px 24px;
+    background: url("../images/tickbox.png") center no-repeat;
+    background-size: 24px 24px;
+    width: 21px;
+    float: left;
+}
+
+
+.bankName {
+    padding-top: 15px;
+    padding-left: 15px;
+    margin-bottom: -15px;
+}
+
+
+input[type='checkbox']:checked + label {
+    background: url("../images/tickbox-checked.png") center  no-repeat;
+    background-size: 24px 24px;
+}
+
+.captcha{
+    margin-top: 10px;
+    font-size: 1em;
+    float: left;
+    width: 60%;
+    height: 30px;
+    background-color: #999;
+}
+div p.labelValue{
+    margin: 3px 0 0px;
+}
+div p.labelKey{
+    margin: 3px 0 0px;
+}
+div p.labelKey:first-child{
+    margin: 10px 0 0px;
+}
+div p.labelValue:last-child{
+    margin: 3px 0 10px;
+}
+.resultContainer div p.labelKey:first-child{
+    margin: 8px 0 0px;
+}
+.resultContainer div p.labelValue{
+    margin: 0px 0 0px;
+}
+.resultContainer p.labelKey{
+    margin: 0px 0 0px;
+}
+
+.labelKey{
+    font-size: 1.05em;
+    margin-bottom: 0px;
+}
+.labelKeyBold {
+    font-size: 1.05em;
+    margin-bottom: 0px;
+    font-weight:bold;
+}
+
+.labelValue{
+    font-size: 1.05em;
+    font-weight: bold;
+    word-break: break-word;
+}
+
+.labelValue.red{
+    color: red;
+}
+
+.successSignUp{
+    color: #EA2127;
+    font-size: 1.05em;
+}
+
+
+
+.button.red{
+    margin-bottom: 10px;
+    padding-top: 10px;
+    margin-top: 10px;
+    margin-left: 20%;
+    margin-right: 20%;
+    width: 60%;
+    color: #ffffff;
+    background-color: #FF003D;
+    border-radius: 5px;
+    height: 40px;
+}
+
+.button.transact-more{
+    padding-top: 10px;
+    margin-bottom: 0px;
+    width: 100%;
+    color: #ffffff;
+    background-color: #58595B;
+    height: 40px;
+}
+
+.stickyBottom{
+    bottom: 0px;
+    width: 100%;
+    margin-bottom: 0px;
+    position: absolute;
+}
+.stickyBottom-cashoutid {
+    bottom: 0px;
+    width: 90%;
+    margin-bottom: 0px;
+    position: fixed;
+}
+
+.skipBox{
+    bottom: 0px;
+    width: 100%;
+    margin-bottom: 0px;
+    position: absolute;
+
+}
+
+.stickyBottom.aboveTabs{
+    margin-bottom: 40px;
+    position: fixed;
+}
+.scrollContainer{
+    display: block;
+    overflow-y: scroll;
+    height: 400px;
+
+}
+
+.success-cover{
+    height: 198px;
+    overflow: hidden;
+}
+
+
+/* Dashboard */
+.profile-cover{
+    min-height: 168px;
+    /*background-size: 100% auto;*/
+    overflow: hidden;
+    background-size: cover;
+}
+
+.profile-image{
+    height: 85px;
+    width: 85px;
+    margin: 10px auto;
+    background-size: cover;
+    border-radius: 300px;
+    border: 1px solid #fff;
+    background: no-repeat center center;
+    -webkit-background-size: cover;
+}
+.profile-image img{
+    width: 100%;
+    height: 100%;
+    border-radius: 300px;
+    border: 1px solid #fff;
+}
+
+.accountBalance{
+    height: 38px;
+    color: #fff;
+    width: 80%;
+    margin: auto;
+}
+.accountBalance .number{font-weight: bold; font-size: 19px;padding-left: 10px; padding-top:2px; text-shadow: 1px 1px 2px rgba(0, 0, 0, .5);}
+.accountBalance .fee{font-size: 16px;padding-left: 10px; padding-top:2px; text-shadow: 1px 1px 2px rgba(0, 0, 0, .5);}
+.accountType{
+    margin: 8px 8px 8px 0px;
+    font-size: 9px;
+    float: left;
+    width: auto;
+    max-width: 105px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.accountFee {
+    margin: 0px 8px 8px -69px;
+    font-size: 9px;
+    float: left;
+    width: auto;
+    max-width: 115px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.accountType.account{
+    padding: 5px 0 0 0;
+}
+.accountType.success{
+    font-size: 18px;
+    font-weight: bold;
+}
+.accountFee.success {
+    font-size: 16px;
+    /*font-weight: bold;*/
+}
+.accountArrow {float: right; height: 33px; width: 15px; background: url("../images/arrow-white.png") no-repeat transparent 50% 50%; background-size: 14px 14px;}
+.amount{margin: 3px 0px; font-size: 1.2em; float: right}
+.topupSuccess {
+    float: right;
+    margin-top: 0px;
+    font-size: 1.05em;
+    width: 145px;
+    word-break: break-word;
+    text-align: right;
+}
+.amount.details{float: left}
+.profile-name{
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+    padding-bottom: 5px;
+    border-bottom: solid 1px #fff;
+
+}
+.profile-name h1{
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, .5);
+    font-weight: bold;
+    font-size: 20px;
+}
+.profile-name.small h1{
+    font-size: 12px;
+}
+.profile-name.extra-small h1{
+    font-size: 10px;
+}
+.row{
+    margin-bottom: 10px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+* {
+  -webkit-tap-highlight-color: rgba(0,0,0,0); /* Stops flash on tap iOS */
+}
+
+
+
+.dashboardContainer{
+    width: 100%;
+    margin: 5px auto;
+    position: relative;
+    /*overflow: scroll-y;*/
+}
+
+.dashboardGreyBox .column2 div:nth-child(odd){
+    margin-right: 2.34%;
+}
+
+.prefixName-sendExternal {
+    color: rgb(238,79,29);
+}
+.prefixType-sendExternal {
+    font-size: 15px;
+    color: rgb(238,79,29);
+}
+.prefixName-request {
+    color: rgb(204,50,140);
+}
+
+.prefixType-request {
+    font-size: 15px;
+    color: rgb(204,50,140);
+}
+
+.cashoutBox {
+    text-align: center;
+    margin-top: 25% !important;
+}
+.narrow .cashoutBox{
+
+    margin-top: 5% !important;
+}
+
+.transferBox{
+    max-height: 100%;
+    padding: 0px 5px;
+
+}
+
+
+.dashboardGreyBox{
+    text-align: center;
+    margin-top: 25px;
+}
+.dashboardGreyBox div{
+
+    display: inline-block;
+    border-radius: 3px;
+    width: 31.6%;
+    height: 90px;
+    margin-bottom:2.34%;
+    position: relative;
+
+}
+
+.dashboardGreyBox.askMoneyBox div{
+    width: 100%;
+}
+
+.dashboardGreyBox.column2 div{
+    border-radius: 3px;
+    width: 48.8%;
+    height: 90px;
+    margin-bottom:2.34%;
+    position: relative;
+}
+
+
+.dashboardGreyBox .account{
+    background: url("../images/dashboard-account.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+
+.dashboardGreyBox .payment{
+    background: url("../images/dashboard-payment.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+.dashboardGreyBox .payment.disabled{
+    background: url("../images/dashboard-payment-disabled.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+.dashboardGreyBox .transfer{
+    background: url("../images/dashboard-transfer.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+.dashboardGreyBox .transfer.disabled{
+    background: url("../images/dashboard-transfer-disabled.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+.dashboardGreyBox .social{
+    background: url("../images/dashboard-social.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+.dashboardGreyBox .transaction{
+    background: url("../images/dashboard-transaction.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+.dashboardGreyBox .cashout{
+    background: url("../images/dashboard-cashout.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+
+/*credit cart payment begin */
+/*---------------------------*/
+
+.dashboardGreyBox .creditCard{
+    background: url("../images/dashboard-credit-card.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+
+.dashboardGreyBox .deposit-disabled {
+    background: url("../images/dashboard-deposit-disabled.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+
+.dashboardGreyBox .credit-disabled {
+    background: url("../images/dashboard-credit-disabled.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+
+.dashboardGreyBox .cardPayment{
+    background: url("../images/cardPayment.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+
+.dashboardGreyBox .statement{
+    background: url("../images/dashboard-transaction.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+
+.creditCard-number {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: red;
+}
+
+.cardInfo.cyclesListOpen {
+    background: url(../images/arrow-down.png) no-repeat center;
+    background-size: 14px 8px;
+}
+
+.cardInfo.byDateOpen {
+    background: url(../images/arrow-down.png) no-repeat center;
+    background-size: 14px 8px;
+}
+
+.cardInfo.cyclesListOpen {
+    background: url(../images/arrow.png) no-repeat center;
+    background-size: 14px 8px;
+}
+
+.cardInfo.byDateOpen {
+    background: url(../images/arrow.png) no-repeat center;
+    background-size: 14px 8px;
+}
+
+
+.cardHolderNameBefore {
+    font-size: 0.85em;
+    margin-top: 8px;
+}
+
+.cardHolderNameAfter {
+    margin-bottom: -8px;
+}
+
+/*---------------------------*/
+/*credit cart payment end */
+
+.dashboardGreyBox .deposit {
+     background: url("../images/dashboard-deposit.png") no-repeat 50% 0% transparent;
+     background-size: 55px 54px;
+}
+
+.dashboardGreyBox .credit {
+    background: url("../images/dashboard-credit.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+
+.dashboardGreyBox .sendMoney{
+    background: url("../images/dashboard-sendmoney.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+
+.dashboardGreyBox .askMoney{
+    background: url("../images/dashboard-askmoney.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+
+.dashboardGreyBox .connect{
+    background: url("../images/dashboard-connect.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+
+.dashboardGreyBox .friends{
+    background: url("../images/dashboard-friend.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+
+.dashboardGreyBox .askMoney-social{
+    background: url("../images/dashoboard-askMoney-social.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+
+.dashboardGreyBox .instantTransfer-to-card{
+    background: url("../images/instant-transfer-to-card.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+
+.dashboardGreyBox .instantTransfer-to-account{
+    background: url("../images/instant-transfer-to-account.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+
+.dashboardGreyBox .askMoney-eWallet{
+    background: url("../images/dashboard-ewallet.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+
+.dashboardGreyBox .mobilenumber{
+    background: url("../images/dashboard-toMobileNumber.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+
+.dashboardGreyBox .mobilenumber.disabled{
+    background: url("../images/dashboard-toMobileNumber-disabled.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+
+.dashboardGreyBox .idNumber{
+    background: url("../images/dashboard-to_Id.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+
+
+.dashboardGreyBox .inTCB{
+    background: url("../images/dashboard-tcb.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+
+.dashboardGreyBox .toMobile{
+    background: url("../images/greybox-icon-account.png") no-repeat 50% 40% transparent;
+    background-size: 55px 54px;
+}
+
+.dashboardGreyBox .facebook{
+    background: url("../images/spreadtheluv_fb.png") no-repeat 50% 40% transparent;
+    background-size: 41px 41px;
+}
+
+.dashboardGreyBox .spreadLuv{
+    background: url("../images/spreadtheluv_orange.png") no-repeat 50% transparent;
+    background-size: 53px 53px;
+}
+
+.dashboardGreyBox .spreadArrow{
+    background: url("../images/spreadtheluv_arrow.png") no-repeat 50% transparent;
+    background-size: 22px 12px;
+}
+
+
+.dashboardGreyBox .interBank{
+    background: url("../images/dashboard-interbank.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+.dashboardGreyBox .interBank.disabled{
+    background: url("../images/dashboard-interbank-disable.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+.dashboardGreyBox div.disabled span{
+    color: #b2b2b2;
+}
+
+.dashboardGreyBox .instantTransfer{
+    background: url("../images/dashboard-instantTransfer.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+.dashboardGreyBox .instantTransfer.disabled{
+    background: url("../images/dashboard-instantTransfer-disabled.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+
+.dashboardGreyBox .beneficiary{
+    background: url("../images/dashboard-beneficiary.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+
+.dashboardGreyBox .last-five-transaction{
+    background: url("../images/dashboard-last5.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+.dashboardGreyBox .unBank{
+    background: url("../images/dashboard-unbank.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+
+.dashboardGreyBox .unBank.disabled{
+    background: url("../images/dashboard-unbank-disabled.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+.dashboardGreyBox .bank-transfer{
+    background: url("../images/dashboard-banktrsf.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+.dashboardGreyBox div span{
+    text-align: center;
+    width: 100%;
+    display: block;
+    position: absolute;
+    top: 60px;
+    font-size: 12px;
+}
+
+.dashboardGreyBox div span.recommend{
+    position: relative;
+    padding-top: 20px;
+    color: white;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.dashboardGreyBox div span.facebookLabel{
+    position: relative;
+    padding-top: 20px;
+    color: white;
+    font-size: 1.22em;
+}
+
+.dashboardGreyBox .topup-prepaid{
+    background: url("../images/topup-pre.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+
+.dashboardGreyBox .topup-postpaid{
+    background: url("../images/topup-post.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+
+.dashboardGreyBox .topup-game{
+    background: url("../images/topup-game.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+
+.dashboardGreyBox .mobile-payment{
+    background: url("../images/topup-post.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+
+.dashboardGreyBox .evn-fpt-payment{
+    background: url("../images/evn-fpt.png") no-repeat 50% 0% transparent;
+    background-size: 55px 54px;
+}
+
+.contractName {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.customerName {
+    word-break: break-word;
+    line-height: 100%;
+    padding-right: 10px;
+    margin-bottom: 10px;
+    /*height: auto !important;*/
+}
+
+.instantTransferName {
+    word-break: break-word;
+    line-height: 100%;
+    padding-right: 10px;
+}
+
+.bankName {
+    word-break: break-word;
+    line-height: 100%;
+    padding: 10px 20px 10px 0;
+    margin-bottom: 5px;
+}
+
+
+.panel-down {
+    margin-bottom: -30px !important;
+}
+
+.panel-up {
+    margin-bottom: 0 !important;
+}
+
+.metaDataBox{
+
+}
+.metaDataBox div{
+
+}
+.metaDataBox div:nth-child(odd){
+    margin-right: 0px;
+}
+.metaDataBox  div:nth-child(1), .metaDataBox  div:nth-child(2){
+    margin-right: 0px;
+
+}
+
+.notes{
+    padding-top: 2px;
+    color: #666;
+}
+
+.notesText{
+    padding-top: 2px;
+    color: #666666;
+}
+
+.notice{
+    width: 80%;
+    margin: 10px auto;
+    padding-left: 20px;
+    padding-top: 2px;
+    color: #EA2127;
+    background: url(../images/notification-icon.png) no-repeat left top;
+    background-size: 12px 15px;
+    background-position: 0% 50%;
+}
+.notice:active{
+    color: #0713F9;
+}
+
+ul.notesText,ul.notes{
+    padding: 0px;
+}
+
+.cashoutInfo{
+    padding-left: 20px;
+    padding-top: 5px;
+    padding-bottom: 8px;
+    color: #666;
+    background: url(../images/notification-icon.png) no-repeat left top;
+    background-size: 12px 15px;
+    background-position: 0% 50%;
+    margin-top: -5px;
+}
+
+.topupGame-info {
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-bottom: -15px;
+}
+
+.select{
+    color: #BABCBE;
+    width: 80%;
+    margin: 10px auto;
+    font-size: 15px;
+}
+.select.cashout {
+    color: #000;
+}
+.camera{
+    background: url("../images/32-camera.png") no-repeat #E6E7E8;
+    background-position: center;
+    background-size: 32px 32px;
+}
+
+#photoImage{
+    /*width: 31.3%;*/
+    /*height: 61px;*/
+    /*height: auto;*/
+    /*float: left;*/
+    /*background-position: center;*/
+    /*background-size: cover;*/
+    /*border-radius: 3px;*/
+    /*position: relative;*/
+    /*top: 0; bottom:0; left: 0; right:0;*/
+    /*margin: auto;*/
+    /*text-align: center;*/
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+#videoImage{
+    /*margin-left: 8px;*/
+    /*width: 31.3%;*/
+    /*height: 61px;*/
+    /*float: left;*/
+    /*background-position: center;*/
+    /*background-size: cover;*/
+    /*border-radius: 3px;*/
+    /*position: relative;*/
+    /*top: 0; bottom:0; left: 0; right:0;*/
+    /*margin: auto;*/
+    /*text-align: center;*/
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+
+#audioImage{
+    /*margin-left: 8px;*/
+    /*width: 31.3%;*/
+    /*height: 61px;*/
+    /*float: left;*/
+    /*background-position: center;*/
+    /*background-size: cover;*/
+    /*border-radius: 3px;*/
+    /*position: relative;*/
+    /*top: 0; bottom:0; left: 0; right:0;*/
+    /*margin: auto;*/
+    /*text-align: center;*/
+}
+
+
+
+
+.video{
+    background: url("../images/32-video.png") no-repeat #E6E7E8;
+    background-position: center;
+    background-size: 32px 32px;
+}
+
+.audio{
+    background: url("../images/32-audio.png") no-repeat #E6E7E8;
+    background-position: center;
+    background-size: 32px 32px;
+}
+
+.accountGreyBox{
+    float: left;
+    border-radius: 3px;
+    width: 30%;
+    height: 50px;
+    margin-bottom: 2%;
+    position: relative;
+    border-radius: 5px;
+    margin-left: 5px;
+    background-color: #E6E7E8;
+}
+
+.contentText{
+    font-weight: bold;
+    font-size: 1.27em;
+    color: #000000;
+}
+
+.accountGreyBox div{
+    /*background-color: #E6E7E8;*/
+    background-size: 42px 33px;
+}
+/*.accountGreyBox div:hover{*/
+    /*opacity: .8;*/
+
+/*}*/
+.accountGreyBox div span{
+    text-align: center;
+    width: 100%;
+    display: block;
+    position: absolute;
+    top: 60px;
+    font-size: 12px;
+
+}
+
+.space{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 0;
+    border-top: 1px #F1F1F1 solid;
+}
+
+.lastfive{
+    font-size: 1.2em;
+    margin-top: 10px;
+    background: url(../images/arrow.png) no-repeat right;
+}
+
+
+.toggle-input {
+    margin-top: 10px;
+    max-height: 0;
+    max-width: 0;
+    opacity: 0;
+    display: none;
+}
+
+.SociallabelFacebook{
+    float: left;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    height: 30px;
+    padding-left: 50px;
+    padding-top: 5px;
+    margin: 10px;
+}
+
+.SociallabelGplus{
+    float: left;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    height: 30px;
+    padding-left: 50px;
+    padding-top: 5px;
+    margin: 10px;
+}
+
+
+.toggle-input + label {
+    cursor: pointer;
+    display: block;
+    position: relative;
+    box-shadow: inset 0 0 0px 1px #d5d5d5;
+    text-indent: -5000px;
+    height: 30px; width: 50px;
+    border-radius: 15px;
+    margin-top:10px;
+    margin-left: 80%;
+}
+
+.toggle-input + label:before {
+    content: '';
+    position: absolute;
+    display: block;
+    height: 30px; width: 30px;
+    top: 0; left: 0;
+    border-radius: 15px;
+    background: rgba(19,191,17,0);
+    transition: .25s ease-in-out;
+}
+
+.toggle-input + label:after {
+    content: '';
+    position: absolute;
+    display: block;
+    height: 30px; width: 30px;
+    top: 0; left: 0;
+    border-radius: 15px;
+    background: white;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.2), 0 2px 4px rgba(0,0,0,.2);
+    transition: .25s ease-in-out;
+}
+
+.toggle-input:checked + label:before {
+    width: 50px;
+    background: rgba(19,191,17,1);
+}
+
+.toggle-input:checked + label:after {
+    left: 20px;
+    box-shadow: inset 0 0 0 1px rgba(19,191,17,1), 0 2px 4px rgba(0,0,0,.2);
+}
+/* Ask Money */
+.askToWhom{
+    font-size: 1.1em;
+    color: #BAB9C3;
+}
+
+button.askToWhom{
+    border: 0;
+    background: transparent;
+    padding: 0;
+    height: 68px;
+    color:#777;
+    width: 100%;
+    text-align: left;
+    padding-top: 8px;
+    background:url("../images/arrow.png") 97% no-repeat;
+    background-size: 14px 15px;
+    padding-right: 30px;
+    opacity: 0.75;
+}
+div.askToWhom, div.sendtowhom {
+    color: #666666;
+}
+/* Send Money */
+.sendToWhom{
+    font-size: 1.1em;
+    color: #BAB9C3;
+}
+
+.selectBank-instantTransfer {
+    background: url("../images/arrow.png") 97% no-repeat;
+    background-size: 14px 15px;
+}
+
+.selectBank {
+    background: url("../images/arrow.png") 97% no-repeat;
+    background-size: 14px 15px;
+    margin-top: 5px;
+    padding: 10px 0px;
+    color: #777;
+    font-size: 1.1em;
+    opacity: 0.65;
+}
+
+.destinationBranch {
+    color: #000;
+    width: 100%;
+    background: url("../images/arrow.png") 97% no-repeat;
+    background-size: 14px 15px;
+    padding:10px 1px;
+    font-size: 1.05em;
+    padding-right: 15px;
+}
+
+.branchList{
+    background-image: none;
+    padding-bottom: 10px;
+    margin-top: -10px;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.provinceList {
+    width: 100%;
+    background: url("../images/arrow.png") right no-repeat;
+    background-size: 14px 15px;
+    padding:10px 0px;
+}
+
+
+button.sendToWhom{
+    border: 0;
+    background: transparent;
+    padding: 0;
+    height: 48px;
+    color:#BAB9C3;
+    width: 100%;
+    text-align: left;
+    padding-top: 8px;
+    background:url("../images/arrow.png") 97% no-repeat;
+    background-size: 14px 15px;
+    padding-right: 30px;
+}
+
+button.selectBank{
+    border: 0;
+    background: transparent;
+    padding: 0;
+    height: 48px;
+    color:#BAB9C3;
+    width: 100%;
+    text-align: left;
+    padding-top: 8px;
+    background:url("../images/arrow.png") 97% no-repeat;
+    background-size: 14px 15px;
+    padding-right: 30px;
+}
+
+
+.messageBox{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    width: 100%;
+    height: 80px;
+    border: none;
+    background: url("../images/32-luv.png") 15px no-repeat #ededed;
+    background-size: 32px 28px;
+    resize: none;
+    padding: 30px 30px 30px 60px;
+    text-align: center;
+    opacity: 1;
+}
+
+.messageBox-selected{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    width: 100%;
+    height: 80px;
+    border: none;
+    background: url("../images/msg_icon.png") 15px no-repeat #ededed;
+    background-size:50px 38px;
+    resize: none;
+    padding: 30px 30px 30px 60px;
+    text-align: center;
+    opacity: 1;
+}
+
+.messageText{
+    color: #000000;
+    margin-left: 20px;
+    text-align: center;
+}
+
+
+.luv{
+    text-align: center;
+    background: url("../images/32-luv.png") left no-repeat;
+    margin-left: 20px;
+    width: 32px;
+    height: 32px;
+    background-size: 32px 28px;
+}
+.panel ul{
+    padding: 15px 0 0 0;
+
+}
+.panel-body{
+    padding: 0;
+}
+.panel-default{
+    border:  none;
+}
+.panel-default > .panel-heading{
+    background-color: #fff;
+    color:  #EA2127;
+    padding: 10px 0px;
+    border-color: #f1f1f1;
+}
+.panel-title{
+    /*font-weight: bold;*/
+    /*font-size: 14px;*/
+}
+.glyphicon{
+    width: 30px;
+    height: 18px;
+}
+
+.glyphicon-help {
+    width: 18px;
+    height: 18px;
+}
+
+.glyphicon-Accepted {
+    width: 30px;
+    height: 18px;
+}
+
+.pull-right {
+    top: 5px;
+}
+
+.pull-right-social {
+    float: right !important;
+    margin-top: 5px;
+}
+
+.pull-right-help {
+    margin-top: 5px;
+}
+
+.smallicon{
+    width: 20px;
+    height: 20px;
+    background-size: 20px 20px !important;
+    margin-top: 15px;
+}
+.listicon{
+    width: 30px !important;
+    height: 30px !important;
+}
+
+i.arrow-up{
+    background: url(../images/arrow.png) no-repeat center;
+    background-size: 14px 15px;
+}
+
+.arrow-up{
+    background: url(../images/arrow.png) no-repeat right;
+    background-size: 14px 15px;
+}
+i.arrow-down{
+    background: url(../images/arrow-down.png) no-repeat center;
+    background-size: 14px 8px;
+}
+
+.arrow-down{
+    background: url(../images/arrow-down.png) no-repeat right;
+    background-size: 14px 8px;
+}
+
+i.selectAccount{
+    background: url(../images/icon-selectaccount.png) no-repeat center;
+    background-size: 22px 24px;
+    margin-top: 17px;
+    width: 50px;
+    height: 50px;
+}
+i.selectAccount:active, i.selectContact-topup:active, i.selectAccount-interBank:active{
+    background-color: #DFDFDF;
+}
+i.selectAccount-interBank, .selectBank-pullright {
+    background: url(../images/icon-selectaccount.png) no-repeat center;
+    background-size: 25px 26px;
+    margin-top: -25px;
+    width: 50px;
+    height: 50px;
+}
+
+i.selectContact{
+    background: url(../images/icon-select-contact.png) no-repeat center;
+    background-size: 40px 40px;
+    margin-top: 17px;
+    right:45px;
+    width: 50px;
+    height: 50px;
+}
+i.selectContact:active{
+    background-color: #DFDFDF;
+}
+i.selectContact-topup{
+    background: url(../images/icon-select-contact.png) no-repeat center;
+    background-size: 40px 40px;
+    margin-top: 8px;
+    width: 50px;
+    height: 50px;
+    /*right:px;*/
+}
+
+i.clearText{
+    background: url(../images/resetTextField.png) no-repeat center;
+    background-size: 16px 16px;
+    margin-top: 6px;
+}
+
+.sourceAccount {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif !important;
+    font-size: 1em !important;
+}
+
+i.resetTextFieldDefault{
+    background: url(../images/resetTextField.png) no-repeat center;
+    background-size: 14px 14px;
+    top: 30px;
+    width: 30px;
+    height: 40px;
+}
+
+.getstarted {
+    background-image: url("../images/getstartedindex.png");
+    background-repeat : no-repeat;
+    background-position: top center;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    padding: 0px;margin: 0px auto;
+}
+
+.activeFromArc {
+    background-repeat: no-repeat;
+    border: none;
+    overflow: hidden;
+    border-radius: 5px;
+    background-color: white;
+    position: absolute;
+    bottom: 15% !important;
+    width: 40% !important;
+    height: 45px !important;
+    float: left !important;
+    margin-left: 7% !important;
+    /*margin-bottom: 20px;*/
+}
+
+.activeNew {
+    background-repeat: no-repeat;
+    border: none;
+    overflow: hidden;
+    border-radius: 5px;
+    background-color: white;
+    position: absolute;
+    float: right !important;
+    bottom: 15% !important;
+    width: 40% !important;
+    height: 45px !important;
+    margin-right: 5% !important;
+    /*margin-bottom: 20px;*/
+    margin-left: 4%;
+}
+
+i.resetTextFieldHasBenButton{
+    background: url(../images/resetTextField.png) no-repeat center;
+    background-size: 14px 14px;
+    top: 28px;
+    right: 45px;
+    width: 30px;
+    height: 40px;
+}
+
+.clearContractCode {
+    margin-top: 21px !important;
+    margin-right: 45px !important;
+}
+
+.clearContractCode-default {
+    margin-top: 21px !important;
+    margin-right: 0 !important;
+}
+
+.selectRecentOrder {
+    margin-top: 10px !important;
+    width: 40px !important;
+    height: 40px !important;
+}
+
+i.moreMenutrigger{
+    background: url(../images/more-menu.png) no-repeat center;
+    background-size: 35px 15px;
+    height: 45px;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 15px;
+}
+
+i.icon-value{
+    background: url(../images/icon-value.png) no-repeat center;
+    background-size: 43px 43px;
+}
+i.ask{
+    background: url(../images/icon-ewallet.png) no-repeat center;
+    background-size: 31px 28px;
+}
+
+i.askSocial{
+    background: url(../images/icon-esocial.png) no-repeat center;
+    background-size: 31px 28px;
+}
+i.fb{
+    background: url(../images/icon-fb.png) no-repeat center;
+    background-size: 28px 28px;
+}
+i.favourite{
+    padding-top:5px;
+    display: block;
+    float: left;
+}
+i.gplus ,i.google{
+    background: url(../images/icon-gplus.png) no-repeat center;
+    background-size: 28px 28px;
+}
+
+i.sms, i.mobile ,i.fc{
+    background: url(../images/icon-sms.png) no-repeat center;
+    background-size: 28px 28px;
+}
+.panelList{
+    padding: 15px 0;
+}
+.panelList.account{
+    padding: 0; margin: 0;
+
+}
+.panelList li a{
+    background-image: none;
+    position: relative;
+    padding: 15px 0;
+}
+
+.panelList li a.interbank{
+    background-image: none;
+    position: relative;
+    padding: 5px 10px;
+}
+.panelList li:only-child.greyBorderBottom, .panelList li:last-child.greyBorderBottom{
+    border: none;
+}
+.panelList li name{
+    display: block;
+    font-size: .8em;
+    background: none;
+    width: 90%;
+
+}
+.panelList li balance{
+    display: block;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+.moreMenu{
+    background: url(../images/popup_box.png) no-repeat top left transparent;
+    background-size: contain;
+    width:320px;
+    right: 0;
+    top: 80px;
+    height: 140px;
+    position: absolute;
+    z-index: 999;
+    padding-left: 5px;
+    padding-right: 5px;
+    display: none;
+}
+
+.smallPopup{
+    background: url(../images/popup_box-short.png) no-repeat top left transparent;
+    background-size: contain;
+    width:320px;
+    right: 0;
+    top: 80px;
+    height: 140px;
+    position: absolute;
+    z-index: 999;
+    padding-left: 5px;
+    padding-right: 5px;
+    display: none;
+}
+
+.moreMenu.beneficiaryPopup div{
+    width: 33.333%;
+}
+
+.smallPopup.bankTransferPopup div{
+    float: right;
+    margin-right:10px;
+    width: 100px;
+}
+
+.moreMenu.show{
+    display: block;
+}
+
+.smallPopup.show{
+    display: block;
+}
+
+.moreMenu div{
+    float: left;
+    margin-top: 35px;
+    border-radius: 3px;
+    width: 26%;
+    height: 80px;
+    margin-bottom:2.34%;
+    position: relative;
+}
+
+.smallPopup div{
+    float: left;
+    margin-top: 35px;
+    border-radius: 3px;
+    width: 80px;
+    height: 80px;
+    margin-bottom:2.34%;
+    position: relative;
+}
+
+.moreMenu div span{
+    text-align: center;
+    width: 100%;
+    display: block;
+    position: absolute;
+    bottom: 2px;
+    font-size: 11px;
+}
+.moreMenu.beneficiaryPopup div span{
+  bottom: 0px;
+}
+.smallPopup div span{
+    text-align: center;
+    width: 100%;
+    display: block;
+    position: absolute;
+    bottom: 2px;
+    font-size: 11px;
+}
+
+.smallPopup .banktrsf{
+    background: url("../images/popup_banktrsf.png") no-repeat 50% 40% transparent;
+    background-size: 50px 49px;
+}
+
+.moreMenu .detail{
+    background: url("../images/popup_detail.png") no-repeat 50% 40% transparent;
+    background-size: 46px 46px;
+}
+.moreMenu .inquiry{
+    background: url("../images/popup_inquiry.png") no-repeat 50% 40% transparent;
+    background-size: 50px 49px;
+}
+.moreMenu .banktrsf{
+    background: url("../images/popup_banktrsf.png") no-repeat 50% 40% transparent;
+    background-size: 50px 49px;
+}
+
+.moreMenu .banktrsf-disabled{
+    background: url("../images/dashboard-instantTransfer-disabled.png") no-repeat 50% 40% transparent;
+    background-size: 50px 49px;
+}
+
+.moreMenu .deposit-diabled{
+     background: url("../images/dashboard-instantTransfer-disabled.png") no-repeat 50% 40% transparent;
+     background-size: 50px 49px;
+}
+
+.moreMenu .credit-diabled{
+    background: url("../images/witdrawal-credit_disabled.png") no-repeat 50% 40% transparent;
+    background-size: 50px 49px;
+}
+
+.moreMenu .close-diabled{
+    background: url("../images/close-deposit-account_disabled.png") no-repeat 50% 40% transparent;
+    background-size: 50px 49px;
+}
+
+.moreMenu .sendMoney{
+    background: url("../images/popup_sendMoney.png") no-repeat 50% 40% transparent;
+    background-size: 50px 49px;
+}
+
+.moreMenu .sendMoney-disabled{
+    background: url("../images/popup_sendMoney_disabled.png") no-repeat 50% 40% transparent;
+    background-size: 50px 49px;
+}
+.moreMenu .delete{
+    background: url("../images/popup-delete.png") no-repeat 50% 40% transparent;
+    background-size: 46px 46px;
+}
+.moreMenu .edit{
+    background: url("../images/popup-edit.png") no-repeat 50% 40% transparent;
+    background-size: 46px 46px;
+}
+.avatar, .avatar-game{
+    width: 43px;
+    float: left;
+    margin-right: 8px;
+}
+.avatar img{
+    width: 43px;
+    height: auto;
+    border-radius: 300px;
+    display: block;
+    background-color: #ccc;
+}
+
+.avatar-game img{
+    width: 40px;
+    height: 40px;
+    border-radius: 300px;
+    display: block;
+    background-color: #ccc;
+}
+
+.rowContainer{
+     line-height: 18px;
+     padding-right: 40px;
+     padding-left: 50px;
+     width: 100%;
+     padding-left: 50px;
+}
+.rowContainer.tcbconfirm{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.rowContainer.banktransaction{
+    padding-left: 0px;
+}
+.rowContainer.banktransaction .labelKey{
+    min-width: 60px;
+}
+.transactionIndex {
+    padding: 5px 0;
+}
+
+.fromRow{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.fromRow .labelKey .detail{
+    font-size: 12px;
+}
+
+.rowContainer .name{
+    font-size: 15px;
+    /*white-space: nowrap;*/
+}
+.rowContainer .name1{
+    font-size: 15px;
+    width: 189px;
+    /*white-space: nowrap;*/
+}
+.rowContainer .amount{
+    font-size: 18px;
+    line-height: 13px;
+    margin: 5px 0px 0px 0px;
+    white-space: nowrap;
+    width: 100%;
+    float: none;
+    min-height: 16px;
+}
+.rowContainer .banktransaction-amount{
+  font-size: 18px;
+  line-height: 13px;
+  margin: 5px 0px 5px 0px;
+  white-space: nowrap;
+  width: 100%;
+  float: none;
+  min-height: 16px;
+}
+.rowContainer .date{
+    font-size: 10px;
+    margin: 2px 0px 0px 0px;
+    width: 100%;
+    float: none;
+}
+
+.rowContainer .link{
+    font-size: 8px;
+    color: red;
+    margin: 2px 0px 0px 0px;
+    white-space: nowrap;
+    float: none;
+}
+.rowContainer .detailtable {
+    font-size: 11px;
+}
+.rowContainer .detailtable{
+    display: table;
+}
+.friendLabel:active{
+    color: red !important;
+}
+
+.rowContainer .detailtable .row{
+    display: table-row;
+}
+.rowContainer .detailtable .labelKey{
+    display: table-cell;
+}
+
+.selectedFriend .rowContainer{
+    padding-left: 0px;
+}
+
+.rowContainer .detailtable .friendLabel{
+    display: table-cell;
+    vertical-align: middle;
+    height: 40px;
+    font-size: 14px;
+    color: #333;
+}
+.confirm .detailtable .friendLabel{
+    font-size: 18px;
+}
+.tcbconfirm .detailtable .friendLabel{
+    font-size: 14px;
+}
+.avatarCell{
+    display: table-cell;
+}
+
+.avatarIconCell{
+    display: table-cell;
+}
+
+.avatarIconCell .i.icon-value .smallicon {
+    margin-top: 0px;
+    align-content:center;
+}
+
+.selectedFriend .friendLabel{
+    width: 80%;
+}
+
+.rowContainer .detailtable .labelValue{
+    display: table-cell;
+    line-height: 12px;
+}
+.rowContainer .detail{
+    font-size: 12px;
+}
+.transactionContainer{
+    position: relative;
+}
+
+.transactionContainer.short{
+    position: relative;
+}
+.transactionList .transactionContainer{
+}
+.transactionDetail{
+    font-size: 12px;
+    word-break: break-all;
+}
+.transactionDetail .row{
+    padding-left: 0px;
+    word-break: break-word;
+}
+.status {
+    text-align: center;
+    font-size: 9px;
+    border-radius: 4px;
+    padding: 5px;
+    background: cyan;
+    float: right;
+    color: #fff;
+}
+.channelstatus{
+    top:0px;
+    right:0px;
+    position: absolute;
+}
+i.channel{
+    width: 19px;
+    height: 19px;
+    float: right;
+    margin-right: 2px;
+    border-radius: 8px;
+}
+i.channel.fb{
+    background: url("../images/fb.png") no-repeat 50% 40% transparent;
+    background-size: 19px 19px;
+}
+i.channel.gplus, i.channel.google{
+    background: url("../images/gplus.png") no-repeat 50% 40% transparent;
+    background-size: 19px 19px;
+}
+
+i.channel.none{
+    margin-left: -25px;
+    border-bottom: 1px #F1F1F1 solid;
+    padding-bottom: 8px;
+}
+
+i.linkType{
+    width: 16px;
+    height: 16px;
+    float: left;
+    margin-right: 5px;
+}
+
+i.linkType.sendExternal{
+    background: url("../images/icon_sendMoney.png") no-repeat 50% 40% transparent;
+    background-size: 16px 16px;
+    background-position: 0px -1px;
+}
+
+i.linkType.request{
+    background: url("../images/icon_askMoney.png") no-repeat 50% 40% transparent;
+    background-size: 16px 16px;
+    background-position: 0px -1px;
+}
+
+
+.channelstatus .status.Accepted{
+    background: #78BE43;
+}
+.channelstatus .status.Rejected{
+    background: #EA2127;
+}
+.channelstatus .status.Cancelled{
+    background: #EA2127;
+}
+.channelstatus .status.Pending{
+    background: #FFC630;
+}
+.channelstatus .status.Expired{
+    background: #37C4EF;
+}
+.beneficiaryList{
+    min-height: 55px;
+}
+.beneficiaryList-interbank{
+    min-height: 55px;
+    padding: 0px;
+}
+.beneficiaryList .avatar ,.beneficiaryList  .rowContainer, .beneficiaryList-interbank.avatar, .beneficiaryList-interbank.rowContainer{
+    width: auto;
+
+}
+.beneficiaryList li:only-child a, .beneficiaryList-interbank li:only-child a{
+    padding: 0;
+}
+.beneficiaryList .rowContainer, .beneficiaryList-interbank .rowContainer{
+    padding-left: 0px;
+}
+.beneficiaryList .avatar, .beneficiaryList-interbank .avatar{
+    height: 48px;
+}
+.beneficiaryList .friendName, .beneficiaryList-interbank.friendName{
+    font-size: 15px;
+    margin: 10px;
+
+}
+
+.beneficiaryList .name, .beneficiaryList-interbank .name{
+    font-size: 15px;
+    margin-bottom: 4px;
+
+}
+.beneficiaryList .number, .beneficiaryList-interbank .number{
+    font-size: 18px;
+
+    font-weight: bold;
+}
+.seachBar{
+    background: url("../images/searchbar.png") no-repeat 10px #F3F4F5;
+    background-size: 23px 16px;
+    padding-left: 40px;
+    width: 100%;
+}
+
+.notificationsContainer{
+    height: 120px;
+    position: relative;
+}
+.notificationsContainer.short{
+    height: 80px;
+    position: relative;
+}ul.iconList{
+    margin: 0;
+    padding: 0;
+}
+ul.iconList  li a{
+    display: block;
+    margin: 0;
+    padding: 20px 0 20px 60px;
+    border-bottom: 1px #f1f1f1 solid;
+}
+a.support-phone{
+     background: url("../images/support-phone.png") no-repeat left transparent;
+     background-size: 38px 38px;
+ }
+a.support-email{
+    background: url("../images/support-email.png") no-repeat left transparent;
+    background-size: 38px 38px;
+}
+
+a.support-address {
+    background: url("../images/tabbar-home.png") no-repeat left transparent;
+    background-size: 38px 38px;
+}
+
+.help-panel a{
+    height: auto;
+    display: table-cell;
+}
+.help-panel span{
+    display: block;
+    padding: 5px 20px;
+    width: 83%;
+    float: left;
+}
+.help-panel i{
+    float: left;
+}
+.help-panel p{
+    padding: 10px 10px;
+}
+.help-panel .glyphicon .glyphicon-Accepted .glyphicon-help {
+    padding: 20px;
+}
+.support-help{
+    background: url("../images/support-help.png") no-repeat left transparent;
+    background-size: 30px 30px;
+    height: 30px;
+    width: 30px;
+}
+
+.pendingTransactionsContainer{
+    height: 120px;
+    position: relative;
+}
+.pendingTransactionsContainer.short{
+    height: 80px;
+    position: relative;
+}
+.sendfield{
+    padding-left: 5px;
+}
+
+.buttonBox{
+    margin-top: 20px;
+    text-align: center;
+}
+
+ul.arrowlist.fav-friendList li{
+    padding: 5px 0;
+}
+.favouritesContainer.friendsList{
+    position: relative;
+}
+.favouritesContainer.friendsList .avatar, .favouritesContainer.friendsList .rowContainer{
+    min-height: 40px;
+}
+.promotion{
+    width: 70px !important;
+    height: 70px !important;
+    border-radius: 0 !important;
+    background-color: white !important;
+}
+
+.favouritesContainer.friendsList .rowContainer{
+   /* width: 160px;*/
+}
+.favouritesContainer.friendsList .avatar img{
+    width: 36px;
+}
+.favouritesContainer.friendsList .smallicon{
+    margin-top:10px;
+    margin-right: 0px;
+    right:25px;
+    position: absolute;
+    top:0px;
+}
+.favouritesContainer.friendsList p{
+    margin: 10px 0;
+}
+.favouritesContainer li.iconField{
+    margin: 0;
+    padding:5px 0;
+    height: 40px;
+}
+a.channel{
+    width: 19px;
+    height: 19px;
+    float: right;
+    margin-right: 5px;
+}
+
+a.channel.fb{
+    background: url("../images/icon-fb.png") no-repeat left transparent;
+    background-size: 38px 38px;
+}
+
+a.channel.gplus{
+    background: url("../images/icon-gplus.png") no-repeat left transparent;
+    background-size: 38px 38px;
+}
+
+a.channel.sms{
+    background: url("../images/icon-sms.png") no-repeat left transparent;
+    background-size: 38px 38px;
+}
+
+a.contact-phone {
+    background: url("../images/contact_detail_phone.png") no-repeat left transparent;
+    background-size: 15px 15px;
+}
+a.contact-email {
+    background: url("../images/contact_detail_mail.png") no-repeat left transparent;
+    background-size: 15px 10px;
+}
+a.contact-sms {
+    background: url("../images/contact_detail_sms.png") no-repeat left transparent;
+    background-size: 15px 15px;
+}
+
+a.contact-fb {
+    background: url("../images/contact_detail_fb.png") no-repeat left transparent;
+    background-size: 15px 15px;
+}
+
+a.contact-gplus {
+    background: url("../images/contact_detail_g+.png") no-repeat left transparent;
+    background-size: 15px 15px;
+}
+
+div p.forgotOTPKey{
+    margin: 15px 0 -13px;
+}
+.scrollBox-withFooter .flexible-Margin, .scrollBox-withFooter .formContainer, .scrollBox-withFooter-helps {
+    margin-left: 0px;margin-right: 0px;
+}
+.panel-group .panel{
+    box-shadow: none;
+}
+.amount.small{
+    font-size: 1em;
+}
+.amount.small .number{
+    font-size: 1.24em;
+    display: inline-block;
+}
+.amount.small .currency{
+    padding-top	:5px;
+    display: block;
+    float: left;
+}
+
+.spreadLabel{
+    text-align: center;
+    padding-top: 20px;
+    color: white;
+    font-size: 1.27em;
+    font-weight: bold;
+}
+
+.profile-name.noprofilephoto{
+    height:130px;
+    position: relative;
+}
+.profile-name.noprofilephoto h1{
+    bottom: 10px;
+    position: absolute;
+    width: 100%;
+}
+.profile-name.noprofilephoto h1 p{
+    font-size: 12px;
+    font-weight: normal;
+    margin-top: 4px;
+}
+
+.spreadLuvBackground{
+    height: auto;
+    width: 100%;
+    height: 90%;
+    background-image: url("../images/transparent_box2.png");
+    background-repeat: repeat-y;
+    background-size: 100% 100%;
+    opacity: .8;
+}
+.signup-address {
+    padding-right: 5px;
+    word-break: break-word;
+}
+
+@media (max-width: 320px) {
+    .help-panel span {
+        width: 81%;
+    }
+    .rowContainer .name1 {
+        width: 160px;
+    }
+    .accountType{
+        margin: 4px 8px 8px 0px;
+        width: 80px;
+    }
+    .amount.small{
+        font-size: .9em;
+    }
+    .amount.small .number{
+        font-size: 1.1em;
+        padding-top: 3px;
+        display: inline-block;
+    }
+    .transactionList .avatar{
+        display: none;
+    }
+    .transactionList .rowContainer{
+        padding-left: 0px;
+    }
+    .beneficiaryList .avatar ,.beneficiaryList  .rowContainer, .beneficiaryList-interbank .avatar, .beneficiaryList-interbank .rowContainer{
+        width: auto;
+        max-width:  243px;
+
+    }
+    #menuleft ul{
+        margin-top: 50px;
+    }
+    .rowContainer{
+        padding-left: 50px;
+        padding-right: 0px;
+    }
+    .favouritesContainer.friendsList .rowContainer{
+        min-width: 220px;
+    }
+    .accountFee{
+        margin: 0px 8px 8px 0px;
+    }
+}
+@media (max-height: 480px) {
+    .cashoutBox{
+        margin-top: 5% !important;
+    }
+    .hideforshortscreen{
+        display: none;
+    }
+    .profile-cover{
+        height: auto;
+        min-height: 0;
+    }
+    .profile-image{
+        height: 70px;
+        width: 70px;
+        margin: 5px auto;
+    }
+    .dashboardGreyBox{
+        margin-top: 10px;
+    }
+    .dashboardGreyBox.spreadtheluv{
+        margin-top: 25px;
+    }
+
+    .dashboardGreyBox div, .dashboardGreyBox.column2 div{
+        height: 72px;
+        margin-bottom: 0px;
+    }
+    .dashboardGreyBox div span{
+        top:    56px;
+    }
+    .notice{
+        margin: 5px auto;
+    }
+    .profile-name h1{
+        font-size: 16px;
+    }
+    .profile-name.noprofilephoto{
+        height:100px;
+    }
+    .stickyBottom{
+        bottom: auto;
+        position: relative;
+    }
+    .skipBox{
+    }
+    .aboveTabs.stickyBottom, .stickyBottom.spreadtheluv{
+        bottom: 0;
+    }
+    .scrollBox-withoutFooter{
+        height: auto;
+    }
+    .scrollBox-withFooter, .scrollBox-withFooter-helps {
+        height: 70%;
+    }
+    .scrollBox-withFooter-card {
+        height: 80%;
+        margin-top: 5px;
+    }
+    .scrollBox-withFooter-cashout {
+        height: 63%;
+    }
+    .scrollBox-withFooter-cashoutid {
+        height: 66%;
+    }
+    .scrollBox-withSearchFooter-atm {
+        height: 62%;
+    }
+    .scrollBox-withSearchFooter {
+        height: 64%;
+    }
+    .scrollBox-withCoverAndFooter, .scrollBox-withCoverAndFooter-cashoutid{
+        height: 42%;
+    }
+    .cashoutBox{
+        margin-top: 10% !important;
+
+    }
+
+}
+@media (min-height: 481px) and (max-height: 570px) {
+    /* iPhone 5 only */
+    .scrollBox-withSearchFooter{
+        height: 395px;
+    }
+    .scrollBox-withSearchFooter-atm{
+        height: 376px;
+    }
+    .cashoutBox {
+        text-align: center;
+        margin-top: 20% !important;
+    }
+}
+@media (min-height: 615px) and (max-height: 800px) {
+    /* samsung galaxy */
+    .scrollBox-withFooter, .scrollBox-withFooter-helps, .scrollBox-withFooter-cashout, .scrollBox-withFooter-cashoutid, .scrollBox-withFooter-card {
+        height: 500px;
+    }
+    .scrollBox-withSearchFooter, .scrollBox-withSearchFooter-atm{
+        height: 450px;
+    }
+    .cashoutBox {
+        text-align: center;
+        margin-top: 20% !important;
+    }
+}
+@media (min-height: 481px) and (max-height: 800px) {
+    .dashboardGreyBox div, .dashboardGreyBox.column2 div{
+        height: 90px;
+        margin-bottom: 0px;
+    }
+
+    .scrollBox-withCoverAndFooter{
+        height: 40%;
+    }
+    .scrollBox-withCoverAndFooter-cashoutid {
+         height: 46%;
+    }
+}
+
+
+@media (min-width: 320px) and (max-height: 480px) {
+    .scrollBox-withCoverAndFooter {
+        height: 41%;
+    }
+    .scrollBox-withCoverAndFooter-cashoutid {
+        height: 50%;
+    }
+}
+
+
+/*Optimize for iphone 6*/
+@media (min-width: 375px) and (min-height: 667px) {
+    .glyphicon-Accepted {
+        height: 33px;
+    }
+    .scrollBox-withCoverAndFooter, .scrollBox-withCoverAndFooter-cashoutid {
+        height: 55%;
+    }
+}
+
+/*Optimize for iphone 5*/
+@media (width: 320px) and (height: 568px) {
+    .scrollBox-withCoverAndFooter {
+        height: 48%;
+    }
+    .scrollBox-withCoverAndFooter-cashoutid {
+        height: 52%;
+    }
+
+    .scrollBox-withFooter, .scrollBox-withFooter-helps, .scrollBox-withFooter-cashout, .scrollBox-withFooter-cashoutid {
+        height: 78%;
+    }
+    /*.container-home {*/
+        /*margin-top: -25px;*/
+    /*}*/
+
+}
+
+/*Optimize for iphone 4*/
+@media (max-width: 320px) and (max-height: 480px){
+    .scrollBox-withFooter-helps {
+        height: 71%;
+    }
+    .scrollBox-withFooter-card {
+        height: 66%;
+        margin-top: 10px;
+    }
+    .help-panel span {
+        width: 81%;
+    }
+    .pull-right-social {
+        margin-top: -5px;
+    }
+
+    /*.container-home {*/
+        /*margin-top: -45px;*/
+    /*}*/
+}
+/*@media (min-width: 320px) and (min-height: 568px) {*/
+    /*.scrollBox-withCoverAndFooter {*/
+        /*height: 48%;*/
+    /*}*/
+/*}*/
+
+/*optimize for Sony Z/Z1 - Note 2 - Note 3 - galaxy nesux - S3 S4*/
+@media (min-width: 360px) and (min-height: 640px)  {
+    .glyphicon-Accepted {
+        height: 33px;
+    }
+    .scrollBox-withCoverAndFooter, .scrollBox-withCoverAndFooter-cashoutid{
+        height: 53%;
+        overflow-x: hidden;
+    }
+}
+
+@media (min--moz-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
+    .sendToWhom {
+        margin-left:  4px;
+    }
+
+    .formContainer .currencycode, .transactionStatus, .labelKeyBold, b, .profile-sex ,.accountType.success ,.accountFee.success .transactionStatus, .labelValue, .accountBalance .number, .profile-name h1, .dashboardGreyBox div span.recommend, .contentText, .panel-title, .panelList li balance, .beneficiaryList .number, .beneficiaryList-interbank .number, .spreadLabel{
+        font-family: Helvetica Neue Bold, helvetica, arial;
+    }
+}
+/*feedback when click */
+.account:active, .payment:active, .social:active, .transfer:active, .transaction:active, .cashout:active, .deposit:active, .credit:active, .topup-prepaid:active,.evn-fpt-payment:active, .topup-game:active, .topup-postpaid:active, .inTCB:active, .interBank:active, .instantTransfer:active, .instantTransfer-to-card:active, .instantTransfer-to-account:active, .beneficiary:active, .sendMoney:active, .askMoney:active, .connect:active, .idNumber:active, .beneficiary:active, .askMoney-social:active, .askMoney-eWallet:active, .friends:active, .profile-image:active, .inquiry:active, .banktrsf:active, .mobilenumber:active, .creditCard:active, .cardPayment:active, .statement:active{
+    -webkit-transform: scale3d(0.9, 0.9, 1);
+    font-weight: bold;
+}
+.navbar-back:active{
+    background-color: #DFDFDF;
+}
+#btnSignOut:active ,#btnAction:active{
+    background-color: #DFDFDF;
+}
+#btnSignOut {
+    width: 40px !important;
+    height: 40px !important;
+}
+
+.navbar-back {
+    width: 40px !important;
+    height: 40px !important;
+}
+
+/* prevent text from appearing underneath the icon */
+input[am-reset-field] {
+    padding-right: 19px;
+}
+
+/* hide the built-in IE10+ clear field icon */
+input[am-reset-field]::-ms-clear {
+    display: none;
+}
+/* hide cancel icon for search type */
+input[am-reset-field]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+}
+
+/* icon styles */
+input[am-reset-field] + .fa {
+    position: relative;
+    right: 19px;
+    color: #C0C0C0;
+    cursor: default;
+}
+
+/* animations for ngAnimate */
+input[am-reset-field] + .fa.ng-hide-add {
+    display:inline!important;
+    -webkit-animation: 0.3s fadeOut;
+    -moz-animation: 0.3s fadeOut;
+    -ms-animation: 0.3s fadeOut;
+    animation: 0.3s fadeOut;
+}
+input[am-reset-field] + .fa.ng-hide-remove {
+    -webkit-animation: 0.5s fadeIn;
+    -moz-animation: 0.5s fadeIn;
+    -ms-animation: 0.5s fadeIn;
+    animation: 0.5s fadeIn;
+}
+
+#getstarted .item img{
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+}
+
+.skip {
+    z-index: 100;
+    position: absolute;
+    color: white;
+    font-size: 1.1em;
+    bottom: 0;
+    right: 40vw;
+}
+
+.getstarted {
+    background-repeat : no-repeat;
+    background-position: top center;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    padding: 0px;margin: 0px auto;
+    background-color: #ED1C24;
+}

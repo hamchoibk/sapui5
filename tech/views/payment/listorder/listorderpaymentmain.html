@@ -1,0 +1,74 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <div class="scrollBox-withFooter formContainer" id="scrollArea" style="margin-top: 5px">
+        <form id="listOrderPaymentForm" name="listOrderPaymentForm">
+
+            <div class="greyBorderBottom">
+                <ul class="arrowlist" style="margin: 0">
+                    <li class="fromRow" ng-click="selectAccount()">
+                        <a class="labelKey"><b>{{ 'COMMON_FROM' | translate }}</b></span><br>
+                              <span class="detail">
+                                  {{sourceAccount.displayName}}<br>
+                                  {{sourceAccount.accountNumber}}<br>
+                                  {{currencyCode}} {{sourceAccount.availableBalance.formatMoney(0)}}<br>
+                              </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="greyBorderBottom" style="padding: 10px 0;">
+                <b>{{lable1}}</b><br/>
+                <div class="avatar-game"> <img src="{{listOrderInfo.iconUrl}}"/></div>
+                <div class="rowContainer">
+                    <div class="detailtable" style="text-align: match-parent">
+                        <div class="row">
+                            <div class="friendLabel">{{listOrderInfo.name}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="input-withIcon" style="padding-top:10px; margin-bottom: -10px"><b>{{lable2}}</b></br>
+                <input class="greyBorderBottom" placeholder="{{'ENTER' | translate}}{{lable2}}" ng-model="listOrderInfo.contractCode" required id="contractCode" order-length-check="{{lable2}}|13" ng-change="changeNo()" capitalize/>
+                <i class="clearText inputIcon glyphicon pull-right" ng-click="clearContractCode()" ng-show="showClearContractCode==true" style="margin-top: 26px;margin-right: 45px"/>
+                <i id="selectAccount" class="selectAccount inputIcon glyphicon pull-right" ng-click="selectFromBen()" style="margin-top: 15px; width: 40px !important;height: 40px !important;"></i>
+            </div>
+
+            <div class="input-withIcon contractName greyBorderBottom" ng-show="showContractDetail" style="margin-top: 10px"><b>{{'LIST_ORDER_PAYMENT_CUSTOMER_INFO' | translate }}</b></br>
+                <span class="detail">
+                    {{listOrderInfo.customerName}}<br/>
+                    {{listOrderInfo.customerAddress}}
+                </span>
+            </div>
+
+            <div ng-show="showContractDetail && haveNoOrderInfo" class="greyBorderBottom">
+                <ul class="arrowlist" style="margin: 0">
+                    <li class="fromRow" ng-click="selectOrder()">
+                        <a class="labelKey"><b>{{ 'LIST_ORDER_PAYMENT_CHOOSE_ORDER' | translate }}</b></span><br>
+                              <span class="detail">
+                                  {{ 'ORDER_INFO_FROM_DATE' | translate }}: {{listOrderInfo.fromDate}}<br>
+                                  {{ 'ORDER_INFO_TO_DATE' | translate }}: {{listOrderInfo.toDate}}
+                              </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div ng-show="showContractDetail">
+                <input type="text" placeholder="VND" value="VND"  class="greyBorderBottom greyBorderRight currencycode" readonly="readonly"/>
+                <input type="text" id="billAmount" class="greyBorderBottom amt" ng-model="listOrderInfo.parsedAmount" readonly="readonly" required/>
+            </div>
+        </form>
+
+
+        <div>
+            <button ng-class="{true: 'button base inactive buttonBox', false: 'button base active buttonBox'}[listOrderPaymentForm.$invalid]" ng-disabled="listOrderPaymentForm.$invalid" ng-click="listOrderPayment()">{{'BILL_PAYMENT_MAIN_SUBMIT' | translate}}</button>
+        </div>
+    </div>
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>
+

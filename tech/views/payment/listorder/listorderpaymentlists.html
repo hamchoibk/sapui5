@@ -1,0 +1,27 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div ng-include src="'views/loading/loading.html'"></div>
+
+    <div class="scrollBox-withSearchFooter" id="gameList">
+        <div>
+            <div class="cashoutInfo" ng-show="showAlert">{{'SELECT_THE_BILL_MESSAGE' | translate}}</div>
+            <ul class="selectAccount" >
+                <li ng-repeat="order in orders" class="greyBorderBottom" style="padding-top: 15px; padding-bottom: 15px" ng-click="selectOrder(order)">
+                    <a>
+                        <span class="detail">
+                          {{ 'ORDER_INFO_ID' | translate }}: <b>{{order.billId}}</b><br>
+                          {{ 'ORDER_INFO_AMOUNT' | translate }}: <b>{{order.currency}} {{order.amount.formatMoney(0)}}</b><br>
+                          {{ 'ORDER_INFO_FROM_DATE' | translate }}: <b>{{order.prettyFromDate}}</b><br>
+                          {{ 'ORDER_INFO_TO_DATE' | translate }}: <b>{{order.prettyToDate}}</b>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

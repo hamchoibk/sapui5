@@ -1,0 +1,24 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div class="scrollBox-withFooter">
+        <div ng-repeat="groupAccount in groupedAccounts">
+            <b>{{groupAccount.accountType | translate}}:</b>
+            <br />
+            <li ng-repeat="account in groupAccount.accounts" class="greyBorderBottom" ng-click="selectAccount(account)">
+                <div>
+                    <p class="labelKey">{{account.accountName}}</p>
+                    <p class="labelValue">{{account.accountNumber}}</p>
+                    <p class="labelKey">{{'CASHOUT_ACCOUNT_AVAILABLE_BALANCE' | translate}}</p>
+                    <p class="labelValue">VND {{account.availableBalance}}</p>
+<!--                    <p class="labelKey">{{'CASHOUT_ACCOUNT_TRANSACTION_LIMIT' | translate}}</p>-->
+<!--                    <p class="labelValue">{{account.transactionLimit}}</p>-->
+                </div>
+            </li>
+            <br />
+        </div>
+    </div>
+
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

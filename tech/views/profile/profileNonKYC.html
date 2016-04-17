@@ -1,0 +1,132 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <div class="scrollBox-withFooter ">
+        <form name="profileform" id="profileform" class="formContainer">
+
+            <div class="profileField" ng-click="clickPhoto()">
+                <img id="profile_face" style="background-image:url({{photo}})"/>
+                <div class="profileText">{{'PROFILE_CHANGE_PROFILE_PICTURE' | translate}}</div>
+            </div>
+            <div class="profileField" ng-click="clickBackground()">
+                <img id="profile_scenary" style="background-image:url({{background}})"/>
+                <div class="profileText">{{'PROFILE_CHANGE_COVER_PICTURE' | translate}}</div>
+            </div>
+            <div class="space"></div>
+
+            <div class="greyBorderBottom">
+                <ul class="arrowlist">
+                    <li ng-click="changePassword()">
+                        <a><b>{{'PROFILE_CHANGE_PASSWORD' | translate}}</b></a>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <p class="labelKeyBold" style="padding-top: 10px">{{ 'PROFILE_FULL_NAME' | translate }}</p>
+                <input type="text" class="" placeholder="{{'PROFILE_FULL_NAME' | translate}}" ng-model="profile.fullname" alphabet-check="ERROR_CODE_30014" maxlength-check="ERROR_CODE_30006 40" required/>
+            </div>
+
+            <div class="space"></div>
+
+            <div>
+                <p class="labelKeyBold">{{ 'PROFILE_GENDER' | translate }}</p>
+                <div class=" gender">
+                    <label for="male">{{'PROFILE_MALE' | translate}}
+                        <input type="radio" name="sex" id="male" ng-model="profile.sex" value="1"/></label>
+                    <label for="female">{{'PROFILE_FEMALE' | translate}}
+                        <input type="radio" name="sex" id="female" ng-model="profile.sex" value="2" readonly/></label>
+                </div>
+            </div>
+            <div class="space"></div>
+
+            <div>
+                <p class="labelKeyBold">{{ 'PROFILE_DOB' | translate }}</p>
+                <input type="date" placeholder="{{'PROFILE_DOB' | translate}}" class="inputDate" id="dob" ng-model="profile.dob" ng-show="isiOsDevice" style="padding-top: 13px" dob-check="{{'SIGNUP_MAIN_DOB_VALIDATION' | translate}}"/>
+                <input type="text" placeholder="{{'PROFILE_DOB' | translate}}" class="inputDate" id="dob" ng-model="profile.dob" ng-click="focusDOB($event)" ng-readonly="isAndroid" ng-show="!isiOsDevice"/>
+            </div>
+
+            <div class="space"></div>
+
+            <div>
+                <p class="labelKeyBold">{{ 'PROFILE_ID_NUMBER' | translate }}</p>
+                <input type="text" class="" placeholder="{{'PROFILE_ID_NUMBER' | translate}}" ng-model="profile.idnumber" required/>
+            </div>
+
+            <div class="space"></div>
+
+            <div>
+                <p class="labelKeyBold">{{ 'PROFILE_ISSUE_DATE' | translate }}</p>
+                <input type="date" placeholder="{{'PROFILE_ISSUE_DATE' | translate}}" class="inputDate" id="issueDate" ng-model="profile.issuedate" ng-show="isiOsDevice" style="padding-top: 13px"/>
+                <input type="text" placeholder="{{'PROFILE_ISSUE_DATE' | translate}}" class="inputDate" id="issueDate" ng-model="profile.issuedate" ng-click="focusIssueDate($event)" ng-readonly="isAndroid" ng-show="!isiOsDevice"/>
+            </div>
+
+            <div class="space"></div>
+
+            <!--<div>-->
+                <!--<p class="labelKeyBold">{{ 'PROFILE_ISSUE_PLACE' | translate }}</p>-->
+                <!--<input type="text" placeholder="{{'PROFILE_ISSUE_PLACE' | translate}}" id="issuePlace" ng-model="profile.issuePlace" ng-readonly="isKYC"/>-->
+
+            <!--</div>-->
+
+            <!--<div class="space"></div>-->
+
+            <!--<div>-->
+                <!--<p class="labelKeyBold">{{ 'PROFILE_FIB_USERNAME' | translate }}</p>-->
+                <!--<input type="text" class="" placeholder="{{'PROFILE_FIB_USERNAME' | translate}}" ng-model="profile.fibname"  readonly />-->
+            <!--</div>-->
+
+            <!--<div class="space"></div>-->
+
+            <div>
+                <p class="labelKeyBold">{{ 'PROFILE_MBB_USERNAME' | translate }}</p>
+                <input type="text" class="" placeholder="{{'PROFILE_MBB_USERNAME' | translate}}" ng-model="profile.mbbname"  readonly />
+
+            </div>
+
+            <div>
+                <p class="labelKeyBold">{{ 'PROFILE_EMAIL' | translate }}</p>
+                <input type="text" class="" placeholder="{{'PROFILE_EMAIL' | translate}}" ng-model="profile.email"/>
+            </div>
+
+            <div class="space"></div>
+
+            <div>
+                <p class="labelKeyBold">{{ 'PROFILE_CITY' | translate }}</p>
+                <select id="city" class="form-control" ng-model="profile.city" style="font-size: 1.1em !important;" ng-options="province.name as province.name for province in provinceLists"></select>
+            </div>
+
+            <div class="space"></div>
+
+            <div>
+                <p class="labelKeyBold">{{ 'PROFILE_ADDRESS_LINE_1' | translate }}</p>
+                <input type="text" class="" placeholder="{{'PROFILE_ADDRESS_LINE_1' | translate}}" ng-model="profile.addrl1"/>
+            </div>
+
+            <div class="space"></div>
+
+            <div>
+                <p class="labelKeyBold">{{ 'SIGNUP_USERDETAILS_SCAN' | translate }}</p>
+                <div class="metaBox">
+                    <ul id="aspect" style="margin-top: 10px">
+                        <li ng-click="clickPhoto1()"><a href=""><img id="photoImage1" src=""/></a></li>
+                        <li ng-click="clickPhoto2()"><a href=""><img id="photoImage2" src=""/></a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="space" style="margin-top: 100px"></div>
+        </form>
+
+        <br />
+        <br />
+        <button ng-class="{true: 'button base inactive', false: 'button base active'}[profileform.$invalid]" ng-click="save()" ng-disabled="profileform.$invalid">{{'PROFILE_SAVE' | translate}}</button>
+
+    </div>
+
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+
+</div>

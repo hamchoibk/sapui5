@@ -1,0 +1,26 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div class="scrollBox-withFooter">
+    <ul class="arrowlist">
+        <li ng-repeat="transaction in transactions" class="greyBorderBottom">
+              <a class="transactionContainer"><div class="avatar"> <img src="{{transaction.profileImg}}"/></div>
+                  <div class="rowContainer">
+                      <span class="name">{{transaction.name}}</span><br>
+                      <span class="amount">{{transaction.amount}}</span><br>
+                      <span class="detail">{{'ACCOUNT_TRANSACTION_SUMMARY_TRANSACTION' | translate }} {{transaction.transferType}}<br>
+                      {{'ACCOUNT_TRANSACTION_SUMMARY_FROM_ACCOUNT' | translate }}: {{transaction.fromAcct}}<br>
+                      {{'ACCOUNT_TRANSACTION_SUMMARY_TO_ACCOUNT' | translate }}: {{transaction.fromAcct}}<br>
+                      {{'ACCOUNT_TRANSACTION_SUMMARY_DATE' | translate }}: {{transaction.transactionDate}}<br>
+                      </span>
+
+                  </div>
+                  <div class="channelstatus"> <div class="status {{transaction.transactionStatus}}" >{{transaction.transactionStatus}}</div> <i class="channel fb"></i> </div>
+
+              </a>
+         </li>
+    </ul>
+    </div>
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

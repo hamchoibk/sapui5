@@ -1,0 +1,38 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <div class="formContainer scrollBox-withFooter">
+        <div class="greyBorderBottom">
+            <p class="labelKey">{{'CASHOUT_ID_CONFIRM_FROM' | translate}}</p>
+            <p class="labelValue"><b>{{account.accountName}}</b></p>
+            <p class="labelValue"><b>{{account.accountNumber}}</b></p>
+        </div>
+        <div class="greyBorderBottom">
+            <p class="labelKey">{{'CASHOUT_ID_CONFIRM_ACCOUNT_BALANCE' | translate}}</p>
+            <p class="labelValue"><b>{{account.availableBalance}}</b></p>
+        </div>
+        <div class="greyBorderBottom">
+            <p class="labelKey">{{'CASHOUT_ID_CONFIRM_TO_RECIPIENT' | translate}}</p>
+            <p class="labelValue"><b>{{particulars.name}}</b></p>
+        </div>
+        <div class="greyBorderBottom">
+            <p class="labelKey">{{'CASHOUT_ID_CONFIRM_ID_NUMBER' | translate}}</p>
+            <p class="labelValue"><b>{{particulars.idnumber}}</b></p>
+        </div>
+        <div class="greyBorderBottom">
+            <p class="labelKey">{{'CASHOUT_ID_CONFIRM_AMOUNT' | translate}}</p>
+            <p class="labelValue"><b>{{particulars.currency}} {{particulars.formatedAmount}}</b></p>
+        </div>
+        <div class="greyBorderBottom">
+            <p class="labelKey">{{'CASHOUT_ID_CONFIRM_TRANSFER_MONEY_FEE' | translate}}</p>
+            <p class="labelValue"><b>{{particulars.currency}} {{particulars.formatedFee}}</b></p>
+        </div>
+        <div class="buttonBox">
+            <button class="button base active" ng-click="confirm()">{{'CASHOUT_ID_CONFIRM_CONFIRM' | translate}}</button>
+        </div>
+    </div>
+
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

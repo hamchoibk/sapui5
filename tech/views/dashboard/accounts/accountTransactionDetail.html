@@ -1,0 +1,36 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div class="flexible-Margin formContainer ">
+        <div class="transactionDetail">
+            <div class="row">
+                <div class="labelKey column50">{{'ACCOUNT_TRANSACTION_DETAIL_TRANSACTION_REF' | translate }} </div><div class="labelValue align-right column50"><b>{{transaction.coreBankTxnId}} <br ng-show="transaction.mobiliserTxnId && transaction.coreBankTxnId" /> {{transaction.mobiliserTxnId}} </b></div>
+            </div>
+            <div class="row">
+                <div class="labelKey column50">{{'ACCOUNT_TRANSACTION_DETAIL_FROM_ACCOUNT_NAME' | translate }} </div><div class="labelValue align-right column50"><b>{{transaction.payer.accountName}} </b></div>
+            </div>
+            <div class="row">
+                <div class="labelKey column50">{{'ACCOUNT_TRANSACTION_DETAIL_FROM_ACCOUNT' | translate }} </div><div class="labelValue align-right column50"><b>{{transaction.payer.accountNumber}} </b></div>
+            </div>
+            <div class="row">
+                <div class="labelKey column50">{{'ACCOUNT_TRANSACTION_DETAIL_DATE' | translate }} </div><div class="labelValue align-right column50"><b>{{transaction.date}} </b></div>
+            </div>
+            <div class="row">
+                <div class="labelKey column50">{{'ACCOUNT_TRANSACTION_DETAIL_TOTAL_AMOUNT' | translate }}</div><div class="labelValue align-right column50"><b>{{transaction.amountFormated}} VND </b></div>
+            </div>
+            <div class="row">
+                <div class="labelKey column50">{{'ACCOUNT_TRANSACTION_DETAIL_BENEFICIARY' | translate }}</div><div class="labelValue align-right column50"><b>{{transaction.payee.accountName}} </b></div>
+            </div>
+            <div class="row">
+                <div class="labelKey column50">{{'ACCOUNT_TRANSACTION_DETAIL_TO_ACCOUNT_NUMBER' | translate }} </div><div class="labelValue align-right column50"><b>{{transaction.payee.accountNumber}} </b></div>
+            </div>
+            <div class="row">
+                <div class="labelKey column50">{{'ACCOUNT_TRANSACTION_DETAIL_DESCRIPTION' | translate }}</div><div class="labelValue align-right column50"><b>{{transaction.txnDesc}}</b></div>
+            </div>
+            <div class="row">
+                <p class="title greyBorderBottom">{{ transaction.fastalink }}</p>
+            </div>
+        </div>
+
+    </div>
+
+</div>

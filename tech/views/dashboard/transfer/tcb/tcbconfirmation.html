@@ -1,0 +1,53 @@
+<div>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <navigation-bar status="status"></navigation-bar>
+
+    <div class="scrollBox-withFooter">
+        <div>
+            <p class="labelKey">{{'TCB_CONFIRMATION_FROM' | translate }} </p>
+            <p class="labelValue"> {{transferDetails.sourceAccountName | translate}}</p>
+            <p class="labelValue" style="margin-top: -3px">{{transferDetails.sourceAccountNumber}}</p>
+        </div>
+        <div class="space"></div>
+        <div class="greyBorderBottom iconField">
+            <i class="icon-value glyphicon pull-left"/><p class="labelValue" >{{transferDetails.transferCurrency}} {{transferDetails.formatedAmount}}</p>
+            
+        </div>
+        <div class="greyBorderBottom">
+            <p class="labelKey">{{'TCB_CONFIRMATION_TRANSFER_MONEY_FEE' | translate }}</p>
+            <p class="labelValue">{{transferDetails.transferCurrency}} {{transferDetails.transferFee.formatMoney(0)}}</p>
+        </div>
+        
+        <div>
+<!--            <p class="labelKey">{{'TCB_CONFIRMATION_TO' | translate }} {{transferDetails.destinationAccountDetails.payeeAccountType | translate}}:</p>-->
+            <p class="labelKey">{{'TCB_CONFIRMATION_TO' | translate }}</p>
+        </div>
+        <div class="avatarField">
+
+            <div class="rowContainer tcbconfirm">
+                <div class="detailtable">
+                    <div class="row">
+                        <div class="friendLabel"><b style="font-size:1.05em">{{transferDetails.destinationAccountDetails.payeeName}}<br>{{transferDetails.destinationAccountDetails.payeeAccountNumber}}</b></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="space"></div>
+<!--
+        <div>
+            <p class="labelKey">{{'TCB_CONFIRMATION_TRANSFER_MONEY_FEE' | translate }}</p>
+            <p class="labelValue">{{transferDetails.transferCurrency}} {{transferDetails.transferFee.formatMoney(0)}}</p>
+        </div>
+-->
+<!--        <div class="space"></div>-->
+        <div>
+            <input class="messageBox-selected" placeholder="{{ 'TRANSFER_TCB_ADDMESSAGES' | translate }}" ng-model="transferDetails.messageContent" ng-disabled="true" ng-show="transferDetails.messageContent"/>
+        </div>
+        <button class="button base active" ng-click="sendButtonClicked()">{{ 'TRANSFER_SEND_BUTTON' | translate }}</button>
+    </div>
+
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

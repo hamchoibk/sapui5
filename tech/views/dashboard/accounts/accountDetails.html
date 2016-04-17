@@ -1,0 +1,44 @@
+<div>
+  <navigation-bar status="status"></navigation-bar>
+    <div class="scrollBox-withFooter">
+        <div class="row">
+            <div class="labelKey column40">{{'ACCOUNT_DETAILS_AVAILABLE_BALANCE' | translate }}</div>
+            <div class="labelValue column60 align-right">{{account.availableBalance}}</div>
+        </div>
+        <div class="row">
+            <div class="labelKey column40">{{'ACCOUNT_DETAILS_ACCOUNT_NAME' | translate }}</div>
+            <div class="labelValue column60 align-right">{{account.accountName}}</div>
+        </div>
+        <div class="row">
+              <div class="labelKey column40">{{'ACCOUNT_DETAILS_ACCOUNT_NUMBER' | translate }}</div>
+              <div class="labelValue column60 align-right">{{account.accountNumber}}</div>
+          </div>
+          <div class="row" style="display:none">
+              <div class="labelKey column40">{{'ACCOUNT_DETAILS_PRINCIPLE_AMOUNT' | translate}}</div>
+              <div class="labelValue column60 align-right">{{account.principleAmount}}</div>
+          </div>
+          <div class="row" style="display:none">
+              <div class="labelKey column40">{{'ACCOUNT_DETAILS_INTEREST' | translate}}</div>
+              <div class="labelValue column60 align-right">{{account.interest}}</div>
+          </div>
+          <div class="row" style="display:none">
+              <div class="labelKey column40">{{'ACCOUNT_DETAILS_OPEN_DATE' | translate}}</div>
+              <div class="labelValue column60 align-right">{{account.openDate}}</div>
+          </div>
+          <div class="row" style="display:none">
+              <div class="labelKey column40">{{'ACCOUNT_DETAILS_MATURITY_DATE' | translate}}</div>
+              <div class="labelValue column60 align-right">{{account.maturityDate}}</div>
+          </div>
+          <div class="space"></div>
+
+        <div class="dashboardGreyBox column2">
+            <div class="sendMoney" ng-click="clickSendMoney()"><span>{{'ACCOUNT_DETAILS_SEND_MONEY' | translate}}</span></div>
+            <div class="bank-transfer" ng-click="clickBankTransfer()"><span>{{'ACCOUNT_DETAILS_BANK_TRANSFER' | translate}}</span></div>
+            <div class="unBank disabled" ng-click="clickUnBank()" style="display:none"><span>{{'ACCOUNT_DETAILS_UNBANK' | translate}}</span></div>
+            <div class="last-five-transaction" ng-click="clickTransactions()"><span>{{'ACCOUNT_DETAILS_LAST_5_TRANSACTIONS' | translate}}</span></div>
+        </div>
+  </div>
+  <div class="stickyBottom">
+       <div class="socially grey-tcb"></div>
+  </div>
+</div>

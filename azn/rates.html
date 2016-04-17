@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="cordova.js"></script>
+        <script src="native.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+       </script>
+        <title></title>
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+            <meta name=apple-mobile-web-app-capable content=yes>
+                <meta name=apple-mobile-web-app-status-bar-style content=black>
+                    <meta content="telephone=no" name="format-detection">
+                        <link href="css/jquerycss.css" rel="stylesheet" type="text/css">
+                            <link href="css/style.css" rel="stylesheet" type="text/css">
+                                <script type="text/javascript" src="script/jquery-1.10.2.min.js"></script>
+                                <script type="text/javascript" src="script/jquery.mobile-1.4.0.min.js"></script>
+                                <script type="text/javascript" src="script/anzmobile.js"></script>
+                                <script>
+                                    $(function() {
+                                      $('.flexslider').flexslider({
+                                                                  animation: "slide"
+                                                                  });
+                                      });
+                                    </script>
+                                <script type="text/javascript" src="script/jquery.flexslider-min.js"></script>
+                                <script>
+                                    $(document).ready(function(){
+                                                      $("#setuppin").popup("open");
+                                                      });
+                                                      $(document).on('pagebeforecreate','#updatedBeneficiary',function(){
+                                                                     setTimeout(function(){
+                                                                                $.mobile.loading('show',{
+                                                                                                 text:'Beneficiary added',
+                                                                                                 
+                                                                                                 });
+                                                                                },1);
+                                                                     setTimeout(function(){
+                                                                                $.mobile.loading('hide');
+                                                                                },3000);
+                                                                     });
+                                    </script>
+                                <script>
+                                    var tabActive = '';
+                                    function checkMobileBanking() {
+								//sementara di mark dulu sampai ada keputusan di implement
+								setContentData([{source: 'server',service:'checkMobileBanking'}], 'checkMobileBankingCallback');
+							}
+
+							function checkMobileBankingCallback() {
+						   		var ok = getContentData('ok');
+								if(ok == 1) {
+									   goToHTML({viewId:'myaccount.html'});
+								} else {
+                                       alert(getContentData('message'));
+                                }
+						   	}
+
+                                    function getRate(){
+                                    	setContentData([{source: 'server',service:'ForexRateInquiry',dataIds:[{dataId: 'dateEffective',dataType:'text',source:'param'},{dataId: 'currencyBNList',dataType:'entity',source:'param'},{dataId: 'currencyTrxList',dataType:'entity',source:'param'},{dataId: 'url_interestRate',dataType:'text',source:'param'}]}], 'listRateCallback');
+                                    }
+	                               function listRateCallback() {
+	                                    var dateEff = getContentData('dateEffective');
+	                                    var cd = getContentData('currencyBNList');
+	                                    var ab = getContentData('currencyTrxList');
+	                                    document.getElementById('listRates').innerHTML = '';
+	                                    document.getElementById('listRates').innerHTML += '<li><h3><language key="forexRates"></language></h3><p class="nowrap"><language key="noteForex1"></language></p><br><p><language key="noteForex2"></language> '+dateEff+' </p></li>';
+	                                    document.getElementById('listRates').innerHTML += '<li data-role="list-divider" align="center">Bank Note</li>';
+	                                    for(var i=0;i<cd.length;i++){
+	                                        //document.getElementById('listRates').innerHTML += '<li><span class="listLeft"><h4 class="countryName">'+cd[i].currencyCode+'</h4><p class="corType">'+cd[i].currencyName+'</p></span><span class="listRight"><p><span class="type">Buy</span><span class="currentRate">'+cd[i].buyRateNote+'</span></p><p><span class="type">Sell</span><span class="currentRate">'+cd[i].sellRateNote+'</span></p></span></li>';
+	                                    	document.getElementById('listRates').innerHTML += '<li style="height:60px;"><span style="display: inline-block;padding-left: 10px;vertical-align: top;width:55%;"><h4 class="countryName">'+cd[i].currencyCode+'</h4><p class="corType" style="font-size:10px;">'+cd[i].currencyName+'</p></span><span class="listRight"><p class="refernceNumber" style="margin-left:11px;text-align:left;"><span class="label" style="font-weight:bold;text-align:left; width:26.8%;font-size:11px;">Buy</span><span class="value" style="text-align:right;width:50%;font-size:11px;">'+cd[i].buyRateNote+'</span></p><p class="refernceNumber" style="text-align:left;"><span class="value" style="font-weight:bold;text-align:left;width:20%;font-size:11px;">Sell</span><span class="value" style="text-align:right;width:50%;font-size:11px;">'+cd[i].sellRateNote+'</span></p></span></li>';
+	                                    }
+	                                    document.getElementById('listRates').innerHTML += '<li data-role="list-divider" align="center">Telegraphic Transfer (TT)</li>';
+	                                    for(var y=0;y<ab.length;y++){
+	                                        //document.getElementById('listRates').innerHTML += '<li><span class="listLeft"><h4 class="countryName">'+ab[y].currencyCode+'</h4><p class="corType">'+ab[y].currencyName+'</p></span><span class="listRight"><p><span class="type">Buy</span><span class="currentRate">'+ab[y].buyRate+'</span></p><p><span class="type">Sell</span><span class="currentRate">'+ab[y].sellRate+'</span></p></span></li>';
+	                                    	document.getElementById('listRates').innerHTML += '<li style="height:60px;"><span style="display: inline-block;padding-left: 10px;vertical-align: top;width:55%;"><h4 class="countryName">'+ab[y].currencyCode+'</h4><p class="corType" style="font-size:10px;">'+ab[y].currencyName+'</p></span><span class="listRight"><p class="refernceNumber" style="margin-left:11px;text-align:left;"><span class="label" style="font-weight:bold;text-align:left; width:26.8%;font-size:11px;">Buy</span><span class="value" style="text-align:right;width:50%;font-size:11px;">'+ab[y].buyRate+'</span></p><p class="refernceNumber" style="text-align:left;"><span class="value" style="font-weight:bold;text-align:left;width:20%;font-size:11px;">Sell</span><span class="value" style="text-align:right;width:50%;font-size:11px;">'+ab[y].sellRate+'</span></p></span></li>';
+	                                    }
+	                                    processLanguagesDiv('rates');
+	                                    var url = getContentData('url_interestRate');
+	                                    //alert(url);
+	                                    $.get(url, function(data) {$('#hmm').html($(data).find('#interest_rate').html());});
+	                                    
+	                                    app.backFunction=customBackFromRates;
+	                               }
+	                               
+	                               function customBackFromRates(){
+	                               	checkMobileBanking();
+   						   	 }
+	                               
+	                               function ajaxCall(){
+		                               var url = getContentData('url_interestRate');
+	                                    //alert(url);
+	                                    $.get(url, function(data) {$('#hmm').html($(data).find('#interest_rate').html());});
+	                               }
+	                               function collapseShow(divId){
+		                               for (var i = 1; i < 5; i++) {
+	                                        document.getElementById('col'+i).style.display = 'none';
+	                                    }
+
+	                                    if(divId != tabActive){
+	                                        document.getElementById(divId).style.display = 'block';
+	                                        if(tabActive != ''){
+	                                            document.getElementById(tabActive).style.display = 'none';
+	                                        }
+	                                        tabActive = divId;
+	                                    }else{
+	                                        document.getElementById(divId).style.display = 'none';
+	                                        tabActive = '';
+	                                    }
+	                               }
+                                </script>
+                                </head>
+    <body class="loginScreen innerPage" onload="getRate();ajaxCall();processLanguages();">
+        <!------******************------>
+        <!--------- Rates --------->
+        <!------******************------>
+        <div data-role="page" id="rates" data-add-back-btn="false">
+            <div id="header" data-position="fixed" data-role="header" class="header"  data-tap-toggle="false">
+                <a class="leftBtnTwo arrow" rel="external" onclick="checkMobileBanking();"><language key="account"></language></a>
+                <h1 > <language key="rates"></language> </h1>
+            </div>
+            <div data-role="content" class="noshadow">
+                <div class="content-primary">
+                    <section class="slider">
+                        <div class="flexslider">
+                            <ul class="slides">
+                                <li>
+                                    <div class="ratesPanel">
+                                        <ul id="listRates">
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="interestPanel" id="hmm">
+                                    	
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

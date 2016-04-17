@@ -1,0 +1,67 @@
+<div>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <navigation-bar status="status"></navigation-bar>
+
+    <div class="scrollBox-withFooter" style="margin-top: 5px">
+        <div>
+            <div>
+                <p class="labelKey" style="padding-bottom: 10px;">{{'CARD_STATEMENT_CARD_NUMBER' | translate}} : <b>{{cardInfo.cardNumber}}</b></p>
+            </div>
+            <accordion>
+                <accordion-group is-open="cardInfo.byDateOpen">
+                    <accordion-heading>
+                        <div>
+                            {{'SELECT_STATEMENT_CYCLE_BY_DATE' | translate}}<i class="pull-right glyphicon" style="top: 0 !important;padding: 0 !important;" ng-class="{'arrow-down': cardInfo.byDateOpen, 'arrow-up': !cardInfo.byDateOpen}"></i>
+                        </div>
+                    </accordion-heading>
+                    <div style="padding: 20px">
+                        <form name="searchForm" id="searchFrom">
+                            <div>
+                                <div class="labelKey signup-issueDate" style="color: #000000" ng-show="isiOsDevice"> {{'TRANSACTIONS_INDEX_FROM_DATE' | translate}} </div>
+                                <div class="labelKey greyBorderBottom" ng-show="isiOsDevice">
+                                    <input type="date" style="padding-top: 13px;width: 60%;font-size: 1.1em;color: #000;" class= "inputDate" ng-model="cardInfo.fromDateFormatedDate" id="frmDtiOS" date-check="CARD_PAYMENT_STATEMENT_FROM_DATE_VALIDATION" required/>
+                                </div>
+                                <input type="text" placeholder=" {{'TRANSACTIONS_INDEX_FROM_DATE' | translate}}" class="inputDate greyBorderBottom" ng-model="cardInfo.fromDateFormatedDate" id="frmDt" name="issueDate" ng-click="selectFromDate($event)" required  ng-readonly="isMobile" ng-show="!isiOsDevice"/>
+                            </div>
+                            <div>
+                                <div class="labelKey signup-issueDate" style="color: #000000" ng-show="isiOsDevice"> {{'TRANSACTIONS_INDEX_TO_DATE' | translate}} </div>
+                                <div class="labelKey greyBorderBottom" ng-show="isiOsDevice">
+                                    <input type="date" style="padding-top: 13px;width: 60%;font-size: 1.1em;color: #000;" class= "inputDate" ng-model="cardInfo.toDateFormatedDate" id="toDtiOS" date-check="CARD_PAYMENT_STATEMENT_TO_DATE_VALIDATION" required/>
+                                </div>
+                                <input type="text" placeholder=" {{'TRANSACTIONS_INDEX_TO_DATE' | translate}}" class="inputDate greyBorderBottom" ng-model="cardInfo.toDateFormatedDate" id="toDt" name="issueDate" ng-click="selectToDate($event)" required  ng-readonly="isMobile" ng-show="!isiOsDevice"/>
+                            </div>
+
+                            <button ng-class="{true: 'button base inactive buttonBox', false: 'button base active buttonBox'}[(searchForm.$invalid)]" ng-click="clickSearch()" ng-disabled="(searchForm.$invalid)">{{ 'TRANSACTIONS_INDEX_SEARCH' | translate }}</button>
+                        </form>
+                    </div>
+                </accordion-group>
+
+                <div style="border-bottom: 1px #F1F1F1 solid;"></div>
+
+                <accordion-group is-open="cardInfo.cyclesListOpen">
+                    <accordion-heading>
+                        <div>
+                            {{'SELECT_STATEMENT_CYCLE' | translate}}<i class="pull-right glyphicon" style="top: 0 !important;padding: 0 !important;" ng-class="{'arrow-down': cardInfo.cyclesListOpen, 'arrow-up': !cardInfo.cyclesListOpen}"></i>
+                        </div>
+                    </accordion-heading>
+                    <div class="cashoutInfo" style="margin-top: 0;padding-top: 10px;" ng-show="cardInfo.haveNoCycle"> {{'HAVE_NO_CYCLE_MESSAGE' | translate}}</div>
+                    <div style="padding: 0 20px 20px 20px">
+                        <ul class="arrowlist">
+                            <li ng-repeat="cycle in cycles" ng-click="selectCycle(cycle)" style="border-bottom: 1px #F1F1F1 solid !important;">
+                                <a>
+                                    <div>
+                                        {{cycle.prettyDate}}
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </accordion-group>
+            </accordion>
+
+        </div>
+    </div>
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

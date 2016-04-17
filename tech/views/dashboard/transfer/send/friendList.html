@@ -1,0 +1,33 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <div>
+        <input type="text" class="seachBar" placeholder="{{'SEND_FRIEND_LIST_SEARCH' | translate }}" ng-model="query" ng-change="filterFriends(query)"/>
+    </div>
+    <div class="scrollBox-withSearchFooter" id="friendList">
+        <div>
+            <div class="greyBorderBottom" style="padding-bottom: 6px">{{'SEND_FRIEND_LIST_TITLE' | translate }}</div>
+                
+                <ul class="arrowlist fav-friendList">
+                    <li ng-repeat="friend in friends" class="greyBorderBottom" ng-click="selectFavourite(friend)">
+                        <a class="favouritesContainer friendsList">
+                            <div class="avatar"> <img src="{{friend.profile.photo}}"/></div>
+                            <div class="rowContainer">
+                                <div class="detailtable" style="text-align: match-parent">
+                                    <div class="row">
+                                        <div class="friendLabel">{{friend.profile.name}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <i class="icon-value {{channelName}} smallicon pull-right" />
+                        </a>
+                    </li>
+                </ul>
+           </div>
+        
+    </div>
+
+    <div class="stickyBottom">
+        <div class="socially grey"></div>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <div class="scrollBox-withFooter formContainer" id="scrollArea" style="margin-top: 5px;">
+        <form id="instantForm" name="instantForm">
+
+            <div class="greyBorderBottom">
+                <ul class="arrowlist">
+                    <li class="fromRow" ng-click="selectAccount()">
+                        <a class="labelKey"><b>{{ 'COMMON_FROM' | translate }}</b></span><br>
+                              <span class="detail">
+                                  {{sourceAccount.displayName}}<br>
+                                  {{sourceAccount.accountNumber}}<br>
+                                  {{currencyCode}} {{sourceAccount.availableBalance.formatMoney(0)}}<br>
+                              </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="input-withIcon greyBorderBottom" style="padding-top:10px;"><b>{{'INSTANT_TRANSFER_CARD_NUMBER' | translate}}</b></br>
+                <input type="text" placeholder="{{'INSTANT_TRANSFER_ENTER_CARD_NUMBER' | translate}}" ng-model="txnInfo.cardNumber" required id="cardNumber" ng-change="changeCardNumber()"
+                       numbers-only reset-text-field="hasBenButton" ng-trim="false" card-number-length-check="INSTANT_TRANSFER_CARD_NUMBER_VALIDATION"/>
+                <i id="selectFromBen" style="margin-top: 10px !important;" class="selectAccount inputIcon glyphicon pull-right" ng-click="selectAccountFromBen()"/>
+            </div>
+
+            <div class="greyBorderBottom" style="margin-top: 10px" ng-show="showPayeeDetail"><b>{{'INSTANT_TRANSFER_PAYEE_NAME' | translate}}</b>
+                <input ng-model="txnInfo.payeeName" class="instantTransferName" readonly="readonly" required/>
+            </div>
+
+            <div class="greyBorderBottom" ng-show="showPayeeDetail && txnInfo.payeeBankName != '' && txnInfo.payeeBankName!= undefined" style="margin-top: 10px"><b>{{'INSTANT_TRANSFER_PAYEE_BANK_NAME' | translate}}</b>
+                <input ng-model="txnInfo.payeeBankName" class="instantTransferName" readonly="readonly"/>
+            </div>
+
+            <div ng-show="showPayeeDetail" class="tncBox" style="border-top: none">
+                <i class="favourite">{{ 'TRANSFER_TCB_ADDACCOUNTTOLIST' | translate }}</i>
+                <input type="checkbox" id="tnccheck" ng-model="willCreateBen">
+                <label for="tnccheck" style="float: right">a label</label>
+            </div>
+
+            <div ng-show="showPayeeDetail" style="padding-bottom: 25px">
+                <input type="text" placeholder="VND" value="VND" class="greyBorderBottom greyBorderRight currencycode" readonly="readonly" />
+                <input type="text" id="txnAmount" placeholder="{{ 'TRANSFER_TCB_KEYINAMOUNT' | translate }}"  onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                       name="smscode" class="greyBorderBottom amt" ng-model="txnInfo.txnParsedAmount" length-check="ERROR_CODE_30016" required pattern="[0-9]*"/>
+            </div>
+
+
+            <input ng-show="showPayeeDetail" style="margin-top: 25px" class="messageBox" placeholder="{{ 'TRANSFER_TCB_ADDMESSAGES' | translate }}" maxlength="160" ng-model="txnInfo.messageContent"/>
+
+
+        </form>
+
+
+        <div>
+            <button ng-class="{true: 'button base inactive buttonBox', false: 'button base active buttonBox'}[instantForm.$invalid]" ng-disabled="instantForm.$invalid" ng-click="instantTransfer()">{{'TRANSFER_SEND_BUTTON' | translate}}
+            </button>
+        </div>
+    </div>
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>
+

@@ -1,0 +1,17 @@
+<div>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <navigation-bar status="status"></navigation-bar>
+    <div class="formContainer flexible-Margin">
+        <div class="greyBorderBottom">
+            <input type="text" placeholder="{{'ADD_BENEFICIARY_KEY_ACCOUNT_NAME' | translate}}" ng-model="accountName" required/>
+        </div>
+        <div class="greyBorderBottom">
+            <input type="text" pattern="[0-9]*" placeholder="{{'ADD_BENEFICIARY_KEY_ACCOUNT_NUMBER' | translate}}" ng-model="accountNumber" required />
+        </div>
+    </div>
+    <div class="stickyBottom">
+        <button ng-class="{true:'button base inactive',false:'button base active'}[!accountName || !accountNumber]"  ng-click="confirm()" ng-disabled="!accountName || !accountNumber" ng-show="!isEdit">{{'ADD_BENEFICIARY_ADD_BUTTON' | translate}}</button>
+        <button ng-class="{true:'button base inactive',false:'button base active'}[!accountName || !accountNumber]"  ng-click="confirm()" ng-disabled="!accountName || !accountNumber" ng-show="isEdit">{{'ADD_BENEFICIARY_SAVE_BUTTON' | translate}}</button>
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

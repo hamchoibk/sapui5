@@ -1,0 +1,69 @@
+<div>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <navigation-bar status="status"></navigation-bar>
+
+    <div class="scrollBox-withFooter" style="margin-top: 5px;">
+        <div>
+            <p class="labelKey">{{'TCB_CONFIRMATION_FROM' | translate }}<br/> <b>{{txnInfo.sourceAccount.accountType |
+                translate}}</b></p>
+
+            <p class="labelValue"><b>{{txnInfo.sourceAccount.accountNumber}}</b></p>
+            <p class="labelValue"><b>VND {{txnInfo.sourceAccount.availableBalance.formatMoney(0)}}</b></p>
+        </div>
+        <div class="space"></div>
+        <!--<div class="greyBorderBottom">-->
+            <!--<p class="labelKey">{{'CASHOUT_MOBILE_CONFIRM_ACCOUNT_BALANCE' | translate}}</p>-->
+            <!--<p class="labelValue"><b>VND {{txnInfo.sourceAccount.availableBalance.formatMoney(0)}}</b></p>-->
+        <!--</div>-->
+        <div class="greyBorderBottom iconField">
+            <i class="icon-value glyphicon pull-left"/>
+
+            <p class="labelValue"><b>{{txnInfo.currency}} {{txnInfo.txnParsedAmount}}</b></p>
+
+        </div>
+        <div class="greyBorderBottom">
+            <p class="labelKey">{{'TCB_CONFIRMATION_TRANSFER_MONEY_FEE' | translate }}</p>
+            <p class="labelValue">{{txnInfo.currency}} {{txnInfo.fee.formatMoney(0)}}</p>
+        </div>
+
+        <div>
+            <p class="labelKey">{{'TCB_CONFIRMATION_TO' | translate }}</p>
+        </div>
+
+        <div class="greyBorderBottom">
+            <p class="labelValue">{{txnInfo.payeeName}}</p>
+            <p class="labelValue" ng-if="viaCardNumber">{{txnInfo.cardNumber}}</p>
+            <p class="labelValue" ng-if="!viaCardNumber">{{txnInfo.accountNumber}}</p>
+            <p class="labelValue" ng-show="txnInfo.payeeBankName != '' && txnInfo.payeeBankName != undefined">{{txnInfo.payeeBankName}}</p>
+        </div>
+
+        <!--<div class="greyBorderBottom" ng-if="viaCardNumber">-->
+            <!--<p class="labelKey">{{'INSTANT_TRANSFER_CARD_NUMBER' | translate }}</p>-->
+            <!--<p class="labelValue">{{txnInfo.cardNumber}}</p>-->
+        <!--</div>-->
+
+        <!--<div class="greyBorderBottom" ng-if="!viaCardNumber">-->
+            <!--<p class="labelKey">{{'INSTANT_TRANSFER_ACCOUNT_NUMBER' | translate }}</p>-->
+            <!--<p class="labelValue">{{txnInfo.accountNumber}}</p>-->
+        <!--</div>-->
+
+        <!--<div class="greyBorderBottom">-->
+            <!--<p class="labelKey">{{'INSTANT_TRANSFER_PAYEE_NAME' | translate }}</p>-->
+            <!--<p class="labelValue">{{txnInfo.payeeName}}</p>-->
+        <!--</div>-->
+
+        <!--<div class="greyBorderBottom" ng-show="txnInfo.payeeBankName != '' && txnInfo.payeeBankName != undefined">-->
+            <!--<p class="labelKey">{{'INSTANT_TRANSFER_PAYEE_BANK_NAME' | translate }}</p>-->
+            <!--<p class="labelValue">{{txnInfo.payeeBankName}}</p>-->
+        <!--</div>-->
+
+        <div>
+            <input class="messageBox" placeholder="{{ 'TRANSFER_TCB_ADDMESSAGES' | translate }}"
+                   ng-model="txnInfo.messageContent" ng-disabled="true" ng-show="txnInfo.messageContent"/>
+        </div>
+
+        <div class="buttonBox">
+            <button class="button base active" ng-click="confirm()">{{'TRANSFER_SEND_BUTTON' | translate}}</button>
+        </div>
+    </div>
+</div>

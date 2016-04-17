@@ -1,0 +1,36 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <div class="scrollBox-withFooter" id="scrollArea" style="margin-top: 5px">
+        <div style="  padding-top: 20px;font-size: 1.1em;">
+            {{'PUSH_NOTIFICATION_REGISTER_ALL' | translate}}
+            <switch id="enabled" name="enabled" ng-model="enabledAll" on="On" off="Off" class="green" style="  float: right;top: -5px;"  ng-change="changeStatusAll"></switch>
+        </div>
+        <div class="space" style="margin-top: 20px"></div>
+        <accordion close-others="false">
+            <accordion-group ng-repeat="account in accounts" is-open="account.open" ng-class="{'panel-down': account.open, 'panel-up': !account.open}">
+                <accordion-heading>
+                    <div>
+                        {{account.mainAccountName | translate}}<i class="pull-right glyphicon" style="top: 0 !important;padding: 0 !important;" ng-class="{'arrow-down': account.open, 'arrow-up': !account.open}"></i>
+                    </div>
+                </accordion-heading>
+
+                <ul class="panelList" style="margin-top: -10px">
+                    <li ng-repeat="subAccount in account.subAccounts" class="greyBorderBottom">
+                        <a>
+                            <name>{{subAccount.accountName}}<br/>
+                                {{subAccount.accountNumber}}</name>
+                        </a>
+                        <switch id="enabled" name="enabled" ng-model="subAccount.pushStatus" on="On" off="Off" class="green" style="  float: right;top: -50px;" ng-change="pushStatusChange(subAccount)"></switch>
+                    </li>
+                </ul>
+
+            </accordion-group>
+        </accordion>
+        <button ng-class="{false: 'button base inactive buttonBox', true: 'button base active buttonBox'}[edited]" ng-click="clickSave()" ng-disabled="!edited">{{ 'PUSH_NOTIFICATION_UPDATE_BUTTON' | translate }}</button>
+    </div>
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>
+

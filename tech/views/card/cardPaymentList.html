@@ -1,0 +1,59 @@
+<div>
+    <div class="overlay " ng-click="dimissPopUp()"></div>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <navigation-bar status="status"></navigation-bar>
+    <div>
+        <input type="text" class="seachBar" placeholder="{{'CARD_PAYMENT_LIST_SEARCH' | translate }}" ng-model="search" ng-change="filterByCardNumber(search)"/>
+    </div>
+    <div class="scrollBox-withSearchFooter" style="margin-top: 0">
+        <accordion close-others="false">
+            <accordion-group is-open="beneficiaryListSameAccountIsOpen" ng-show="benOwner">
+                <accordion-heading>
+                    <div>
+                        {{'TCB_BENEFICIARY_SAME_HOLDER' | translate }}<i class="pull-right glyphicon" style="top: 0 !important;padding: 0 !important;" ng-class="{'arrow-down': beneficiaryListSameAccountIsOpen, 'arrow-up': !beneficiaryListSameAccountIsOpen}"></i>
+                    </div>
+                </accordion-heading>
+
+                <ul class="panelList beneficiaryList" style="padding-top: 0">
+                    <li ng-repeat="account in cardListSameHolder|filter:search" class="greyBorderBottom" ng-click="cardSelected(account)">
+                        <a style="padding: 5px 0">
+                            <div class="rowContainer">
+                                <p class="labelKey">{{'CARD_PAYMENT_LIST_CARD_NUMBER' | translate}}</p>
+                                <p class="labelvalue"><b>{{account.cardNumber}}</b></p>
+                                <p class="labelKey">{{'CARD_PAYMENT_LIST_CARD_ACCOUNT_NUMBER' | translate}}</p>
+                                <p class="labelvalue"><b>{{account.cardAccountNumber}}</b></p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+
+            </accordion-group>
+            <accordion-group is-open="beneficiaryListDifferentAccountIsOpen" ng-show="!benOwner">
+                <accordion-heading>
+                    <div>
+                        {{'CARD_PAYMENT_LIST_DIFFERENT_HOLDER' | translate }}<i class="pull-right glyphicon" style="top: 0 !important;padding: 0 !important;" ng-class="{'arrow-down': beneficiaryListDifferentAccountIsOpen, 'arrow-up': !beneficiaryListDifferentAccountIsOpen}"></i>
+                    </div>
+                </accordion-heading>
+
+                <ul class="panelList beneficiaryList" style="padding-top: 0">
+                    <li ng-repeat="account in cardListDifferentHolder|filter:search" class="greyBorderBottom" ng-click="otherCardSelected(account)">
+                        <a style="padding: 5px 0">
+                            <div class="rowContainer">
+                                <p class="labelKey">{{'CARD_PAYMENT_LIST_NAME' | translate}}</p>
+                                <p class="labelvalue"><b>{{account.benName}}</b></p>
+                                <p class="labelKey">{{'CARD_PAYMENT_LIST_CARD_ACCOUNT_NUMBER' | translate}}</p>
+                                <p class="labelvalue"><b>{{account.accountNumber}}</b></p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+
+            </accordion-group>
+
+        </accordion>
+    </div>
+
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

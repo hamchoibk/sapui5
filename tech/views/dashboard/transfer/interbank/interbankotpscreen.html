@@ -1,0 +1,16 @@
+<div>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <navigation-bar status="status"></navigation-bar>
+
+    <div class="formContainer flexible-Margin">
+        <p class="cashoutInfo labelKey">{{ 'TRANSFER_TCB_OTPTEXT' | translate }}</p>
+        <form name="smsform" >
+            <input type="password"  placeholder="{{ 'TRANSFER_TCB_OTPPINCODE' | translate }}" name="pincode" ng-model="pinCode" class="greyBorderTopBottom" ng-minlength="1" ng-maxlength="10" required>
+            <input type="text"  placeholder="{{ 'TRANSFER_TCB_OTPSMSCODE' | translate }}" name="smscode" ng-model="smsCode" class="greyBorderBottom" ng-minlength="1" ng-maxlength="10" pattern="[0-9]*" required>
+        </form>
+    </div>
+    <div class="stickyBottom">
+        <button ng-class="{true: 'button base inactive', false: 'button base active'}[smsform.$invalid]" ng-click="confirm()" ng-disabled="smsform.$invalid">{{ 'TRANSFER_TCB_CONFIRM_BUTTON' | translate }}</button>
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

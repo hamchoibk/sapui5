@@ -1,0 +1,58 @@
+<div>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <navigation-bar status="status"></navigation-bar>
+    <div class="formContainer scrollBox-withFooter">
+        <div class="greyBorderBottom" style="margin-top: -15px">
+            <p class="labelKey">{{'CASHOUT_MOBILE_CONFIRM_FROM' | translate}} </p>
+            <p class="labelValue">{{sourceAccount.displayName}}</p>
+            <p class="labelValue">{{sourceAccount.accountNumber}}</p>
+        </div>
+        <div class="greyBorderBottom">
+            <p class="labelKey">{{'CASHOUT_MOBILE_CONFIRM_ACCOUNT_BALANCE' | translate}}</p>
+            <p class="labelValue"><b>VND {{sourceAccount.availableBalance.formatMoney(0)}}</b></p>
+        </div>
+        <div class="greyBorderBottom" style="padding: 10px 0;">
+            {{lable1}}<br/>
+            <div class="avatar-game"> <img src="{{iconUrl}}"/></div>
+            <div class="rowContainer">
+                <div class="detailtable" style="text-align: match-parent">
+                    <div class="row">
+                        <div class="friendLabel"><b>{{billPaymentName}}</b></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="greyBorderBottom">
+            <p class="labelKey">{{lable2}}</p>
+            <p class="labelValue"><b>{{contractCode}}</b></p>
+        </div>
+
+        <div class="greyBorderBottom" ng-show="showCustomerName">
+            <p class="labelKey">{{lable3}}</p>
+            <p class="labelValue"><b>{{customerName}}</b></p>
+        </div>
+
+        <div class="greyBorderBottom" ng-show="showCustomerAddress">
+            <p class="labelKey">{{lable5}}</p>
+            <p class="labelValue"><b>{{customerAddress}}</b></p>
+        </div>
+
+        <div class="greyBorderBottom" ng-show="showPaymentDate">
+            <p class="labelKey">{{lable4}}</p>
+            <p class="labelValue"><b>{{billPaymentDate}}</b></p>
+        </div>
+
+        <div class="greyBorderBottom">
+            <p class="labelKey">{{'BILL_PAYMENT_AMOUNT' | translate}}</p>
+            <p class="labelValue"><b>{{currencyCode}} {{parsedAmount}}</b></p>
+        </div>
+
+        <div class="buttonBox">
+            <button class="button base active" ng-click="confirm()">{{'BILL_PAYMENT_MAIN_SUBMIT' | translate}}</button>
+        </div>
+    </div>
+
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

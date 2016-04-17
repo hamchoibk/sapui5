@@ -1,0 +1,27 @@
+<div>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <navigation-bar status="status"></navigation-bar>
+    <div class="scrollBox-withFooter">
+        <ul class="selectAccount">
+            <li ng-repeat="accountDetail in accountDetails" ng-click="selectAccount(accountDetail)">
+                <a class="greyBorderBottom">
+                    <p class="labelKey">{{'SEND_MONEY_SELECT_ACCOUNT_ACCOUNT_TYPE' | translate }}</p>
+
+                    <p class="labelValue">{{accountDetail.accountName}}</p>
+
+                    <p class="labelKey">{{'SEND_MONEY_SELECT_ACCOUNT_ACCOUNT_NUMBER' | translate }}</p>
+
+                    <p class="labelValue">{{accountDetail.accountNumber}}</p>
+
+                    <p class="labelKey">{{'SEND_MONEY_SELECT_ACCOUNT_ACCOUNT_BALANCE' | translate }}</p>
+
+                    <p class="labelValue">{{currencyCode}} {{accountDetail.availableBalance}}</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="stickyBottom">
+        <div class="socially grey"></div>
+    </div>
+</div>

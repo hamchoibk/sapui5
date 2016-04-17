@@ -1,0 +1,40 @@
+<div>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <navigation-bar status="status"></navigation-bar>
+    <div class="formContainer flexible-Margin scrollBox-withFooter">
+        <div>
+            <p class="labelKey">{{ 'SIGNUP_CAPTCHA_USERNAME' | translate }}</p>
+            <p class="labelValue">{{username}}</p>
+        </div>
+        <div>
+            <p class="labelKey">{{ 'SIGNUP_CAPTCHA_MOBILENUMBER' | translate }}</p>
+            <p class="labelValue">{{mobileNumber}}</p>
+        </div>
+        <div>
+            <p class="labelKey">{{ 'SIGNUP_CAPTCHA_IDENTITYNUMBER' | translate }}</label>
+            <p class="labelValue">{{identityNumber}}</p>
+        </div>
+        <div>
+            <p class="labelKey">{{ 'SIGNUP_CAPTCHA_ISSUEDATE' | translate }}</p>
+            <p class="labelValue">{{issueDateFormated}}</p>
+        </div>
+        <div class="tncBox">
+            <input type="checkbox" id="tnccheck" ng-checked="termsConditionsAgreedFlag" ng-click="changeTNCFlag()">
+            <label for="tnccheck">a label</label>
+            <button class="icon-i" ng-click="termsConditionsButtonClicked()">i</button>
+            <label class="terms" ng-click="termsConditionsButtonClicked()">{{ 'SIGNUP_CAPTCHA_TERMSCONDITIONS' | translate }}</label>
+        </div>
+        <div class="floatingBox">
+            <button class="icon-refresh" ng-click="refreshButtonClicked()" ng-show="!hasArcIB">Refresh</button>
+            <img src="" id="captchaImg" width="200" height="50" ng-show="!hasArcIB">
+            <input class="greyBorderBottom InputfloatingGap"  type="text" placeholder="{{ 'SIGNUP_CAPTCHA_CAPTCHACODE' | translate }}" ng-model="capchaCode"  ng-show="!hasArcIB" capitalize/>
+        </div>
+        <button ng-class="{true: 'button base inactive', false: 'button base active'}[(!hasArcIB && !capchaCode) || !termsConditionsAgreedFlag]" ng-click="clickNext()"  ng-disabled="(!hasArcIB && !capchaCode) || !termsConditionsAgreedFlag">{{ 'SIGNUP_CAPTCHA_NEXT_BUTTON' | translate }}</button>
+    </div>
+
+    <div class="stickyBottom">
+        <!--<button class="button next" ng-click="clickNext()"  ng-disabled="!capchaCode || !termsConditionsAgreedFlag" class="button next">{{ 'SIGNUP_CAPTCHA_NEXT_BUTTON' | translate }}</button>-->
+        <div class="socially grey-tcb"></div>
+    </div>
+
+</div>

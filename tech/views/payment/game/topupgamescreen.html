@@ -1,0 +1,57 @@
+<div>
+  <navigation-bar status="status"></navigation-bar>
+  <div ng-include src="'views/loading/loading.html'"></div>
+  <div class="scrollBox-withFooter formContainer" id="scrollArea">
+    <form id="topupForm" name="topupForm">
+
+      <div class="greyBorderBottom">
+        <ul class="arrowlist">
+          <li class="fromRow" ng-click="selectAccount()">
+            <a class="labelKey"><b>{{ 'COMMON_FROM' | translate }}</b></span><br>
+                              <span class="detail">
+                                  {{sourceAccount.displayName}}<br>
+                                  {{sourceAccount.accountNumber}}<br>
+                                  {{currencyCode}} {{sourceAccount.availableBalance.formatMoney(0)}}<br>
+                              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+        <div class="greyBorderBottom" style="padding: 10px 0;">
+            <b>{{lable1}}</b><br/>
+            <div class="avatar-game"> <img src="{{topupGame.iconUrl}}"/></div>
+            <div class="rowContainer">
+                <div class="detailtable" style="text-align: match-parent">
+                    <div class="row">
+                        <div class="friendLabel">{{topupGame.name}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+      <div class="input-withIcon" style="padding-top:10px;  margin-bottom: -15px;"><b>{{lable2}}</b></br>
+        <input placeholder="{{'ENTER' | translate}}{{lable2}}" ng-model="topupGame.accountNumber" required id="accountNumber" vtc-account-check="{{lable2}}"/>
+        <i id="selectAccount" class="selectAccount inputIcon glyphicon pull-right" ng-click="selectAccountGame()" style="margin-top: 15px; width: 40px !important;height: 40px !important;"></i>
+      </div>
+
+      <div class="space"></div>
+
+      <div>
+
+        <b>{{'TOPUP_AMOUNT'|translate}}</b><br/>
+          <select class="form-control" style="font-size: 1.1em !important;  margin-top: 5px;" ng-model="topupAmount" ng-options="topupAmount as topupAmount.formatMoneyVnd(0) for topupAmount in topupAmounts">
+          </select>
+      </div>
+    </form>
+
+
+    <div>
+      <button ng-class="{true: 'button base inactive buttonBox', false: 'button base active buttonBox'}[topupForm.$invalid]" ng-disabled="topupForm.$invalid" ng-click="topup()">{{'CASHOUT_MOBILE_SEND' | translate}}</button>
+    </div>
+  </div>
+  <div class="stickyBottom">
+    <div class="socially grey-tcb"></div>
+  </div>
+</div>
+

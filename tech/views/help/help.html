@@ -1,0 +1,18 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div class="scrollBox-withFooter-helps">
+        <accordion close-others="true" class="help-panel">
+            <accordion-group ng-repeat="question in questions" is-open="question.open">
+                <accordion-heading>
+                    <i class="support-help glyphicon-help"></i>{{question.question | translate}}
+                    <i class="pull-right-help glyphicon-help" ng-class="{'arrow-down': question.open, 'arrow-up': !question.open}"></i>
+                </accordion-heading>
+                <!--<p ng-bind-html-unsafe>{{question.answer | translate}}</p>-->
+                <p ng-bind-html="question.answer"></p>
+            </accordion-group>
+        </accordion>
+    </div>
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+<div>
+  <div ng-include src="'views/loading/loading.html'"></div>
+  <navigation-bar status="status"></navigation-bar>
+  <div class="scrollBox-withFooter formContainer" id="scrollArea">
+    <div class="labelKey"><span><b>{{'COMMON_FROM' | translate }}</b></span></div>
+    <div class="greyBorderBottom">
+      <ul style="margin: 0px 0px" ng-class="{true:'arrowlist', false:'singlelist'}[hasMoreThanOneSourceAccounts]">
+        <li class="fromRow" ng-click="clickSelectAccount()">
+          <a class="labelKey">
+              <span class="detail">
+                  {{txnInfo.sourceAccount.displayName}}<br>
+                  {{txnInfo.sourceAccount.accountNumber}}<br>
+                  {{txnInfo.sourceAccount.currency}} {{txnInfo.sourceAccount.availableBalance.formatMoney(0)}}<br>
+              </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="labelKey" style="padding-top:15px;">
+        <span><b>{{'TRANSFER_TO' | translate }}</b></span>
+        <i id="beneficiaryListIcon" class="selectAccount-interBank inputIcon glyphicon pull-right" ng-click="openBenificiaryList()"></i>
+    </div>
+
+    <div class="selectBank greyBorderBottom" ng-click="selectBank()" ng-show="!showBranchName">
+        {{ 'SELECT_BANK' | translate }}
+    </div>
+
+    <div class="detail destinationBranch greyBorderBottom" style="" ng-click="selectBank()" ng-show="showBranchName">{{txnInfo.destBranch.name}}</div>
+
+    <div class="greyBorderBottom">
+        <input type="text" pattern="[a-zA-Z]*" maxlength="68" placeholder="{{ 'KEY_IN_BEN_NAME' | translate }}" ng-model="txnInfo.benName" required capitalize/>
+    </div>
+
+    <div class="input-withIcon">
+        <input type="text" pattern="[0-9a-zA-Z]*" placeholder="{{ 'KEY_IN_BEN_ACCOUNT_NUMBER' | translate }}" ng-model="txnInfo.benAccountNumber" required maxlength="25"/>
+    </div>
+
+    <div class="tncBox">
+        <i class="favourite">{{ 'TRANSFER_TCB_ADDACCOUNTTOLIST' | translate }}</i>
+        <input type="checkbox" id="tnccheck" ng-model="willCreateBen">
+        <label for="tnccheck" style="float: right">a label</label>
+    </div>
+
+    <div>
+        <input type="text" placeholder="VND" ng-model="txnInfo.sourceAccount.currency" class="greyBorderBottom greyBorderRight currencycode" readonly="readonly" />
+        <input type="text" id="amount" pattern="[0-9]*" placeholder="{{'TRANSFER_TCB_KEYINAMOUNT' | translate }}"  onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="smscode" class="greyBorderBottom amt" ng-model="txnInfo.parsedAmount" required/>
+
+    </div>
+
+    <input style="margin-top: 55px" class="messageBox" placeholder="{{ 'TRANSFER_TCB_ADDMESSAGES' | translate }}" maxlength="160" ng-model="txnInfo.messageContent"/>
+
+    <button
+      ng-class="{true:'button base active buttonBox',false:'button base inactive buttonBox'}
+                            [(txnInfo.parsedAmount != undefined)
+                          && (txnInfo.benName != undefined)
+                          && (txnInfo.benAccountNumber != undefined)
+                          && (txnInfo.destBranch != undefined)
+                          && (txnInfo.destBank != undefined)]"
+      ng-click="clickSend()"
+      ng-disabled="!((txnInfo.parsedAmount != undefined)
+                          && (txnInfo.benName != undefined)
+                          && (txnInfo.benAccountNumber != undefined)
+                          && (txnInfo.destBranch != undefined)
+                          && (txnInfo.destBank != undefined))">{{ 'TRANSFER_SEND_BUTTON' | translate }}</button>
+
+  </div>
+    <div class="stickyBottom">
+
+        <div class="socially grey-tcb"></div>
+    </div>
+
+</div>

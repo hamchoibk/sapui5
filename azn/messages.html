@@ -1,0 +1,510 @@
+<html class="ui-mobile">
+<head>
+	<script src="cordova.js" type="text/javascript"></script>
+    <script src="native.js" type="text/javascript"></script>
+    <script type="text/javascript">
+       app.initialize();
+    </script>
+    <title> </title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" name="viewport">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="telephone=no" name="format-detection">
+    <link href="css/jquerycss.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="script/jq.mobi.js"></script>
+    <script type="text/javascript" src="plugins/jq.scroller.js"></script>
+   	<script type="text/javascript" src="script/anzmobile.js"></script>
+	<style>
+	    .pop-deleteBtn{
+	        clear:both;
+	        padding:5px 0px;
+	    }
+		.pop-deleteBtn a{
+		    background: rgb(219, 37, 37); /* Old browsers */
+		    background: -moz-linear-gradient(top, rgb(219, 37, 37) 0%, rgb(142, 22, 22) 100%); /* FF3.6+ */
+		    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgb(219, 37, 37)), color-stop(100%, rgb(142, 22, 22))) ; /* Chrome,Safari4+ */
+		    background: -webkit-linear-gradient(top, rgb(219, 37, 37) 0%, rgb(142, 22, 22) 100%); /* Chrome10+,Safari5.1+ */
+		    background: -o-linear-gradient(top, rgb(219, 37, 37) 0%, rgb(142, 22, 22) 100%); /* Opera 11.10+ */
+		    background: -ms-linear-gradient(top, rgb(219, 37, 37) 0%, rgb(142, 22, 22) 100%); /* IE10+ */
+		    background: linear-gradient(to bottom, rgb(219, 37, 37) 0%, rgb(142, 22, 22) 100%); /* W3C */
+		    border:1px solid #0a2838;
+		    padding:13px 6px;
+		    border-radius:3px;
+		    border-bottom:1px solid #00131e;
+		    width:100%;
+		    display:inline-block;
+		}
+		.pop-deleteBtn a:hover{
+		    background: rgb(142, 22, 22); /* Old browsers */
+		    background: -moz-linear-gradient(top, rgb(142, 22, 22) 0%, rgb(219, 37, 37) 100%); /* FF3.6+ */
+		    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgb(142, 22, 22)), color-stop(100%, rgb(219, 37, 37))) ; /* Chrome,Safari4+ */
+		    background: -webkit-linear-gradient(top, rgb(142, 22, 22) 0%, rgb(219, 37, 37) 100%); /* Chrome10+,Safari5.1+ */
+		    background: -o-linear-gradient(top, rgb(142, 22, 22) 0%, rgb(219, 37, 37) 100%); /* Opera 11.10+ */
+		    background: -ms-linear-gradient(top, rgb(142, 22, 22) 0%, rgb(219, 37, 37) 100%); /* IE10+ */
+		    background: linear-gradient(to bottom, rgb(142, 22, 22) 0%, rgb(219, 37, 37) 100%); /* W3C */
+		    border:1px solid #0a2838;
+		    padding:13px 6px;
+		    border-radius:3px;
+		    border-bottom:1px solid #00131e;
+		    width:100%;
+		    display:inline-block;
+		}
+		.pop-deleteBtn a.ui-link {
+		    color: #FFF;
+		    text-shadow: 0px -1px #082637;
+		    text-align: center;
+		    font-weight: 600;
+		}
+	</style>
+                                
+    <script type="text/javascript">
+         var panelFlag = false;
+	    var locale = '';
+         function hidePanelHamburger(){
+		      $('#navpanel').removeClass('ui-panel-open');
+		      $('#navpanel').addClass('ui-panel-closed');
+		      $('#myaccount').removeClass('ui-body-a');
+		      $('#myaccount').removeClass('ui-page-panel-open');
+		      $('#myaccount').addClass('ui-body-c');
+		      
+		      $('#putihPutihPenutup').removeClass('ui-panel-content-wrap-position-left');
+		      $('#putihPutihPenutup').removeClass('ui-panel-content-wrap-display-push');
+		      $('#putihPutihPenutup').removeClass('ui-panel-content-wrap-open');
+		      $('#putihPutihPenutup').addClass('ui-panel-content-wrap-closed');
+		  }
+
+   		  function lotusMainPanelShowHide(){
+			  if (document.getElementById("lotusMain").style.display == "block"){
+					document.getElementById("lotusMain").style.display = "none";
+			  }
+          }
+
+          function lotusAccPanelShowHide(){
+				if (document.getElementById("lotusACC").style.display == "block"){
+					document.getElementById("lotusACC").style.display = "none";
+				}
+          }
+
+          function lotusCCPanelShowHide(){
+				if (document.getElementById("lotusCC").style.display == "block"){
+					document.getElementById("lotusCC").style.display = "none";
+				}
+          }
+                             
+          function shBiruACC() {
+              $('#lotusACC').toggle();
+              
+              if(panelFlag){
+					hidePanelHamburger();
+					panelFlag = false;
+              }            
+          }
+                         
+          function shBiruMain() {
+              $('#lotusMain').toggle();
+                              
+              if(panelFlag){
+					hidePanelHamburger();
+					panelFlag = false;
+              }    
+          }
+                          
+          function shBiruCC() {
+              $('#lotusCC').toggle();
+              
+              if(panelFlag){
+					hidePanelHamburger();
+					panelFlag = false;
+              }    
+          }
+                         
+          function showPanelKiri() {
+				if (document.getElementById("lotusMain").style.display == "block"){
+					$('#lotusMain').toggle();
+				}
+				if (document.getElementById("lotusACC").style.display == "block"){
+					$('#lotusACC').toggle();
+				}
+				if (document.getElementById("lotusCC").style.display == "block"){
+					$('#lotusCC').toggle();
+				}
+		
+                if (panelFlag) {
+                    //hide
+                    $('#navpanel').removeClass('ui-panel-open');
+                    $('#navpanel').addClass('ui-panel-closed');
+                    $('#myaccount').removeClass('ui-body-a');
+                    $('#myaccount').removeClass('ui-page-panel-open');
+                    $('#myaccount').addClass('ui-body-c');
+                    
+                    $('#putihPutihPenutup').removeClass('ui-panel-content-wrap-position-left');
+                    $('#putihPutihPenutup').removeClass('ui-panel-content-wrap-display-push');
+                    $('#putihPutihPenutup').removeClass('ui-panel-content-wrap-open');
+                    $('#putihPutihPenutup').addClass('ui-panel-content-wrap-closed');
+                    
+                    panelFlag = false;
+                } else {
+                    //show
+                    $('#putihPutihPenutup').removeClass('ui-panel-content-wrap-closed');
+                    $('#putihPutihPenutup').addClass('ui-panel-content-wrap-position-left');
+                    $('#putihPutihPenutup').addClass('ui-panel-content-wrap-display-push');
+                    $('#putihPutihPenutup').addClass('ui-panel-content-wrap-open');
+                    
+                    $('#navpanel').removeClass('ui-panel-closed');
+                    $('#navpanel').addClass('ui-panel-open');
+                    $('#myaccount').removeClass('ui-body-c');
+                    $('#myaccount').addClass('ui-body-a');
+                    $('#myaccount').addClass('ui-page-panel-open');
+                    
+                    panelFlag = true;
+                }
+            }
+                         
+            function hidePopup(idPopup) {
+                $('#' + idPopup + "-popup").removeClass('ui-popup-active');
+                $('#' + idPopup + "-popup").addClass('ui-popup-hidden');
+                $('#' + idPopup + "-popup").removeAttr('style', 'height:90%;width:90%; top: 5%; left: 5%;');
+                
+                $('#' + idPopup + "-screen").removeClass('ui-popup-screen');
+                $('#' + idPopup + "-screen").removeClass('ui-overlay-b');
+                $('#' + idPopup + "-screen").removeClass('in');
+                $('#' + idPopup + "-screen").addClass('ui-screen-hidden');
+                $('#' + idPopup + "-screen").addClass('ui-popup-screen');
+                $('#' + idPopup + "-screen").addClass('ui-overlay-b');
+            }
+            
+            function showPopup(idPopup) {
+                $('#' + idPopup + "-popup").removeClass('ui-popup-hidden');
+                $('#' + idPopup + "-popup").addClass('ui-popup-active');
+                $('#' + idPopup + "-popup").attr('style', 'height:90%;width:90%; top: 5%; left: 5%;');
+                
+                $('#' + idPopup + "-screen").removeClass('ui-screen-hidden');
+                $('#' + idPopup + "-screen").removeClass('ui-popup-screen');
+                $('#' + idPopup + "-screen").removeClass('ui-overlay-b');
+                $('#' + idPopup + "-screen").addClass('ui-popup-screen');
+                $('#' + idPopup + "-screen").addClass('ui-overlay-b');
+                $('#' + idPopup + "-screen").addClass('in');
+            }
+                         
+	      	// Speed up calls to hasOwnProperty
+	      	var hasOwnProperty = Object.prototype.hasOwnProperty;
+	      
+	        function isEmpty(obj) {
+		          // null and undefined are "empty"
+		          if (obj == null) return true;
+		          
+		          // Assume if it has a length property with a non-zero value
+		          // that that property is correct.
+		          if (obj.length > 0) return false;
+		          if (obj.length === 0) return true;
+		          
+		          // Otherwise, does it have any properties of its own?
+		          // Note that this doesn't handle
+		          // toString and valueOf enumeration bugs in IE < 9
+		          for (var key in obj) {
+		              if (hasOwnProperty.call(obj, key)) return false;
+		          }
+		          
+		          return true;
+	        }
+    </script>
+    
+    <script type="text/javascript">
+    		function mailDetail(id) {
+    			var idMail = id;
+    			
+    			setContentData([{
+                    source: 'server',
+                    service: 'GetDetailMail',
+                    params: {
+                    	id: idMail
+                    },
+                    dataIds: [{
+                        dataId: 'id',
+                        dataType: 'text',
+                        source: 'param'
+                        },{
+                        dataId: 'subject',
+                        dataType: 'text',
+                        source: 'param'
+                        },{
+                        dataId: 'messageHelpDesk',
+                        dataType: 'text',
+                        source: 'param'
+                        },{
+                        dataId: 'date',
+                        dataType: 'text',
+                        source: 'param'
+                        }]
+                    }], 'mailDetailCallback');
+    		}
+    		
+    		var id = '';
+    		
+    		function mailDetailCallback() {
+    			id =  getContentData('id');
+    			
+    			document.getElementById('mailDetailDate').innerHTML = getContentData('date');
+    			document.getElementById('mailDetailSubject').innerHTML = getContentData('subject');
+    			document.getElementById('mailDetailMessage').innerHTML = '<p>' + getContentData('messageHelpDesk') + '</p>'; 
+    			
+    			showHideLeft('newmessage', 'messagelist');
+    		}
+    		
+    		function doDeleteMail() {
+    			setContentData([{
+                    source: 'server',
+                    service: 'DeleteMail',
+                    params: {
+                    id: id
+                    },
+                    dataIds: [{
+                        dataId: 'emails',
+                        dataType: 'list',
+                        source: 'param'
+                        }]
+                    }], 'doDeleteMailCallback');
+    		}
+    		
+    		function doDeleteMailCallback() {
+    			var ok = getContentData('ok');
+           		if(ok == 1) {
+           			var mails = getContentData('emails');
+                  	var length = mails.length;
+	                  
+                  	document.getElementById('sentMailsListId').innerHTML = '';
+	                  
+                  	if (length > 0) {
+               	  		for (var i = 0; i < mails.length; i++) {
+                          document.getElementById('sentMailsListId').innerHTML += '<li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-first-child ui-btn-up-c" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"> <a class="ui-link-inherit"   onclick="mailDetail(\'' + mails[i].id + '\');"><p class="ui-li-aside ui-li-desc">' + mails[i].date + '</p> <h3 class="ui-li-heading">' + mails[i].subject + '</h3> <p class="ui-li-desc">' + mails[i].messageView + '</p> </a> </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>';
+                      	}
+                  	} else {
+					 document.getElementById('sentMailsListId').innerHTML += '<li class="ui-li ui-li-divider ui-bar-b ui-first-child"><language key="noRecords"></language></li>';
+                  	}
+
+           		processLanguagesDiv('messagelist');
+                	showHideLeft('messagelist','newmessage');
+           		} else {
+                	alert(getContentData('message'));
+               	}
+          	}
+    		
+    		function saveMail() {
+              	var subject = document.getElementById('mailSubject').value;
+              	var message = document.getElementById('mailMessage').value;
+              	
+              	if (subject == ""){
+      	 		if(locale == "en") {
+          			alert('Subject is mandatory');
+          		} else {
+          			alert('Perihal harus diisi');
+          		}
+          	} else if (message == "") {
+          		if(locale == "en") {
+          			alert('Message is mandatory');
+          		} else {
+          			alert('Pesan harus diisi');
+          		}
+          	} else {
+          		setContentData(
+          				[
+          				 {	source: 'server',service:'SendMessage',
+  					 		params:{
+  					 			subject: subject,
+  					 			message: message
+  					 			},
+  		                    dataIds: [{
+  		                    	dataId: 'emails',
+  		                        dataType: 'list',
+  		                        source: 'param'
+  		                        }]
+  		                    }], 'saveMailCallBack');
+          	}
+            }
+            
+            function saveMailCallBack() {
+                var ok = getContentData('ok');
+                
+                if (ok == 1) {
+                	showHideLeft('requestConfirmation','messagecreate');
+                } else {
+                    alert(getContentData('message'));
+                }
+            }
+            
+            function onLoadEmails() {
+            	var mails = getContentData('emails');
+                var length = mails.length;
+                
+                document.getElementById('sentMailsListId').innerHTML = '';
+                
+                if (length > 0) {
+              	  for (var i = 0; i < mails.length; i++) {
+                        document.getElementById('sentMailsListId').innerHTML += '<li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-first-child ui-btn-up-c" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"> <a class="ui-link-inherit"   onclick="mailDetail(\'' + mails[i].id + '\');"><p class="ui-li-aside ui-li-desc">' + mails[i].date + '</p> <h3 class="ui-li-heading">' + mails[i].subject + '</h3> <p class="ui-li-desc">' + mails[i].messageView + '</p> </a> </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>';
+                    }
+                } else {
+				    document.getElementById('sentMailsListId').innerHTML += '<li class="ui-li ui-li-divider ui-bar-b ui-first-child"><language key="noRecords"></language></li>';
+                }
+                app.backFunction=customBackMyAccount;
+                checkLanguage1();
+                processLanguagesDiv('messagelist');
+            }
+
+            function checkLanguage1(){
+			setContentData([{source: 'server',service:'CheckLanguage',dataIds:[{dataId: 'locale',dataType:'text',source:'param'}]}], 'checkLanguageCallBack1');
+		  }
+	
+		  function checkLanguageCallBack1(){
+			locale = getContentData('locale');
+		  }
+
+		  function getAccountList(){
+								setContentData([{source: 'server',service:'AccountList',dataIds:[{dataId: 'accounts',dataType:'list',source:'param'},{dataId: 'ccAccounts',dataType:'list',source:'param'},{dataId:'depositBalance',dataType:'text',source:'param'},{dataId:'depositBalanceDisplay',dataType:'text',source:'param'},{dataId:'ccOutstanding',dataType:'text',source:'param'},{dataId:'ccOutstandingDisplay',dataType:'text',source:'param'},{dataId:'bankAccountSystemViolation',dataType:'text',source:'param'},{dataId:'ccAccountSystemViolation',dataType:'text',source:'param'}]}], 'accountListPage');
+		  }
+							
+			function accountListPage(){
+				if(getContentData('ok')==1){
+					goToHTML({viewId: 'myaccount.html'});
+				}else{
+					alert(getContentData('message'));
+				}
+			}
+
+		  function checkMobileBanking() {
+			setContentData([{source: 'server',service:'checkMobileBanking'}], 'checkMobileBankingCallback');
+		  }
+
+	       function checkMobileBankingCallback() {
+		   		var ok = getContentData('ok');
+				if(ok == 1) {
+					   getAccountList();
+				} else {
+                   alert(getContentData('message'));
+            }
+	       }
+	       
+	       function customBackMyAccount() {
+	    	   getAccountList();
+	       }
+    </script>
+    
+</head>
+<body class="loginScreen innerPage ui-mobile-viewport ui-overlay-c" onload="processLanguages();onLoadEmails();">
+<!------******************------> 
+<!--------- Rates ---------> 
+<!------******************------>
+	<div class="ui-page ui-body-c ui-page-header-fixed ui-page-active" tabindex="0" data-url="messagelist" data-role="page" id="messagelist" data-add-back-btn="false">
+	    <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+	    	<a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="checkMobileBanking();"  class="leftBtnTwo arrow ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" rel="external">
+	    		<span class="ui-btn-inner">
+	    			<span class="ui-btn-text"><language key="accounts"></language></span>
+	    		</span>
+	   		</a>
+	    	<h1 aria-level="1" role="heading" class="ui-title"> <language key="messages"></language> </h1>
+	    	<a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="document.getElementById('mailSubject').value='';document.getElementById('mailMessage').value='';showHideLeft('messagecreate','messagelist');" class="rightBtn ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-transition="slide">
+	    		<span class="ui-btn-inner">
+	    			<span class="ui-btn-text"><language key="new"></language></span>
+	   			</span>
+			</a>
+		</div>
+	    <div role="main" data-role="content" class="noshadow messagelist ui-content">
+	    	<div class="content-primary">
+	          <ul class="listtype message ui-listview" id="sentMailsListId">
+	      	</ul>
+	       </div>
+	  	</div>
+	</div>
+	<div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="newmessage" data-role="page" id="newmessage" data-add-back-btn="false">
+      <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false"> <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('messagelist','newmessage');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="inbox"></language></span></span></a>
+	    <h1 aria-level="1" role="heading" class="ui-title"> <language key="messages"></language> </h1>
+	  </div>
+      <div role="main" data-role="content" class="noshadow ui-content">
+	    <div class="content-primary">
+          
+	        <div class="flexslider offersSlider">
+	            <div style="overflow: hidden; position: relative;" class="flex-viewport">
+		            <ul class="slides">
+		            	<li style="display: list-item;">
+		                  <div class="offersPanel paddingBottom"> 
+			                  <div class="senderDetails">
+				                  <p>
+				                    <span class="labelTxt"><language key="senton"></language></span>
+				                    <span class="confirmTxt" id="mailDetailDate"></span>
+				                  </p>
+				                  <p>
+				                    <span class="labelTxt"><language key="subject"></language></span>
+				                    <span class="confirmTxt" id="mailDetailSubject"></span>
+			                      </p>
+			                  </div>
+			                  <div class="messagecontent border-top" id="mailDetailMessage">
+			                  </div>
+	              		  </div>
+		                </li>
+		          </ul>
+	          </div>
+	          <div class="pop-deleteBtn marginTop" style="align:center;">
+                  <a class="deleteyes ui-link" onclick="showPopup('deleteMailConfirmation');"><language key="delete"></language></a>
+              </div>
+              
+          	</div>
+	      	<div id="deleteMailConfirmation-screen" class="ui-popup-screen ui-overlay-b ui-screen-hidden"></div>
+          	<div id="deleteMailConfirmation-popup" class="ui-popup-container ui-popup-hidden">
+               <div id="deleteMailConfirmation" class="popup popupTwo ui-popup ui-overlay-shadow ui-corner-all">
+                   <h3><language key="deleteMail"></language></h3>
+                   <p class="forgetPin" style="text-align:center;"><language key="deleteMailConfirm"></language>
+                   </p>
+                   <div class="pop-submitBtn marginTop"><a class="ui-link"  onclick="doDeleteMail();hidePopup('deleteMailConfirmation');"><language key="deleteMail"></language></a>
+                   </div>
+                   <div class="pop-cancelBtn"><a class="ui-link" onclick="hidePopup('deleteMailConfirmation');"><language key="cancel"></language></a>
+                   </div>
+               </div>
+          	</div>
+        </div>
+	  </div>
+    </div>
+	<div style="padding-top: 43px; min-height: 548px;" class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="messagecreate" data-role="page" id="messagecreate" data-add-back-btn="false">
+      <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+      	<a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="document.getElementById('mailSubject').value='';document.getElementById('mailMessage').value='';showHideRight('messagelist','messagecreate');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="messages"></language></span></span></a>
+	    <h1 aria-level="1" role="heading" class="ui-title"> <language key="messages"></language> </h1>
+	    <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="saveMail();" class="rightBtn messageSubmit ui-btn-right ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="send"></language></span></span></a>
+	  </div>
+      <div role="main" data-role="content" class="noshadow ui-content">
+   		<p><language key="questionForm"></language></p>
+    	<div class="content-primary formwithtext"> 
+	    	<div class="formField notopMargin">
+           		<div data-role="fieldcontain" class="smTextbox ui-field-contain ui-body ui-br">
+           			<label class="ui-input-text" for="mailSubject"><language key="subject"></language></label>
+           			<div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c">
+           				<input class="ui-input-text ui-body-c" name="mailSubject" id="mailSubject" value="" placeholderKey="subjectHint" type="text">
+       				</div>
+   				</div>
+           	</div>
+           	<div class="formField textboxMargin lasrChild">
+           		<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
+           			<label class="ui-input-text" for="mailMessage"><language key="yourQuery"></language></label>
+           			<textarea class="ui-input-text ui-body-c ui-corner-all ui-shadow-inset" cols="40" rows="8" name="mailMessage" id="mailMessage" placeholderKey="messageHint"></textarea>
+       			</div>
+			</div>
+     	</div>
+	  </div>
+    </div>
+	<div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="requestConfirmation" data-role="page" id="requestConfirmation" data-add-back-btn="false">
+	    <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+	       	<a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="onLoadEmails();showHideRight('messagelist','requestConfirmation');" class="rightBtn ui-btn-right ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="done"></language></span></span></a>
+	      	<h1 aria-level="1" role="heading" class="ui-title"><language key="messages"></language></h1>
+	    </div>
+	 	<div role="main" data-role="content" class="padding-zero noshadow overflow-visible ui-content">
+	     <div class="whiteBackground arrowImage padding productconfirmation">
+	       <div class="status success">
+	         <div class="statusIcon"></div>
+	         <p><language key="querySubmitted"></language></p>
+	       </div>
+	       <div class="statusText border-top padding-horizontal paddingBottom">
+	         	<p style="text-align:center;"><language key="thankYouQuery"></language></p>
+	       </div>
+	     </div>
+   		</div>
+  </div>
+</body>
+</html>

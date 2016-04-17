@@ -1,0 +1,84 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div ng-include src="'views/loading/loading.html'"></div>
+
+    <div class="formContainer scrollBox-withFooter ">
+        <div class="labelKey" style="margin-bottom: 5px"><span ><b>{{'COMMON_FROM' | translate }}</b></span></div>
+        <div>
+            <p class="number" style="margin-bottom: 0px"><b>{{accountName}}</b></p>
+            <p class="number" style="margin-bottom: 0px"><b>{{accountNumber}}</b></p>
+            <p class="number"><b>VND {{accountBalance}}</b></p>
+        </div>
+        <div class="space"></div>
+        <div class="labelKey" style="padding-bottom:10px;"><span ><b>{{'COMMON_TO' | translate }}</b></span></div>
+        <div>
+            <i class="icon-value smallicon pull-right {{transactionIcon}}" />
+            <div class="avatar"> <img src="{{transaction.sender.profile.photo}}" style="background-color: #ffffff"/></div>
+            <div class="rowContainer">
+                <div class="row">
+                    <div class="number"><b>{{transaction.sender.profile.name}}<br>
+                        <!--<span class="number" ng-show="toEwallet">{{transaction.payee.accountNumber}}</span></b>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="space"></div>
+        <div class=" iconField">
+            <i class="icon-value askSocial  glyphicon pull-left"/>
+            <div class="rowContainer">
+                <p class="number"><b>{{transaction.currency}} {{transaction.amount.formatMoney(0)}}</b></p>
+                <p class="number"><b>{{'TRANSACTION_FEE' | translate}} {{transaction.currency}} {{fee.formatMoney(0)}}</b></p>
+            </div>
+        </div>
+        <div class="space"></div>
+
+        <div class="buttonBox" style="bottom: 0px;width: 90%;margin-bottom: 0px;position: absolute;">
+            <button class="button base active" ng-click="clickConfirm()">{{ 'TRANSFER_SEND_BUTTON' | translate }}</button>
+        </div>
+    </div>
+
+
+
+    <!--<div class="profile-cover" style="background-image: url(images/fbcover.jpg)">-->
+        <!--<div ng-show="{{showImage}}">-->
+            <!--<div class="profile-image"><img src="{{transaction.sender.profile.photo}}" /></div>-->
+            <!--<div class="profile-name"><h1 style="color:white">{{(transaction.sender.profile.name.length>22)?transaction.sender.profile.name.substr(0,22) + "...":transaction.sender.profile.name}}</h1></div>-->
+        <!--</div>-->
+        <!--<div ng-show="{{!showImage}}">-->
+            <!--<div class="profile-name" style="margin-top:80px;">-->
+                <!--<h1 style="color:white">{{transaction.sender.profile.name}}</h1>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="accountBalance">-->
+            <!--<div class="accountType success">-->
+                <!--{{'ASK_WALLET_ACCEPT_CONFIRM_AMOUNT' | translate}}</div>-->
+            <!--<div class="amount">-->
+                <!--<span class="number">VND {{transaction.formatedAmount}} </span>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="scrollBox-withCoverAndFooter resultContainer">-->
+        <!--<div class="greyBorderBottom">-->
+            <!--<p class="labelValue"> <font color="#ff0000">{{'ASK_WALLET_ACCEPT_CONFIRM_TRANSACTION' | translate}} {{"TRANSACTIONS_INDEX_" + transaction.status.toUpperCase() | translate}}</font></p>-->
+        <!--</div>-->
+        <!--<div>-->
+            <!--<p class="labelKey">{{'ASK_WALLET_ACCEPT_CONFIRM_TRANSFER_TYPE' | translate}}</p>-->
+            <!--<p class="labelValue">{{'SOCIAL_ASK_MONEY_TITLE' |translate}}</p>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;<div>-->
+            <!--<p class="labelKey">{{'ASK_WALLET_ACCEPT_CONFIRM_REFERENCE_ID' | translate}}</p>-->
+            <!--<p class="labelValue">{{transaction.txnRef}}</p>-->
+        <!--</div>&ndash;&gt;-->
+        <!--<div>-->
+            <!--<p class="labelKey">{{'ASK_WALLET_ACCEPT_CONFIRM_DATE' | translate}}</p>-->
+            <!--<p class="labelValue">{{ transaction.formatedDate}}</p>-->
+        <!--</div>-->
+        <!--<div class="space"><p class="labelValue ng-binding">{{'ASK_WALLET_ACCEPT_CONFIRM_CONFIRMATION_MESSAGE' |translate}}</p></div>-->
+        <!--<div class="buttonBox">-->
+             <!--<button class="button base active" ng-click="clickConfirm()">{{'ASK_WALLET_ACCEPT_CONFIRM_CONFIRM' | translate}}</button>-->
+        <!--</div>-->
+     <!--</div>-->
+     <div class="stickyBottom">
+        <div class="socially grey"></div>
+     </div>
+</div>

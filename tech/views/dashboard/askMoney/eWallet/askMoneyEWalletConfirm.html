@@ -1,0 +1,39 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <div class="formContainer scrollBox-withFooter">
+		<div style="padding-top:15px;">{{'COMMON_TO' | translate }}</div>
+        <div class="beneficiaryList">
+
+                    <div class="avatar"> <img src="images/dashboard-tcb.png" style="background-color: white;"/></div>
+                    <div class="rowContainer">
+                        <p class="name">{{askMoneyPayerDetails.payerName}}</p>
+                        <p class="number">{{askMoneyPayerDetails.payerMobileNumber}}</p>
+                    </div>
+        </div>
+		<div class="space"></div>
+		<p class="labelKey">{{'ASK_MONEY_SOCIAL_SUCCESS_AMOUNT' | translate }}</p>
+        <div class=" iconField">
+            <i class="icon-value ask  glyphicon pull-left"/><p class="labelValue" >{{currency}} {{askMoneyAmount}}</p>
+        </div>
+		<div class="space"></div>
+        <div style="display:none">
+            <p class="labelKey">{{'ASK_MONEY_E_WALLET_CONFIRM_TRANSFER_MONEY_FEE' | translate }}</p>
+            <p class="labelValue">{{currency}} {{askMoneyPayerDetails.transferFee}}</p>
+        </div>
+        <div>
+            <input class="messageBox-selected" placeholder="{{ 'TRANSFER_TCB_ADDMESSAGES' | translate }}" ng-model="askMoneyPayerDetails.message" ng-disabled="true" ng-show="askMoneyPayerDetails.message"/>
+            <!--<textarea class="messageBox-selected" ng-model="askMoneyPayerDetails.message" ng-disabled="true"></textarea>-->
+        </div>
+
+
+        <div class="buttonBox" >
+            <button class="button base active" ng-click="clickSendConfirm()">{{ 'TRANSFER_SEND_BUTTON' | translate }}</button>
+        </div>
+    </div>
+
+
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

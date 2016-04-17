@@ -1,0 +1,44 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <div class="scrollBox-withFooter" >
+    <ul class="pullToFresh" pull-to-refresh="onReload()">
+        <div class="cashoutInfo greyBorderBottom" ng-show="isPending">{{'PENDING_TRANSACTIONS_TIP' | translate}} </div>
+        <ul class="arrowlist">
+            <li ng-repeat="transaction in transactions" class="greyBorderBottom" ng-click="clickTransaction(transaction)" ng-show="!(transaction.fastalink && !transaction.additionalInfos)">
+                <a class="transactionContainer short"><div class="avatar"> <img style="background-color: #ffffff" src="{{transaction.photo}}"/></div>
+                    <div class="rowContainer">
+                        <div class="name1"><span class="prefixName-{{transaction.Linktype}}" ng-if="showLinkTyeIcon(transaction)">{{showPrefixDecs(transaction)? 'SOCIAL_TRANSACTION_FROM':'SOCIAL_TRANSACTION_TO' | translate}} </span>{{transaction.name}}</div>
+                        <div class="amount"><i class="linkType {{transaction.Linktype}}" ng-if="showLinkTyeIcon(transaction)"></i>
+                            <span class="prefixType-{{transaction.Linktype}}" ng-if="showLinkTyeIcon(transaction) && !showReceiveLabel(transaction)">{{showPrefixType(transaction)? 'SOCIAL_TRANSACTION_SENT':'SOCIAL_TRANSACTION_ASKED' | translate}}</span>
+                            <span class="prefixType-{{transaction.Linktype}}" ng-if="showLinkTyeIcon(transaction) && showReceiveLabel(transaction)">{{'SOCIAL_TRANSACTION_RECEIVE' | translate}}</span>
+                            <b>VND {{transaction.formatedAmount}}</b></div>
+                        <div class="date">{{'BANK_TRANSACTION_SUMMARY_DATE' | translate}}<b> {{transaction.date}}</b></div>
+                        <div class="link" ng-show="transaction.fastalink"><b>{{transaction.fullLink}}</b></div>
+                    </div>
+                    <div class="channelstatus"> <div class="status {{transaction.status}}" >{{transaction.status}}</div> <i class="channel {{transaction.additionalInfos.otherData.data.value}}" ng-if="showChannelIcon(transaction)"></i> </div>
+                </a>
+            </li>
+        </ul>
+        <ul class="arrowlist">
+            <li ng-repeat="transaction in socialTransactions" class="greyBorderBottom" ng-click="clickTransaction(transaction)">
+                <a class="transactionContainer short"><div class="avatar"> <img src="{{transaction.photo}}"/></div>
+                    <div class="rowContainer">
+                        <div class="name"><span class="prefixName-{{transaction.Linktype}}" ng-if="showLinkTyeIcon(transaction)">{{showPrefixDecs(transaction)? 'SOCIAL_TRANSACTION_FROM':'SOCIAL_TRANSACTION_TO' | translate}} </span>{{transaction.name}}</div>
+                        <div class="amount"><i class="linkType {{transaction.Linktype}}" ng-if="showLinkTyeIcon(transaction)"></i>
+                            <span class="prefixType-{{transaction.Linktype}}" ng-if="showLinkTyeIcon(transaction) && !showReceiveLabel(transaction)">{{showPrefixType(transaction)? 'SOCIAL_TRANSACTION_SENT':'SOCIAL_TRANSACTION_ASKED' | translate}}</span>
+                            <span class="prefixType-{{transaction.Linktype}}" ng-if="showLinkTyeIcon(transaction) && showReceiveLabel(transaction)">{{'SOCIAL_TRANSACTION_RECEIVE' | translate}}</span>
+                            <b>VND {{transaction.formatedAmount}}</b></div>
+                        <div class="date">{{'BANK_TRANSACTION_SUMMARY_DATE' | translate}}<b> {{transaction.date}}</b></div>
+                        <div class="link" ng-show="transaction.fastalink"><b>{{transaction.fullLink}}</b></div>
+                    </div>
+                    <div class="channelstatus"> <div class="status {{transaction.status}}" >{{transaction.status}}</div> <i class="channel {{transaction.additionalInfos.otherData.data.value}}" ng-if="showChannelIcon(transaction)"></i> </div>
+                </a>
+            </li>
+        </ul>
+    </ul>
+    </div>
+    <div class="stickyBottom">
+        <div class="socially grey"></div>
+    </div>
+</div>

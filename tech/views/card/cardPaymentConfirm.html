@@ -1,0 +1,56 @@
+<div>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <navigation-bar status="status"></navigation-bar>
+    <div class="formContainer scrollBox-withFooter" style="margin-top: 5px">
+        <div class="greyBorderBottom">
+            <p class="labelKey">{{'CASHOUT_MOBILE_CONFIRM_FROM' | translate}} </p>
+            <p class="labelValue">{{sourceAccount.displayName}}</p>
+            <p class="labelValue">{{sourceAccount.accountNumber}}</p>
+        </div>
+        <div class="greyBorderBottom">
+            <p class="labelKey">{{'CASHOUT_MOBILE_CONFIRM_ACCOUNT_BALANCE' | translate}}</p>
+            <p class="labelValue"><b>VND {{sourceAccount.availableBalance.formatMoney(0)}}</b></p>
+        </div>
+
+        <div class="greyBorderBottom" ng-show="Owner">
+            <p class="labelKey">{{'CARD_PAYMENT_FOR' | translate}}</p>
+            <p class="labelValue"><b>{{cardInfo.cardNumber}}</b></p>
+        </div>
+
+        <div class="greyBorderBottom" ng-show="!Owner">
+            <p class="labelKey">{{'CARD_PAYMENT_FOR_HOLDER_NAME' | translate}}</p>
+            <p class="labelValue"><b>{{cardInfo.name}}</b></p>
+        </div>
+
+        <div class="greyBorderBottom">
+        <p class="labelKey">{{'CARD_PAYMENT_LIST_CARD_ACCOUNT_NUMBER' | translate}}</p>
+        <p class="labelValue"><b>{{cardInfo.cardAccountNumber}}</b></p>
+        </div>
+
+        <div class="iconField" style="height: 40px">
+            <i class="icon-value glyphicon pull-left" style="top: -3px"/>
+            <div class="rowContainer">
+                <p class="labelKey">{{'CARD_PAYMENT_CONFIRM_AMOUNT' | translate}}</p>
+                <p class="number" style="font-size: 1.05em !important;"><b>{{currencyCode}} {{parsedAmount}}</b></p>
+            </div>
+        </div>
+        <div class="space"></div>
+
+        <div class="greyBorderBottom" ng-show="!Owner">
+            <p class="labelKey">{{'TRANSFER_TCB_SUCCESSFEE' | translate}}</p>
+            <p class="labelValue"><b>{{currencyCode}} {{cardInfo.fee.formatMoney(0)}}</b></p>
+        </div>
+
+        <div style="display: none">
+            <input class="messageBox-selected" ng-model="cardInfo.messageContent" ng-disabled="true" ng-show="cardInfo.messageContent"/>
+        </div>
+
+        <div class="buttonBox">
+            <button class="button base active" ng-click="confirm()">{{'CASHOUT_MOBILE_CONFIRM_CONFIRM' | translate}}</button>
+        </div>
+    </div>
+
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

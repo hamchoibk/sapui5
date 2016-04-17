@@ -1,0 +1,23 @@
+
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div>
+        <input type="text" class="seachBar" placeholder="{{'ATM_LIST_SEARCH' | translate }}" ng-model="query" ng-change="filterATM(query)"/>
+    </div>
+    <div class="scrollBox-withSearchFooter" id="atmList">
+        <ul class="arrowlist">
+            <li ng-repeat="atm in atmList" class="greyBorderBottom" ng-click="showTransactionDetails(transaction)">
+                <a class="transactionContainer" ng-click="clickATM(atm)">
+                    <div class="rowContainer">
+                        <span class="name">{{atm.LocationDetail}}</span>
+
+                    </div>
+                </a>
+            </li>
+        </ul>
+        
+    </div>
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

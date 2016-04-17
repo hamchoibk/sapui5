@@ -1,0 +1,27 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+
+    <div class="profile-cover" style="background-image: url(images/fbcover.jpg)">
+        <div class="profile-image"><img src="images/fbprofile.jpg"  /></div>
+        <div class="profile-name"><h1 style="color:white">{{transaction.name}}</h1></div>
+    </div>
+
+    <div class="accountBalance">
+        <div class="accountType">{{'TRANSACTION_CURRENT' | translate}}<br>{{'TRANSACTION_ACCOUNT' | translate}}</div>
+        <div class="amount">
+            <span class="number">2,000,000.00 </span><span>VND</span>
+        </div>
+    </div>
+
+    <div class="flexible-Margin formContainer">
+        <div><center><p class="title greyBorderBottom">{{'TRANSACTION_TRANSACTION' | translate}} {{ transaction.status }}</p></center></div>
+        <div class="column50">{{'TRANSACTION_FEE' | translate}} </div><div class="column50 align-right"><b>3,000 VND</b></div>
+        <div class="column50 greyBorderBottom">{{'TRANSACTION_AMOUNT' | translate}}</div> <div class="column50 align-right greyBorderBottom"><b>{{transaction.amount}} VND</b></div>
+        <div><center><p class="title greyBorderBottom">{{ transaction.link }}</p></center></div>
+    </div>
+
+
+    <div class="stickyBottom">
+        <div class="socially grey"></div>
+    </div>
+</div>

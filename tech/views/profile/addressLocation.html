@@ -1,0 +1,20 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <div class="scrollBox-withFooter">
+    <ul class="arrowlist">
+                    <li ng-repeat="location in locations" class="greyBorderBottom" ng-click="clickLocation(location)">
+                        <a class="transactionContainer short">
+                            <div class="rowContainer">
+                                <div class="name">{{location.name}}</div>
+                            </div>
+                            <div class="channelstatus"><i class="channel"></i></div>
+                        </a>
+                    </li>
+    </ul>
+        
+        </div>
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

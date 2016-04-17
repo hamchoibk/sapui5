@@ -1,0 +1,100 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div class="profile-cover" style="background-image: url(images/fbcover.jpg)">
+        <div ng-show="{{showImage}}">
+            <div class="profile-image"><img src="{{friend.friendDetail.profile.photo}}"  /></div>
+            <!--<div class="profile-name"><h1 style="color:white">{{(friend.name.length>22)?friend.name.substr(0,22) + "...":friend.name}}</h1></div>-->
+            <div class="profile-name"><h1 style="color:white">{{friend.name}}</h1></div>
+        </div>
+        <div ng-show="{{!showImage}}">
+            <!--<div class="profile-name" style="margin-top:80px;"><h1 style="color:white">{{(friend.name.length>22)?friend.name.substr(0,22) + "...":friend.name}}</h1><h1 style="color:white">{{friend.mobileNumber}}</h1></div>-->
+            <div class="profile-image"><img src="images/icon-sms.png" /></div>
+            <div class="profile-name"><h1 style="color:white">{{friend.name}}</h1></div>
+        </div>
+        <div class="accountBalance">
+            <div class="accountType success" style="width: 120px;">{{'ASK_MONEY_SOCIAL_SUCCESS_AMOUNT' | translate}}</div>
+            <div class="amount">
+                <span class="number"><span>{{currencyCode}} </span> {{askAmount}} </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="scrollBox-withCoverAndFooter resultContainer">
+        <div class="metadata link">
+            <div class="value">https://m.techcombank.com.vn/fastalink/{{fastalink}}</div>
+            <div class="expire">{{'ACCOUNT_TRANSACTION_DETAIL_DATE' | translate}} {{expiredate}}</div>
+            <div class="copylink" ng-click="clickCopyLink()">{{'ASK_MONEY_SOCIAL_SUCCESS_COPY' | translate}}</div>
+        </div>
+        <div class="space"></div>
+        <!--<div class="space" ng-show="userInputs.message"></div>-->
+        <!--<div class="metadata message" ng-show="userInputs.message">-->
+            <!--<div class="speech">-->
+                <!--<div class="content" >{{userInputs.message}}</div>-->
+                <!--<div class="left">-->
+                <!--</div>-->
+                <!--<div class="lt">-->
+                <!--</div>-->
+                <!--<div class="top">-->
+                <!--</div>-->
+                <!--<div class="rt">-->
+                <!--</div>-->
+                <!--<div class="rb">-->
+                <!--</div>-->
+                <!--<div class="bottom">-->
+                <!--</div>-->
+                <!--<div class="lb">-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <!--<div class="space" ng-show="metadata.photo"></div>-->
+        <!--<div class="metadata photo" ng-show="metadata.photo">-->
+            <!--<img src="{{metadata.photo}}" />-->
+        <!--</div>-->
+        <!--<div class="space" ng-show="metadata.video"></div>-->
+        <!--<div class="metadata video" ng-show="metadata.video">-->
+            <!--<img src="{{metadata.video.preview}}" />-->
+            <!--<button class="video playButton" ng-click="clickVideo(metadata.video.url)"></button>-->
+        <!--</div>-->
+        <!--<div class="space" ng-show="metadata.audio"></div>-->
+        <!--<div class="metadata audio" ng-show="metadata.audio">-->
+            <!--<div class="audio_holder">-->
+                <!--<div class="media">-->
+                    <!--<button class="audio playButton" ng-click="clickAudio(metadata.audio.url)"></button>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <!--<div class="metadata audio"  ng-show="metadata.audio">-->
+            <!--<div class="audio_holder">-->
+                <!--<audio media-player="audioPlayer" data-playlist="audioPlaylist">-->
+                <!--</audio>-->
+                <!--<div class="media">-->
+                    <!--<a class="pull-left icon" href="" ng-click="togglePlayState($event)">-->
+                        <!--<span class="glyphicon" ng-class="{true: 'glyphicon-pause', false: 'glyphicon-play'}[audioInPlay]"></span>-->
+                    <!--</a>-->
+                    <!--<div class="progress" ng-click="seek($event)">-->
+                        <!--<div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" ng-style="{ width: audioPlayer.currentTime*100/audioPlayer.duration + '%' }"></div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        
+        <div class="greyBorderBottom">
+                <ul class="notes" style="padding: 5px 0px"><b>{{'ASK_MONEY_VIA_SOCIAL_SUCCESS_NOTES_TITLE' | translate }}</b><br>
+                    <ul class="notesText">{{'ASK_MONEY_VIA_SOCIAL_SUCCESS_NOTE_1' | translate }}</ul>
+                    <ul class="notesText">{{'ASK_MONEY_VIA_SOCIAL_SUCCESS_NOTE_2' | translate}}</ul>
+                    <ul class="notesText">{{'ASK_MONEY_VIA_SOCIAL_SUCCESS_NOTE_3' | translate}}</ul>
+                    <ul class="notesText">{{'ASK_MONEY_VIA_SOCIAL_SUCCESS_NOTE_4' | translate}}</ul>
+                </ul>
+        </div>
+        <div class="buttonBox success">
+            <button class="button base active" ng-click="clickSpreadLove()">{{'SEND_MONEY_SUCCESS_SPREAD' | translate }}</button>
+            <button class="button base active" ng-click="clickTransactMore()">{{'ASK_MONEY_SOCIAL_SUCCESS_TRANSACT_MORE' | translate }}</button>
+            <button class="button base active" ng-click="clickDone()">{{'ASK_MONEY_SOCIAL_SUCCESS_DONE' | translate }}</button>
+        </div>
+    </div>
+    <div class="stickyBottom">
+        <div class="socially grey"></div>
+    </div>
+</div>

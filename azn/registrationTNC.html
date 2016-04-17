@@ -1,0 +1,1819 @@
+<!DOCTYPE html>
+<html class="ui-mobile">
+    <head>
+        <script src="cordova.js"></script>
+        <script src="native.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+            </script>
+        <title></title>
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+            <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+            <link href="css/jquerycss.css" rel="stylesheet" type="text/css">
+                <link href="css/style.css" rel="stylesheet" type="text/css">
+                <link href="css/iscroll.css" rel="stylesheet" type="text/css">
+                   	<script type="text/javascript" src="plugins/jq.scroller.js"></script>
+                    <script type="text/javascript" src="script/jq.mobi.js"></script>
+                    <script type="text/javascript" src="GeneralJavascript/generalFunction.js"></script>
+                    <script type="text/javascript" src="GeneralJavascript/security.js"></script>
+                    <script src="script/iscroll-lite.js"></script> 
+                    <script>
+                        function hidePopup(idPopup){
+                            $('#'+idPopup).removeClass('ui-popup-active');
+                            $('#'+idPopup).addClass('ui-popup-hidden');
+                            $('#'+idPopup).removeAttr('style', 'height:50%;width:90%; top: 25%; left: 5%;');
+                        }
+                        
+	                    function showPopup(idPopup){
+	                        $('#'+idPopup).removeClass('ui-popup-hidden');
+	                        $('#'+idPopup).addClass('ui-popup-active');
+	                        $('#'+idPopup).attr('style', 'height:50%;width:90%; top: 25%; left: 5%;');
+	                    }
+	                    
+	                    function hidePopupScreen(idPopupScreen){
+	                        $('#'+idPopupScreen).removeClass('ui-popup-screen');
+	                        $('#'+idPopupScreen).removeClass('ui-overlay-b');
+	                        $('#'+idPopupScreen).removeClass('in');
+	                        $('#'+idPopupScreen).addClass('ui-screen-hidden');
+	                        $('#'+idPopupScreen).addClass('ui-popup-screen');
+	                        $('#'+idPopupScreen).addClass('ui-overlay-b');
+	                        $('#'+idPopupScreen).removeAttr('style','height : '+document.getElementsByClassName('ui-page-active')[0].scrollHeight+'px');
+	                    }
+	                    
+	                    function showPopupScreen(idPopupScreen){
+	                        $('#'+idPopupScreen).removeClass('ui-screen-hidden');
+	                        $('#'+idPopupScreen).removeClass('ui-popup-screen');
+	                        $('#'+idPopupScreen).removeClass('ui-overlay-b');
+	                        $('#'+idPopupScreen).addClass('ui-popup-screen');
+	                        $('#'+idPopupScreen).addClass('ui-overlay-b');
+	                        $('#'+idPopupScreen).addClass('in');
+	                        $('#'+idPopupScreen).attr('style','height : '+document.getElementsByClassName('ui-page-active')[0].scrollHeight+'px');
+	                    }
+	                    
+	                    function hidePopup2(idPopup){
+	                        $('#'+idPopup).removeClass('ui-popup-active');
+	                        $('#'+idPopup).addClass('ui-popup-hidden');
+	                        $('#'+idPopup).removeAttr('style', 'height:90%;width:90%; top: 5%; left: 5%;');
+	                    }
+	                    
+	                    function showPopup2(idPopup){
+	                        $('#'+idPopup).removeClass('ui-popup-hidden');
+	                        $('#'+idPopup).addClass('ui-popup-active');
+	                        $('#'+idPopup).attr('style', 'height:90%;width:90%; top: 5%; left: 5%;');
+	                    }
+	                    </script>
+	                     
+	                    <script>
+	                        var flag = 0;
+	                        var loginusing = 0;
+	
+						function getTnC(){
+		                   		//setContentData([{source: 'server',service:'reqTermCond',dataIds:[{dataId: 'termAndCond',dataType:'text',source:'model'}]}], 'cetakTAndC');
+		                   		setContentData([{source: 'server',service:'CheckLanguage',dataIds:[{dataId: 'locale',dataType:'text',source:'param'}]}], 'cetakTAndC');
+		                   		
+	                    	}
+	                        
+                        function cetakTAndC(){
+                        		//document.getElementById('termsandconditions_id').innerHTML = '';
+                            	//document.getElementById('termsandconditions_id').innerHTML = getContentData('termAndCond');
+                            	var locale = getContentData('locale');
+                            	if(locale == 'en'){
+                            		document.getElementById('termsandconditions_en').style.display='block';
+                            		document.getElementById('termsandconditions_id').style.display='none';
+                            	}else if(locale == 'id'){
+                            		document.getElementById('termsandconditions_id').style.display='block';
+                            		document.getElementById('termsandconditions_en').style.display='none';
+                            	}
+                            	showHideLeft('termsandconditions','quickguide');
+		                   	app.backFunction=customBackFromTnC;    	
+                        }
+                        
+	                    function processRegistrationCode(){
+	                        var code = $('#registrationcode').val();
+	                        if(code == ""){
+	                        	   loadMessageResourceAlert("forgot.password.regcode.mandatory");
+	                            //alert('Registration code is mandatory');
+	                        }
+	                        else if(loginusing == 0){
+	                            //setContentData([{source: 'server',service:'regCodeValidation',params:{regCode: $('#registrationcode').val(), loginUsing:'NEW'},dataIds:[{dataId: 'isValid',dataType:'text',source:'param'},{dataId: 'errorMessage',dataType:'text',source:'param'}]}], 'codeValidation1');
+	                        		setContentData([{source: 'server',service:'regCodeValidation',params:{regCode: $('#registrationcode').val(), loginUsing:'NEW'},dataIds:[{dataId: 'isValid',dataType:'text',source:'param'},{dataId: 'errorMessage',dataType:'text',source:'param'}]}], 'codeValidation1');
+	                        }else if(loginusing == 1){
+	                            setContentData([{source: 'server',service:'regCodeValidationAndGetUserData',params:{regCode: $('#registrationcode').val(), loginUsing:'EXIST'},dataIds:[{dataId: 'isValid',dataType:'text',source:'param'},{dataId: 'errorMessage',dataType:'text',source:'param'},{dataId: 'userId',dataType:'text',source:'param'},{dataId: 'password',dataType:'text',source:'param'},{dataId: 'emailAddress',dataType:'text',source:'param'},{dataId: 'registrationFlag',dataType:'text',source:'param'},{dataId: 'spiUserCode',dataType:'text',source:'param'},{dataId: 'regCodeValid',dataType:'text',source:'param'},{dataId: 'customerName', dataType:'text', source:'param'}]}], 'codeValidation2');
+	                        }
+	                    }
+	                    
+	                    function codeValidation1(){
+	                        var test = getContentData('ok');
+	                        var msg = getContentData('message');
+	                        if(test == 1){
+	                            showHideLeft('registration','registrationconfirm');
+	                            app.backFunction=customBackFromRegistration;
+	                        }
+	                        else{
+	                            alert(msg);
+	                        }
+	                    }
+	                    
+	                    function codeValidation2(){
+	                        var test = getContentData('ok');
+	                        var msg = getContentData('message');
+	                        if(test == 1){
+	                            var var1 = getContentData('userId');
+	                            var var2 = getContentData('password');
+	                            var var4 = getContentData('emailAddress');
+	                            
+	                            document.getElementById("username_confirmationExisting").innerHTML = var1;
+	                            //var buf = '';
+	                            //for(i=0;i<var2.length;i++)buf = buf + '*';
+	                            //document.getElementById("password_confirmationExisting").innerHTML = buf;
+	                            document.getElementById("password_confirmationExisting").innerHTML = '********';
+	                            document.getElementById("email_confirmationExisting").innerHTML = var4;
+	                            
+	                            showPopup('successmessageExisting-popup');
+	                            showPopupScreen('successmessageExisting-screen');
+	                        }
+	                        else{
+	                            alert(msg);
+	                        }
+	                    }
+						
+			    		// add by Sendhy 14 Apr 14
+	                    function existingRegistration(){
+	                        var userId = getContentData('userId');
+	                        var password = getContentData('password');
+	                        var emailAddress = getContentData('emailAddress');
+	                        var regFlag = getContentData('registrationFlag');
+	                        var customerId = getContentData('spiUserCode');
+	                        var code = getContentData('regCodeValid');
+	                        
+	                        //call service existing registration
+	                        setContentData([{source: 'server',service:'existingRegistration',params:{regCode: code, registrationFlag: regFlag, customerId: customerId}}], 'confirmValidationExisting');
+	                    }
+						
+	                    function confirmValidationExisting(){
+	                        var test = getContentData('ok');
+	                        var msg = getContentData('message');
+	                        if(test == 1){
+							var customerNameReg = getContentData('customerName');
+							document.getElementById("customerNameReg").innerHTML = customerNameReg;
+	                            	showHideLeft('accountactivemsg','registrationconfirm');
+	                        }
+	                        else{
+	                            alert(msg);
+	                        }
+			    		}
+						
+	                    function processCard(){
+	                        if(flag == 0){
+	                            var var1 = $('#atmnumber').val();
+	                            var var2 = $('#accountnumber').val();
+	                            var var3 = $('#atmhrmnnumber').val();
+	                            if(var1 == "" || var1.length != 16){
+	                            	  loadMessageResourceAlert("digit.atm.no.mandatory");
+	                            }else if(var2 == "" || var2.length != 4){
+	                            	  loadMessageResourceAlert("digit.banking.account.mandatory");
+	                            }else if(var3 == "" || var3.length != 4){
+	                            	  loadMessageResourceAlert("digit.mobile.phone.mandatory");
+	                             }else{
+	                                setContentData([{
+	                                source: 'server',
+	                                service:'cardDataValidation',
+	                                params:{
+	                                registrationFlag: 'ATM',
+	                                atmNo: $('#atmnumber').val(),
+	                                lastDigitAccNo: $('#accountnumber').val(),
+	                                lastDigitMobPhNo: $('#atmhrmnnumber').val(),
+	                                ccNo: '-',ccLimit: '-'},
+	                                dataIds:[
+	                                {dataId: 'accNo',dataType:'text',source:'param'},
+	                                {dataId: 'email',dataType:'text',source:'param'},
+	                                {dataId: 'address',dataType:'text',source:'param'},
+	                                {dataId: 'address2',dataType:'text',source:'param'},
+	                                {dataId: 'address3',dataType:'text',source:'param'},
+	                                {dataId: 'city',dataType:'text',source:'param'},
+	                                {dataId: 'postCode',dataType:'text',source:'param'},
+	                                {dataId: 'customerId',dataType:'text',source:'param'},
+	                                {dataId: 'minLenPass',dataType:'text',source:'param'},
+	                                {dataId: 'maxLenPass',dataType:'text',source:'param'},
+	                                {dataId: 'minLenUserId',dataType:'text',source:'param'},
+	                                {dataId: 'maxLenUserId',dataType:'text',source:'param'},
+	                                {dataId: 'minLowerCase',dataType:'text',source:'param'},
+	                                {dataId: 'minUpperCase',dataType:'text',source:'param'},
+	                                {dataId: 'minNumeric',dataType:'text',source:'param'},
+	                                {dataId: 'pwdAlphaNumeric',dataType:'text',source:'param'},
+	                                {dataId: 'name',dataType:'text',source:'param'},
+	                                {dataId: 'accountNo',dataType:'text',source:'param'}]}], 'cardValidation');
+	                            }
+	                        }else{
+	                            var var1 = $('#ccnumber').val();
+	                            var var2 = $('#cclimit').val();
+	                            var var3 = $('#cchrmnumber').val();
+	                            if(var1 == "" || var1.length != 16){
+	                            	  loadMessageResourceAlert("digit.cc.no.mandatory");
+	                            }else if(var2 == ""){
+	                            	  loadMessageResourceAlert("cc.limit.mandatory");
+	                            }else if(var3 == "" || var3.length != 4){
+	                                loadMessageResourceAlert("digit.mobile.phone.mandatory");
+	                            }else{
+							  var2 = var2.replace(/[^0-9\.]/g, "");
+							  $('#cclimit').val(var2);
+	                                setContentData([{source: 'server',service:'cardDataValidation',params:{registrationFlag: 'CC',atmNo: '-',lastDigitAccNo: '-',lastDigitMobPhNo: $('#cchrmnumber').val(),ccNo: $('#ccnumber').val(),ccLimit: $('#cclimit').val()},dataIds:[{dataId: 'accNo',dataType:'text',source:'param'},{dataId: 'email',dataType:'text',source:'param'},{dataId: 'address',dataType:'text',source:'param'},{dataId: 'address2',dataType:'text',source:'param'},{dataId: 'address3',dataType:'text',source:'param'},{dataId: 'city',dataType:'text',source:'param'},{dataId: 'postCode',dataType:'text',source:'param'},{dataId: 'customerId',dataType:'text',source:'param'},{dataId: 'minLenPass',dataType:'text',source:'param'},{dataId: 'maxLenPass',dataType:'text',source:'param'},{dataId: 'minLenUserId',dataType:'text',source:'param'},{dataId: 'maxLenUserId',dataType:'text',source:'param'},{dataId: 'minLowerCase',dataType:'text',source:'param'},{dataId: 'minUpperCase',dataType:'text',source:'param'},{dataId: 'minNumeric',dataType:'text',source:'param'},{dataId: 'pwdAlphaNumeric',dataType:'text',source:'param'},{dataId: 'name',dataType:'text',source:'param'},{dataId: 'accountNo',dataType:'text',source:'param'}]}], 'cardValidation');
+	                            }
+	                        }
+	                    }
+	                    
+	                    function cardValidation(){
+	                        var test = getContentData('ok');
+	                        var msg = getContentData('message');
+	                        if(test == 1){
+		                        	var minLenUserId = getContentData('minLenUserId');
+							var minLenPass = getContentData('minLenPass');
+							var maxLenPass = getContentData('maxLenPass');
+							var minUpperCase = getContentData('minUpperCase');
+							var minLowerCase = getContentData('minLowerCase');
+							var minNumeric = getContentData('minNumeric');
+							var rangeLenPwd = minLenPass+"-"+maxLenPass;
+							
+							document.getElementById('minLenUserId').innerHTML = minLenUserId;
+							document.getElementById('rangeLenPwd').innerHTML = rangeLenPwd;
+							document.getElementById('minUppercase').innerHTML = minUpperCase;
+							document.getElementById('minLowercase').innerHTML = minLowerCase;
+							document.getElementById('minNumeric').innerHTML = minNumeric;
+						
+	                            	showHideLeft('createaccount','registration');
+	                            	app.backFunction=customBackFromCreateAccount;
+	                        }else{
+	                            alert(msg);
+	                        }
+	                    }
+	                    
+	                    function processUser(){
+	                        var1 = $('#username').val();
+	                        var2 = $('#password').val();
+	                        var3 = $('#reenterpassword').val();
+	                        var4 = $('#email').val();
+	                       // var spcChar = '/[^a-zA-Z0-9\-\/]/';
+	                        var nameVar = getContentData('name');
+	                        if(var1 == ""){
+	                        	   loadMessageResourceAlert("username.mandatory");
+	                        }
+	                        else if(var2 == ""){
+	                        	   loadMessageResourceAlert("password.mandatory");
+	                        }
+	                        else if(var3 != var2){
+	                        	   loadMessageResourceAlert("reenter.password.different");
+	                        }
+	                        else if(var4 == ""){
+	                        	   loadMessageResourceAlert("gcm.corp.user.error.message.email.address.mandatory");
+	                        }
+	                        //else if(spcChar.test(var1)){
+	                        	//   loadMessageResourceAlert("special.character.warning");
+	                        //}
+	                        else{
+	                            setContentData([{source: 'server',service:'userDetailValidation',params:{userId: $('#username').val(),password: $('#password').val(),password2: $('#reenterpassword').val(),emailAddress: $('#email').val(),customerId: getContentData('customerId'),name:nameVar},dataIds:[{dataId: 'customerId',dataType:'text',source:'param'}]}], 'userValidation');
+	                        }
+	                    }
+	                    
+	                    function userValidation(){
+	                        var test = getContentData('ok');
+	                        var msg = getContentData('message');
+	                        if(test == 1){
+	                            document.getElementById("username_confirmation").innerHTML = var1;
+	                            var buf = '';
+	                            for(i=0;i<var2.length;i++)buf = buf + '*';
+	                            document.getElementById("password_confirmation").innerHTML = buf;
+	                            document.getElementById("email_confirmation").innerHTML = var4;
+	                            showPopup('successmessage-popup');
+	                            showPopupScreen('successmessage-screen');
+	                        }else{
+	                            alert(msg);
+	                        }
+	                    }
+	                    
+	                    
+	                    
+	                    var tabBarActive = 'tabBar1';
+	                    function showTabBar(divId){
+	                        if(divId != tabBarActive){
+	                            document.getElementById(divId).style.display = 'block';
+	                            $('#'+divId+'Li').addClass('ui-tabs-active');
+	                            $('#'+divId+'Li').addClass('ui-state-active');
+	                            document.getElementById(divId+'Li').tabindex = 0;
+
+	                            document.getElementById(tabBarActive).style.display = 'none';
+	                            $('#'+tabBarActive+'Li').removeClass('ui-tabs-active');
+	                            $('#'+tabBarActive+'Li').removeClass('ui-state-active');
+	                            document.getElementById(tabBarActive+'Li').tabindex = -1;
+	                            
+	                            tabBarActive = divId;
+	                        }
+	                    }
+	
+	                    function customBackFromTnC(){
+	                    	showHideLeft('quickguide', 'termsandconditions');
+	               	}
+
+	               	function customBackFromChooseRegistration(){
+	               		showHideLeft('quickguide','chooseRegistration');
+	               	}
+	               	
+	               	function customBackFromRegistrationConfirm(){
+	               		showHideLeft('quickguide','registrationconfirm');
+	               	}
+	               	
+	               	function customBackFromRegistration(){
+	               		showHideLeft('quickguide','registration');
+	               	}
+
+	               	function customBackFromCreateAccount(){
+	               		showHideLeft('quickguide','createaccount');
+	               	}
+
+	               	function clearRegCodeField(){
+                            	document.getElementById('registrationcode').value='';
+	               	}
+
+	               	function gantiBahasaInggris(){
+						invokeService({action: [{source: 'native',service: 'UpdateConfigs',params: {language: 'en'}}]}, 'gantiBahasaInggrisCB');
+						//setContentData([{source: 'native',service:'UpdateConfigs',params: {language: 'en'}}], 'gantiBahasaInggrisCB');
+						
+						//document.getElementById('bahasainggris').style.textDecoration='none';
+						//document.getElementById('bahasaindonesia').style.textDecoration='underline';
+					}
+
+					function gantiBahasaInggrisCB(){
+						processLanguages();
+						document.getElementById('bahasaId').innerHTML='Bahasa';
+                            	document.getElementById('bahasaIdHidden').value='Bahasa';
+						//document.getElementById('bahasainggris').style.display='none';
+                       		//document.getElementById('bahasaindonesia').style.display='block';
+					}
+
+	               	function gantiBahasaIndonesia(){
+						invokeService({action: [{source: 'native',service: 'UpdateConfigs',params: {language: 'id'}}]}, 'gantiBahasaIndonesiaCB');
+						//setContentData([{source: 'native',service:'UpdateConfigs',params: {language: 'id'}}], 'gantiBahasaIndonesiaCB');
+						//processLanguages();
+						//document.getElementById('bahasainggris').style.textDecoration='underline';
+						//document.getElementById('bahasaindonesia').style.textDecoration='none';
+					}
+
+					function gantiBahasaIndonesiaCB(){
+						processLanguages();
+						document.getElementById('bahasaId').innerHTML='English';
+                            	document.getElementById('bahasaIdHidden').value='English';
+						//document.getElementById('bahasainggris').style.display='block';
+                            	//document.getElementById('bahasaindonesia').style.display='none';
+					}
+
+					function cekBahasa(){
+						setContentData([{source: 'server',service:'CheckLanguage',dataIds:[{dataId: 'locale',dataType:'text',source:'param'}]}], 'cekBahasaCB');
+					}
+
+					function cekBahasaCB(){
+						var locale = getContentData("locale");
+						if(locale == 'en'){
+							//document.getElementById('bahasainggris').style.textDecoration='none';
+							//document.getElementById('bahasaindonesia').style.textDecoration='underline';
+							//document.getElementById('bahasainggris').style.display='none';
+                            		//document.getElementById('bahasaindonesia').style.display='block';
+                            		//document.getElementById('pilihanBahasa').innerHTML='<p class="text" style="text-decoration:underline;text-align:center;display:block;" onclick="gantiBahasaInggris();" id="bahasainggris">English</p>'
+                            		document.getElementById('bahasaId').innerHTML='Bahasa';
+                            		document.getElementById('bahasaIdHidden').value='Bahasa';
+						}else{
+							//document.getElementById('bahasainggris').style.textDecoration='underline';
+							//document.getElementById('bahasaindonesia').style.textDecoration='none';
+							//document.getElementById('bahasainggris').style.display='block';
+                            		//document.getElementById('bahasaindonesia').style.display='none';
+                            		//document.getElementById('pilihanBahasa').innerHTML='<p class="text" style="text-decoration:underline;text-align:center;display:block;" onclick="gantiBahasaIndonesia();" id="bahasaindonesia">Bahasa</p>'
+                            		document.getElementById('bahasaId').innerHTML='English';
+                            		document.getElementById('bahasaIdHidden').value='English';
+						}
+					}
+
+					function gantiBahasa(){
+						
+						var bahasaSet=document.getElementById('bahasaIdHidden').value;
+						if(bahasaSet == 'English'){
+							gantiBahasaInggris();
+						}else if(bahasaSet == 'Bahasa'){
+							gantiBahasaIndonesia();
+						}
+					}
+
+					function scrollUpFunction(){
+						window.scrollTo(0,0);
+					}
+
+					function getCurrentLocation(){
+                              setContentData([{"source": "native", "service":"GetCurrentLocation", "dataIds": [{"dataId": "latitude", "dataType":"text", "source": "param"},{"dataId": "longitude", "dataType":"text", "source": "param"}]}],'getCurrentLocRollBack');
+                           }
+
+                           function getCurrentLocRollBack() {
+                            var latitude = getContentData("latitude");
+                               var longitude = getContentData("longitude");
+                               latitude = latitude.replace(".",",");
+                               longitude = longitude.replace(".",",");
+                               
+						if (latitude == null && longitude == null) {
+							alert('Cannot get current location');
+							return;
+						} else {
+							getNearestATM(latitude, longitude);
+						}
+                           }
+                           
+					  function getNearestATM(latitude, longitude) {
+                              
+                               
+                               setContentData([{source: 'server',service:'GetNearestATM',params:{latitude: latitude,longitude: longitude},dataIds:[{dataId: 'atmNearestList',dataType:'list',source:'param'}]}],'nearestATMRollBack');
+                           }
+                           
+                           function nearestATMRollBack(){
+                               document.getElementById('tab-7').innerHTML = '';
+                               var cd = getContentData('atmNearestList');
+                               for(var a=0;a<cd.length;a++){
+                                   document.getElementById('tab-7').innerHTML += '<div class="listView atm"><a onclick="getDetailATM(\''+cd[a].code+'\');" class="ui-btn ui-shadow ui-btn-icon-right ui-btn-up-c" data-theme="c" data-wrapperels="span" data-iconshadow="true" data-shadow="true" href="#atmAddressDetails" data-icon="arrow-r" data-iconpos="right" data-role="button" data-corners="false" data-transition="slide"><span class="ui-btn-inner"><span class="ui-btn-text"><p class="ui-li-aside ui-li-desc">'+cd[a].distance+' KM</p><span class="locationIcon"></span><h3 class="ui-li-heading">'+cd[a].name+'</h3><p class="ui-li-desc">'+cd[a].address1+','+cd[a].city+'</p></span><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></span></a></div>';
+                               }
+                               $('#tab-7Tab').addClass('ui-tabs-active');
+                               $('#tab-7Tab').addClass('ui-state-active');
+                               document.getElementById('tab-7').style.display = 'block';
+                               showHideLeft('nearestATM','registrationconfirm');
+                           }
+                           
+                           function getDetailATM(data) {
+                               var code = data;
+                               setContentData([{source: 'server',service:'GetDetailATM',params:{code: code},dataIds:[{dataId: 'name',dataType:'text',source:'param'},{dataId: 'address1',dataType:'text',source:'param'},{dataId: 'address2',dataType:'text',source:'param'},{dataId: 'address3',dataType:'text',source:'param'},{dataId: 'openHour',dataType:'text',source:'param'},{dataId: 'closeHour',dataType:'text',source:'param'}]}],'detailATMRollBack');
+                           }
+                           
+                           function detailATMRollBack() {
+                               document.getElementById('atmName').innerHTML = getContentData('name');
+                               document.getElementById('atmAddress1').innerHTML = getContentData('address1');
+                               document.getElementById('atmAddress2').innerHTML = getContentData('address2');
+                               document.getElementById('atmAddress3').innerHTML = getContentData('address3');
+                               showHideLeft('atmAddressDetails','nearestATM');
+                           }
+
+                           function convertMoneyFormat(data) {
+						 var x=document.getElementById(data);
+						 x.value=number_format(x.value, 0, '.', ',');
+					  }
+					  
+					  function number_format (number, decimals, dec_point, thousands_sep) {
+						number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
+						var n = !isFinite(+number) ? 0 : +number,
+						prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+						sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+						dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+						s = '',
+						toFixedFix = function (n, prec) {
+						  var k = Math.pow(10, prec);
+						  return '' + Math.round(n * k) / k;
+						};
+						// Fix for IE parseFloat(0.55).toFixed(0) = 0;
+						s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+						if (s[0].length > 3) {
+							s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+						}
+						if ((s[1] || '').length < prec) {
+							s[1] = s[1] || '';
+							s[1] += new Array(prec - s[1].length + 1).join('0');
+						}
+						return s.join(dec);
+					}
+
+					function fixScrollTop()
+					{
+						if(document.body.scrollTop > 0)
+						{
+						document.body.scrollTop = 0;
+						}
+					}
+
+					function showLogo() {
+						var panelKiri = document.getElementById('chooseRegistration').offsetHeight;
+						if(window.innerHeight>=panelKiri){
+							$('#logoAnz').css('position','absolute');
+						}
+						else{
+							$('#logoAnz').css('position','relative');
+						}
+					}
+                    </script>
+                    <script>
+                    	var userIdReg;
+					var passwordReg;
+					var reenterpasswordReg;
+					var emailReg;
+					var passwordEncryptedReg;
+
+					function getUsrPwdLength(){
+						setContentData([{source: 'server',service:'GetUserIdAndPwdLength',
+						dataIds:[
+						{dataId: 'minLenUserId',dataType:'text',source:'param'},
+						{dataId: 'maxLenUserId',dataType:'text',source:'param'},
+						{dataId: 'minLenPass',dataType:'text',source:'param'},
+						{dataId: 'maxLenPass',dataType:'text',source:'param'},
+						{dataId: 'minLowerCase',dataType:'text',source:'param'},
+						{dataId: 'minUpperCase',dataType:'text',source:'param'},
+						{dataId: 'minNumeric',dataType:'text',source:'param'},
+						{dataId: 'pwdAlphaNumeric',dataType:'text',source:'param'}
+						]}], 'getUsrCB');
+					}
+
+					function getUsrCB(){
+						if(getContentData('ok')==1){
+							processUserHex();
+						}else{
+							alert(getContentData('message'));
+						}
+					}
+					
+					function processUserHex(){
+					    var userIdReg = $('#username').val();
+					    var passwordReg = $('#password').val();
+					    var reenterpasswordReg = $('#reenterpassword').val();
+					    var emailReg = $('#email').val();
+					   // var spcChar = '/[^a-zA-Z0-9\-\/]/';
+					    var nameVar = getContentData('name');
+					   
+					    var minLenUserId = getContentData('minLenUserId');
+					    var maxLenUserId = getContentData('maxLenUserId');
+					    var minLenPass = getContentData('minLenPass');
+					    var maxLenPass = getContentData('maxLenPass');
+					    var minLowerCase = getContentData('minLowerCase');
+					    var minUpperCase = getContentData('minUpperCase');
+					    var minNumeric = getContentData('minNumeric');
+					
+					    var pwdAlphaNumeric = getContentData('pwdAlphaNumeric');
+					    
+					    //errm
+					    var locale = getContentData('locale');
+					    var moreUserIdMessage = 'User ID length must be between';
+					    var untilMessage='until';
+					    var orMinMsg='or minimum';
+					    var andMaxMsg='and maximum';
+					    var userIdAlphanumericperiod='User ID may only contain letters (a-z), numbers, and periods';
+					    
+					    var morePasswordMessage='Password length must be between';
+					    var passwordMustContainMinimal='Password must contain minimal';
+					    var uppercaseLetter='uppercase letter';
+					    var lowercaseLetter='lowercase letter';
+					    var numericCharacter='numeric character';
+					    var password3inRowError='Password must not consist 3 similar characters consecutively';
+					    var passwordFirstNameError='Password cannot consist name';
+					    var passwordUserIdError='Password and user id must be different';
+					    var alternateEmailError='Email Address is not valid.';
+					    var cannotSpecialChar='Password must contain Alphanumeric (A-Z, a-z, 0-9)';
+					    var passwordConfirmError='Password does not match the Confirm Password.';
+					    	
+					    if(locale == 'id'){
+					    	moreUserIdMessage = 'Panjang User ID harus diantara';
+					    	untilMessage = 'dan';
+					    	orMinMsg = 'atau minimum';
+					    	andMaxMsg = 'dan maximum';
+					    	userIdAlphanumericperiod = 'User ID hanya dapat menggunakan huruf (a-z), angka, dan titik';
+					    	morePasswordMessage = 'Panjang Password harus di antara';
+					    	passwordMustContainMinimal = 'Password harus terdiri dari minimal';
+					    	uppercaseLetter = 'huruf besar';
+					    	lowercaseLetter = 'huruf kecil';
+					    	numericCharacter = 'angka';
+					    	password3inRowError = 'Password tidak boleh mengandung 3 karakter yang sama berurutan';
+					    	passwordFirstNameError = 'Password tidak boleh mengandung nama';
+					    	passwordUserIdError = 'sandi dan user ID harus beda';
+					    	alternateEmailError = 'Alamat Email tidak valid.';
+					    	cannotSpecialChar = 'Password must contain Alphanumeric (A-Z, a-z, 0-9)';
+					    	passwordConfirmError='Password harus sama dengan Confirm Password.';
+					    }
+					
+						
+					//	VALIDASI USER ID
+						if (userIdReg.length < minLenUserId || userIdReg.length > maxLenUserId) {
+							alert(moreUserIdMessage+" "+minLenUserId+" "+untilMessage+" "+maxLenUserId+" "+orMinMsg+" "+minLenUserId+" "+andMaxMsg+" "+maxLenUserId);
+							return;
+						}
+						
+						// VALIDASI USER ID MUST CONTAIN ALPHANUMERIC CHARACTER
+						var regexp	= /^[a-zA-Z0-9\\.]+$/;
+						if (!userIdReg.match(regexp)) {
+							alert(userIdAlphanumericperiod);
+							return;
+						}
+						
+					//	VALIDASI PASSWORD
+							
+						if (passwordReg.length < minLenPass || passwordReg.length > maxLenPass) {
+							alert(morePasswordMessage+" "+minLenPass+" "+untilMessage+" "+maxLenPass+" "+orMinMsg+" "+minLenPass+" "+andMaxMsg+" "+maxLenPass);
+						    return;
+						}
+						
+						if (passwordReg != '') {
+							var pwdFormatAlpha = pwdAlphaNumeric;
+					    		var message = '';
+					    	
+						    	if ( pwdAlphaNumeric == 'Y' ) {
+						            //Check Alpha Numeric
+						            pattern = /[$&+,:;=?@#|]/;
+						            if (passwordReg.match(pattern)){
+						                alert(cannotSpecialChar);
+						            	return;
+						            }
+						            
+						          //Check 1 Minimal UpperCase Char
+						    		var minCapitalPwd = minUpperCase;      
+						
+						        	if (  minCapitalPwd > 0 ) {
+						        		if (!minCharCapital(passwordReg,minCapitalPwd)){
+						        			alert( passwordMustContainMinimal + ' ' + minCapitalPwd + ' ' + uppercaseLetter);
+											return;
+						        		}
+						        	}
+						
+						        	//Check 1 Minimal LowerCase Char
+						        	var minLowerPwd = minLowerCase;   
+						        	
+						        	if (  minLowerPwd > 0 ) {
+						        		if (!minCharLower(passwordReg,minLowerPwd)){
+						        			alert( passwordMustContainMinimal + ' '  + minLowerPwd + ' '+ lowercaseLetter);
+											return;
+						        		}
+						        	}
+						
+						        	//Check 1 Minimal Numeric Char
+						        	var minNumericPwd = minNumeric;
+						        	
+						        	if ( minNumericPwd > 0 ) {		
+						        		if (!minCharOneNumeric(passwordReg,minNumericPwd)){
+						        			alert( passwordMustContainMinimal + ' ' + minNumericPwd  + ' '+ numericCharacter);
+											return;
+						        		}
+						        	}
+						    	
+						    	}
+								
+						    	//ignoring case. 
+						    	var passwd = passwordReg.toLowerCase();
+							pattern = /^.*(.)\1\1.*$/;
+							if (passwd.match(pattern)) {
+								alert(password3inRowError);
+								return;
+							}
+							
+							if(typeof String.prototype.trim !== 'function'){
+								String.prototype.trim = function(){
+									return this.replace(/^s+|\s+$/g, "");
+								};
+							}
+							var custName = nameVar.toLowerCase();
+							var tempCustName = custName.trim().split(" ");
+							
+							var i;
+							for (i=0;i<tempCustName.length;i++){
+								
+								if(tempCustName[i]!='' && tempCustName[i].length > 2){
+									pattern = '^.*(' + tempCustName[i] + ').*$';
+									pattern = new RegExp(pattern);
+					
+									if (passwd.match(pattern)) {
+										alert(passwordFirstNameError);
+										return;
+									}
+								}
+							
+							}
+					
+							var usrId = userIdReg.toLowerCase();
+							pattern = '^.*(' + usrId + ').*$';
+							pattern = new RegExp(pattern);
+							if (passwd.match(pattern)) {
+								alert(passwordUserIdError);
+								return;
+							}
+							
+							if (!(passwordReg == reenterpasswordReg)) {			
+								alert(passwordConfirmError);
+								return;
+							}
+					
+						}
+						
+					//	VALIDASI EMAIL
+						pattern = /^[A-Za-z0-9_\\-\\.]+[@]([A-Za-z0-9]+[\\.][A-Za-z0-9]+)+$/;
+						
+						if (!emailReg.match(pattern)) {
+							alert(alternateEmailError);
+							return;	
+						}
+						
+						passwordEncryptedReg = hex_sha1(passwordReg);
+						var confirmPasswordEncrypted = hex_sha1(reenterpasswordReg);
+			
+						showPopUpConfirmation();
+					}
+					
+					function showPopUpConfirmation(){
+					   var userIdConf = $('#username').val();
+					   var passwordConf = $('#password').val();
+					   var emailConf = $('#email').val();
+				        document.getElementById("username_confirmation").innerHTML = userIdConf;
+				        var bufConf = ''; 
+				        //var i;
+				        for(j=0;j<passwordConf.length;j++){
+				        	bufConf = bufConf + '*';
+				        }
+				        document.getElementById("password_confirmation").innerHTML = bufConf;
+				        document.getElementById("email_confirmation").innerHTML = emailConf;
+				        showPopup('successmessage-popup');
+				        showPopupScreen('successmessage-screen');
+					}
+					
+					function minCharCapital(val,minCapitalPwd){  
+						  var i = 0;
+						  var tempMinCapitalPwd = 0;
+						  while ( i < val.length ) {
+							  var tempChar = val.charAt(i);
+							  
+							  if ( !isNaN( tempChar * 1 ) ) {
+							  }
+							  else {
+								  if ( tempChar == tempChar.toUpperCase() ) {
+									  tempMinCapitalPwd = tempMinCapitalPwd + 1;
+									  if( minCapitalPwd == tempMinCapitalPwd )
+									  	return true;
+								  }
+							  }
+							  i++;
+						  } 
+						  return false;	  
+					}
+					
+					function minCharLower(val,minLowerPwd){  
+						  var i = 0;
+						  var tempMinLowerPwd = 0;
+						  while ( i < val.length ) {
+							  var tempChar = val.charAt(i);
+							  //alert(tempChar);
+							  if ( !isNaN( tempChar * 1 ) ) {
+								 //alert('numeric'); 
+							  }
+							  else {
+								  if ( tempChar == tempChar.toLowerCase() ) {
+									  tempMinLowerPwd = tempMinLowerPwd + 1;
+									  if( minLowerPwd == tempMinLowerPwd )
+									  	return true;
+								  }
+							  }
+							  i++;
+						  }
+						  return false;  
+					}
+					
+					function minCharOneNumeric(val,minNumeriPwd){
+						  
+						  var i = 0;
+						  var tempMinNumericPwd = 0;
+					
+						  while ( i < val.length ) {
+							  var tempChar = val.charAt(i);
+							  
+							  if ( !isNaN( tempChar * 1 ) ) {
+								 tempMinNumericPwd = tempMinNumericPwd + 1;
+								
+								 if( minNumeriPwd == tempMinNumericPwd )
+								 	return true;	 
+							  }
+							  i++;
+						  }
+						  
+						  return false;
+					}
+
+					function processConfirmation(){
+	                    	var regCode = $('#registrationcode').val();
+	                        	if(flag == 0){
+	                            setContentData([{source: 'server',service:'confirmRegistrationHex',params:{registrationFlag: 'ATM',atmNo: $('#atmnumber').val(),ccNo: '',accNo: $('#accountnumber').val(),userId: $('#username').val(),regCode: $('#registrationcode').val(),userId: $('#username').val(),password: passwordEncryptedReg ,email: $('#email').val(),customerId: getContentData('customerId')},dataIds:[{dataId: 'isValid',dataType:'text',source:'param'}]}], 'confirmValidation');
+	                        	}else{
+	                            setContentData([{source: 'server',service:'confirmRegistrationHex',params:{registrationFlag: 'CC',atmNo: $('#atmnumber').val(),ccNo: $('#ccnumber').val(),accNo: $('#accountnumber').val(),userId: $('#username').val(),regCode: $('#registrationcode').val(),userId: $('#username').val(),password: passwordEncryptedReg ,email: $('#email').val(),customerId: getContentData('customerId')},dataIds:[{dataId: 'isValid',dataType:'text',source:'param'}]}], 'confirmValidation');
+	                        	}
+	                    }
+	                    
+	                    function confirmValidation(){
+	                        var test = getContentData('ok');
+	                        var msg = getContentData('message');
+	                        if(test == 1){
+	                        		var customerNameReg = getContentData('name');
+							document.getElementById("customerNameReg").innerHTML = customerNameReg;
+	                            	showHideLeft('accountactivemsg','createaccount');
+	                        }
+	                        else{
+	                            alert(msg);
+	                        }
+	                    }
+                    </script>
+                    </head>
+    <!--<body class="loginScreen innerPage">-->
+        <body class="loginScreen innerPage  ui-mobile-viewport ui-overlay-c" onload="processLanguages();">
+        <div class="ui-page ui-body-c ui-page-header-fixed " tabindex="0" data-url="quickguide" data-role="page" id="quickguide">
+            <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+                <h1 aria-level="1" role="heading" class="nobutton ui-title"> <language key="mobileBankingRegistration"></language> </h1>
+            </div>
+            <div role="main" data-role="content" class="noshadow ui-content">
+                <div class="content-primary">
+                    <div class="noshadow">
+                        <div class="registerSteps">
+                            <h3><language key="settingMobileRegInfo"></language></h3>
+                            <ul>
+                                <li><span class="icon"><img src="images/iconMobile.png"></span>
+                                    <span class="text"><language key="regCodeReceiving"></language></span>
+                                </li>
+                                <li><span class="icon"><img src="images/iconLock.png"></span>
+                                    <span class="text"><language key="settingPinForFin"></language></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="greyBtn"><a class="ui-link" href="#" data-transition="slide" onclick="getTnC('termsandconditions');"><language key="start"></language></a></div>
+				<div class="registerSteps">
+				   <p style="text-decoration:underline;text-align:center;" onclick="gantiBahasa();" id="bahasaId"></p>
+				   <input type="hidden" id="bahasaIdHidden"/>
+				</div>
+                </div>
+            </div>
+        </div>
+        <!-- add by aldis -->
+        <!--<div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="chooseRegistration" data-role="page" id="chooseRegistration">
+            <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">-->
+        <div data-role="page" id="chooseRegistration" class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="chooseRegistration">
+		  <div id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed"  data-tap-toggle="false"> 
+                <a aria-owns="#registrationcancelWarning" aria-haspopup="true" data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showPopup('registrationcancelWarning-popup');showPopupScreen('registrationcancelWarning-screen');" class="leftBtnTwo ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-rel="popup" data-position-to="window"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="cancel"></language></span></span></a>
+                <h1 aria-level="1" role="heading" class="ui-title"> <language key="startReg"></language> </h1>
+            </div>
+            <div role="main" data-role="content" class="noshadow ui-content productView">
+                <div class="content-primary">
+                	<div class="noshadow">
+                		<h4><language key="regDesc"></language></h4><br/>
+                		<p><language key="regDescDtl"></language></p><br/>
+                    	<div class="greyBtn"><a class="ui-link" onclick="loginusing = 1;clearRegCodeField();showHideLeft('registrationconfirm','chooseRegistration');app.backFunction=customBackFromRegistrationConfirm;" data-transition="slide"><language key="loginUseAcctNo"></language></a></div>
+                    	<div class="blueBtntwo"><a class="ui-link" onclick="loginusing = 0;clearRegCodeField();showHideLeft('registrationconfirm','chooseRegistration');app.backFunction=customBackFromRegistrationConfirm;" data-transition="slide"><language key="createNewUser"></language></a></div>
+                	</div>
+                </div>
+            </div>
+            <div style="display: none;">
+                <!-- placeholder for registrationcancelWarning -->
+            </div>
+            <div id="registrationcancelWarning-screen" class="ui-screen-hidden ui-popup-screen ui-overlay-b"></div>
+            <div id="registrationcancelWarning-popup" class="ui-popup-container ui-popup-hidden">
+                <div data-position-to="origin" data-transition="none" data-corners="true" data-shadow="true" data-disabled="false" aria-disabled="false" id="registrationcancelWarning" data-role="popup" class="popup popupTwo ui-popup ui-overlay-shadow ui-corner-all" data-overlay-theme="b" data-dismissible="false">
+                    <p class="verMargin strong"><language key="cancelRegConfirmation"></language></p>
+                    <div class="pop-submitBtn">
+                        <a class="ui-link" onclick="hidePopup('registrationcancelWarning-popup');hidePopupScreen('registrationcancelWarning-screen');goToHTML({viewId: 'index.html'});" data-transition="fade"><language key="yes"></language></a>
+                    </div>
+                    <div class="pop-cancelBtn"><a class="ui-link" onclick="hidePopup('registrationcancelWarning-popup');hidePopupScreen('registrationcancelWarning-screen');" data-transition="fade"><language key="no"></language></a></div>
+                </div>
+            </div>
+            <div id="logoAnz" style="text-align:center;width:100%;position:absolute;bottom:0;left:0;"><img src="images/anz-logo@2x.png" style="width:120px;"></div>
+        </div>
+
+        <!--TNC-->
+        <div class="ui-page ui-body-c ui-page-header-fixed whiteBgThree ui-page-active" tabindex="0" data-url="termsandconditions" data-role="page" id="termsandconditions">
+            <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+                <a aria-owns="#tandcancelWarning" aria-haspopup="true" data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="scrollUpFunction();showPopup('tandcancelWarning-popup');showPopupScreen('tandcancelWarning-screen');" class="leftBtnTwo ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-rel="popup" data-position-to="window"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="cancel"></language></span></span></a>
+                <h1 aria-level="1" role="heading" class="ui-title"> <language key="termsConditions"></language> </h1>
+                <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideLeft('chooseRegistration','termsandconditions');app.backFunction=customBackFromChooseRegistration;showLogo();" class="rightBtn ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-transition="slide"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="accept"></language></span></span></a>
+            </div>
+            <div role="main" data-role="content" class="noshadow whiteBgTwo ui-content productView ">
+                <div class="content-primary">
+                    <div class="noshadow smooth" id="termsandconditions_en" style="display:block;">					                    
+					<h1>ANZ INTERNET BANKING</h1>
+						<br/>
+						<h2>YOU MUST READ THESE TERMS AND CONDITIONS CAREFULLY BEFORE USING THE SERVICES. BY REGISTERING TO USE THE SERVICES, YOU SHALL BE DEEMED TO HAVE ACCEPTED AND BE BOUND BY ALL THESE TERMS AND CONDITIONS.</h2>
+						<br/>
+						<p>Terms &amp; Conditions</p>
+						<br/>
+						<br/>
+						<h3>1. DEFINITIONS</h3>
+						<br/>
+						<p>In these terms and conditions for ANZ Internet Banking, the following definitions apply unless the context requires otherwise:-</p>
+						<p>&quot;Application&quot; means any application in the forms prescribed by the Bank for any of the Banking Services.</p>
+						<p>&quot;Bank&quot; means PT Bank ANZ Indonesia</p>
+						<p>&quot;Banking Services&quot; means the financial, banking or other services, products, and facilities which may be offered by the Bank through ANZ Internet Banking from time to time (as may be withdrawn, added to or modified by the Bank in its discretion).</p>
+						<p>&quot;Compromised Security Device&quot; is defined in Clause 6.2.</p>
+						<p>&quot;Content&quot; is defined in Clause 12.1.</p>
+						<p>&quot;Customer&quot; means the user of the ANZ Internet Banking.</p>
+						<p>&quot;I-Banking Application&quot; means the online application form for ANZ Internet Banking as may be prescribed by the Bank from time to time.</p>
+						<p>&quot;ANZ Internet Banking&quot; means the service of providing electronic access to any Banking Service via the Internet.</p>
+						<p>&quot;Instruction&quot; means any instruction, request or other communication transmitted by the Customer through ANZ Internet Banking and authenticated with, referable to, or using the Security Devices and shall include any Application which has been submitted in electronic form via ANZ Internet Banking.</p>
+						<p>&quot;Security Devices&quot; means all smartcards, tokens, digital certificates, electronic key, log on identifiers, passwords, password generators, personal identification numbers (PINs), electronic devices and other codes and access procedures issued by the Bank or by any other party designated by the Bank from time to time in order to enable the Customer to access and/or use ANZ Internet Banking.</p>
+						<p>&quot;Security Notification&quot; is defined in Clause 6.2.</p>
+						<p>&quot;Terms and Conditions&quot; means this Terms and Conditions on which the Customer has agreed to comply with in relation to the usage of the ANZ Internet Banking.  </p>
+						<p>&quot;Terms of Banking Services&quot; is defined in Clause 19.</p>
+						<br/>
+						<h3>2. 	USE OF ANZ INTERNET BANKING</h3><br/>
+						
+						<p>2.1 	Access to ANZ Internet Banking is granted to persons who have identified themselves by using the Security Devices issued or as designated by the Bank and by complying with the Bank&#39;s instructions and procedures regarding the use of such Security Devices.</p>
+						
+						<p>2.2 	The Customer must change the passwords the Customer receives from the Bank immediately upon receipt. The Bank strongly recommends that the passwords be changed periodically.</p>
+						
+						<p>2.3 	Access to ANZ Internet Banking is subject to this Terms and Conditions, the account opening terms and conditions and the specific terms and conditions in respect of the relevant service(s) and/or product(s) and to such other terms and conditions as the Bank may at its absolute discretion determine from time to time.</p>
+						
+						<p>2.4 	Notwithstanding the foregoing, the Bank may (but shall not be obliged to) at its sole absolute discretion and without stating reasons require that the Customer identifies himself/herself by alternative means (by signature or in person) and/or to give confirmation of the Instructions (whether in writing or otherwise and in such form and substance as prescribed by the Bank from time to time) before the Bank proceeds to act on such Instructions.</p>
+						
+						<p>2.5 	The Customer agrees to procure and install, at its own cost and expense, the software, hardware and/or equipment necessary to access and/or use ANZ Internet Banking as instructed or advised by the Bank. The Customer shall take all reasonable precautions to ensure that it does not transmit any virus, trojan horse, worms, bot or other malicious software that may interfere with ANZ Personal Internet Banking or the Bank&#39;s computer systems.</p>
+						
+						<p>2.6 	The Customer agrees to use any and all Security Devices issued or designated by the Bank and to comply with the Bank&#39;s instructions and procedures regarding the use of the Security Devices, and to ensure that all instructions and requests to the Bank transmitted through ANZ Internet Banking are authenticated with the Security Devices in such manner as required or notified by the Bank. For the avoidance of doubt, the Customer acknowledges that the Bank shall be entitled to alter, amend or withdraw any existing Security Device(s) and/or introduce new Security Device(s) from time to time, as it deems fit.</p>
+						
+						<p>2.7 	The Customer agrees and undertakes to be bound by and to comply with any and all of the Bank&#39;s procedures, requirements, restrictions, instructions or any additional conditions pertaining to the access and use of ANZ Internet Banking as may be issued by the Bank from time to time.</p>
+						
+						<p>2.8    	Effect of Instructions</p>
+						<p>	The Customer acknowledges that all Instructions (whether authorised by the Customer or not) are irrevocable and binding on the Customer upon transmission through ANZInternet Banking and the Bank shall be entitled to effect, perform or process such Instructions without the Customer&#39;s further consent and without any further reference or notice to the Customer. The Bank shall not be obliged to carry out every Instruction received and may refuse any Instruction without giving any reason. The Bank will only carry out an Instruction in so far as in the Bank&#39;s sole and absolute discretion is practicable or reasonable for the Bank to do so and in accordance with these Terms and Conditions, the terms of Banking Services, and/or its regular business practice and procedure. Without limiting the generality of the foregoing, the Bank may prescribing and changing the normal service hours during which the Banking Services are available and any daily cut-off time for any type of Banking Services or transactions. Any instruction of the Customer received by the Bank after any applicable daily cut-off time shall be deemed to be received on the next business day. The Bank may specify business day and daily cut-off time by reference to the time of various markets operating in different time-zones. </p>
+						
+						<p>2.9    	Agreements over ANZ Internet Banking</p>
+						<span>	The Customer understands that, where available and applicable, the Customer may use ANZ Personal Internet Banking to complete and transmit Transactions for certain Banking Services. The Bank may require the Customer to enter into agreements for such Banking Services from time to time. The Customer further understands and agrees that the terms and conditions applicable to any such Banking Services are the terms and conditions applicable at the time of submission of the relevant Transaction via ANZ Personal Internet Banking. All Transactions shall be subject to acceptance by the Bank, which acceptance may be declined, withheld or made subject to further terms at the Bank&#39;s discretion.</span>
+						
+						<p>2.10  	Instructions are final and binding</p>
+						<span>	The Customer acknowledges that it is the Customer&#39;s sole responsibility to ensure that:</span><br/>
+						<span>(a) 	no other person is granted access to, or knowledge of, his Security Devices; and</span><br/>
+						<span>(b) 	when the Customer provides information or gives Instructions using ANZ Personal Internet Banking, all information provided and all Instructions given are complete, accurate, true and correct. The Customer acknowledges that the Bank may accept and act upon any instruction, request or other communication issued or transmitted and authenticated with, referable to, or using, the Customer&#39;s Security Devices (whether actually transmitted or authorised by the Customer or not) as the Customer&#39;s authentic, and duly authorised, accurate and complete Instructions and that the Bank shall be under no obligation to investigate the authenticity or authority of persons effecting the Instruction or verify the accuracy and completeness of the Instruction and that the Bank may treat the Instruction as valid and binding on the Customer notwithstanding any inadvertence, negligence, fraud or forgery in the use of the Security Devices or the transmission of the Instruction, or any error, lack of clarity or misunderstanding in 	the terms of such Instruction.</span><br/>
+						
+						<p>2.11	The Customer acknowledge that any rate and other prices and information quoted by the Bank on the ANZ Personal Internet Banking or otherwise in response to an online inquiry is for reference only and is not binding. Any rate, price and information offered by the Bank for the purpose of the relevant transaction shall be binding on the Customer upon the Customer confirming his acceptance irrespective of any different rate, price or information quoted by the Bank.</p>
+						
+						<p>2.12  	The Bank are required to act in accordance with the laws and regulations operating in various jurisdictions which relate to the prevention of money laundering, terrorist financing and the provision of financial and other services to any persons or entities which may be subject to sanctions.  The Bank may take any action which it, in its sole and absolute discretion, considers appropriate to take in accordance with all such laws and regulations.  Such action may include but is not limited to the interception and investigation of any payment messages and other information or the Customer instruction sent to or by the Customer or on its behalf via the Bank&#39;s systems; and making further enquiries as to whether which might refer to a sanctioned person or entity actually refers to that person or entity. </p>
+						<br/>
+						<br/>
+						<h3>3. 	SOFTWARE, HARDWARE &amp; SECURITY DEVICES</h3>
+						<br/>
+						<p>3.1 	The Customer acknowledges and agrees that Bank reserves the right to change the type or versions or specification or configuration of any software, hardware or equipment that the Customer may be required to use to access and use ANZ Personal Internet Banking, and in the event such requirements are not met by the Customer, the Customer may not be able to access or use ANZ Personal Internet Banking or the Bank may reject any Instructions sent by the Customer and terminate this services under ANZ Personal Internet Banking forthwith.</p>
+						<br/>
+						<p>3.2 	All smartcards, tokens, digital certificates, electronic keys and other electronic devices comprised as part of the Security Devices provided to the Customer are and shall remain the exclusive property of the Bank. The Customer agrees and undertakes to return all the physical tokens and/or media containing such Security Devices to the Bank:</p>
+						<span>(a) 	Forthwith on request of the Bank; and/or</span><br/>
+						<span>(b) 	In the event set out in Clause 15.4 below.</span><br/>
+						<span>	The Customer shall notify the Bank immediately if any issued Security Device is lost, mutilated or stolen. The Bank shall be entitled to charge a fee for replacement Security Devices issued to the Customer.</span>
+						<br/>
+						<p>3.3 	The Bank grants to the Customer a non-exclusive non-transferable licence to use the Security Devices only for the purposes of accessing ANZ Personal Internet Banking. The Customer shall not disassemble or reverse engineer any Security Device and shall not cause any portion thereof to be copied, removed, modified, transferred, adapted or translated in any form, in whole or in part, and shall not allow any third parties to have access to ANZ Personal Internet Banking or any documentation relating to ANZ Personal Internet Banking or any part thereof without the prior written consent of the Bank.</p>
+						<br/>
+						<br/>
+						<h3>4.   	ANZ Internet Banking</h3>
+						<br/>
+						<p>4.1    	Availability</p>
+						<span>	The Customer acknowledges that ANZ Internet Banking is provided on an ?as is?, ?as available? basis only and that the time periods during which ANZ Personal Internet Banking may be available are subject to change. The Customer further agrees that the Bank shall be entitled (but shall not be obliged) at any time, at the Bank?s discretion and without prior notice, to temporarily suspend the operations of ANZ Personal Internet Banking for updating, maintenance and/or upgrading purposes, or any other purpose whatsoever that the Bank deems fit, and in such event, the Bank shall not be liable for any damage, loss, liability, expense or costs which may be incurred as a result.</span>
+						<br/>
+						<p>4.2    	Alteration and limits</p>
+						<span>	The Customer acknowledges and agrees that the Bank may, without notice, at any time and from time to time:-</span><br/>
+						<span>(a) 	add to, vary, alter, suspend or remove any of the Banking Services, including without limitation the right to set, vary or cancel limits for any transaction types, facilities, services and products that may be carried through ANZ Personal Internet Banking, whether in monetary or numerical terms or otherwise, and to vary their frequencies and availability period; and/or</span><br/>
+						<span>(b) 	add to, vary, alter, suspend or remove ANZ Internet Banking in whole or in part without giving any reason and without incurring any liability.</span><br/>
+						<br/>
+						<p>4.3    	New services and products</p>
+						<span>	The Customer acknowledges that the Bank reserves the right to introduce new services and/or products through ANZ Internet Banking at any time and that by utilising such new services and/or products as and when such new services and/or products become available, the Customer shall be bound by the terms and conditions in force governing such new services and/or products.</span><br/>
+						<br/>
+						<p>4.4    	Fees, charges and right of debit</p>
+						<span>	The Bank reserves the right to impose, set and/or modify the fees and charges payable by the Customer for use of ANZ Internet Banking or any part thereof in the exercise of the Bank?s sole and absolute discretion, without prior notice to the Customer. In the event the Customer disagrees with any of such fees and charges, the Customer shall discontinue the use of ANZ Internet Banking or the relevant part thereof. The Customer authorises the Bank to debit such fees and charges incurred by the Customer for the use of ANZ Internet Banking from any account(s) (whether single or joint) which the Customer has with the Bank. If there are insufficient funds in the Customer?s account(s), the Bank may (but not be obliged to) forthwith cancel all the Customer?s Instructions and terminate the service under the ANZ Internet Banking.</span><br/>
+						<span>	The Customer further agrees that:</span><br/>
+						<p>(a) 	all fees, costs, charges, expenses, interest and other amounts payable to the Bank under this Terms and Conditions shall be in Indonesia currency; and</p>
+						
+						<p>(b) 	the Customer shall pay any goods and services tax or any other taxes, levies or charges whatsoever (collectively &quot;Taxes&quot;) now or hereafter imposed by law or required to be paid in respect of any monies payable on or in respect to ANZ Personal Internet Banking or pertaining to the Customer?s Instructions carried out pursuant to this Terms and Conditions and the Customer shall reimburse the Bank for any such payment by the Bank which reimbursement shall be made in the same manner and together with the fees or charges to which the Taxes relate.</p>
+						
+						<h3>4.5 	Joint Accounts</h3>
+						<p>(a) 	The Customer acknowledges and agrees that where an I-Banking Application has been accepted by the Bank in respect of a joint account, each joint account holder shall be jointly and severally liable to the Bank for any Instructions effected or performed or processed through ANZ Internet Banking.</p>
+						
+						<p>(b)  	If the Customer holds (together with any others) an ?and? joint account (operated by joint signing authority), the Customer may be able to view, but will not have transactional capability over, such account through ANZ Internet Banking.</p>
+						
+						<p>(c)   	If the Customer holds (together with any others) an ?or? joint account (operated by a single signing authority) any such joint account holder will be able to view, and to transact using, such account through ANZ Internet Banking. In respect of transactions on such joint accounts, the Bank may at any time require all the account holders to expressly give their consent before any Instructions are executed or to suspend or terminate access to any account holder without notice to such account holder.</p>
+						
+						<p>(d) 	The Bank shall be entitled to refuse to accept or act on any Instructions in respect of joint accounts without incurring any liability to any holder of such joint account for the refusal.</p>
+						<br/>
+						
+						<h3>5.   	NO WARRANTY</h3>
+						
+						<p>	All Content provided through ANZ Internet Banking is provided on an ?as is?, ?as available? basis. Considering the risks and problems inherent in the Internet, the Bank does not warrant the results that may be obtained from the use of ANZ Internet Banking or the accuracy, adequacy or reliability of any Content obtained through ANZ Internet Banking, whether or not the Content is from the Bank or any other third party, and the Bank expressly disclaims liability for errors or omissions in the Content. Notwithstanding any other provision of this Terms and Conditions, no warranty of any kind, implied, express or statutory, including but not limited to the warranties of non infringement of third party rights, title, satisfactory quality, merchantability, fitness for a particular purpose and freedom from computer virus or other invasive or damaging code, is given in conjunction with ANZ Internet Banking, the Content and/or the Security Devices.</p>
+						<br/>
+						
+						<h3>6.   	SECURITY</h3>
+						
+						<p>6.1  	The Customer undertakes not to disclose any Security Devices to, or permit the use of any Security Devices by, any third party, and to take all necessary precautions to ensure that:</p>
+						<span>(a) 	all Security Devices are kept completely confidential and secure; and</span><br/>
+						<span>(b) 	there is no unauthorised use or abuse of the Security Devices.</span><br/>
+						<br/>
+						<p>6.2  	The Customer undertakes to notify and/or contact the Bank immediately (?Security Notification?) if the Customer has reason to believe, suspect that or has knowledge that:</p>
+						<span>(a) 	the security of any Security Device may have been compromised;</span><br/>
+						<span>(b) 	such Security Device has become known or been revealed to any other person;</span><br/>
+						<span>(c) 	there has been unauthorised use of the Security Device; and/or</span><br/>
+						<span>(d) 	such Security Device is lost, mutilated or stolen,</span><br/>
+						<span>	(?Compromised Security Device?) and the Customer shall immediately cease to use such Compromised Security Device until further notice from the Bank. Any Security Notification given verbally or electronically shall be confirmed in writing by the Customer and actually received by the Bank within [twelve (12)] hours of the verbal or electronic notification, failing which the Bank shall not be obliged to act upon the Security Notification.</span><br/>
+						<br/>
+						<p>6.3  	In the event a Security Notification has been given by the Customer, the Customer understands that it is the Customer?s responsibility to ascertain which of the Customer?s outstanding Instructions that are still valid and if the Customer wishes such valid Instructions to be carried out, the Customer shall re-instruct the Bank, by notice in person or in writing faxed or sent by post to the Bank, to carry out those Instructions.</p>
+						
+						<p>6.4  	The Customer acknowledges that the Bank shall be entitled to deactivate or revoke the use of any one or more of the Security Devices at any time without assigning any reason and without prior notice to the Customer.</p>
+						
+						<p>6.5  	The Customer acknowledges and confirms that the Customer shall be bound by all Instructions and transactions resulting from any Instructions made which are referable to any Compromised Security Device until such time as the Bank has received the Security Notification in the manner set out in Clause 6.2 and has effected cancellation of the Compromised Security Device, and accordingly, the Customer agrees that the Customer will be liable for all such transactions which were processed by the Bank prior to or at the time of such cancellation, or which the Bank, notwithstanding its reasonable endeavours, was unable to stop the processing.</p>
+						
+						<p>6.6  	The Customer hereby agrees that the Bank shall not be liable in contract, tort (including negligence or breach of statutory duty) or otherwise, for any damage, loss, liability, expense or costs whatsoever (whether direct or indirect, or whether foreseeable or not) suffered or incurred by the Customer as a result of:</p>
+						
+						<p>(a) 	any transaction resulting from any Instruction made by the Customer or purportedly made by the Customer and referable to such Compromised Security Device and which was processed by the Bank prior to or at the time of such cancellation, or which the Bank, notwithstanding its reasonable endeavours, was unable to stop the processing; or</p>
+						
+						<p>(b) 	any failure by the Bank to carry out any Instruction referable to a Compromised Security Device which was outstanding as at the time the Bank cancels such Compromised Security Device and which the Bank had stopped the processing.</p>
+							
+						<p>6.7  	For the purposes of this Clause 6, an Instruction shall have been &quot;processed&quot; where the Bank had commenced carrying out the Instruction and it is no longer reasonably able to cancel or revoke the transaction without causing prejudice to the Bank as determined by the Bank in its sole discretion, and an Instruction is ?outstanding? where it is at any stage prior to being processed.</p>
+						<br/>
+						
+						<h3>7.    	EVIDENCE &amp; RECORDS</h3>
+						
+						<p>7.1 	The Customer agrees that:</p>
+						
+						<p>(a) 	The Customer shall not dispute or challenge the validity or enforceability of any Instruction or any communications from the Bank in electronic form on the grounds that it is not a written document and the Customer hereby waives any such right the Customer may have at law; and</p>
+						
+						<p>(b) 	The Instructions and communications from the Bank, though in electronic form, are original documents and that the Customer will not challenge the admissibility of any Instruction or any communications from the Bank on the grounds that it is made in electronic form.</p>
+						
+						<p>7.2 	The Customer acknowledges and agrees that the Bank?s records of the Instructions, communications, operations or transactions made or performed, processed or effected by the Customer or any person purporting to be the Customer, acting on the Customer?s behalf or purportedly acting on the Customer?s behalf, with or without the Customer?s consent, and any record of any transactions maintained or by any relevant person authorised by the Bank relating to or connected with ANZ Personal Internet Banking and/or the Banking Services shall be binding and conclusive on the Customer for all purposes whatsoever and shall be conclusive evidence of the transaction and the Customer?s liability to the Bank. The Customer hereby agrees that all such records are admissible in evidence and that the Customer shall not challenge or dispute the admissibility, reliability, accuracy or the authenticity of the contents of such records merely on the basis that such records were incorporated and/or set out in electronic form or were 	produced by or are the output of a computer system, and the Customer hereby waives any of his rights (if any) to such object.</p>
+						<br/>
+						
+						<h3>8.    	CONFIRMATION FROM THE BANK</h3>
+						
+						<p>8.1 	The Customer understands that the transmission of Instructions to the Bank through ANZ Internet Banking may not be received or completely or accurately received by the Bank for reasons beyond the Bank?s reasonable control including but not limited to mechanical, software, computer, telecommunications or electronic failure. The Customer further acknowledges that unless the Customer receives confirmation of receipt of the same from the Bank, Instructions may not have been received or completely or accurately received and accordingly, may not be processed or accepted by the Bank or may be wrongly processed by the Bank. The Customer acknowledges and agrees that the Bank shall not be liable to the Customer in any way for any damage, loss, liability, expense or costs whatsoever or howsoever caused arising, directly or indirectly, in connection with the transmission, failure of transmission, or incomplete or inaccurate transmission of Instructions to the Bank through ANZ Personal Internet Banking or any lack of 	confirmation of receipt of any Instructions by the Bank for whatever reason.</p>
+						
+						<p>8.2 	Notwithstanding the other provisions in this Terms and Conditions, the Bank has the discretion to decide the type of transaction that needs acknowledgment from the customer as required by Bank Indonesia.</p>
+						
+						<p>8.3 	For each transaction concluded through ANZ Personal Internet Banking that needs acknowledgement, the Bank shall send any acknowledgement, advice or statement of any kind to the Customer. The Customer acknowledges and agrees that the Bank shall not be liable to the Customer in any way for any damage, loss, liability, expense or costs whatsoever or howsoever caused arising, directly or indirectly, in connection with the transmission, failure of transmission of any acknowledgement, advice or statement of any kind to the Customer. </p>
+						
+						<p>8.4 	Upon receipt of an acknowledgement, advice or statement from the Bank, the Customer shall have a duty to examine the advice and notify the Bank of any alleged error or irregularity therein. If the Bank does not receive any notice of alleged error or irregularity within three (3) days after the date of the acknowledgement, advice or statement concerned, the Customer shall be deemed to have accepted the contents of such acknowledgement, advice or statement.</p>
+						<br/>
+						
+						<h3>9.  	DISCLOSURE OF INFORMATION</h3>
+						
+						<p>9.1 	The Customer hereby expressly authorises the Bank to disclose such information concerning the Customer and the account(s) of the Customer as the Bank may deem necessary or appropriate, including any information arising out of or in connection with the use of the Banking Services and ANZ Internet Banking in Indonesia or overseas in any other countries to:</p>
+						
+						<p>(a) 	any other branches, subsidiaries or associated or related companies of the Bank wherever located;</p>
+						
+						<p>(b) 	all government agencies and authorities in Indonesia or elsewhere where the disclosure is required by law;</p>
+						
+						<p>(c) 	any agents or third party contractors or service providers which have agreed to perform work for or provide services to the Bank</p>
+						
+						<p>(d) 	any person who provides, operates, manages, or maintains any part of the system or equipment relevant to the provision of any service to the Customer; and</p>
+						
+						<p>(e) 	any other person at any time:</p>
+						
+						<span>(i) 	which the Bank in good faith considers to be appropriate for the purpose or in the interest of the Bank; or</span><br/>
+						<span>(ii) 	in connection with the maintenance of, or the provision of services in relation to, any Customer account. The Customer authorises the Bank to procure any information from any third party as the Bank may in good faith deem necessary including from information processing entities in connection with the use of Banking Services and ANZ Internet Banking and authorises such disclosure by such third party of information required by the Bank. The above authorisations shall survive the termination of the service under these Terms and Conditions.</span><br/><br/>
+						
+						<p>9.2 	The Customer acknowledges and agrees that, considering the risks and problems inherent in the Internet, the Bank cannot and does not warrant the security of any information transmitted by or to the Customer using ANZ Internet Banking and the Customer accepts the risk that any information transmitted or received using ANZ Internet Banking may be accessed by unauthorised third parties and/or disclosed by the Bank and by its officers, employees or agents in good faith to third parties purporting to be the Customer or purporting to act under the Customer?s authority. The Customer will not hold the Bank or any of its officers, employees or agents responsible or liable, in contract, tort (including negligence or breach of statutory duty), equity or otherwise, for any such access or disclosure or for any damage, loss, liability, expense or costs (whether direct or indirect, or whether foreseeable or not) suffered or incurred by the Customer as a result of any such access or disclosure</p>
+						<br/>
+						
+						<h3>10.   	LIMITATION OF LIABILITY</h3>
+						
+						<p>10.1 	The Customer agrees and confirms that the Bank shall in no event be liable for any direct, indirect, incidental, punitive, special or consequential damages or economic loss whatsoever or howsoever caused arising directly or indirectly in connection with ANZ Personal Internet Banking, any Instruction and/or this Terms and Conditions, including but not limited to:</p>
+						
+						<p>(a) 	not having sufficient funds in the relevant Customer account to effect payment or transfers;</p>
+						
+						<p>(b) 	any damage, loss, liability, expense or costs suffered or incurred by the Customer arising from or referable to the Instructions given by the Customer being incorrect or inaccurate in any manner whatsoever;</p>
+						
+						<p>(c) 	any damage, loss, liability, expense or costs suffered or incurred by the Customer as a result of use of any Security Device or Compromised Security Device by any party;</p>
+						
+						<p>(d) 	any damage, loss, liability, expense or costs incurred as a result of any prohibition, restriction, delay in use or access of ANZ Personal Internet Banking caused by compliance with any laws and/or regulations of Indonesia or any other country;</p>
+						
+						<p>(e) 	any damage, loss, liability, expense or costs incurred as a result of any service agreements prescribed by, or any act or omission of, any telecommunications carrier, data centre, facilities management or hosting service provider, call centre, outsource service provider and/or Internet service provider, network service provider, content provider, and/or other third party service provider, or any hardware, software or system problem or failure attributable to any of such parties;</p>
+						
+						<p>(f) 	any error(s), problems or failures in transmission of any Instructions through ANZ Internet Banking or transmission by the Bank of any other data or information through ANZ Personal Internet Banking; and/or</p>
+						
+						<p>(g) 	damages for loss of profits, goodwill, use, data or other intangible losses (even if the Bank has been advised of the possibility of such damages) arising from or in connection with: (i) any use, inability to use or interruption in the use of ANZ Personal Internet Banking for any reason whatsoever; or (ii) any system, hardware, software, telecommunications, server or connection failure, error, omission, interruption, delay in transmission, or computer virus.</p>
+						
+						<p>10.2  	The Customer expressly agrees that the foregoing exclusions of liability are an essential part of the consideration bargained for under this Terms and Conditions and that the fees and charges for ANZ Internet Banking,</p>
+						<span>(a)   	if not currently charged, will have to be charged to the Customer;</span><br/>
+						<span>(b)  	if currently charged, will have to be substantially higher, in the absence of such exclusions.</span><br/>
+						<br/>
+						
+						<h3>11. 	INDEMNITY</h3>
+						
+						<p>	The Customer hereby agrees to indemnify the Bank and keep the Bank at all times fully indemnified from and against all actions, proceedings, claims, liabilities (including statutory liability), penalties, demands and costs (including without limitation, legal costs of the Bank on a solicitor and own client basis), awards, damages, losses and/or expenses to which the Bank may be subject for whatever
+						reason in relation to the Customer?s use or purported use of ANZ Internet Banking and/or the exercise of the powers and rights of the Bank under this Terms and Conditions, including but not limited to:-</p>
+						<span>(a) 	any abuse or unauthorised use by any party of the Security Devices;</span><br/>
+						<span>(b) 	any breach by the Customer of this Terms and Conditions;</span><br/>
+						<span>(c) 	any:-</span><br/>
+						<span>(i) 	failure or malfunction in the Customer?s hardware and/or software used in connection with ANZ Internet Banking; or</span><br/>
+						<span>(ii) 	any viruses and other malicious, destructive or corrupting code, program or macros, Trojan Horses, worms, logic bombs or other software routine or hardware components designed to permit unauthorised access which have been introduced by the Customer or the Customer?s computer system to ANZ Personal Internet Banking, which affects or causes ANZ Personal Internet Banking and/or the Bank?s hardware, software and/or other automated systems to fail or malfunction; and</span><br/>
+						<span>(d) 	any claim by any other party against the Bank arising from sub-clauses (a), (b) or (c) above.</span><br/><br/>
+						<br/>
+						
+						<h3>12.   	INTELLECTUAL PROPERTY RIGHTS</h3>
+						
+						<p>12.1 	The Customer acknowledges that:</p>
+						<p>(a) 	the content, including but not limited to text, software (including any html, java script, java, .NET, CGI script or any other computer code), music, sound, photographs, video, graphics, graphical user interface, forms, diagrams or other material, used in connection with, incorporated or contained in or presented to the Customer through ANZ Internet Banking; and</p>
+						
+						<p>(b) 	any materials (including any software or computer code of any kind and user manuals) and/or information presented to the Customer by the Bank for use with ANZ Internet Banking, (all the aforementioned content and/or materials to be collectively referred to as &quot;Content&quot;) are the exclusive property of the Bank and/or its third party licensors.</p>
+						
+						<p>12.2 	The Customer acknowledges and agrees that the Customer is only permitted to use the Content as expressly authorised by the Bank. This Terms and Conditions does not transfer any right, title or interest in ANZ Internet Banking or the Content to the Customer and the Customer may not copy, modify, reproduce, distribute, publish or commercially exploit the Content or create derivative works from this Content without expressly being authorised to do so by the Bank.</p>
+						
+						
+						<h3>13.  	FORCE MAJEURE</h3>
+						
+						<p>13.1  	The Bank shall not be responsible or liable to the Customer for:</p>
+						<span>(a) 	delays or failure in performance, whether foreseeable or not; and/or</span><br/>
+						<span>(b) 	any damage, loss, liability, expense or costs howsoever arising, whether foreseeable or not, resulting from or due to any circumstances or causes whatsoever which are not within the reasonable control of the Bank.</span><br/>
+						<br/>
+						<p>13.2   	Without prejudice to the generality of Clause 13.1 above, the following shall be regarded as circumstances and/or causes beyond the Bank?s reasonable control:- </p>
+						<span>(i) 	flood, lightning, acts of God, fire, earthquakes and other natural disasters</span><br/>
+						<span>(ii) 	strikes, labour disturbances, lockouts, material shortages, riots, acts of war (iii) acts, restrictions, regulations, bye-laws, prohibitions or measures of any kind on the part of any governmental parliamentary or local authority or any governmental regulations imposed after the fact</span><br/>
+						<span>(iv) 	import or export regulations or embargoes </span><br/>
+						<span>(v) 	power failure</span><br/>
+						<span>(vi) 	acts or defaults of any telecommunications network operator and</span><br/>
+						<span>(vii)	circumstances where communications lines for the Bank?s computer systems (whether in Indonesia or elsewhere) cannot be used for reasons attributable to third party telecommunications carriers.</span><br/>
+						
+						<p>13.3  	The obligations of the Bank, so far as affected by circumstance or causes beyond the Bank?s reasonable control, shall be suspended during the continuance of any delay or failure in performance so caused and such delay or failure shall not be a breach of this Terms and Conditions.</p>
+						
+						<br/>
+						<h3>14.    	COMMUNICATION</h3>
+						
+						<p>14.1  	Any complaints in connection with the service under this ANZ Internet Banking should be directed to any of the Bank branches or the Bank call centre where you maintain an account (or any other address we may notify to you from time to time for this purpose).</p>
+						
+						<p>14.2  	Electronic mail is not a completely reliable or secure method of communication and you have to avoid using it to submit complains or inquiry related to Banking Service.</p>
+						
+						<h3>15.    	TERMINATION</h3>
+						
+						<span>15.1   	The Customer acknowledges that the Bank shall be entitled:-</span><br/>
+						<span>(a) 	in its absolute discretion to forthwith terminate the service under these Terms and Conditions or to forthwith deactivate or revoke the Customer?s access and use of ANZ Internet Banking without any reasons at any time by giving notice in writing;</span><br/>
+						<span>(b) 	to terminate the service under these Terms and Conditions immediately if the Customer is in with the Bank and to suspend the Customer?s use of ANZ Internet Banking while the Bank is investigating whether such default may have occurred.</span><br/>
+						<br/>
+						<p>15.2   	The Customer may terminate the service under these Terms and Conditions by giving at least fourteen (14) days? prior written notice to the Bank.</p>
+						
+						<p>15.3   	Termination of the service under these Terms and Conditions (howsoever occasioned) shall not affect the on-going operation of any indemnity given by the Customer in respect of this Terms and Conditions for ANZ Personal Internet Banking.</p>
+						
+						<span>15.4   	Immediately upon the termination of the service under these Terms and Conditions by either party for whatever reason, the Customer agrees that:-</span><br/>
+						<span>(a) 	it shall forthwith cease to use any Security Devices and/or ANZ Personal Internet Banking; and</span><br/>
+						<span>(b) 	it shall forthwith return all physical tokens and/or media comprised as part of the Security Devices to the Bank. Any termination of the service under ANZ Internet Banking (howsoever occasioned) shall not affect any accrued rights or liabilities of either party nor shall it affect the coming into force or the continuance in force of any provision hereof which is expressly or by implication intended to come into or continue in force on or after such termination. Without prejudice to the generality of the aforesaid, the obligations under Clauses 6, 7, 8, 9, 10, 11, 12, 15.3 and 15.4 shall survive the termination of this service under ANZ Internet Banking.</span><br/>
+						<br/>
+						
+						<h3>16.   	AMENDMENTS</h3>
+						
+							<p>The Customer acknowledges and agrees that the Bank may impose such further terms and conditions and to make such changes to this Terms and Conditions as well as to any of the Bank?s terms and conditions applicable to each of the services or products available under ANZ Internet Banking as the Bank may in its discretion deem fit from time to time. Upon any change in this Terms and Conditions, the Bank will notify the Customer by such method of notification as may be designated by the Bank, which may include notification by way of email or by posting the changes on-line. If the Customer does not agree to be bound by the changes, the Customer shall cease all access and/or use of ANZ Internet Banking and shall terminate the service under ANZ Internet Banking immediately by giving written notice to the Bank. The Customer further agrees that if the Customer continues to use and/or access ANZ Personal Internet Banking after being notified of such change to this Terms and Conditions, such use and/or access shall constitute an affirmative:</p>
+						
+						<span>(1) 	acknowledgement by the Customer of this Terms and Conditions and its changes; and</span><br/>
+						<span>(2) 	agreement by the Customer to abide and be bound by this Terms and Conditions and its changes.</span><br/>
+						<br/>
+						
+						<h3>17.   	GOVERNING LAW AND JURISDICTION</h3>
+						
+							<p>The construction, validity and performance of this Terms and Conditions shall be governed in all respects by the laws of Indonesia. The parties hereby submit to the exclusive jurisdiction of the Indonesia courts.</p>
+						
+						
+						<h3>18.   	ASSIGNMENT BY THE BANK</h3>
+						
+							<p>The Bank may, without consent of the Customer, assign or transfer any of its rights under these Terms and Conditions to any person or entity. However the Bank will notify the Customer that its rights and obligations under these Terms and Conditions have been assigned.</p>
+						
+						
+						<h3>19.  	TERMS OF BANKING SERVICES</h3>
+						
+							<p>In addition to these Terms and Conditions, the Customer agrees that all other terms and conditions applicable to the Banking Services and/or other arrangements between the Bank and the Customer (?Terms of Banking Services?) will continue to apply in full force and effect. In the event of any inconsistency between these terms and conditions and the Terms of Banking Services, the Terms of Banking Services shall prevail in so far as the inconsistency relates to the Banking Service, and these terms and conditions shall prevail in so far as the inconsistency relates to ANZ Personal Internet Banking.</p>
+						
+						
+						<h3>20.  	WAIVER</h3>
+						
+							<p>No forbearance, delay or indulgence by the Bank in enforcing the provisions of this
+						Terms and Conditions shall prejudice or restrict the rights of the Bank nor shall any waiver of the Bank?s rights operate as a waiver of any subsequent breach and no right, power or remedy herein conferred upon or reserved for the Bank is exclusive of any other right, power or remedy available to the Bank and each such right, power or remedy shall be cumulative, unless where otherwise expressly stipulated in this Terms and Conditions.</p>
+						
+						
+						<h3>21.  	LANGUAGE</h3>
+						
+							<p>These Terms and Conditions have been prepared in both Indonesian and English. In the event of inconsistency between the Indonesian and English versions of these Terms and Conditions, the Indonesian version shall prevail.</p>
+						
+						
+						<h3>22. 	INFORMATION ABOUT THE BANK</h3>
+						
+							<p>Bank is a subsidiary of Australia and New Zealand Banking Group Limited (ANZBGL). ANZBGL is incorporated in Australia, and is an authorised deposit taking institution (bank) under Australian law. Bank is incorporated and licensed in Indonesia with limited liability, and is not a bank under Australian law. Deposits or liabilities with the Bank are not deposits or other liabilities of ANZBGL or its related group companies, and none of them stand behind or guarantee the Bank.</p>
+
+                    
+                    </div>
+                    <!-- termsandconditions english end-->
+                    <div class="noshadow smooth" id="termsandconditions_id" style="display:none;">					                    
+					<h1>ANZ PERSONAL INTERNET BANKING</h1>
+					<br/>
+					<h2>NASABAH HARUS MEMBACA KETENTUAN DAN SYARAT BERIKUT DENGAN SEKSAMA SEBELUM MENGGUNAKAN LAYANAN. DENGAN MELAKUKAN PENDAFTARAN UNTUK MENGGUNAKAN LAYANAN, ANDA DIANGGAP TELAH MENERIMA DAN TERIKAT OLEH KETENTUAN DAN SYARAT BERIKUT INI.</h2>
+					<br/>
+					<p>Ketentuan &amp; Syarat</p>
+					<br/>
+					<br/>
+					<h3>1. DEFINISI</h3>
+					<br/>
+					<p>Dalam ketentuan dan syarat ANZ Personal Internet Banking ini, definisi berikut ini berlaku kecuali jika konteks mengharuskan lain:-</p>
+					<p>&quot;Aplikasi&quot; berarti aplikasi dalam bentuk-bentuk yang ditetapkan oleh Bank untuk Layanan Perbankan.</p>
+					<p>&quot;Bank&quot; berarti PT Bank ANZ Indonesia</p>
+					<p>&quot;Layanan Perbankan&quot; berarti layanan, produk, dan fasilitas finansial, perbankan atau layanan, produk, dan fasilitas lainnya yang dapat ditawarkan oleh Bank melalui ANZ Personal Internet Banking dari waktu ke waktu (yang dapat dihapus, ditambah, atau dimodifikasi oleh Bank sesuai diskresinya).</p>
+					<p>&quot;Peralatan Keamanan Yang Rusak&quot; didefinisikan dalam Klausula 6.2.</p>
+					<p>&quot;Konten&quot; didefinisikan dalam Klausula 12.1.</p>
+					<p>&quot;Nasabah&quot; berarti pengguna ANZ Personal Internet Banking.</p>
+					<p>&quot;Aplikasi I-Banking&quot; berarti formulir aplikasi online untuk ANZ Personal Internet Banking yang dapat ditetapkan oleh Bank dari waktu ke waktu.</p>
+					<p>&quot;ANZ Personal Internet Banking&quot; berarti layanan penyediaan akses elektronik ke suatu Layanan Perbankan melalui Internet.</p>
+					<p>&quot;Instruksi&quot; berarti instruksi, permintaan atau komunikasi lainnya yang dikirimkan oleh Nasabah melalui ANZ Personal Internet Banking dan yang disahkan dengan, merujuk ke, atau menggunakan Peralatan Keamanan serta mencakup setiap Aplikasi yang telah dikirimkan dalam bentuk elektronik melalui ANZ Personal Internet Banking.</p>
+					<p>&quot;Peralatan Keamanan&quot; berarti semua smartcard, token, sertifikat digital, kunci elektronik, log on identifier, password, password generator, personal identification number (PIN), peralatan elektronik dan kode serta prosedur akses lainnya yang dikeluarkan oleh Bank atau oleh pihak lain yang ditunjuk oleh Bank dari waktu ke waktu agar Nasabah dapat mengakses dan/atau menggunakan ANZ Personal Internet Banking.</p>
+					<p>&quot;Pemberitahuan Keamanan&quot; didefinisikan dalam Klausula 6.2.</p>
+					<p>&quot;Ketentuan dan syarat&quot; berarti Ketentuan dan Syarat ini terhadap mana Nasabah telah setuju untuk mematuhinya sehubungan dengan penggunaan ANZ Personal Internet Banking.</p>
+					<p>&quot;Ketentuan Layanan Perbankan&quot; didefinisikan dalam Klausula 19.</p>
+					<br/>
+					<h3>2. 	PENGGUNAAN ANZ PERSONAL INTERNET BANKING</h3><br/>
+					
+					<p>2.1 	Akses ke ANZ Personal Internet Banking diberikan kepada orang-orang yang mengidentifikasi diri mereka dengan Peralatan Keamanan yang dikeluarkan atau yang ditetapkan oleh Bank dan dengan mematuhi instruksi dan prosedur Bank berkaitan dengan penggunaan Peralatan Keamanan tersebut.</p>
+					
+					<p>2.2 	Nasabah harus mengubah password is terima dari Bank segera setelah menerimanya. Bank sangat menyarankan agar password diubah secara berkala.</p>
+					
+					<p>2.3 	Akses ke ANZ Personal Internet Banking tunduk pada Ketentuan dan Syarat ini, ketentuan dan syarat pembukaan rekening serta ketentuan dan syarat tertentu sehubungan dengan layanan dan/atau produk terkait serta ketentuan dan syarat dapat ditentukan oleh Bank berdasarkan diskresi mutlaknya dari waktu ke waktu.</p>
+					
+					<p>2.4 	Mengabaikan ketentuan di atas, Bank dapat (namun tidak diwajibkan untuk) berdasarkan diskresi mutlaknya dan tanpa menyatakan alasan meminta agar Nasabah mengidentifikasi dirinya dengan cara-cara alternatif (dengan tanda tangan atau kehadiran langsung) dan/atau memberikan konfirmasi terhadap Instruksi (baik secara tertulis atau lainnya serta dalam bentuk dan substansi yang ditetapkan oleh Bank dari waktu ke waktu) sebelum Bank melanjutkan untuk memroses Instruksi tersebut.</p>
+					
+					<p>2.5 	Nasabah setuju untuk memperoleh dan memasang, dengan biaya dan pengeluarannya sendiri, software, hardware dan/atau peralatan yang diperlukan untuk mengakses dan/atau menggunakan ANZ Personal Internet Banking sebagaimana diinstruksikan atau disarankan oleh Bank. Nasabah harus mengambil semua tindakan pencegahan yang wajar guna memastikan bahwa is tidak menularkan virus, trojan horse, worms, bot atau software mencurigakan lainnya yang dapat mempengaruhi ANZ Personal Internet Banking atau sistem komputer Bank.</p>
+					
+					<p>2.6 	Nasabah setuju untuk menggunakan setiap dan semua Peralatan Keamanan yang dikeluarkan atau ditetapkan oleh Bank dan untuk mematuhi instruksi dan prosedur Bank berkaitan dengan penggunaan Peralatan Keamanan, serta untuk memastikan bahwa semua instruksi dan permintaan terhadap Bank yang dikirimkan melalui ANZ Personal Internet Banking disahkan dengan Peralatan Keamanan dalam cara yang ditentukan atau diberitahukan oleh Bank. Untuk menghindari kekeliruan, Nasabah mengakui bahwa Bank berhak mengubah, mengganti atau menarik setiap Peralatan Keamanan lama dan/atau memperkenalkan Peralatan Keamanan baru dari waktu ke waktu, jika Bank menganggap perlu.</p>
+					
+					<p>2.7 	Nasabah setuju dan sanggup untuk terikat oleh dan untuk mematuhi setiap dan semua prosedur, ketentuan, batasan, instruksi atau syarat tambahan sehubungan dengan akses dan penggunaan ANZ Personal Internet Banking yang mungkin diterbitkan oleh Bank dari waktu ke waktu.</p>
+					
+					<p>2.8    	Efek Instruksi</p>
+					<p>	Nasabah mengakui bahwa semua Instruksi (baik yang disahkan oleh Nasabah atau tidak) tidak dapat dibatalkan dan mengikat Nasabah setelah dikirimkan melalui ANZ Personal Internet Banking dan Bank berhak untuk melakukan, melaksanakan atau memroses Instruksi tersebut tanpa persetujuan lebih lanjut dari Nasabah dan tanpa referensi atau pemberitahuan lebih lanjut kepada Nasabah. Bank tidak berkewajiban untuk melaksanakan setiap Instruksi yang diterima dan dapat menolak Instruksi tanpa memberikan alasan apapun. Bank hanya akan melaksanakan suatu Instruksi jika menurut diskresi mutlak Bank dapat dilaksanakan atau layak bagi Bank untuk melaksanakannya serta sesuai dengan Ketentuan dan Syarat ini, ketentuan Layanan Perbankan, dan/atau praktek dan prosedur bisnis umumnya. Tanpa membatasi keumuman dari ketentuan di atas, Bank dapat menetapkan dan mengubah jam layanan normal selama mana Layanan Perbankan dan semua waktu penghentian harian untuk semua jenis Layanan Perbankan atau transaksi. Instruksi Nasabah yang diterima oleh Bank setelah waktu penghentian harian yang berlaku akan dianggap diterima pada hari kerja berikutnya. Bank dapat menetapkan hari kerja dan waktu penghentian harian dengan mengacu pada waktu operasi berbagai pasar dalam zona waktu yang berbeda.</p>
+					
+					<p>2.9    	Persetujuan atas ANZ Personal Internet Banking</p>
+					<span>	Nasabah memahami bahwa, jika tersedia dan berlaku, Nasabah dapat menggunakan ANZ Personal Internet Banking untuk menyelesaikan dan mengirimkan Transaksi untuk Layanan Perbankan tertentu. Bank dapat meminta Nasabah untuk mengadakan perjanjian untuk Layanan Perbankan tersebut dari waktu ke waktu. Nasabah juga memahami dan setuju bahwa ketentuan dan syarat yang berlaku untuk Layanan Perbankan tersebut adalah ketentuan dan syarat yang berlaku pada waktu pengajuan Transaksi terkait melalui ANZ Personal Internet Banking. Semua Transaksi tunduk pada persetujuan Bank, persetujuan mana dapat ditolak, dibatalkan, atau dikenai syarat lebih lanjut sesuai diskresi Bank.</span>
+					
+					<p>2.10  	Instruksi bersifat final dan mengikat</p>
+					<span>	Nasabah mengakui bahwa adalah tanggung jawab mutlak Nasabah untuk memastikan bahwa:</span><br/>
+					<span>(a) 	tidak ada orang lain yang diberi akses ke, atau mengetahui tentang, Peralatan Keamanan-nya; dan</span><br/>
+					<span>(b) 	ketika Nasabah menyediakan informasi atau memberikan Instruksi menggunakan ANZ Personal Internet Banking, semua informasi yang disediakan dan semua Instruksi yang diberikan adalah lengkap, akurat, asli dan benar. Nasabah mengakui bahwa Bank dapat menerima dan bertindak berdasarkan instruksi, permintaan atau komunikasi lainnya yang dilakukan atau dikirimkan dan disahkan dengan, dengan mengacu ke, atau menggunakan, Peralatan Keamanan Nasabah (baik yang benar-benar dikirimkan atau diizinkan oleh Nasabah atau tidak) sebagai Instruksi Nasabah yang asli, akurat dan lengkap serta disahkan dan bahwa Bank tidak berkewajiban untuk menyelidiki keaslian atau otoritas orang-orang yang memberikan Instruksi tersebut atau memverifikasi keakuratan dan kelengkapan Instruksi tersebut dan bahwa Bank dapat memperlakukan Instruksi tersebut sebagai Instruksi yang sah dan mengikat Nasabah terlepas dari kelengahan, kelalaian, penipuan atau pemalsuan dalam penggunaan Peralatan Keamanan atau pengiriman Instruksi, atau kesalahan, kekurangjelasan atau kesalahpahaman dalam Instruksi tersebut.</span><br/>
+					
+					<p>2.11	Nasabah mengakui bahwa informasi rate dan harga serta informasi lainnya yang disebutkan oleh Bank pada ANZ Personal Internet Banking atau lainnya sebagai jawaban atas pertanyaan online adalah hanya sebagai acuan dan tidak mengikat. Rate, harga dan informasi yang ditawarkan oleh Bank untuk keperluan transaksi tertentu bersifat mengikat Nasabah setelah Nasabah menyatakan persetujuannya terlepas dari adanya rate, harga atau informasi yang berbeda yang disebutkan oleh Bank.</p>
+					
+					<p>2.12 Bank diharuskan bertindak sesuai dengan peraturan perundang-undangan yang berlaku di berbagai yurisdiksi yang terkait dengan pencegahan pencucian uang, pembiayaan teroris dan penyediaan layanan finansial dan layanan-layanan lainnya kepada orang-orang atau badan-badan yang mungkin terkena sangsi.  Bank dapat mengambil tindakan yang ia, menurut diskresi mutlaknya, anggap tepat sesuai dengan semua peraturan perundang-undangan tersebut.  Tindakan tersebut dapat mencakup namun tidak terbatas pada penahanan dan penyelidikan pesan-pesan pembayaran dan informasi lainnya atau instruksi Nasabah yang dikirimkan kepada atau oleh Nasabah atau atas namanya melalui sistem Bank; serta melakukan pencarian informasi lebih lanjut mengenai apakah yang mungkin merujuk ke seseorang atau suatu badan yang terkena sangsi benar-benar merujuk ke orang atau badan tersebut.</p>
+					<br/>
+					<br/>
+					<h3>3. 	SOFTWARE, HARDWARE &amp; PERALATAN KEAMANAN</h3>
+					<br/>
+					<p>3.1 	Nasabah mengakui dan setuju bahwa Bank berhak mengubah jenis atau versi atau spesifikasi atau konfigurasi software, hardware atau peralatan mungkin harus digunakan oleh Nasabah untuk mengakses dan menggunakan ANZ Personal Internet Banking, dan jika ketentuan-ketentuan tersebut tidak dipenuhi oleh Nasabah, maka Nasabah mungkin tidak bisa mengakses atau menggunakan ANZ Personal Internet Banking atau Bank dapat menolak Instruksi yang dikirimkan oleh Nasabah dan menghentikan layanan ini berdasarkan ANZ Personal Internet Banking dengan segera.</p>
+					<br/>
+					<p>3.2 	Semua smartcard, token, sertifikat digital, kunci elektronik dan peralatan elektronik lainnya yang merupakan bagian dari Peralatan Keamanan yang disediakan bagi Nasabah adalah dan tetap merupakan milik eksklusif Bank. Nasabah setuju dan sanggup mengembalikan semua token fisik dan/atau media yang mengandung Peralatan Keamanan tersebut kepada Bank:</p>
+					<span>(a) Dengan segera setelah diminta oleh Bank; dan/atau</span><br/>
+					<span>(b) Dalam hal yang dijelaskan dalam Klausula 15.4 di bawah.</span><br/>
+					<span>	Nasabah harus segera memberitahu Bank jika Peralatan Keamanan hilang, rusak. Atau dicuri. Bank berhak mengenakan biaya untuk penggantian Peralatan Keamanan yang dikeluarkan kepada Nasabah.</span>
+					<br/>
+					<p>3.3 	Bank memberikan kepada Nasabah lisensi non-ekslusif dan tidak dapat dialihkan untuk menggunakan Peralatan Keamanan hanya untuk tujuan mengakses ANZ Personal Internet Banking. Nasabah tidak boleh membongkar atau mengutak-atik Peralatan Keamanan dan tidak boleh menyebabkan sebagian dari Peralatan Keamanan disalin, dilepas, dimodifikasi, dipindahkan, diadaptasi atau diubah dalam bentuk apapun, baik keseluruhan mauoun sebagian, serta tidak boleh mengizinkan pihak ketiga memiliki akses ke ANZ Personal Internet Banking atau dokumentasi yang terkait dengan ANZ Personal Internet Banking atau sebagian darinya tanpa izin tertulis dari Bank.</p>
+					<br/>
+					<br/>
+					<h3>4.   	ANZ Personal Internet Banking</h3>
+					<br/>
+					<p>4.1    	Ketersediaan</p>
+					<span>	Nasabah mengakui bahwa ANZ Personal Internet Banking hanya tersedia ?sebagaimana adanya? dan ?sebagaimana tersedianya? dan bahwa jangka waktu tersedianya ANZ Personal Internet Banking dapat berubah-ubah. Nasabah juga setuju bahwa Bank berhak (namun tidak berkewajiban) kapan saja, atas diskresi Bank dan tanpa pemberitahuan terlebih dahulu, untuk sementara waktu menghentikan operasional ANZ Personal Internet Banking demi proses pembaruan, pemeliharaan dan/atau pemutakhiran, atau tujuan apapun lainnya yang dianggap perlu oleh Bank, dan dalam hal demikian, Bank tidak bertanggungjawab atas kerugian, kehilangan, kewajiban, pengeluaran atau biaya apapun yang mungkin ditanggung karenanya.</span>
+					<br/>
+					<p>4.2    	Perubahan dan batas</p>
+					<span>	Nasabah mengakui dan setuju bahwa Bank dapat, tanpa pemberitahuan, kapan saja dan dari waktu ke waktu:</span><br/>
+					<span>(a) 	menambah, mengubah, menunda atau menghapus Layanan Perbankan, termasuk tanpa pembatasan hak untuk mengatur, mengubah atau membatalkan batasan-batasan untuk jenis transaksi, fasilitas, dan produk yang dapat dilakukan melalui ANZ Personal Internet Banking, baik dalam hal moneter atau numerik atau lainnya, dan untuk mengubah frekuensi dan periode ketersediaannya; dan/atau</span><br/>
+					<span>(b) 	menambahi, membedakan, mengubah, menunda atau menghilangkan ANZ Personal Internet Banking secara keseluruhan atau sebagian tanpa memberikan alasan dan tanpa menimbulkan kewajiban apapun.</span><br/>
+					<br/>
+					<p>4.3    	Layanan dan produk baru</p>
+					<span>	Nasabah mengakui bahwa Bank berhak memperkenalkan layanan dan/atau produk baru melalui ANZ Personal Internet Banking kapan saja dan bahwa dengan menggunakan layanan dan/atau produk baru tersebut jika dan ketika layanan dan/atau produk baru tersebut tersedia, Nasabah akan terikat oleh ketentuan dan syarat berlaku yang mengatur layanan dan/atau produk baru tersebut.</span><br/>
+					<br/>
+					<p>4.4    	Fee, biaya dan hak debet</p>
+					<span>	Bank berhak untuk mengenakan, menetapkan dan/atau memodifikasi fee dan biaya yang harus dibayarkan oleh Nasabah untuk penggunaan ANZ Personal Internet Banking atau sebagian darinya berdasarkan diskresi mutlak Bank, tanpa pemberitahuan terlebih dahulu kepada Nasabah. Jika Nasabah tidak menyetujui fee atau biaya tersebut, maka Nasabah harus menghentikan penggunaan ANZ Personal Internet Banking atau bagian darinya yang terkait. Nasabah memberi wewenang kepada Bank untuk mendebet fee dan biaya yang dikeluarkan oleh Nasabah untuk penggunaan ANZ Personal Internet Banking dari rekening (baik tunggal maupun gabungan) yang dimiliki oleh Nasabah di Bank. Jika tidak terdapat dana yang mencukupi di rekening Nasabah, maka Bank dapat (namun tidak diwajibkan untuk) segera membatalkan semua Instruksi Nasabah dan menghentikan layanan berdasarkan ANZ Personal Internet Banking.</span><br/>
+					<span>	Nasabah menyetujui lebih lanjut bahwa:</span><br/>
+					<p>(a) 	semua fee, ongkos, biaya, beban, bunga dan semua jumlah lainnya yang harus dibayarkan kepada Bank berdasarkan Ketentuan dan Syarat adalah dengan mata uang Indonesia; dan</p>
+					
+					<p>(b) 	Nasabah membayar semua pajak barang dan jasa atau pajak, retribusi atau beban lainnya apapun (&quot;Pajak&quot;) yang sekarang atau di masa mendatang dikenakan oleh hukum atau diharuskan untuk dibayarkan berkaitan dengan uang-uang yang harus dibayarkan atas atau berkaitan dengan ANZ Personal Internet Banking atau berkaitan dengan Instruksi Nasabah yang dilakukan sesuai dengan Ketentuan dan Syarat ini dan Nasabah akan mengganti rugi Bank atas setiap pembayaran oleh Bank, ganti rugi mana dilakukan dengan cara yang sama dan bersamaan dengan fee atau biaya yang terkait dengan Pajak.</p>
+					
+					<h3>4.5 	Rekening Gabungan</h3>
+					<p>(a) 	Nasabah mengakui dan setuju bahwa jika Aplikasi I-Banking telah diterima oleh Bank dari rekening gabungan, maka setiap pemilik rekening gabungan akan secara bersama-sama dan sendiri-sendiri bertanggungjawab pada Bank atas Instruksi yang dikeluarkan atau dilakukan atau diproses melalui ANZ Personal Internet Banking.</p>
+					
+					<p>(b)  Jika Nasabah memiliki (bersama-sama dengan pemilik lainnya) rekening gabungan &quot;dan&quot; (yang digunakan dengan otoritas penandatanganan gabungan), maka Nasabah dapat melihat, namun tidak memiliki kemampuan transaksi atas, rekening tersebut melalui ANZ Personal Internet Banking.</p>
+					
+					<p>(c)  Jika Nasabah memiliki (bersama-sama dengan pemilik lainnya) rekening gabungan &quot;atau&quot; (yang digunakan dengan otoritas penandatangan tunggal), maka setiap pemilik rekening gabungan tersebut dapat melihat, dan juga bertransaksi menggunakan, rekening tersebut melalui ANZ Personal Internet Banking. Terkait dengan transaksi-transaksi pada rekening-rekening gabungan tersebut, Bank dapat kapan saja meminta semua pemilik rekening untuk secara tegas memberikan persetujuan mereka sebelum Instruksi dilaksanakan atau untuk menunda atau menghentikan akses ke satu pemilik rekening tanpa pemberitahuan kepada pemilik rekening tersebut.</p>
+					
+					<p>(d) 	Bank berhak menolak, menerima, atau bertindak atas Instruksi yang terkait dengan rekening gabungan tanpa menimbulkan kewajiban apapun kepada setiap pemilik rekening gabungan tersebut atas penolakan tersebut.</p>
+					<br/>
+					
+					<h3>5.   	TIDAK ADA JAMINAN</h3>
+					
+					<p>	Semua konten yang disediakan dalam ANZ Personal Internet Banking tersedia &quot;sebagaimana adanya&quot; dan &quot;sebagaimana tersedianya. Dengan mempertimbangkan risiko dan masalah yang berhubungan dengan Internet, Bank tidak menjamin akibat yang mungkin terjadi dari penggunaan ANZ Personal Internet Banking atau keakuratan, kecukupan atau kehandalan dari Konten apapun yang didapat melalui ANZ Personal Internet Banking, baik Konten yang berasal dari Bank atau pihak ketiga maupun tidak, dan Bank secara tegas menyanggah tanggung jawab atas kesalahan atau kelalaian dalam Konten. Mengabaikan ketentuan lainnya dalam Ketentuan dan Syarat ini, tidak ada jaminan dalam bentuk apapun, tersirat, tersurat atau statutory, termasuk namun tidak terbatas pada jaminan tidak ada pelanggaran terhadap hak-hak pihak ketiga, milik, tingkat kepuasan, kelayakan jual, kesesuaian untuk tujuan tertentu dan kebebasan dari virus komputer atau kode bersifat merusak atau menyerang lainnya, diberikan sebagai bagian dalam ANZ Personal Internet Banking, 	Konten dan/atau Peralatan Keamanan.</p>
+					<br/>
+					
+					<h3>6.   	KEAMANAN</h3>
+					
+					<p>6.1  	Nasabah setuju untuk tidak membeberkan Peralatan Keamanan kepada, atau mengizinkan penggunaan Peralatan Keamanan oleh, pihak ketiga, dan untuk mengambil semua tindakan pencegahan yang diperlukan untuk memastikannya:</p>
+					<span>(a) 	semua Peralatan Keamanan disimpan secara rahasia dan aman;   dan</span><br/>
+					<span>(b) 	tidak ada penggunaan tanpa izin atau penyalah gunaan Peralatan Keamanan.</span><br/>
+					<br/>
+					<p>6.2  	Nasabah setuju untuk segera memberitahu dan/atau menghubungi Bank (&quot;Pemberitahuan Keamanan&quot;) jika Nasabah memiliki alasan untuk meyakini, mencurigai atau mengetahui bahwa:</p>
+					<span>(a) 	Peralatan Keamanan mungkin telah disusupi;</span><br/>
+					<span>(b) 	Peralatan Keamanan tersebut telah diketahui atau dibeberkan kepada orang lain;</span><br/>
+					<span>(c) 	telah terjadi penggunaan tanpa izin atas Peralatan Keamanan; dan/atau</span><br/>
+					<span>(d) 	Peralatan Keamanan tersebut hilang, rusak, atau dicuri (&quot;Peralatan Keamanan Yang Rusak&quot;) dan Nasabah harus segera berhenti menggunakan Peralatan Keamanan Yang Rusak hingga pemberitahuan lebih lanjut dari Bank. Semua Pemberitahuan Keamanan yang disampaikan secara lisan maupun elektronik harus dikonfirmasi secara tertulis oleh Nasabah dan diterima oleh Bank dalam waktu [dua belas (12)] jam setelah pemberitahuan lisan atau elektronik, jika tidak maka Bank tidak berkewajiban untuk mengambil tindakan atas Pemberitahuan Keamanan tersebut.</span><br/>
+					<br/>
+					<p>6.3  	Jika Pemberitahuan Keamanan telah disampaikan kepada Nasabah, maka Nasabah memahami bahwa merupakan tanggung jawab Nasabah untuk memastikan mana Instruksi Nasabah yang belum dilaksanakan yang masih berlaku dan jika Nasabah ingin agar Instruksi yang berlaku tersebut dilaksanakan, maka Nasabah harus kembali menginstruksikan Bank, melalui pemberitahuan langsung atau tertulis via faksimili atau dikirimkan via pos ke Bank untuk melaksanakan Instruksi tersebut.</p>
+					
+					<p>6.4  	Nasabah mengakui bahwa Bank berhak menonaktifkan atau membatalkan penggunaan satu atau lebih Peralatan Keamanan kapan saja tanpa menyatakan alasan tertentu dan tanpa pemberitahuan terlebih dahulu kepada Nasabah.</p>
+					
+					<p>6.5  	Nasabah mengakui dan menyatakan bahwa Nasabah terikat oleh semua Instruksi dan transaksi yang terjadi sebagai akibat dari Instruksi yang dibuat melalui Peralatan Keamanan Yang Rusak hingga waktu tertentu ketika Bank menerima Pemberitahuan Keamanan dengan cara yang dijelaskan pada Klausula 6.2 dan telah melakukan pembatalan terhadap Peralatan Keamanan Yang Rusak, dan dengan demikian, Nasabah setuju bahwa Nasabah akan bertanggungjawab atas semua transaksi tersebut yang diproses oleh Bank sebelum atau pada waktu pembatalan tersebut, atau yang Bank, meskipun telah ada upaya wajar, tidak bisa menghentikan prosesnya.</p>
+					
+					<p>6.6  	Nasabah dengan ini menyatakan bahwa Bank tidak bertanggungjawab secara kontrak, tort (termasuk kelalaian atau pelanggaran terhadap kewajiban perundang-undangan) atau lainnya, atas setiap kerugian, kehilangan, kewajiban, beban atau biaya apapun (baik langsung atau tidak langsung, baik terduga atau tidak terduga) yang diderita atau ditanggung oleh Nasabah sebagai akibat dari:</p>
+					
+					<p>(a) 	transaksi yang timbul dari Instruksi yang dibuat oleh Nasabah atau diduga keras dibuat oleh Nasabah dan melalui Peralatan Keamanan Yang Rusak dan yang telah diproses oleh Bank sebelum atau pada waktu pembatalan tersebut, atau yang Bank, meskipun telah ada upaya wajar, tidak bisa menghentikan prosesnya.</p>
+					
+					<p>(b) 	kegagalan oleh Bank untuk melaksanakan Instruksi yang berasal dari Peralatan Keamanan Yang Rusak yang belum dilaksanakan pada waktu Bank membatalkan Peralatan Keamanan Yang Rusak tersebut dan yang Bank telah menghentikan prosesnya.</p>
+					        
+					<p>6.7  	Untuk maksud Klausula 6 ini, suatu Instruksi telah ?diproses? jika Bank telah mulai melaksanakan Instruksi tersebut dan Bank tidak lagi dapat membatalkan atau menghapus transaksi tersebut tanpa menimbulkan kerugian bagi seperti yang ditentukan oleh Bank berdasarkan diskresi mutlaknya, dan suatu Instruksi &quot;belum dilaksanakan&quot; jika masih dalam suatu tahapan sebelum diproses.</p>
+					<br/>
+					
+					<h3>7.    	BUKTI &amp; CATATAN</h3>
+					
+					<p>7.1 	Nasabah setuju bahwa:</p>
+					
+					<p>(a) 	Nasabah tidak akan mempersengketakan atau menentang keabsahan atau keberlakuan suatu Instruksi atau semua komunikasi dari Bank dalam bentuk elektronik dengan alasan bahwa ini bukan dokumen tertulis dan Nasabah dengan ini mengesampingkan hak tersebut yang mungkin dimiliki Nasabah secara hukum; dan</p>
+					
+					<p>(b) 	Instruksi dan komunikasi dari Bank, meskipun dalam bentuk elektronik, adalah dokumen asli dan bahwa Nasabah tidak akan menentang keberterimaan suatu Instruksi atau komunikasi dari Bank dengan alasan bahwa ia dibuat dalam bentuk elektronik.</p>
+					
+					<p>7.2 	Nasabah mengakui dan setuju bahwa catatan Bank mengenai Instruksi, komunikasi, operasi atau transaksi yang dibuat atau dilaksanakan, diproses atau dilakukan oleh Nasabah atau orang lain yang mengaku sebagai Nasabah, yang bertindak atas nama Nasabah atau diduga kuat bertindak atas nama Nasabah, dengan atau tanpa persetujuan Nasabah, dan catatan semua transaksi yang disimpan atau oleh orang terkait yang diberi wewenang oleh Bank terkait dengan atau berhubungan dengan ANZ Personal Internet Banking dan/atau Layanan Perbankan bersifat mengikat dan final atas Nasabah untuk semua maksud apapun dan merupakan bukti final untuk transaksi tersebut dan kewajiban Nasabah terhadap Bank. Nasabah dengan ini setuju bahwa semua catatan tersebut dapat diterima sebagai bukti dan bahwa Nasabah tidak akan menentang atau mempersengketakan keberterimaan, kehandalan, ketepatan atau keaslian isi catatan tersebut semata-mata dengan alasan bahwa catatan tersebut dimasukkan dan/atau dijelaskan dalam bentuk elektronik atau dibuat dengan atau merupakan hasil dari sistem komputer, dan Nasabah dengan ini mengesampingkan semua haknya (jika ada) atas obyek tersebut.</p>
+					<br/>
+					
+					<h3>8.    	KONFIRMASI DARI BANK</h3>
+					
+					<p>8.1 	Nasabah memahami bahwa pengiriman Instruksi kepada Bank melalui ANZ Personal Internet Banking mungkin tidak diterima atau secara lengkap dan akurat diterima oleh Bank karena sebab-sebab yang berada di luar kendali wajar Bank termasuk namun tidak terbatas pada kerusakan mekanik, software, komputer, telekomunikasi atau elektronik. Nasabah selanjutnya mengakui bahwa kecuali jika Nasabah menerima konfirmasi tanda terima pengiriman Instruksi dari Bank, Instruksi mungkin belum diterima atau secara lengkap dan akurat diterima dan oleh karenanya, tidak dapat diproses atau diterima oleh Bank atau diproses secara salah oleh Bank. Nasabah mengakui dan setuju bahwa Bank tidak bertanggungjawab terhadap Nasabah dengan cara apapun atas kerugian, kehilangan, kewajiban, pengeluaran atau biaya apapun atau bagaimana sebabnya yang ditimbulkan, secara langsung atau tidak langsung, dalam hubungannya dengan pengiriman, kegagalan pengiriman, atau pengiriman Instruksi yang tidak lengkap atau tidak akurat kepada Bank melalui ANZ Personal Internet Banking atau tidak adanya konfirmasi tanda terima untuk Instruksi oleh Bank karena sebab apapun.</p>
+					
+					<p>8.2 	Mengabaikan ketentuan-ketentuan di atas dalam Ketentuan dan Syarat ini, Bank memiliki diskresi untuk memutuskan jenis transaksi yang memerlukan pengesahan dari nasabah sesuai ketentuan Bank Indonesia.</p>
+					
+					<p>8.3 	Untuk setiap transaksi yang dilakukan melalui ANZ Personal Internet Banking yang memerlukan pengesahan, Bank akan mengirimkan pengesahan, saran atau pernyataan dalam bentuk apapun kepada Nasabah. Nasabah mengakui dan setuju bahwa Bank tidak bertanggung jawab kepada Nasabah dalam hal apapun atas kerugian, kehilangan, kewajiban, pengeluaran atau biaya apapun dan bagaimanapun timbulnya, secara langsung atau tidak langsung, dalam kaitannya dengan pengiriman, kegagalan pengiriman pengakuan, saran atau pernyataan dalam bentuk apapun kepada Nasabah.</p>
+					
+					<p>8.4 	Setelah diterimanya pengesahan, saran atau pernyataan dari Bank, Nasabah harus memeriksa saran tersebut dan memberitahu Bank mengenai dugaan kesalahan atau ketidakwajaran di dalamnya. Jika Bank tidak menerima pemberitahuan mengenai dugaan kesalahan atau ketidakwajaran dalam waktu tiga (3) hari setelah tanggal pengesahan, saran atau pernyataan terkait, maka Nasabah dianggap telah menerima isi dari pengesahan, saran atau pernyataan tersebut.</p>
+					<br/>
+					
+					<h3>9.  	PEMBEBERAN INFORMASI</h3>
+					
+					<p>9.1 	Nasabah dengan ini secara tegas memberikan wewenang kepada Bank untuk membeberkan informasi mengenai Nasabah dan rekening Nasabah jika Bank menganggap perlu dan tepat, termasuk informasi yang timbul dari atau yang berkaitan dengan penggunaan Layanan Perbankan dan ANZ Personal Internet Banking di Indonesia atau di luar negeri kepada:</p>
+					
+					<p>(a) 	cabang, anak perusahaan atau perusahaan rekanan atau perusahaan terkait Bank di mana saja berada</p>
+					
+					<p>(b) 	semua dinas dan otoritas pemerintah di Indonesia atau di mana saja pembeberan diwajibkan oleh hukum</p>
+					
+					<p>(c) 	agen atau kontraktor atau penyedia jasa pihak ketiga yang telah setuju untuk melaksanakan pekerjaan untuk atau menyediakan jasa bagi Bank</p>
+					
+					<p>(d) 	siapapun yang menyediakan, mengoperasikan, mengelola, atau memelihara suatu bagian dari sistem atau peralatan yang terkait dengan penyediaan layanan bagi Nasabah; dan</p>
+					
+					<p>(e) 	orang lainnya kapan saja:</p>
+					
+					<span>(i) 	yang Bank dengan itikad baik anggap tepat oleh Bank untuk maksud atau demi kepentingan Bank; atau</span><br/>
+					<span>(ii) 	sehubungan dengan pemeliharaan, atau penyediaan layanan terkait dengan, rekening Nasabah. Nasabah memberikan wewenang kepada Bank untuk memperoleh semua informasi dari pihak ketiga yang Bank dengan itikad baik anggap perlu termasuk dari entitas pengolahan informasi sehubungan dengan penggunaan Layanan Perbankan dan ANZ Personal Internet Banking serta memberikan wewenang pembeberan tersebut oleh pihak ketiga atas informasi yang diperlukan oleh Bank. Wewenang-wewenang tersebut di atas tetap berlaku meskipun terjadi penghentian layanan menurut Ketentuan dan Syarat ini.</span><br/><br/>
+					
+					<p>9.2 	Nasabah mengakui dan setuju bahwa, mengingat risiko dan masalah yang terkait dengan Internet, Bank tidak bisa dan tidak menjamin keamanan informasi yang dikirimkan oleh atau kepada Nasabah dengan menggunakan ANZ Personal Internet Banking dan Nasabah menerima risiko bahwa informasi yang dikirimkan atau diterima dengan menggunakan ANZ Personal Internet Banking dapat diakses oleh pihak ketiga yang tidak berwenang dan/atau dibeberkan oleh Bank dan pejabat, karyawan atau agennya dengan itikad baik kepada pihak ketiga yang mengaku sebagai Nasabah atau mengaku bertindak atas wewenang Nasabah. Nasabah tidak akan menganggap Bank atau pejabat, karyawan atau agennya bertanggungjawab atau berkewajiban, secara kontrak, tort (termasuk kelalaian atau pelanggaran terhadap kewajiban statutory), ekuitas atau lainnya, atas akses atau pembeberan atau atas kerugian, kehilangan, kewajiban, pengeluaran atau biaya (baik yang langsung atau tidak langsung, baik yang terduga atau tidak terduga) yang diderita atau ditanggung oleh Nasabah sebagai akibat dari akses atau pembeberan tersebut.</p>
+					<br/>
+					
+					<h3>10.   	BATASAN KEWAJIBAN</h3>
+					
+					<p>10.1 	Nasabah setuju dan menyatakan bahwa Bank dalam hal apapun tidak bertanggungjawab atas kerugian langsung, tidak langsung, insidental, hukuman, khusus atau konsekuensial atau kerugian ekonomi apapun atau bagaimanapun yang timbul secara langsung atau tidak langsung sehubungan dengan ANZ Personal Internet Banking, Instruksi dan/atau Ketentuan dan Syarat ini, termasuk namun tidak terbatas pada:</p>
+					
+					<p>(a) 	tidak tersedianya dana yang mencukupi di rekening Nasabah terkait untuk melakukan pembayaran atau transfer</p>
+					
+					<p>(b) 	kerugian, kehilangan, kewajiban, pengeluaran atau biaya yang diderita atau ditanggung oleh Nasabah yang timbul dari atau melalui Instruksi yang diberikan oleh Nasabah yang tidak benar atau tidak akurat</p>
+					
+					<p>(c) 	kerugian, kehilangan, kewajiban, pengeluaran atau biaya yang diderita atau ditanggung oleh Nasabah sebagai akibat dari penggunaan Peralatan Keamanan jenis apapun atau Peralatan Keamanan Yang Rusak oleh suatu pihak</p>
+					
+					<p>(d) 	kerugian, kehilangan, kewajiban, pengeluaran atau biaya yang terjadi sebagai akibat dari larangan, pembatasan, penundaan apapun dalam penggunaan atau pengaksesan ANZ Personal Internet Banking yang disebabkan oleh kepatuhan terhadap hukum dan/atau peraturan di Indonesia atau di negara lain</p>
+					
+					<p>(e) 	kerugian, kehilangan, kewajiban, pengeluaran atau biaya yang terjadi sebagai akibat dari perjanjian layanan yang ditetapkan oleh, atau tindakan atau pengabaian, perusahaan telekomunikasi, pusat data, manajemen fasilitas atau penyedia jasa hosting, call centre, penyedia jasa outsource dan/atau penyedia jasa Internet, penyedia jasa jaringan, penyedia konten, dan/atau pihak ketiga penyedia jasa mana pun atau hardware, software, masalah atau kegagalan sistem yang turut disebabkan oleh pihak-pihak tersebut</p>
+					
+					<p>(f) 	kesalahan, masalah atau kegagalan dalam pengiriman Instruksi melalui ANZ Personal Internet Banking atau pengiriman oleh Bank atas semua data atau informasi melalui ANZ Personal Internet Banking; dan/atau</p>
+					
+					<p>(g) 	kerugian karena hilangnya laba, niat baik, penggunaan, data atau kerugian tak nyata lainnya (bahkan jika Bank telah diberitahu mengenai kemungkinan kerugian tersebut) yang timbul dari atau yang terkait dengan: (i) penggunaan, ketidakmampuan menggunakan atau interupsi dalam penggunaan ANZ Personal Internet Banking karena sebab apapun; atau (ii) sistem, hardware, software, telekomunikasi, server atau kegagalan koneksi, kesalahan, pengabaian, interupsi, keterlambatan dalam pengiriman, atau virus komputer.</p>
+					
+					<p>10.2  	Nasabah secara tegas setuju bahwa pengecualian-pengecualian kewajiban tersebut di atas merupakan bagian yang sangat penting untuk dipertimbangkan berdasarkan Ketentuan dan Syarat ini dan bahwa fee dan biaya untuk ANZ Personal Internet Banking,</p>
+					<span>(a)   	jika saat ini tidak dikenakan, maka akan dikenakan pada Nasabah;</span><br/>
+					<span>(b)  	jika saat ini telah, maka pada pokoknya pasti lebih tinggi, jika tidak ada pengecualian-pengecualian tersebut.</span><br/>
+					<br/>
+					
+					<h3>11. 	GANTI RUGI</h3>
+					
+					<p>	Nasabah dengan ini setuju untuk mengganti rugi Bank dan memastikan bahwa Bank akan selalu diganti rugi dari dan terhadap semua tindakan, tindakan hukum, klaim, kewajiban (termasuk kewajiban statutory), penalti, tuntutan dan biaya (mencakup namun tidak terbatas pada biaya legal Bank berdasarkan pengacara dan klien sendiri), putusan, ganti rugi, kehilangan dan/atau pengeluaran yang mungkin dikenakan pada Bank karena alasan apapun dalam hubungannya dengan penggunaan atau dugaan penggunaan ANZ Personal Internet Banking oleh Nasabah atau pihak yang mengaku sebagai Nasabah dan/atau penggunaan wewenang dan hak Bank berdasarkan Ketentuan dan Syarat ini, termasuk namun tidak terbatas pada:</p>
+					<span>(a) 	penyalahgunaan atau penggunaan tanpa izin oleh pihak mana pun terhadap Peralatan Keamanan;</span><br/>
+					<span>(b) 	pelanggaran oleh Nasabah terhadap Ketentuan dan Syarat ini;</span><br/>
+					<span>(c) 	setiap:-</span><br/>
+					<span>(i) 	kegagalan atau malfungsi pada hardware dan/atau software Nasabah yang digunakan dalam kaitannya dengan ANZ Personal Internet Banking; atau</span><br/>
+					<span>(ii) 	virus dan kode mencurigakan, destruktif atau mengkorup lainnya, program atau macro, Trojan Horses, worms, logic bombs atau software atau komponen software lain yang dirancang untuk melakukan akses tanpa izin yang telah dimasukkan oleh Nasabah atau sistem komputer Nasabah pada ANZ Personal Internet Banking, yang mempengaruhi atau menyebabkan ANZ Personal Internet Banking dan/atau hardware, software dan/atau sistem otomatis Bank lain rusak atau malfungsi; dan</span><br/>
+					<span>(d) 	klaim oleh pihak lain terhadap Bank yang timbul dari sub-klausula (a), (b) atau (c) di atas.</span><br/><br/>
+					<br/>
+					
+					<h3>12.   	HAK KEKAYAAN INTELEKTUAL</h3>
+					
+					<p>12.1 	Nasabah mengakui bahwa:</p>
+					<p>(a) 	konten, termasuk namun tidak terbatas pada teks, software (termasuk html, java script, java, .NET, CGI script atau kode komputer lainnya), musik, bunyi, foto, video, grafik, antar muka pengguna grafis, bentuk, diagram atau materi-materi lain yang digunakan dalam kaitannya dengan, dimasukkan atau terkandung dalam atau disajikan kepada Nasabah melalui ANZ Personal Internet Banking; dan</p>
+					
+					<p>(b) 	materi (termasuk software atau kode komputer jenis apapun dan manual pengguna) dan/atau informasi yang disajikan kepada Nasabah oleh Bank untuk digunakan dengan ANZ Personal Internet Banking, (semua konten dan/atau materi tersebut di atas secara bersama-sama disebut sebagai "Konten") adalah hak milik eksklusif Bank dan/atau licensor pihak ketiganya.</p>
+					
+					<p>12.2 	Nasabah mengakui dan setuju bahwa Nasabah hanya diizinkan untuk menggunakan Konten sesuai dengan wewenang yang secara tegas diberikan oleh pihak Bank. Ketentuan dan Syarat ini tidak memindahkan hak, milik atau kepentingan apapun dalam ANZ Personal Internet Banking atau Konten kepada Nasabah dan Nasabah dilarang menyalin, memodifikasi, mereproduksi, mendistribusikan, mempublikasikan atau secara komersil mengeksploitasi Konten atau menciptakan produk turunan dari Konten ini tanpa izin yang tegas untuk melakukan hal tersebut dari Bank.</p>
+					
+					
+					<h3>13.  	KEADAAN KAHAR</h3>
+					
+					<p>13.1  	Bank tidak bertanggungjawab atau berkewajiban kepada Nasabah atas:</p>
+					<span>(a) 	keterlambatan atau kegagalan dalam pelaksanaan, baik yang terduga maupun yang tidak terduga; dan/atau</span><br/>
+					<span>(b) 	kerugian, kehilangan, kewajiban, pengeluaran atau biaya apapun yang timbul dari atau yang dikarenakan oleh, baik terduga maupun tidak terduga, kondisi atau sebab apapun yang berada di luar kendali wajar Bank.</span><br/>
+					<br/>
+					<p>13.2   	Tanpa mengurangi keumuman Klausula 13.1 di atas, hal-hal berikut akan dianggap sebagai kondisi dan/atau sebab yang berada di luar kendali Bank:-</p>
+					<span>(i) 	banjir, petir, bencana alam, kebakaran, gempa bumi dan bencana alam lainnya</span><br/>
+					<span>(ii) 	pemogokan, gangguan pekerja, larangan bekerja, kekurangan material, kerusuhan, perang</span><br/>
+					<span>(iii)     tindakan, pembatasan, peraturan, anggaran rumah tangga, larangan atau langkah-langkah apapun jenisnya di tubuh parlemen pemerintah atau otoritas lokal atau peraturan pemerintah yang dikenakan setelah fakta</span><br/>
+					<span>(iv) 	regulasi atau embargo impor atau ekspor</span><br/>
+					<span>(v) 	jatuhnya kekuasaan</span><br/>
+					<span>(vi) 	tindakan atau kegagalan operator jaringan telekomunikasi dan</span><br/>
+					<span>(vii)	kondisi di mana jalur komunikasi sistem komputer Bank (baik di Indonesia maupun di tempat lain) tidak bisa digunakan karena sebab yang terkait dengan perusahaan telekomunikasi pihak ketiga.</span><br/>
+					
+					<p>13.3  	Kewajiban-kewajiban Bank, sejauh yang dipengaruhi oleh kondisi atau sebab di luar kendali wajar Bank, akan ditunda selama berlangsungnya keterlambatan atau kegagalan pelaksanaan yang ditimbulkan tersebut dan keterlambatan atau kegagalan tersebut bukan merupakan pelanggaran terhadap Ketentuan dan Syarat ini.</p>
+					
+					<br/>
+					<h3>14.    	KOMUNIKASI</h3>
+					
+					<p>14.1  	Keluhan sehubungan dengan layanan menurut ANZ Personal Internet Banking ini harus disampaikan kepada cabang Bank atau call centre Bank tempat asal rekening Anda (atau alamat lainnya yang akan diberitahukan kepada Nasabah dari waktu ke waktu untuk tujuan ini).</p>
+					
+					<p>14.2  	Surat elektronik bukan merupakan alat komunikasi yang sepenuhnya dapat diandalkan atau aman dan Anda harus menghindari penggunaan surat elektronik untuk mengirimkan keluhan atau pertanyaan yang terkait dengan Layanan Perbankan.</p>
+					
+					<h3>15.    	PENGHENTIAN</h3>
+					
+					<span>15.1   	Nasabah mengakui bahwa Bank berhak:-</span><br/>
+					<span>(a) 	berdasarkan diskresi mutlaknya segera menghentikan layanan menurut Ketentuan dan Syarat ini atau segera menonaktifkan atau menghapus akses dan penggunaan ANZ Personal Internet Banking oleh Nasabah tanpa alasan apapun kapan saja dengan menyampaikan pemberitahuan tertulis;</span><br/>
+					<span>(b) 	menghentikan layanan berdasarkan Ketentuan dan Syarat ini dengan segera jika Nasabah melanggar Ketentuan dan Syarat ini dan menskors penggunaan ANZ Personal Internet Banking ketika Bank sedang menyelidiki apakah pelanggaran tersebut mungkin telah terjadi.</span><br/>
+					<br/>
+					<p>15.2   	Nasabah dapat menghentikan layanan menurut Ketentuan dan Syarat ini dengan menyampaikan pemberitahuan tertulis kepada Bank sekurang-kurangnya empat belas (14) hari sebelumnya.</p>
+					
+					<p>15.3   	Penghentian layanan menurut Ketentuan dan Syarat ini (bagaimanapun terjadinya) tidak akan mempengaruhi proses pemberian ganti rugi yang sedang berjalan oleh Nasabah terkait dengan Ketentuan dan Syarat ini untuk ANZ Personal Internet Banking.</p>
+					
+					<span>15.4   	Segera setelah penghentian layanan menurut Ketentuan dan Syarat ini oleh salah satu pihak karena sebab apapun, Nasabah setuju bahwa:-</span><br/>
+					<span>(a) 	ia akan segera berhenti menggunakan Peralatan Keamanan dan/atau Personal Internet Banking ANZ; dan</span><br/>
+					<span>(b) 	ia akan segera mengembalikan semua token dan/atau media fisik yang merupakan bagian dari Peralatan Keamanan kepada Bank. Penghentian layanan menurut ANZ Personal Internet Banking (bagaimanapun terjadinya) tidak akan mempengaruhi hak atau kewajiban akrual salah satu pihak dan juga tidak akan mempengaruhi berlakunya atau terus berlakunya suatu ketentuan dari Ketentuan dan Syarat ini yang secara tersurat atau tersirat dimaksudkan untuk berlaku atau terus berlaku dengan atau setelah penghentian tersebut. Tanpa mengurangi keumuman ketentuan-ketentuan di atas, kewajiban-kewajiban menurut Klausula 6, 7, 8, 9, 10, 11, 12, 15.3 dan 15.4 tetap berlaku meskipun terjadi penghentian layanan ini menurut ANZ Personal Internet Banking.</span><br/>
+					<br/>
+					
+					<h3>16.   	PERUBAHAN</h3>
+					
+					        <p>Nasabah mengakui dan setuju bahwa Bank dapat mengenakan ketentuan dan syarat tambahan dan melakukan perubahan atas Ketentuan dan Syarat ini di samping ketentuan dan syarat Bank yang berlaku untuk setiap layanan atau produk yang tersedia menurut ANZ Personal Internet Banking yang menurut diskresi Bank dianggap tepat dari waktu ke waktu. Atas perubahan dalam Ketentuan dan Syarat ini, Bank akan memberitahukan kepada Nasabah melalui cara pemberitahuan yang dapat ditetapkan oleh Bank, yang dapat mencakup pemberitahuan melalui email atau online. Jika Nasabah tidak setuju untuk terikat oleh perubahan-perubahan tersebut, maka Nasabah harus menghentikan semua akses dan/atau penggunaan ANZ Personal Internet Banking dan menghentikan layanan menurut ANZ Personal Internet Banking dengan segera melalui pemberitahuan tertulis kepada Bank. Nasabah selajutnya setuju bahwa jika Nasabah terus menggunakan dan/atau mengakses ANZ Personal Internet Banking setelah diberi tahu mengenai perubahan pada Ketentuan dan Syarat tersebut, 	maka penggunaan dan/atau akses tersebut sudah pasti merupakan:-</p>
+					
+					<span>(1) 	persetujuan oleh Nasabah atas Ketentuan dan Syarat ini beserta perubahannya; dan</span><br/>
+					<span>(2) 	perjanjian oleh Nasabah untuk mematuhi dan terikat oleh Ketentuan dan Syarat ini beserta perubahannya.</span><br/>
+					<br/>
+					
+					<h3>17.   	HUKUM YANG BERLAKU DAN YURISDIKSI</h3>
+					
+					        <p>Konstruksi, keabsahan dan pelaksanaan Ketentuan dan Syarat ini diatur dari segala aspek oleh hukum Indonesia. Para pihak dengan ini menyerahkan kepada yurisdiksi eksklusif pengadilan-pengadilan Indonesia.</p>
+					
+					
+					<h3>18.   	PENGALIHAN OLEH BANK</h3>
+					
+					        <p>Bank, tanpa persetujuan Nasabah, dapat mengalihkan atau memindahkan hak-haknya menurut Ketentuan dan Syarat ini siapapun atau badan apapun. Namun demikian, Bank akan memberi tahu Nasabah bahwa hak-hak dan kewajiban-kewajibannya menurut Ketentuan dan Syarat ini telah dialihkan.</p>
+					
+					
+					<h3>19.  	KETENTUAN LAYANAN PERBANKAN</h3>
+					
+					        <p>Selain Ketentuan dan Syarat ini, Nasabah setuju bahwa semua ketentuan dan syarat lainnya yang berlaku untuk Layanan Perbankan dan/atau kesepakatan-kesepakatan lainnya antara Bank dan Nasabah (?Ketentuan Layanan Perbankan?) akan terus berlaku penuh. Jika ada perbedaan antara ketentuan dan syarat ini dengan Ketentuan Layanan Perbankan, maka Ketentuan Layanan Perbankan yang akan berlaku sejauh perbedaan tersebut terkait dengan Layanan Perbankan, dan ketentuan dan syarat ini yang akan berlaku sejauh perbedaan terkait dengan ANZ Personal Internet Banking.</p>
+					
+					
+					<h3>20.  	PENGESAMPINGAN</h3>
+					
+					        <p>Semua toleransi, penundaan atau fleksibilitas Bank dalam menegakkan ketentuan dalam Ketentuan dan Syarat ini tidak akan mengurangi atau membatasi hak-hak Bank dan tidak juga pengesampingan terhadap hak-hak Bank merupakan pengesampingan terhadap pelanggaran berikutnya dan tidak ada hak, kekuasaan, atau remedi dalam Ketentuan dan Syarat ini yang diberikan kepada Bank atau dimiliki oleh Bank terpisah dari hak, kekuasaan atau remedi lainnya yang ada pada Bank dan setiap hak, kekuasaan, atau remedi tersebut bersifat kumulatif, kecuali jika secara tegas dinyatakan lain dalam Ketentuan dan Syarat ini.</p>
+					
+					
+					<h3>21.  	BAHASA</h3>
+					
+					        <p>Ketentuan dan Syarat ini telah dibuat dalam bahasa Indonesia dan bahasa Inggris. Jika terjadi perbedaan di antara versi bahasa Indonesia dan bahasa Inggris Ketentuan dan Syarat ini, maka versi bahasa Indonesia yang berlaku.</p>
+					
+					
+					<h3>22. 	INFORMASI MENGENAI BANK</h3>
+
+        						<p>Bank adalah anak perusahaan dari Australia dan New Zealand Banking Group Limited (ANZBGL). ANZBGL didirikan di Australia, dan merupakan sebuah lembaga penyimpan uang resmi (bank) berdasarkan hukum Australia. Bank didirikan dan diberi izin di Indonesia dengan kewajiban terbatas, dan bukan merupakan Bank berdasarkan hukum Australia. Simpanan dan kewajiban di Bank bukan merupakan simpanan atau kewajiban lain dari ANZBGL atau grup perusahaan terkaitnya, dan tidak satu pun dari mereka menyokong atau menjamin Bank.</p>
+                    </div>
+                    <!-- termsandconditions bahasa end-->
+                </div>
+            </div>
+            <div style="display: none;">
+                <!-- placeholder for tandcancelWarning -->
+            </div>
+            <div id="tandcancelWarning-screen" class="ui-screen-hidden ui-popup-screen ui-overlay-b"></div>
+            <div id="tandcancelWarning-popup" class="ui-popup-container ui-popup-hidden">
+                <div data-position-to="origin" data-transition="none" data-corners="true" data-shadow="true" data-disabled="false" aria-disabled="false" id="tandcancelWarning" data-role="popup" class="popup popupTwo ui-popup ui-overlay-shadow ui-corner-all" data-overlay-theme="b" data-dismissible="false">
+                    <p class="verMargin strong"><language key="cancelRegConfirmation"></language></p>
+                    <div class="pop-submitBtn">
+                        <a class="ui-link" onclick="hidePopup('tandcancelWarning-popup');hidePopupScreen('tandcancelWarning-screen');showHideRight('quickguide','termsandconditions');" data-transition="fade"><language key="yes"></language></a>
+                    </div>
+                    <div class="pop-cancelBtn"><a class="ui-link" onclick="hidePopup('tandcancelWarning-popup');hidePopupScreen('tandcancelWarning-screen');" data-transition="fade"><language key="no"></language></a></div>
+                </div>
+            </div>
+        </div>
+        <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="registrationconfirm" data-role="page" id="registrationconfirm">
+            <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+                <a aria-owns="#registrationcancelWarning" aria-haspopup="true" data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="fixScrollTop();showPopup('registrationcancelWarning-popup2');showPopupScreen('registrationcancelWarning-screen2');" class="leftBtnTwo ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-rel="popup" data-position-to="window"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="cancel"></language></span></span></a>
+                <h1 aria-level="1" role="heading" class="ui-title"> <language key="registration"></language> </h1>
+                <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" class="rightBtn ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-transition="slide" onclick="fixScrollTop();processRegistrationCode();"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="continue"></language></span></span></a>
+            </div>
+            <div role="main" data-role="content" class="noshadow ui-content">
+                <div class="content-primary">
+                    <div class="noshadow">
+                        <p><language key="createMobileNeedRegCode"></language></p>
+                        <div class="formField">
+                            <div data-role="fieldcontain" class="ui-hide-label smTextbox ui-field-contain ui-body ui-br">
+                                <label class="ui-input-text" for="registrationcode"><language key="regCodeEntry"></language></label>
+                                <div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="registrationcode" id="registrationcode" value="" placeholder="" placeholderKey="registrationCode" type="text" maxlength="8" autocapitalize="off" autocorrect="off"></div>
+                            </div>
+                        </div>
+                        <h5><language key="getRegistrationCode"></language></h5>
+                        <p><language key="acquiredRegistrationCode"></language></p>
+                        <div class="greyBtn marginTopTwo"><a class="ui-link" onclick="fixScrollTop();showPopup2('popupcallcentre-popup');showPopupScreen('popupcallcentre-screen');" data-rel="popup" data-position-to="window"><language key="anzCallCentre"></language></a></div>
+                        <div class="greyBtn marginTop"><a class="ui-link" onclick="fixScrollTop();showPopup2('popupatm-popup');showPopupScreen('popupatm-screen');" data-rel="popup" data-position-to="window"><language key="anzAtm"></language></a></div>
+                        <div style="display: none;">
+                            <!-- placeholder for popupcallcentre -->
+                        </div>
+                        <div style="display: none;">
+                            <!-- placeholder for popupatm -->
+                        </div>
+                    </div>
+                </div>
+                <div style="display: none;">
+                    <!-- placeholder for successmessageExisting -->
+                </div>
+            </div>
+            <div style="display: none;">
+                <!-- placeholder for registrationcancelWarning -->
+            </div>
+            <div id="popupcallcentre-screen" class="ui-screen-hidden ui-popup-screen ui-overlay-b"></div>
+            <div id="popupcallcentre-popup" class="ui-popup-container ui-popup-hidden">
+                <div data-position-to="origin" data-transition="none" data-corners="true" data-shadow="true" data-disabled="false" aria-disabled="false" id="popupcallcentre" data-role="popup" class="popup ui-popup ui-overlay-shadow ui-corner-all" data-overlay-theme="b" data-dismissible="false">
+                    <h3><language key="getRegistrationCodeByCallCentre"></language></h3>
+                    <div class="listContent">
+                        <ul>
+                            <li><language key="callCentreStepOne"></language></li>
+                            <li><language key="callCentreStepTwo"></language></li>
+                            <li><language key="callCentreStepThree"></language></li>
+                            <li><language key="callCentreStepFour"></language></li>
+                        </ul>
+                    </div>
+                    <div class="pop-submitBtn marginTop"><a class="ui-link" onclick="fixScrollTop();goToHTML({viewId: 'makePhoneCall'});"><language key="callAnz"></language></a></div>
+                    <div class="pop-cancelBtn"><a class="ui-link" onclick="fixScrollTop();hidePopup2('popupcallcentre-popup');hidePopupScreen('popupcallcentre-screen');"><language key="back"></language></a></div>
+                </div>
+            </div>
+            <div id="popupatm-screen" class="ui-screen-hidden ui-popup-screen ui-overlay-b"></div>
+            <div id="popupatm-popup" class="ui-popup-container ui-popup-hidden">
+                <div data-position-to="origin" data-transition="none" data-corners="true" data-shadow="true" data-disabled="false" aria-disabled="false" id="popupatm" data-role="popup" class="popup ui-popup ui-overlay-shadow ui-corner-all" data-overlay-theme="b" data-dismissible="false">
+                    <h3><language key="getRegistrationCodeFromAnzAtm"></language></h3>
+                    <div class="listContent">
+                        <ul>
+                            <li><language key="getRegCodeFromAtmStepOne"></language></li>
+                            <li><language key="getRegCodeFromAtmStepTwo"></language></li>
+                            <li><language key="getRegCodeFromAtmStepThree"></language></li>
+                            <li><language key="getRegCodeFromAtmStepFour"></language></li>
+                        </ul>
+                    </div>
+                    <div class="pop-submitBtn marginTop"><a class="ui-link" onclick="fixScrollTop();hidePopup2('popupatm-popup');hidePopupScreen('popupatm-screen');getCurrentLocation();" ><language key="findAnzAtm"></language></a></div>
+                    <div class="pop-cancelBtn"><a class="ui-link" onclick="fixScrollTop();hidePopup2('popupatm-popup');hidePopupScreen('popupatm-screen');"><language key="back"></language></a></div>
+                </div>
+            </div>
+            <div id="successmessageExisting-screen" class="ui-screen-hidden ui-popup-screen ui-overlay-b"></div>
+            <div id="successmessageExisting-popup" class="ui-popup-container ui-popup-hidden">
+                <div data-position-to="origin" data-transition="none" data-corners="true" data-shadow="true" data-disabled="false" aria-disabled="false" id="successmessageExisting" data-role="popup" class="popup ui-popup ui-overlay-shadow ui-corner-all" data-overlay-theme="b" data-dismissible="false">
+                    <h3><language key="confirmRegistration"></language></h3>
+                    <p><span class="labelTxt"><language key="userName"></language></span><span class="confirmTxt" id="username_confirmationExisting"></span></p>
+                    <p><span class="labelTxt"><language key="password"></language></span><span class="confirmTxt" id="password_confirmationExisting"></span></p>
+                    <p><span class="labelTxt"><language key="emailAddress"></language></span><span class="confirmTxt" id="email_confirmationExisting"></span></p>
+                    <div class="pop-submitBtn marginTop"><a class="ui-link" onclick="existingRegistration();"><language key="confirm"></language></a></div>
+                    <!--<div class="pop-submitBtn"><a href="#createaccount">Edit</a></div>-->
+                    <div class="pop-cancelBtn"><a class="ui-link" onclick="hidePopup('successmessageExisting-popup');hidePopupScreen('successmessageExisting-screen');" data-rel="popup" data-position-to="window"><language key="cancel"></language></a></div>
+                </div>
+            </div>
+            <div id="registrationcancelWarning-screen2" class="ui-screen-hidden ui-popup-screen ui-overlay-b"></div>
+            <div id="registrationcancelWarning-popup2" class="ui-popup-container ui-popup-hidden">
+                <div data-position-to="origin" data-transition="none" data-corners="true" data-shadow="true" data-disabled="false" aria-disabled="false" id="registrationcancelWarning" data-role="popup" class="popup popupTwo ui-popup ui-overlay-shadow ui-corner-all" data-overlay-theme="b" data-dismissible="false">
+                    <p class="verMargin strong"><language key="cancelRegConfirmation"></language></p>
+                    <div class="pop-submitBtn">
+                        <a class="ui-link" onclick="hidePopup('registrationcancelWarning-popup2');hidePopupScreen('registrationcancelWarning-screen2');goToHTML({viewId: 'index.html'});" data-transition="fade"><language key="yes"></language></a>
+                    </div>
+                    <div class="pop-cancelBtn"><a class="ui-link" onclick="hidePopup('registrationcancelWarning-popup2');hidePopupScreen('registrationcancelWarning-screen2');" data-transition="fade"><language key="no"></language></a></div>
+                </div>
+            </div>
+        </div>
+        <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="registration" data-role="page" id="registration">
+            <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+                <a aria-owns="#registrationcancelWarning" aria-haspopup="true" data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="fixScrollTop();showPopup('registrationcancelWarning-popup3');showPopupScreen('registrationcancelWarning-screen3');" class="leftBtnTwo ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-rel="popup" data-position-to="window"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="cancel"></language></span></span></a>
+                <h1 aria-level="1" role="heading" class="ui-title"> <language key="registration"></language> </h1>
+                <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" href="#" class="rightBtn ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-transition="slide" onclick="fixScrollTop();processCard();"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="continue"></language></span></span></a>
+            </div>
+            <div role="main" data-role="content" class="noshadow ui-content">
+                <div class="content-primary">
+                    <div class="noshadow">
+                        <p><language key="registerMobileBanking"></language></p>
+                        <div class="ui-tabs ui-widget ui-widget-content ui-corner-all" data-role="inlinetabs" id="tabs">
+                            <div role="navigation" data-role="navbar" class="tabMenu ui-navbar ui-mini">
+                                <ul role="tablist" class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all ui-grid-a">
+                                    <li id="tabBar1Li" onclick="fixScrollTop();showTabBar('tabBar1');" aria-selected="true" aria-labelledby="ui-id-1" aria-controls="tab-1" tabindex="0" role="tab" class="ui-state-default ui-corner-top ui-tabs-active ui-state-active ui-block-a"><a data-inline="true" data-theme="c" data-wrapperels="span" data-iconshadow="true" data-shadow="false" data-corners="false" id="ui-id-1" tabindex="-1" role="presentation" class="ui-tabs-anchor ui-btn ui-btn-up-c ui-btn-inline" href="#tab-1" data-tab="1" onclick="flag = 0;"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="atmCard"></language></span></span></a></li>
+                                    <li id="tabBar2Li" onclick="fixScrollTop();showTabBar('tabBar2');" aria-selected="false" aria-labelledby="ui-id-2" aria-controls="tab-2" tabindex="-1" role="tab" class="ui-state-default ui-corner-top ui-block-b"><a data-inline="true" data-theme="c" data-wrapperels="span" data-iconshadow="true" data-shadow="false" data-corners="false" id="ui-id-2" tabindex="-1" role="presentation" class="ui-tabs-anchor ui-btn ui-btn-up-c ui-btn-inline" href="#tab-2" data-tab="2" onclick="flag = 1;"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="creditCard"></language></span></span></a></li>
+                                </ul>
+                            </div>
+                            <!-- /navbar -->
+                            <div id="tabBar1" aria-hidden="false" aria-expanded="true" style="display: block;" role="tabpanel" class="ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-1" data-tab="1">
+                                <p><language key="entryYourDetails"></language></p>
+                                <div class="formField">
+                                    <div data-role="fieldcontain" class="ui-hide-label smTextbox ui-field-contain ui-body ui-br">
+                                        <label class="ui-input-text" for="atmnumber"><language key="digitAtmCard"></language></label>
+                                        <div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="atmnumber" id="atmnumber" value="" placeholderKey="digitAtmCard" type="tel" maxlength="16"></div>
+                                    </div>
+                                    <div data-role="fieldcontain" class="ui-hide-label smTextbox ui-field-contain ui-body ui-br">
+                                        <label class="ui-input-text" for="accountnumber"><language key="lastFourDigitAcctNo"></language></label>
+                                        <div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="accountnumber" id="accountnumber" value="" placeholderKey="lastFourDigitAcctNo" type="tel" maxlength="4"></div>
+                                    </div>
+                                    <div data-role="fieldcontain" class="ui-hide-label smTextbox ui-field-contain ui-body ui-br">
+                                        <label class="ui-input-text" for="atmhrmnnumber"><language key="lastFourDigitPhoneNo"></language></label>
+                                        <div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="atmhrmnnumber" id="atmhrmnnumber" value="" placeholderKey="lastFourDigitPhoneNo" type="tel" maxlength="4"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="tabBar2" aria-hidden="true" aria-expanded="false" style="display: none;" role="tabpanel" class="ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-2" data-tab="2">
+                                <p><language key="entryYourDetails"></language></p>
+                                <div class="formField">
+                                    <div data-role="fieldcontain" class="ui-hide-label smTextbox ui-field-contain ui-body ui-br">
+                                        <label class="ui-input-text" for="ccnumber"><language key="digitCreditCard"></language></label>
+                                        <div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="ccnumber" id="ccnumber" value="" placeholderKey="digitCreditCard" type="tel" maxlength="16"></div>
+                                    </div>
+                                    <div data-role="fieldcontain" class="ui-hide-label smTextbox ui-field-contain ui-body ui-br">
+                                        <label class="ui-input-text" for="cclimit"><language key="limitCreditCard"></language></label>
+                                        <div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="cclimit" id="cclimit" value="" placeholderKey="limitCreditCard" type="tel" onblur="convertMoneyFormat('cclimit');"></div>
+                                    </div>
+                                    <div data-role="fieldcontain" class="ui-hide-label smTextbox ui-field-contain ui-body ui-br">
+                                        <label class="ui-input-text" for="cchrmnumber"><language key="lastFourDigitPhoneNo"></language></label>
+                                        <div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="cchrmnumber" id="cchrmnumber" value="" placeholderKey="lastFourDigitPhoneNo" type="tel" maxlength="4"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="display: none;">
+                <!-- placeholder for registrationcancelWarning -->
+            </div>
+            <div id="registrationcancelWarning-screen3" class="ui-screen-hidden ui-popup-screen ui-overlay-b"></div>
+            <div id="registrationcancelWarning-popup3" class="ui-popup-container ui-popup-hidden">
+                <div data-position-to="origin" data-transition="none" data-corners="true" data-shadow="true" data-disabled="false" aria-disabled="false" id="registrationcancelWarning" data-role="popup" class="popup popupTwo ui-popup ui-overlay-shadow ui-corner-all" data-overlay-theme="b" data-dismissible="false">
+                    <p class="verMargin strong"><language key="cancelRegConfirmation"></language></p>
+                    <div class="pop-submitBtn">
+                        <a class="ui-link" onclick="hidePopup('registrationcancelWarning-popup3');hidePopupScreen('registrationcancelWarning-screen3');goToHTML({viewId: 'index.html'});" data-transition="fade"><language key="yes"></language></a>
+                    </div>
+                    <div class="pop-cancelBtn"><a class="ui-link" onclick="hidePopup('registrationcancelWarning-popup3');hidePopupScreen('registrationcancelWarning-screen3');" data-transition="fade"><language key="no"></language></a></div>
+                </div>
+            </div>
+        </div>
+        <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="createaccount" data-role="page" id="createaccount">
+            <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+                <a aria-owns="#registrationcancelWarningtwo" aria-haspopup="true" data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="fixScrollTop();showPopup('registrationcancelWarningtwo-popup');showPopupScreen('registrationcancelWarningtwo-screen');" class="leftBtnTwo ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-rel="popup" data-position-to="window"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="cancel"></language></span></span></a>
+                <h1 aria-level="1" role="heading" class="ui-title"> <language key="createAccount"></language> </h1>
+                <a aria-owns="#" aria-haspopup="true" data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" href="#" data-rel="popup" class="rightBtn ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-position-to="window" onclick="fixScrollTop();getUsrPwdLength();"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="submitReg"></language></span></span></a>
+            </div>
+            <div role="main" data-role="content" class="noshadow ui-content">
+                <div class="content-primary">
+                    <div class="noshadow">
+                        <div class="formField">
+                            <div data-role="fieldcontain" class="ui-hide-label smTextbox ui-field-contain ui-body ui-br">
+                                <label class="ui-input-text" for="username"><language key="userNameNoColon"></language></label>
+                                <div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="username" id="username" value="" placeholderKey="userId" type="text"></div>
+                            </div>
+                            <div data-role="fieldcontain" class="ui-hide-label  smTextbox ui-field-contain ui-body ui-br">
+                                <label class="ui-input-text" for="password"><language key="passwordNoColon"></language></label>
+                                <div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="password" id="password" value="" placeholderKey="passwordNoColon" type="password" maxlength="16"></div>
+                            </div>
+                            <div data-role="fieldcontain" class="ui-hide-label  smTextbox ui-field-contain ui-body ui-br">
+                                <label class="ui-input-text" for="reenterpassword"><language key="reEnterPass"></language></label>
+                                <div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="reenterpassword" id="reenterpassword" value="" placeholderKey="reEnterPassReg" type="password" maxlength="16"></div>
+                            </div>
+                            <div data-role="fieldcontain" class="ui-hide-label  smTextbox ui-field-contain ui-body ui-br">
+                                <label class="ui-input-text" for="email"><language key="yourEmailAddr"></language></label>
+                                <div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="email" id="email" value="" placeholderKey="yourEmailAddrReg" type="email"></div>
+                            </div>
+                            <p><language key="notesColon"></language></p>
+							<p><language key="atLeastEightChars"></language><a id="minLenUserId"></a><language key="characters"></language></p>
+							<p><language key="consistAtLeast"></language></p>
+							<ul class="ulWS">
+							<li><a id="rangeLenPwd"></a><language key="pwdCharLimit"></language></li>
+							<li><a id="minUppercase"></a><language key="pwdUppercase"></language></li>
+							<li><a id="minLowercase"></a><language key="pwdLowercase"></language></li>
+							<li><language key="andSpace"></language><a id="minNumeric"></a><language key="pwdNumerals"></language></li>
+							</ul> 
+							<p></p>
+							<p><language key="userIDWillBeUsed"></language></p>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: none;">
+                    <!-- placeholder for successmessage -->
+                </div>
+                <div style="display: none;">
+                    <!-- placeholder for registrationcancelWarningone -->
+                </div>
+                <div style="display: none;">
+                    <!-- placeholder for registrationcancelWarningtwo -->
+                </div>
+            </div>
+            <div id="successmessage-screen" class="ui-screen-hidden ui-popup-screen ui-overlay-b"></div>
+            <div id="successmessage-popup" class="ui-popup-container ui-popup-hidden">
+                <div data-position-to="origin" data-transition="none" data-corners="true" data-shadow="true" data-disabled="false" aria-disabled="false" id="successmessage" data-role="popup" class="popup ui-popup ui-overlay-shadow ui-corner-all" data-overlay-theme="b" data-dismissible="false">
+                    <h3><language key="confirmRegistration"></language></h3>
+                    <p><span class="labelTxt"><language key="userName"></language></span><span class="confirmTxt" id="username_confirmation"></span></p>
+                    <p><span class="labelTxt"><language key="password"></language></span><span class="confirmTxt" id="password_confirmation"></span></p>
+                    <p><span class="labelTxt"><language key="emailAddress"></language></span><span class="confirmTxt" id="email_confirmation"></span></p>
+                    <div class="pop-submitBtn marginTop"><a class="ui-link" onclick="processConfirmation();"><language key="confirm"></language></a></div>
+                    <div class="pop-submitBtn"><a class="ui-link" onclick="hidePopup('successmessage-popup');hidePopupScreen('successmessage-screen');"><language key="edit"></language></a></div>
+                    <div class="pop-cancelBtn"><a class="ui-link" onclick="hidePopup('successmessage-popup');hidePopupScreen('successmessage-screen');showPopup('registrationcancelWarningone-popup');showPopupScreen('registrationcancelWarningone-screen');" data-rel="popup" data-position-to="window"><language key="cancel"></language></a></div>
+                </div>
+            </div>
+            <div id="registrationcancelWarningone-screen" class="ui-screen-hidden ui-popup-screen ui-overlay-b"></div>
+            <div id="registrationcancelWarningone-popup" class="ui-popup-container ui-popup-hidden">
+                <div data-position-to="origin" data-transition="none" data-corners="true" data-shadow="true" data-disabled="false" aria-disabled="false" id="registrationcancelWarningone" data-role="popup" class="popup popupTwo ui-popup ui-overlay-shadow ui-corner-all" data-overlay-theme="b" data-dismissible="false">
+                    <p class="verMargin strong"><language key="cancelRegConfirmation"></language></p>
+                    <div class="pop-submitBtn">
+                        <a class="ui-link" onclick="hidePopup('registrationcancelWarningone-popup');hidePopupScreen('registrationcancelWarningone-screen');goToHTML({viewId: 'index.html'});" data-transition="fade"><language key="yes"></language></a>
+                    </div>
+                    <div class="pop-cancelBtn"><a class="ui-link" onclick="hidePopup('registrationcancelWarningone-popup');hidePopupScreen('registrationcancelWarningone-screen');//showPopup('successmessage-popup');showPopupScreen('successmessage-screen');" data-transition="fade" data-rel="popup" data-position-to="window"><language key="no"></language></a></div>
+                </div>
+            </div>
+            <div id="registrationcancelWarningtwo-screen" class="ui-screen-hidden ui-popup-screen ui-overlay-b"></div>
+            <div id="registrationcancelWarningtwo-popup" class="ui-popup-container ui-popup-hidden">
+                <div data-position-to="origin" data-transition="none" data-corners="true" data-shadow="true" data-disabled="false" aria-disabled="false" id="registrationcancelWarningtwo" data-role="popup" class="popup popupTwo ui-popup ui-overlay-shadow ui-corner-all" data-overlay-theme="b" data-dismissible="false">
+                    <p class="verMargin strong"><language key="cancelRegConfirmation"></language></p>
+                    <div class="pop-submitBtn">
+                        <a class="ui-link" onclick="hidePopup('registrationcancelWarningtwo-popup');hidePopupScreen('registrationcancelWarningtwo-screen');goToHTML({viewId: 'index.html'});" data-transition="fade"><language key="yes"></language></a>
+                    </div>
+                    <div class="pop-cancelBtn"><a class="ui-link" onclick="hidePopup('registrationcancelWarningtwo-popup');hidePopupScreen('registrationcancelWarningtwo-screen');" data-transition="fade"><language key="no"></language></a></div>
+                </div>
+            </div>
+        </div>
+        <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="accountactivemsg" data-role="page" id="accountactivemsg">
+            <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+                <h1 aria-level="1" role="heading" class="nobutton ui-title"> <language key="regComplete"></language> </h1>
+            </div>
+            <div role="main" data-role="content" class="noshadow ui-content">
+                <div class="content-primary">
+                    <div class="noshadow confirnation">
+                        <div class="icon-tick"></div>
+                        <h2><language key="congratulations"></language></h2>
+                        <h2 style="line-height:25px;" id="customerNameReg"></h2>
+                        <p><language key="mobileBankingAcctSuccess"></language></p>
+                        <p class="startPadtop"><language key="startUsingMobileBanking"></language></p>
+                        <div class="greyBtn"><a class="ui-link" onclick="goToHTML({viewId: 'login.html'})" data-transition="slide" id="myAccount" rel="external"><language key="login"></language></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!------******************------>
+        <!--------- Find ANZ--------->
+        <!------******************------>
+        <div class="ui-page ui-body-c ui-page-header-fixed ui-page-footer-fixed" tabindex="0" data-url="nearestATM" data-role="page" id="nearestATM" data-add-back-btn="true">
+            <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+                <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="fixScrollTop();showHideRight('registrationconfirm','nearestATM');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-role="button" rel="external"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="back"></language></span></span></a>
+                <h1 aria-level="1" role="heading" class="ui-title"><language key="findAnz"></language></h1>
+            </div>
+            <div role="main" data-role="content" class="noshadow ui-content">
+                <div class="content-primary">
+                    <div class="ui-tabs ui-widget ui-widget-content ui-corner-all" data-role="inlinetabs" id="findtabs">
+                        <div aria-hidden="true" aria-expanded="false" style="display: none;" role="tabpanel" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-listview" aria-labelledby="ui-id-2" data-tab="7" id="tab-7" data-role="listview">
+                            
+                        </div>
+                        <div role="contentinfo" id="footer" data-position="fixed" data-role="footer" class="footer ui-footer ui-bar-a ui-footer-fixed slideup" data-tap-toggle="false">
+                            <a title="Menu"  onclick="goToCurrentLocATM();"  data-theme="a" data-wrapperels="span" data-shadow="true" href="#" data-icon="nearby" data-iconpos="notext" data-iconshadow="false" data-corners="false" class="ui-btn-left nearby ui-btn ui-btn-up-a ui-shadow ui-btn-icon-notext"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="menu"></language></span><span class="ui-icon ui-icon-nearby">&nbsp;</span></span></a>
+                            <div role="navigation" data-role="navbar" class="footertabMenu ui-navbar ui-mini">
+                                <ul role="tablist" class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all ui-grid-a">
+                                    <li id="tab-7Tab" aria-selected="false" aria-labelledby="ui-id-2" aria-controls="tab-7" tabindex="-1" role="tab" class="ui-state-default ui-corner-top ui-block-b"><a data-inline="true" data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="false" data-corners="false" id="ui-id-2" tabindex="-1" role="presentation" class="ui-tabs-anchor ui-btn ui-btn-up-a ui-btn-inline" data-tab="7"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="list"></language></span></span></a></li>
+                                </ul>
+                            </div>
+                            <a title="Menu" data-theme="a" data-wrapperels="span" data-shadow="true" href="#" data-iconpos="notext" data-corners="false" data-iconshadow="false" data-icon="search" class="ui-btn-right search ui-btn ui-btn-up-a ui-shadow ui-btn-icon-notext"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="menu"></language></span><span class="ui-icon ui-icon-search">&nbsp;</span></span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!------******************------>
+        <!--------- Adrress Details--------->
+        <!------******************------>
+        <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="atmAddressDetails" data-role="page" id="atmAddressDetails" data-add-back-btn="true">
+            <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+                <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="fixScrollTop();showHideRight('nearestATM','atmAddressDetails');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="map"></language></span></span></a>
+                <h1 aria-level="1" role="heading" class="ui-title"><language key="atmDetails"></language></h1>
+            </div>
+            <div role="main" data-role="content" class="noshadow whiteBg ui-content">
+                <div class="content-primary">
+                    <div class="backgroundTwo">
+                        <span class="addressLeft">
+                            <h3><span id="atmName">ANZ Tower Branch</span></h3>
+                            <p><span id="atmAddress1">JL Jend</span></p>
+                            <p><span id="atmAddress2">Sudirman Kav 33A,</span></p>
+                            <p><span id="atmAddress3">Jakarta Pusat, Jakarta</span></p>
+                        </span>
+                    </div>
+                    <div class="bankTimings">
+                        <h4 class="timer"><language key="openingHours"></language></h4>
+                        <p><language key="everyDay"></language></p>
+                        <hr>
+                        <h4><language key="weCanHelpYouWith"></language></h4>
+                        <ul>
+                            <li><language key="everydayAccounts"></language></li>
+                            <li><language key="insurance"></language></li>
+                            <li><language key="loans"></language></li>
+                            <li><language key="financialAdvice"></language></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui-loader ui-corner-all ui-body-a ui-loader-default">
+            <span class="ui-icon ui-icon-loading"></span>
+            <h1><language key="loading"></language></h1>
+        </div>
+    </body>
+</html>

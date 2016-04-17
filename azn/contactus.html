@@ -1,0 +1,231 @@
+<html class="ui-mobile"><head>
+    <script src="cordova.js"></script>
+    <script src="native.js"></script>
+    <script type="text/javascript">
+        app.initialize();
+        </script>
+    <title> Contact Us </title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta content="telephone=no" name="format-detection">
+	<link href="css/jquerycss.css" rel="stylesheet" type="text/css">
+	<link href="css/style.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="script/jq.mobi.js"></script>
+	<script type="text/javascript" src="GeneralJavascript/generalFunction.js"></script>
+    <script>
+        $(function() {
+          $( "#tabs" ).tabs();
+          $("#contacttabs").tabs();
+          });
+    </script>
+    <script>
+    		function checkMobileBanking() {
+			//sementara di mark dulu sampai ada keputusan di implement
+			setContentData([{source: 'server',service:'checkMobileBanking'}], 'checkMobileBankingCallback');
+		}
+
+		function checkMobileBankingCallback() {
+						   		var ok = getContentData('ok');
+								if(ok == 1) {
+									   goToHTML({viewId:'myaccount.html'});
+								} else {
+                                       alert(getContentData('message'));
+                                }
+						   	}
+
+          function fixScrollTop()
+		{
+			if(document.body.scrollTop > 0)
+			{
+			document.body.scrollTop = 0;
+			}
+		}
+		
+		function sendContactUs(){
+			var name = $('#name').val();
+			var contactnum = $('#contactnum').val();
+			var email = $('#email').val();
+			var textarea = $('#textarea').val();
+                 
+            	if(name == '') {
+               	loadMessageResourceAlert("contactUs.name.mandatory");
+               	return;
+            	} else if (contactnum == ''){
+               	loadMessageResourceAlert("contactUs.contactNumber.mandatory");
+               	return;
+			} else if (email == '') {
+				loadMessageResourceAlert("contactUs.emailAddress.mandatory");
+				return;
+			} else if (textarea == '') {
+				loadMessageResourceAlert("contactUs.comment.mandatory");
+				return;
+			} else if (!validateEmail(email)) {
+				loadMessageResourceAlert("contactUs.formatEmail.valid");
+				return;
+			} else {
+				invokeService({action: [{source: 'server', service: 'ContactUs',params:{name: name,contactnum: contactnum,email: email,comment: textarea}}]})
+				goToHTML({viewId:'myaccount.html'});
+			}
+		}
+                            
+		function validateEmail(email) {
+			var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			return re.test(email);
+		}
+                                              
+		function prepareContactUs(){
+			document.getElementById("contactType").value = 'tab3';
+			setContentData([{source: 'server',service:'PrepareContactUs',dataIds:[{dataId: 'cityList',dataType:'list',source:'param'}]}],'fillCityRollBack');
+		}
+                                              
+		function fillCityRollBack(){
+			var cityList = getContentData('cityList');
+			document.getElementById('chequerequestOption').innerHTML = '';
+			document.getElementById('chequerequestOption').innerHTML += '<option value="">Select</option>';
+			for(var a=0;a<cityList.length;a++){
+				document.getElementById('chequerequestOption').innerHTML += '<option value='+cityList[a].code+'>'+cityList[a].name+'</option>'
+			}
+			app.backFunction=customBackFromContactUs;
+		}
+
+		function customBackFromContactUs(){
+			checkMobileBanking();
+		}
+                                              
+		function changeContactType(data){
+			document.getElementById("contactType").value = data;
+		}
+                                              
+        function searchContact(){
+        	var hisType = document.getElementById('contactType').value;
+        	if (hisType == 'tab3') {
+        		sendContactUs();
+       		} else {
+        		searchBranchOrATM();
+        	}
+        }
+                                              
+        function searchBranchOrATM(){
+   		  var typeCode = $('#typeOption').val();
+            var cityCode = $('#chequerequestOption').val();
+            if (cityCode == '') {
+			loadMessageResourceAlert("searchbranchatm.citycode.mandatory");
+			return;
+            } else {
+            	setContentData([{source: 'server',service:'SearchBranchOrATM',params:{searchType: typeCode,cityCode:cityCode},dataIds:[{dataId: 'atmResultList',dataType:'list',source:'param'},{dataId: 'branchResultList',dataType:'list',source:'param'}]}],'fillSearchRollBack');
+        	  }
+        }
+                                              
+		function fillSearchRollBack(){
+			document.getElementById('searchResult').innerHTML = '';
+			var atmList = getContentData('atmResultList');
+			var branchList = getContentData('branchResultList');
+			for(var a=0;a<atmList.length;a++){
+				document.getElementById('searchResult').innerHTML += '<li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-first-child ui-last-child ui-btn-up-c" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a class="ui-link-inherit" href="#"><img class="ui-li-thumb" src="images/icon-listviewatm.png"><h2 class="ui-li-heading">'+atmList[a].name+'</h2><p class="ui-li-desc">'+atmList[a].address1+'</p></a></div></div></li>'
+			}
+			for(var b=0;b<branchList.length;b++){
+				document.getElementById('searchResult').innerHTML += '<li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-first-child ui-last-child ui-btn-up-c" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a class="ui-link-inherit" href="#"><img class="ui-li-thumb" src="images/icon-mapviewbranch.png"><h2 class="ui-li-heading">'+branchList[b].name+'</h2><p class="ui-li-desc">'+branchList[b].address1+'</p></a></div></div></li>'
+			}
+		}
+                                              
+		function showHideTabBar(tab1,tab2){
+			$('#'+tab1+'Tab').addClass('ui-tabs-active');
+			$('#'+tab1+'Tab').addClass('ui-state-active');
+			$('#'+tab2+'Tab').removeClass('ui-tabs-active');
+			$('#'+tab2+'Tab').removeClass('ui-state-active');
+                                              
+			document.getElementById(tab1).style.display = 'block';
+			document.getElementById(tab2).style.display = 'none';
+		}
+                                              
+		</script>
+	</head>
+<body class="loginScreen innerPage ui-mobile-viewport ui-overlay-c" onload="processLanguages();prepareContactUs();">
+    <!------******************------>
+    <!--------- Contact Us --------->
+    <!------******************------>
+    
+    <div class="ui-page ui-body-c ui-page-header-fixed ui-page-active" tabindex="0" data-url="contactus" data-role="page" id="contactus" data-add-back-btn="false">
+        <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+            <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="fixScrollTop();checkMobileBanking();" class="leftBtnTwo arrow ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-role="button" rel="external"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="account1"></language></span></span></a>
+            <h1 aria-level="1" role="heading" class="ui-title"><language key="contactUs"></language></h1>
+            <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" class="rightBtn ui-btn-right ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" onclick="fixScrollTop();searchContact();"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="submit"></language></span></span></a>
+        </div>
+        <div role="main" data-role="content" class="noshadow ui-content">
+            <div class="content-primary ">
+                <div class="ui-tabs ui-widget ui-widget-content ui-corner-all" data-role="inlinetabs" id="contacttabs">
+                    <div role="navigation" data-role="navbar" class="tabMenu notopMargin ui-navbar ui-mini">
+                        <input id="contactType" value="tab3" type="hidden">
+                            <ul role="tablist" class="ui-grid-a ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+                                <li id="tab-3Tab" aria-selected="true" aria-labelledby="ui-id-1" aria-controls="tab-3" tabindex="0" role="tab" class="ui-block-a ui-state-default ui-corner-top ui-tabs-active ui-state-active"><a onclick="fixScrollTop();changeContactType('tab3');showHideTabBar('tab-3','tab-4');" id="ui-id-1" tabindex="-1" role="presentation" class="ui-btn ui-btn-inline ui-tabs-anchor ui-btn-up-c" data-inline="true" data-theme="c" data-wrapperels="span" data-iconshadow="true" data-shadow="false" data-corners="false" data-tab="3"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="letUsContactYou"></language></span></span></a></li>
+                                <li id="tab-4Tab" aria-selected="false" aria-labelledby="ui-id-2" aria-controls="tab-4" tabindex="-1" role="tab" class="ui-block-b ui-state-default ui-corner-top"><a onclick="fixScrollTop();changeContactType('tab4');showHideTabBar('tab-4','tab-3');" id="ui-id-2" tabindex="-1" role="presentation" class="ui-btn ui-btn-inline ui-tabs-anchor ui-btn-up-c" data-inline="true" data-theme="c" data-wrapperels="span" data-iconshadow="true" data-shadow="false" data-corners="false" data-tab="4"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="branches"></language> &amp; <language key="atm"></language></span></span></a></li>
+                            </ul>
+                            </div>
+                    <!-- /navbar -->
+                    <div style="display: block;" aria-hidden="false" aria-expanded="true" role="tabpanel" class="ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-1" data-tab="3" id="tab-3">
+                        <p><language key="completeTheForm"></language></p>
+                        <div class="formField textboxMargin firstChild">
+                            <div data-role="fieldcontain" class="ui-hide-label smTextbox ui-field-contain ui-body ui-br"><label class="ui-input-text" for="name"><language key="yourName"></language></label><div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="name" id="name" value="" placeholderKey="yourName" type="text" maxlength="40"></div></div>
+                        </div>
+                        <div class="formField textboxMargin">
+                            <div data-role="fieldcontain" class="ui-hide-label smTextbox ui-field-contain ui-body ui-br"><label class="ui-input-text" for="contactnum"><language key="yourContactNo"></language></label><div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="contactnum" id="contactnum" value="" placeholderKey="yourContactNo" type="tel" maxlength="20"></div></div>
+                        </div>
+                        <div class="formField textboxMargin firstChild">
+                            <div data-role="fieldcontain" class="ui-hide-label smTextbox ui-field-contain ui-body ui-br"><label class="ui-input-text" for="email"><language key="yourEmailAddr"></language></label><div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="email" id="email" value="" placeholderKey="yourEmailAddr" type="text"></div></div>
+                        </div>
+                        <div class="formField textboxMargin lasrChild">
+                            <div data-role="fieldcontain" class="ui-hide-label ui-field-contain ui-body ui-br"><label class="ui-input-text" for="textarea"><language key="yourComment"></language></label><textarea class="ui-input-text ui-body-c ui-corner-all ui-shadow-inset" cols="40" rows="8" name="textarea" id="textarea" placeholderKey="yourComment" maxlength="500"></textarea></div><p><language key="max500char"></language></p>
+                        </div>
+                    </div>
+                    
+                    <div aria-hidden="true" aria-expanded="false" style="display: none;" role="tabpanel" class="ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-2" data-tab="4" id="tab-4">
+                        <p><language key="anzCallCentre"></language></p>
+                        <span class="callBtn span-two marginTopthree"><a class="ui-link" onclick="goToHTML({viewId:'makePhoneCall'});"><span class="callus"></span>08041000269</a></span>
+                        <div class="minusmargintwo whiteBgTwo ">
+                            <div class="transgreyBackgrout padding">
+                                <div data-role="fieldcontain" class="noMargin marginBottom ui-field-contain ui-body ui-br">
+                                	<label for="typeOption" class="select ui-select"><language key="selectBranchAtm"></language></label>
+                                	<div class="ui-select">
+                                		<div class="ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-right ui-btn-up-c">
+                                			<span class="ui-btn-inner">
+                                				<span class="ui-btn-text"><span id="selectBranch"><language key="branch"></language></span></span>
+                                				<span class="ui-icon ui-icon-arrow-d ui-icon-shadow">&nbsp;</span>
+                                			</span>
+                           				<select name="typeOption" id="typeOption" onchange="document.getElementById('selectBranch').innerHTML = getSelectedOption(this);">
+			                                    <option language="atm" value="ATM"><language key="atm"></language></option>
+			                                    <option language="branch" value="BRANCH" selected><language key="branch"></language></option>
+                                			</select>
+                                		</div>
+                                </div>
+                                <label for="chequerequestOption" class="select ui-select">
+                                <language key="selectCity"></language>
+                                </label>
+                                <div class="ui-select">
+                                	<div class="ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-right ui-btn-up-c">
+                                		<span class="ui-btn-inner">
+                                			<span class="ui-btn-text"><span id="selectCity"><language key="city"></language></span></span>
+                                			<span class="ui-icon ui-icon-arrow-d ui-icon-shadow">&nbsp;</span>
+                                		</span>
+                                		<select name="chequerequestOption" id="chequerequestOption" onchange="document.getElementById('selectCity').innerHTML = getSelectedOption(this);">
+                                		</select>
+                                	</div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="selectedLocation">
+                            <ul data-role="listview" class="listtype ui-listview" id="searchResult"> 
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    <div class="ui-loader ui-corner-all ui-body-a ui-loader-default"><span class="ui-icon ui-icon-loading"></span><h1><language key="loading"></language></h1></div>
+</body>
+</html>

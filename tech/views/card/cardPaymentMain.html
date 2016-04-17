@@ -1,0 +1,87 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <div class="scrollBox-withFooter formContainer" id="scrollArea" style="margin-top: 5px;">
+        <form id="paymentForm" name="paymentForm">
+
+            <div class="greyBorderBottom">
+                <ul class="arrowlist" style="margin: 0">
+                    <li class="fromRow" ng-click="selectAccount()">
+                        <a class="labelKey"><b>{{ 'COMMON_FROM' | translate }}</b></span><br>
+                              <span class="detail">
+                                  {{sourceAccount.displayName}}<br>
+                                  {{sourceAccount.accountNumber}}<br>
+                                  {{currencyCode}} {{sourceAccount.availableBalance.formatMoney(0)}}<br>
+                              </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div style="padding-top: 5px">
+                <select class="form-control" style="font-size: 1.1em !important;  margin-top: 5px;margin-bottom: 15px" ng-model="cardInfo.paymentFor" ng-change="paymentFor()">
+                    <!--<option value="0" selected="selected">{{'CARD_PAYMENT_CHOOSE_PAYMENT_FOR' | translate}}</option>-->
+                    <option value="1" ng-disabled="disableForOwner">{{'CARD_PAYMENT_FOR_OWNER' | translate}}</option>
+                    <option value="2">{{'CARD_PAYMENT_FOR_OTHER' | translate}}</option>
+                </select>
+            </div>
+
+            <div class="space" style="margin-top: -5px"></div>
+
+            <div class="input-withIcon" style="margin-bottom: -10px;" ng-if="!isPaymentForOther"><b>{{'CARD_PAYMENT_FOR' | translate}}</b></br>
+                <input placeholder="{{'CAR_PAYMENT_ENTER_NUMBER' | translate}}" ng-model="cardInfo.cardNumber" required id="cardNumber" readonly="readonly"/>
+                <i class="selectAccount inputIcon glyphicon pull-right" ng-click="selectCardFromListOwner()" style="margin-top: 5px; width: 40px !important;height: 40px !important;"></i>
+            </div>
+
+            <div class="space" ng-show="!isPaymentForOther"></div>
+
+            <div class="input-withIcon" style="margin-bottom: -15px;"><b>{{'CARD_PAYMENT_LIST_CARD_ACCOUNT_NUMBER' | translate}}</b></br>
+                <div class="cardHolderNameBefore" ng-show="isPaymentForOther">{{cardInfo.name}} </div>
+                <input type="text" pattern="[0-9]*" placeholder="{{'CARD_PAYMENT_ENTER_ACCOUNT_NUMBER' | translate}}" ng-model="cardInfo.cardAccountNumber" required id="cardAccountNumber" name="cardAccountNumber" ng-disabled="!isPaymentForOther" ng-change="changeCardAccountNumber()">
+                <i class="clearText inputIcon glyphicon pull-right" ng-click="clearCardAccountNumber()" ng-show="isPaymentForOther&&cardInfo.cardAccountNumber!=''" style="position: absolute; margin-right: 40px;margin-top: 16px"/>
+                <i class="selectAccount inputIcon glyphicon pull-right" ng-click="selectCardFromListOther()" ng-show="isPaymentForOther" style="margin-top: 5px; width: 40px !important;height: 40px !important;"></i>
+            </div>
+
+            <div class="space" style="margin-top: 15px;margin-bottom: 5px;" ng-show="!isPaymentForOther"></div>
+
+            <div class="tncBox" style="margin-top: 15px" ng-show="isPaymentForOther">
+                <i class="favourite">{{ 'CARD_PAYMENT_MAIN_ADDTOACCOUNTLIST' | translate }}</i>
+                <input type="checkbox" id="tnccheck" ng-model="cardInfo.addToAccountListFlag">
+                <label for="tnccheck" style="float: right">a label</label>
+            </div>
+
+            <div style="padding-top: 5px" ng-show="!isPaymentForOther">
+                <!--<b>{{'CARD_PAYMENT_METHOD'|translate}}</b><br/>-->
+                <select id="paymentMethod" class="form-control" style="font-size: 1.1em !important;  margin-top: 0px;margin-bottom: 10px" ng-model="cardInfo.paymentMethod" ng-change="paymentMethod()" ng-disable>
+                    <option value="0" selected="selected">{{'CARD_PAYMENT_CHOOSE_METHOD' | translate}}</option>
+                    <option value="3">{{'CARD_PAYMENT_AMOUNT_ENTER' | translate}}</option>
+                    <option value="1">{{'CARD_PAYMENT_AMOUNT_MINIMUM' | translate}}</option>
+                    <option value="2">{{'CARD_PAYMENT_AMOUNT_ALL' | translate}}</option>
+                </select>
+            </div>
+
+            <div style="display: none">
+                <input type="text" ng-model="cardInfo.payeeId" required>
+            </div>
+
+            <div class="space"  style="margin-bottom: 0" ng-show="!isPaymentForOther"></div>
+
+            <!--<div ng-show="cardInfo.showAmount">-->
+            <div>
+                <input type="text" placeholder="VND" value="VND"  class="greyBorderBottom greyBorderRight currencycode" readonly="readonly" />
+                <input type="text" id="paymentAmount" style="width: 85%;padding-left: 10px;" placeholder="{{'CARD_PAYMENT_AMOUNT' | translate}}" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="greyBorderBottom" ng-model="cardInfo.parsedAmount" required pattern="[0-9]*" ng-disabled="cardInfo.enterAmount"/>
+            </div>
+
+            <input style="margin-top: 15px; display: none" class="messageBox" placeholder="{{ 'TRANSFER_TCB_ADDMESSAGES' | translate }}" maxlength="80" ng-model="cardInfo.messageContent"/>
+        </form>
+
+
+        <div>
+            <button ng-class="{true: 'button base inactive buttonBox', false: 'button base active buttonBox'}[paymentForm.$invalid]" ng-disabled="paymentForm.$invalid" ng-click="payment()">{{'CASHOUT_MOBILE_SEND' | translate}}</button>
+        </div>
+    </div>
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>
+

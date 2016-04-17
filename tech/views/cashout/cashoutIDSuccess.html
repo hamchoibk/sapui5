@@ -1,0 +1,59 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div class="profile-cover " style="background-image: url(images/fbcover.jpg)">
+        <div class="profile-name noprofilephoto" >
+            <h1 style="color:white">
+                <!--{{particulars.accountName}}<br>-->
+                <span ng-show="!forOwner">{{'CASHOUT_ID_REMARK_NOT_FOR_OWNER' | translate}}</span> <span ng-show="!forOwner">{{particulars.idnumber}}</span>
+                <span ng-show="forOwner">{{'CASHOUT_ID_REMARK_FOR_OWNER' | translate}}</span> <span ng-show="forOwner">{{particulars.idnumber}}</span>
+                <br/>
+                <span>{{'CASHOUT_ID_SUCCESS_TRANSACTION_REFERENCE' | translate}}</span> <span>{{transactionRef}}</span>
+            </h1>
+
+        </div>
+        <div class="accountBalance">
+            <div class="accountType success">{{'SEND_MONEY_SUCCESS_AMOUNT' | translate }}</div>
+            <div class="amount"><span class="number"><span>{{particulars.currency}}</span> <span>{{particulars.formatedAmount}}</span></span></div>
+        </div>
+    </div>
+    <div class="scrollBox-withCoverAndFooter-cashoutid resultContainer">
+        <div class="greyBorderBottom">
+            <p class="labelValue red">{{'CASHOUT_ID_SUCCESS_MESSAGE' | translate}}</p>
+        </div>
+        <div>
+            <!--<p class="labelKey">{{'CASHOUT_ID_SUCCESS_FROM_ACCOUNT' | translate}}</p>-->
+            <!--<p class="labelValue">{{particulars.accountNumber}}</p>-->
+        <!--</div>-->
+        <!--<div>-->
+            <!--<p class="labelKey">{{'CASHOUT_ID_SUCCESS_TO_ID' | translate}}</p>-->
+            <!--<p class="labelValue"> {{particulars.idnumber}}</p>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;<div>&ndash;&gt;-->
+            <!--&lt;!&ndash;<p class="labelKey">{{'CASHOUT_ID_SUCCESS_AMOUNT' | translate}}</p>&ndash;&gt;-->
+            <!--&lt;!&ndash;<p><b>{{particulars.currency}} {{particulars.formatedAmount}}</b></p>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+		<div class="infolist">
+            <p class="labelKey">{{'CASHOUT_ID_SUCCESS_FEE' | translate}} <span class="labelValue amount left" style="font-size: 1.05em;">{{particulars.currency}} {{particulars.formatedFee}}</span></p>
+            <!--<p class="labelValue"><b>{{transferDetails.transferCurrency}} {{transferDetails.transferFee.formatMoney(0)}}</b></p>-->
+        </div>
+        <div class="greyBorderBottom">
+            <ul class="notes" ng-show="!forOwner" style="padding: 5px 0px"><b>{{'CASHOUT_ID_SUCCESS_NOTES_TITLE' | translate }}</b><br>
+                <ul class="notesText">{{'CASHOUT_ID_SUCCESS_NOTES_1' | translate }}</ul>
+                <ul class="notesText">{{'CASHOUT_ID_SUCCESS_NOTES_2' | translate}}</ul>
+            </ul>
+            <ul class="notes" ng-show="forOwner"><b>{{'CASHOUT_ID_OWNER_SUCCESS_NOTES_TITLE' | translate }}</b><br>
+                <ul class="notesText">{{'CASHOUT_ID_OWNER_SUCCESS_NOTES_1' | translate }}</ul>
+                <ul class="notesText">{{'CASHOUT_ID_OWNER_SUCCESS_NOTES_2' | translate}}</ul>
+            </ul>
+        </div>
+
+        <div class="buttonBox success">
+            <button class="button base active" ng-click="transactMore()">{{'CASHOUT_ID_SUCCESS_TRANSACT_MORE' | translate}}</button>
+            <button class="button base active" ng-click="done()">{{'CASHOUT_ID_SUCCESS_DONE' | translate}}</button>
+        </div>
+    </div>
+
+    <div class="stickyBottom-cashoutid">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

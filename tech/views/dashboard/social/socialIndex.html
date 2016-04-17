@@ -1,0 +1,38 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div class="profile-cover" style="background-image: url({{profile.background}})">
+        <div class="profile-image" ng-click="clickProfile()" style="background-image:url({{profile.photo}})" id="profileImage"></div>
+        <div class="profile-name"><h1 style="color:white">{{(profile.name.length>22)?profile.name.substr(0,22) + "...":profile.name}}</h1></div>
+
+        <div class="accountBalance" ng-click="swapAccountValue()">
+            <div id="eWalletAccount">
+                <div class="accountType">{{account.displayName}}<br>{{account.accountNumber}}</div>
+
+                <div class="accountArrow" > </div>
+                <div class="amount small">
+                    <span>{{account.currency}}</span><span class="number">{{account.balance}} </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dashboardContainer">
+        <div owlcarousel my-id="social" class="owl-carousel">
+            <div class="item dashboardGreyBox column2">
+                <div class="sendMoney" ng-click="clickSendMoney()"><span>{{'SOCIAL_SEND_MONEY_TITLE' | translate }}</span></div>
+                <div class="askMoney" ng-click="clickAskMoney()"><span>{{'SOCIAL_ASK_MONEY_TITLE' | translate }}</span></div>
+                <!--<div class="mobilenumber disabled" ng-click="ClickCashoutByMobileNumber()"><span>{{'SOCIAL_TO_MOBILE_NUMBER_TITLE' | translate }}</span></div>-->
+                <div class="connect" ng-click="clickConnect()"><span>{{'SOCIAL_CONNECT_TITLE' | translate }}</span></div>
+                <div class="idNumber" ng-click="clickCashoutById()"><span>{{'SOCIAL_TO_ID_NUMBER_TITLE' | translate }}</span></div>
+
+            </div>
+            <div class="item dashboardGreyBox column2">
+                <div class="mobilenumber disabled"><span>{{'SOCIAL_TO_MOBILE_NUMBER_TITLE' | translate }}</span></div>
+
+                <div class="friends" ng-click="clickMyFriends()"><span>{{'SOCIAL_CONNECT_FRIEND_TITLE' | translate}}</span></div>
+                <div class="beneficiary" ng-click="clickInquiry()"><span>{{'SOCIAL_INQUIRE_PENDING_TRANSACTIONS' | translate }}</span></div>
+            </div>
+        </div>
+
+    </div>
+    <div class="socially grey"></div>
+</div>

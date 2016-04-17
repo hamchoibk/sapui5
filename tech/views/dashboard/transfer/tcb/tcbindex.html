@@ -1,0 +1,51 @@
+<div>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <navigation-bar status="status"></navigation-bar>
+    <div class="scrollBox-withFooter formContainer">
+            <div class="labelKey"><span ><b>{{'COMMON_FROM' | translate }}</b></span></div>
+            <div class="greyBorderBottom">
+                <ul ng-class="{true:'arrowlist', false:'singlelist'}[hasMoreThanOneSourceAccounts]">
+                    <li class="fromRow" ng-click="clickSelectAccount()">
+                        <a class="labelKey">
+                          <span class="detail">
+                              {{transferDetails.sourceAccountName}}<br>
+                              {{transferDetails.sourceAccountNumber}}<br>
+                              {{transferDetails.currency}} {{transferDetails.balance}}<br>
+                          </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="input-withIcon" style="padding-top:15px;">
+                <div style="margin-bottom:-10px"><b>{{'TRANSFER_TO' | translate }} </b></div>
+                <br/> <div style="font-size: 12px;">{{transferDetails.destinationAccountDetails.payeeName}} </div>
+                <input type="text" pattern="[0-9]*" class="input-withIcon"  placeholder="{{ 'TRANSFER_TCB_KEYINACCOUNTNUMBER' | translate }}" name="smscode" numeric-check="ERROR_CODE_30009" ng-model="transferDetails.destinationAccountDetails.payeeAccountNumber" ng-change="changeAccountNumber()"  required style="margin-top: -7px; font-size: 1.1em;" />
+                <i id="selectContact" class="selectContact inputIcon glyphicon" ng-click="selectContact()"></i>
+                <i id="beneficiaryListIcon" class="selectAccount inputIcon glyphicon pull-right" ng-click="openBenificiaryList()"></i>
+            </div>
+
+            <div class="tncBox">
+                <i class="favourite">{{ 'TRANSFER_TCB_ADDACCOUNTTOLIST' | translate }}</i>
+                <input type="checkbox" id="tnccheck" ng-model="transferDetails.addToAccountListFlag">
+                <label for="tnccheck" style="float: right">a label</label>
+            </div>
+
+            <div style="padding-bottom: 25px">
+                <input type="text" placeholder="VND" value="VND" class="greyBorderBottom greyBorderRight currencycode" readonly="readonly" />
+                <!--<input type="number" pattern="[0-9]*" placeholder="{{ 'TRANSFER_TCB_KEYINAMOUNT' | translate }}"  name="smscode" class="greyBorderBottom amt" numbers-only="numbers-only" numeric-check="ERROR_CODE_30016" ng-model="transferDetails.amount" required/>-->
+                <input type="text" id="amount" placeholder="{{ 'TRANSFER_TCB_KEYINAMOUNT' | translate }}"  onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="smscode" class="greyBorderBottom amt" ng-model="transferDetails.parsedAmount" length-check="ERROR_CODE_30016" required pattern="[0-9]*"/>
+            </div>
+
+            <input style="margin-top: 30px" class="messageBox" placeholder="{{ 'TRANSFER_TCB_ADDMESSAGES' | translate }}" maxlength="80" ng-model="transferDetails.messageContent"/>
+
+        <button ng-class="{true: 'button base inactive buttonBox', false: 'button base active buttonBox'}[!(transferDetails.parsedAmount && transferDetails.destinationAccountDetails.payeeAccountNumber)]" ng-click="clickSend()"  ng-disabled="!(transferDetails.parsedAmount && transferDetails.destinationAccountDetails.payeeAccountNumber)">{{'TRANSFER_SEND_BUTTON' | translate }}</button>
+
+    </div>
+
+
+    <div class="stickyBottom">
+
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

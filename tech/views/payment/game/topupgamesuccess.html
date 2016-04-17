@@ -1,0 +1,35 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div class="profile-cover " style="background-image: url(images/fbcover.jpg)">
+        <div class="profile-name noprofilephoto" >
+            <h1 style="color:white;font-size: 20px;">
+                {{successMessage}}
+            </h1>
+        </div>
+        <div class="accountBalance">
+            <div class="accountType success">{{'AMOUNT' | translate }}</div>
+            <div class="amount"><span class="number"><span>{{sourceAccount.currency}}</span> <span>{{parsedAmount}}</span></span></div>
+        </div>
+    </div>
+    <div class="scrollBox-withCoverAndFooter resultContainer">
+
+        <div class="infolist">
+            <p class="labelKey">{{'TRANSFER_TCB_SUCCESSFEE' | translate}} <span class="labelValue amount left" style="margin-top: 0px;font-size: 1.05em;">{{sourceAccount.currency}} {{fee.formatMoney(0)}}</span></p>
+        </div>
+
+        <div class="infolist" style="overflow: auto;">
+            <p class="labelKey">{{'TRANSACTION_REFERENCE' | translate}} <span class="labelValue amount left" style="margin-top: 0px;font-size: 1.05em;width: 145px;word-break: break-word;text-align: right;">{{ftId}}</span></p>
+        </div>
+
+        <div class="cashoutInfo greyBorderBottom" ng-show="txnNote!=undefined" style="padding: 20px">{{txnNote}} </div>
+
+        <div class="buttonBox success">
+            <button class="button base active buttonBox" ng-click="transactMore()">{{'CASHOUT_MOBILE_SUCCESS_TRANSACT_MORE' | translate}}</button>
+            <button class="button base active" ng-click="done()">{{'CASHOUT_MOBILE_SUCCESS_DONE' | translate}}</button>
+        </div>
+    </div>
+
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

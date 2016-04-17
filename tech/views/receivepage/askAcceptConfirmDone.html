@@ -1,0 +1,47 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div ng-include src="'views/loading/loading.html'"></div>
+
+    <div class="profile-cover" style="background-image: url(images/fbcover.jpg)">
+        <div ng-show="{{showImage}}">
+            <div class="profile-image"><img src="{{transaction.sender.profile.photo}}"  style="background-color: #ffffff"/></div>
+            <div class="profile-name"><h1 style="color:white">{{(transaction.sender.profile.name.length>22)?transaction.sender.profile.name.substr(0,22) + "...":transaction.sender.profile.name}}</h1></div>
+        </div>
+        <div ng-show="{{!showImage}}">
+            <div class="profile-name" style="margin-top:80px;"><h1 style="color:white">{{transaction.sender.profile.name}}</h1></div>
+        </div>
+        <div class="accountBalance">
+            <div class="accountType success">{{'ASK_WALLET_ACCEPT_CONFIRM_DONE_AMOUNT' | translate }}</div>
+            <div class="amount left"><span class="number"><span>{{transaction.currency}}</span> <span>{{transaction.formatedAmount}}</span></span></div>
+        </div>
+
+    </div>
+    <div class="scrollBox-withCoverAndFooter resultContainer">
+        <div>
+            <i class="channel {{transactionIcon}} pull-left"></i>  <p class="transactionStatus">{{'SOCIAL_DETAIL_TRANSACTION' | translate}} {{ "TRANSACTIONS_INDEX_" + transaction.status.toUpperCase() | translate}}</p>
+        </div>
+
+        <div class="infolist">
+            <p class="labelKey">{{'SEND_MONEY_SUCCESS_FEES' | translate}} <span class="labelValue amount left" style="margin-top: 0px;font-size: 1.05em;">{{transaction.currency}} {{fee.formatMoney(0)}}</span></p>
+        </div>
+
+        <div class="metadata link" ng-show="hasLink" class="greyBorderBottom">
+            <div class="value">{{askLink}}</div>
+            <div class="expire">{{date}}</div>
+            <div class="copylink" ng-click="clickCopyLink()">{{'SEND_MONEY_SUCCESS_COPY' | translate }}</div>
+        </div>
+
+        <div ng-show="hasRef" class="greyBorderBottom" style="margin-top: 10px;overflow: auto;padding-bottom: 5px;">
+            <p class="labelKey">{{'ASK_WALLET_ACCEPT_CONFIRM_DONE_REFERENCE_ID' | translate}} <span class="labelValue amount left" style="margin-top: 0px;font-size: 1.05em;width: 145px;word-break: break-word;text-align: right;">{{txnRef}}</span></span></p>
+        </div>
+
+        <div class="buttonBox success">
+            <button class="button base active" ng-click="clickSpreadLove()">{{'SEND_MONEY_SUCCESS_SPREAD' | translate }}</button>
+            <!--<button class="button base active" ng-click="transactMore()">{{'SEND_MONEY_SUCCESS_TRANSACT_MORE' | translate }}</button>-->
+            <button class="button base active" ng-click="clickDone()">{{'SEND_MONEY_SUCCESS_DONE' | translate }}</button>
+        </div>
+    </div>
+    <div class="stickyBottom">
+        <div class="socially grey"></div>
+    </div>
+  </div>

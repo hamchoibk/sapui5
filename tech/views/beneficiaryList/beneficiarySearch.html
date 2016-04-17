@@ -1,0 +1,100 @@
+<div>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <div class="overlay " ng-click="dismissPopUp()"></div>
+    <div class="overlayPopup" ng-click="dismissTransferPopUp()"></div>
+    <div class="moreMenu beneficiaryPopup">
+        <div class="banktrsf" ng-click="clickBankTransfer()"><span>{{'BENEFICIARY_SEARCH_BANK_TRANSFER' | translate}}</span></div>
+        <div class="edit" ng-click="clickEdit()"><span>{{'BENEFICIARY_SEARCH_EDIT' | translate}}</span></div>
+        <div class="delete" ng-click="clickDelete()"><span>{{'BENEFICIARY_SEARCH_DELETE' | translate}}</span></div>
+    </div>
+    <div class="smallPopup bankTransferPopup">
+        <div class="banktrsf" ng-click="clickBankTransfer()"><span>{{'BENEFICIARY_SEARCH_BANK_TRANSFER' | translate}}</span></div>
+    </div>
+    <navigation-bar status="status"></navigation-bar>
+    <div>
+        <input type="text" class="seachBar" placeholder="{{'BENEFICIARY_SEARCH_SEARCH_BAR' | translate}}" ng-model="search.mobile" ng-change="filterByMobile(search)"/>
+    </div>
+    <div class="scrollBox-withSearchFooter resultContainer">
+
+        <div ng-show="isList">
+            <accordion close-others="false">
+                <div class="greyBorderBottom">
+                    <accordion-group  is-open="beneficiaryListBankAccountIsOpen">
+                        <accordion-heading>
+                            <div>
+                                {{'BENEFICIARY_SEARCH_BANK_ACCOUNT' | translate}}<i class="pull-right glyphicon" style="top: 0 !important;padding: 0 !important;" ng-class="{'arrow-down': beneficiaryListBankAccountIsOpen, 'arrow-up': !beneficiaryListBankAccountIsOpen}"></i>
+                            </div>
+                        </accordion-heading>
+                            <!--ng-click="showAlert(account.mainAccountName,subAccount.accountNumber)"-->
+                            <ul class="panelList beneficiaryList">
+                                <li ng-repeat="account in beneficiaryListBankAccount|filter:search" class="greyBorderBottom" ng-click="payeeSelected(account)">
+                                    <a>
+                                        <div class="rowContainer">
+                                            <p class="name">{{account.name}}</p>
+                                            <p class="number">{{account.accountNumber}}</p>
+                                        </div>
+                                        <i class="glyphicon moreMenutrigger" ng-click="showMoreMenu(account,$event)"></i>
+
+                                    </a>
+                                </li>
+                            </ul>
+
+                    </accordion-group>
+                </div>
+
+                <div class="greyBorderBottom">
+                    <accordion-group  is-open="beneficiaryListWalletAccountIsOpen">
+                        <accordion-heading>
+                            <div>
+                                {{'BENEFICIARY_SEARCH_EWALLET' | translate}}<i class="pull-right glyphicon" style="top: 0 !important;padding: 0 !important;" ng-class="{'arrow-down': beneficiaryListWalletAccountIsOpen, 'arrow-up': !beneficiaryListWalletAccountIsOpen}"></i>
+                            </div>
+                        </accordion-heading>
+                            <!--ng-click="showAlert(account.mainAccountName,subAccount.accountNumber)"-->
+                            <ul class="panelList beneficiaryList">
+                                <li ng-repeat="account in beneficiaryListWalletAccount|filter:search" class="greyBorderBottom" ng-click="payeeSelected(account)">
+                                    <a>
+                                        <div class="rowContainer">
+                                            <p class="name">{{account.name}}</p>
+                                            <p class="number">{{account.accountNumber}}</p>
+                                        </div>
+                                        <i class="glyphicon moreMenutrigger" ng-click="showMoreMenu(account,$event)"></i>
+
+                                    </a>
+                                </li>
+                            </ul>
+
+                    </accordion-group>
+                </div>
+                <div class="greyBorderBottom">
+                      <accordion-group  is-open="beneficiaryListExternalAccountIsOpen">
+                        <accordion-heading>
+                            <div>
+                                {{'BENEFICIARY_EXTERNAL' | translate}}<i class="pull-right glyphicon" style="top: 0 !important;padding: 0 !important;" ng-class="{'arrow-down': beneficiaryListExternalAccountIsOpen, 'arrow-up': !beneficiaryListExternalAccountIsOpen}"></i>
+                            </div>
+                        </accordion-heading>
+
+                        <ul class="panelList beneficiaryList">
+                          <li ng-repeat="account in beneficiaryListExternalAccount|filter:search" class="greyBorderBottom" ng-click="payeeSelected(account)">
+                            <a>
+                              <div class="rowContainer">
+                                <p class="name">{{account.name}}</p>
+                                <p class="number">{{account.accountNumber}}</p>
+                              </div>
+                              <i class="glyphicon moreMenutrigger" ng-click="showMoreMenu(account,$event)"></i>
+
+                            </a>
+                          </li>
+                        </ul>
+                      </accordion-group>
+                </div>
+
+            </accordion>
+        </div>
+
+
+
+    </div>
+    <div class="stickyBottom ">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

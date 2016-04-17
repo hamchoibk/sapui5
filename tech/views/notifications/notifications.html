@@ -1,0 +1,23 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+
+    <div class="scrollBox-withFooter">
+        <ul class="arrowlist">
+            <li ng-repeat="notification in notifications" class="greyBorderBottom">
+                <a class="notificationsContainer short"><div class="avatar"> <img src="https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg?sz=50"/></div>
+                    <div class="rowContainer">
+                        <span class="name">{{notification.name}}</span><br>
+                        <span class="amount">VND {{notification.amount}}</span><br>
+                        <span class="date">{{notification.date}}</span>
+                        <span class="link">{{notification.link}}</span>
+                    </div>
+                    <div class="channelstatus"> <div class="status {{notification.status}}" >{{notification.status}}</div> <i class="channel fb"></i> </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

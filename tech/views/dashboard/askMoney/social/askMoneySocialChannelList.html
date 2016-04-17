@@ -1,0 +1,35 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <div class="scrollBox-withFooter">
+        <div ng-show="{{showFavourites}}">
+            <div class="greyBorderBottom" style="padding-bottom: 6px">{{'ASK_MONEY_SOCIAL_CHANNEL_LIST_FAVOURITES' | translate }}</div>
+
+            <ul class="arrowlist fav-friendList ">
+                <li ng-repeat="favourite in favourites" class="greyBorderBottom" ng-click="selectFavourite(favourite)">
+                    <a class="favouritesContainer friendsList">
+                        <div class="avatar"> <img src="{{favourite.profile.photo}}"/></div>
+                        <div class="rowContainer">
+                            <div class="detailtable" style="text-align: match-parent">
+                                <div class="row">
+                                    <div class="friendLabel">{{favourite.profile.name}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <i class="icon-value {{favourite.recentChannel}} smallicon pull-right" />
+                    </a>
+                </li>
+            </ul>
+            <div class="greyBorderBottom" style="padding-bottom: 6px">{{'ASK_MONEY_SOCIAL_CHANNEL_LIST_VIA_SOCIAL' | translate }}</div>
+        </div>
+        <ul class="arrowlist">
+            <li class="greyBorderBottom iconField"><i class="sms listicon pull-left"></i><a class="iconText" href="" ng-click="clickSMS()">SMS</a></li>
+            <li class="greyBorderBottom iconField" ng-click="clickFacebook()"><i class="fb listicon pull-left"></i><a class="iconText" href="">Facebook</a></li>
+            <li class="greyBorderBottom iconField" ng-click="clickGoogle()"><i class="gplus listicon pull-left"></i><a class="iconText" href="">Google +</a></li>
+        </ul>
+    </div>
+
+    <div class="stickyBottom">
+        <div class="socially grey"></div>
+    </div>
+</div>

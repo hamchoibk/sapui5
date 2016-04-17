@@ -1,0 +1,43 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <div class="scrollBox-withFooter formContainer" id="scrollArea">
+        <div class="cashoutInfo greyBorderBottom" ng-show="!forOwner">{{'CASHOUT_ID_GUIDE_TEXT'|translate}}</div>
+        <div class="cashoutInfo greyBorderBottom" ng-show="forOwner">{{'CASHOUT_ID_GUIDE_TEXT_OWNER'|translate}}</div>
+        <form id="cashoutidform" name="cashoutidform">
+            <div style="margin-top: -5px;margin-bottom: -10px;">
+                <ul class="arrowlist">
+                    <li class="fromRow" ng-click="selectAccount()">
+                        <a class="labelKey"><b>{{'COMMON_FROM' | translate }}</b><br>
+                          <span class="detail">
+                              {{selectedAccountName}}<br>
+                              {{selectedAccountNumber}}<br>
+                              {{currencyCode}} {{selectedAvailableBalance}}<br>
+                          </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="space"></div>
+            <div class="labelKey" style="margin-top: -5px;">
+                <b>{{forOwner?'CASHOUT_ID_COMMON':'COMMON_TO' | translate }}</b>
+                <input type="text" id="idnumber" placeholder="{{'CASHOUT_ID_ID_NUMBER' | translate}}" ng-model="cashout.id" alphanumeric-check="ERROR_CODE_30015" class="greyBorderBottom" required  ng-disabled="forOwner"/>
+            </div>
+            <input type="text" placeholder="{{'CASHOUT_ID_FULL_NAME' | translate}}" ng-model="cashout.name" class="greyBorderBottom" required  ng-disabled="forOwner" />
+            <p class="labelKey" ng-show="isiOsDevice" style="font-weight: bold">{{ 'CASHOUT_ID_ISSUE_DATE' | translate }}</p>
+            <input type="date" placeholder=" {{'CASHOUT_ID_ISSUE_DATE' | translate}}" class="inputDate greyBorderBottom" ng-model="cashout.date" ng-show="isiOsDevice && !forOwner" ng-disabled="forOwner"/>
+            <input type="text" placeholder=" {{'CASHOUT_ID_ISSUE_DATE' | translate}}" class="inputDate greyBorderBottom" ng-model="cashout.date" ng-click="focusDate($event)" ng-readonly="isMobile" ng-show="!isiOsDevice || forOwner" ng-disabled="forOwner"/>
+            <div>
+                <input type="text" placeholder="VND" value="VND"   class="greyBorderBottom greyBorderRight currencycode" readonly="readonly" />
+                <!--<input type="number" pattern="[0-9]*" placeholder="{{ 'CASHOUT_ID_AMOUNT' | translate }}"  name="smscode" class="greyBorderBottom amt" numbers-only="numbers-only" numeric-check="ERROR_CODE_30016" ng-model="cashout.amount" required/>-->
+                <input type="text" id="amount" placeholder="{{ 'CASHOUT_ID_AMOUNT' | translate }}"  onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="smscode" class="greyBorderBottom amt" ng-model="cashout.parsedAmount" length-check="ERROR_CODE_30016" required pattern="[0-9]*"/>
+            </div>
+        </form>
+        <div class="buttonBox">
+            <button ng-class="{true: 'button base inactive', false: 'button base active'}[cashoutidform.$invalid]" ng-disabled=" cashoutidform.$invalid" ng-click="confirm()">{{'CASHOUT_ID_SEND' | translate}}</button>
+        </div>
+    </div>
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

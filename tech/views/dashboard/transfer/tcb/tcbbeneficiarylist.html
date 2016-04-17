@@ -1,0 +1,86 @@
+<div>
+    <div class="overlay " ng-click="dimissPopUp()"></div>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <div class="moreMenu">
+        <div class="detail" ng-click="clickViewDetails(account.mainAccountName,subAccount.accountNumber)"><span>{{'TCB_BENEFICIARY_LIST_VIEW_DETAIL' | translate }}</span></div>
+        <div class="inquiry" ng-click="clickInquiry()"><span>{{'TCB_BENEFICIARY_LIST_INQUIRY' | translate }}</span></div>
+        <div class="banktrsf" ng-click="clickBankTransfer()"><span>{{'TCB_BENEFICIARY_LIST_BANK_TRANSFER' | translate }}</span></div>
+        <div class="sendMoney" ng-click="clickSendMoney()"><span>{{'TCB_BENEFICIARY_LIST_SEND_MONEY' | translate }}</span></div>
+
+    </div>
+    <navigation-bar status="status"></navigation-bar>
+    <div>
+        <input type="text" class="seachBar" placeholder="{{'TCB_BENEFICIARY_LIST_SEARCH' | translate }}" ng-model="search.mobile" ng-change="filterByMobile(search)"/>
+    </div>
+        <div class="scrollBox-withSearchFooter">
+
+
+            <accordion close-others="false">
+                <accordion-group is-open="beneficiaryListSameAccountIsOpen" ng-show="!(hideAccountNumber && account.type!='COMMON_SVA_SAME_HOLDER')">
+                    <accordion-heading>
+                        <div>
+                            {{'TCB_BENEFICIARY_SAME_HOLDER' | translate }}<i class="pull-right glyphicon" style="top: 0 !important;padding: 0 !important;" ng-class="{'arrow-down': beneficiaryListSameAccountIsOpen, 'arrow-up': !beneficiaryListSameAccountIsOpen}"></i>
+                        </div>
+                    </accordion-heading>
+
+                    <ul class="panelList beneficiaryList">
+                        <li ng-repeat="account in beneficiaryListSameAccount|filter:search" class="greyBorderBottom" ng-click="payeeSelected(account)">
+                            <a>
+                                <div class="rowContainer">
+                                    <p class="name">{{account.name}}</p>
+                                    <p class="number">{{account.accountNumber}}</p>
+                                    <p class="number">{{account.availableBalance}}</p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+
+                </accordion-group>
+                <br/>
+                <div style="font-size:16px; color:  #EA2127;"> <b>{{'NAVBAR_TCB_BENIFICIARYLIST' | translate }}</b> </div>
+                <div class="space"></div>
+                <accordion-group  is-open="beneficiaryListBankAccountIsOpen" ng-show="!hideAccountNumber" style="margin-left:15px">
+                    <accordion-heading>
+                        <div>
+                            {{'TCB_BENEFICIARY_BANK_ACCOUNT' | translate }}<i class="pull-right glyphicon" style="top: 0 !important;padding: 0 !important;" ng-class="{'arrow-down': beneficiaryListBankAccountIsOpen, 'arrow-up': !beneficiaryListBankAccountIsOpen}"></i>
+                        </div>
+                    </accordion-heading>
+                    <!--ng-click="showAlert(account.mainAccountName,subAccount.accountNumber)"-->
+                    <ul class="panelList beneficiaryList">
+                        <li ng-repeat="account in beneficiaryListBankAccount|filter:search" class="greyBorderBottom" ng-click="payeeSelected(account)">
+                            <a>
+                                <div class="rowContainer">
+                                    <p class="name">{{account.name}}</p>
+                                    <p class="number">{{account.accountNumber}}</p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+
+                </accordion-group>
+                <accordion-group  is-open="beneficiaryListWalletAccountIsOpen" style="margin-left:15px">
+                    <accordion-heading>
+                        <div>
+                            {{'TCB_BENEFICIARY_EWALLET' | translate }}<i class="pull-right glyphicon" style="top: 0 !important;padding: 0 !important;" ng-class="{'arrow-down': beneficiaryListWalletAccountIsOpen, 'arrow-up': !beneficiaryListWalletAccountIsOpen}"></i>
+                        </div>
+                    </accordion-heading>
+                    <!--ng-click="showAlert(account.mainAccountName,subAccount.accountNumber)"-->
+                    <ul class="panelList beneficiaryList">
+                        <li ng-repeat="account in beneficiaryListWalletAccount|filter:search" class="greyBorderBottom" ng-click="payeeSelected(account)">
+                            <a>
+                                <div class="rowContainer">
+                                    <p class="name">{{account.name}}</p>
+                                    <p class="number">{{account.accountNumber}}</p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+
+                </accordion-group>
+            </accordion>
+        </div>
+
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

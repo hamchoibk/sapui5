@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html class="ui-mobile"><head>
+    <script src="cordova.js"></script>
+    <script src="native.js"></script>
+    <script type="text/javascript">
+        app.initialize();
+        </script>
+    <title>
+        Mobile Banking
+    </title>
+    <meta content="width=device-width,height = device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+            <meta name="apple-mobile-web-app-status-bar-style" content="black">
+                <link href="css/jquerycss.css" rel="stylesheet" type="text/css">
+                    <link href="css/style.css" rel="stylesheet" type="text/css">
+                        
+                        <script type="text/javascript" src="plugins/jq.scroller.js">
+                                    </script>
+                        <script type="text/javascript" src="script/jq.mobi.js"></script>
+                        
+                        <script>
+                            
+                            var panelFlag = false;
+                            function showPanelKiri()
+                            {
+                                
+                                if(panelFlag)
+                                {
+                                    //hide
+                                    $('#navpanel').removeClass('ui-panel-open');
+                                    $('#navpanel').addClass('ui-panel-closed');
+                                    $('#myaccount').removeClass('ui-body-a');
+                                    $('#myaccount').removeClass('ui-page-panel-open');
+                                    $('#myaccount').addClass('ui-body-c');
+                                    
+                                    $('#putihPutihPenutup').removeClass('ui-panel-content-wrap-position-left');
+                                    $('#putihPutihPenutup').removeClass('ui-panel-content-wrap-display-push');
+                                    $('#putihPutihPenutup').removeClass('ui-panel-content-wrap-open');
+                                    $('#putihPutihPenutup').addClass('ui-panel-content-wrap-closed');
+                                    
+                                    panelFlag = false;
+                                }
+                                else
+                                {
+                                    //show
+                                    $('#putihPutihPenutup').removeClass('ui-panel-content-wrap-closed');
+                                    $('#putihPutihPenutup').addClass('ui-panel-content-wrap-position-left');
+                                    $('#putihPutihPenutup').addClass('ui-panel-content-wrap-display-push');
+                                    $('#putihPutihPenutup').addClass('ui-panel-content-wrap-open');
+                                    
+                                    $('#navpanel').removeClass('ui-panel-closed');
+                                    $('#navpanel').addClass('ui-panel-open');
+                                    $('#myaccount').removeClass('ui-body-c');
+                                    $('#myaccount').addClass('ui-body-a');
+                                    $('#myaccount').addClass('ui-page-panel-open');
+                                    
+                                    panelFlag = true;
+                                }
+                            }
+                        
+                        function hideAddressBar()
+                        {
+                            if(!window.location.hash)
+                            {
+                                if(document.height < window.outerHeight)
+                                {
+                                    document.body.style.height = (window.outerHeight + 50) + 'px';
+                                }
+                                
+                                setTimeout( function(){ window.scrollTo(0, 1); }, 50 );
+                            }
+                        }
+                        
+                        window.addEventListener("load", function(){ if(!window.pageYOffset){ hideAddressBar(); } } );
+                        window.addEventListener("orientationchange", hideAddressBar );
+
+
+
+	//	function GetListPromotionCategory(){
+	//		setContentData([{source: 'server',service:'GetListPromotionCategory',dataIds:[{dataId: 'offerPromotionByCategoryList',dataType:'entity',source:'param'}]}], '');
+	//	}
+
+ 
+          		// function getListPromotionActive(){
+          	//	alert('sssssssss');
+			//		setContentData([
+			//		{
+			//			source: 'server',
+			//			service:'GetListPromotionCategory',
+			//	dataIds:[
+			//				{dataId: 'offerPromotionByCategoryList',dataType:'entity',source:'param'}
+			//			]
+			//		}], 'offersPage');
+			//	  alert('asss');
+			//	 }
+
+	 		//	 function offersPage(){
+               //                 goToHTML({viewId: 'offers.html'});
+               //      }
+                            function checkLanguage(){
+			    			setContentData([{source: 'server',service:'CheckLanguage',dataIds:[{dataId: 'locale',dataType:'text',source:'param'}]}], 'afterCheckLanguage');
+			    		}
+
+					function afterCheckLanguage() {
+						goToHTML({viewId: 'languagePreLogin.html'});
+					}
+
+			    		function customBackFromMain(){
+	                        	goToHTML({viewId: 'login.html'});
+	                        }
+						
+					function comingsoon() {
+						alert('Coming Soon');
+						return;
+					}
+                            </script>
+                        
+                        </head>
+<body class="loginScreen innerPage ui-mobile-viewport ui-overlay-c" onload="processLanguages();app.backFunction=customBackFromMain;">
+    <div style="padding-top: 43px;" class="ui-page ui-page-panel ui-page-header-fixed ui-page-active ui-body-c" tabindex="0" data-url="main" data-role="page" id="main">
+        
+        <div class="ui-panel ui-panel-position-left ui-panel-display-push ui-body-a ui-panel-animate ui-panel-closed" data-role="panel" id="navpanel" data-theme="a" data-display="push" data-position="left">
+            <div class="ui-panel-inner">
+            	<div data-init-selector=":jqmData(role='controlgroup')" data-mini="false" data-type="vertical" data-exclude-invisible="true" data-shadow="false" data-disabled="false" aria-disabled="false" class="ui-controlgroup ui-controlgroup-vertical" data-role="controlgroup" data-corners="false">
+            		<div class="ui-controlgroup-controls">
+	                <!--<a class="ui-btn ui-shadow ui-btn-corner-all ui-first-child ui-btn-up-c" data-theme="c" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" href="products.html" data-role="button" rel="external"><span class="ui-btn-inner"><span class="ui-btn-text"><span class="leftMenu-icon-product"></span><span class="leftMenu-text">Products</span></span></span></a>-->
+	                <!--<a class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c" data-theme="c" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" href="offers.html" data-role="button" rel="external" ><span class="ui-btn-inner"><span class="ui-btn-text"><span class="leftMenu-icon-offers"></span><span class="leftMenu-text">Offers</span></span></span></a>-->
+	                <!--<a class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c" data-theme="c" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" href="findanzPreLogin.html" data-role="button" rel="external"><span class="ui-btn-inner"><span class="ui-btn-text"><span class="leftMenu-icon-find"></span><span class="leftMenu-text">Find ANZ</span></span></span></a>-->
+	                <a class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c" data-theme="c" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" href="contactusPreLogin.html" data-role="button" rel="external"><span class="ui-btn-inner"><span class="ui-btn-text"><span class="leftMenu-icon-contact"></span><span class="leftMenu-text"><language key="contactUs"></language></span></span></span></a>
+	                <a class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c" data-theme="c" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="goToHTML({viewId: 'helpPreLogin.html'});" data-role="button" rel="external"><span class="ui-btn-inner"><span class="ui-btn-text"><span class="leftMenu-icon-help"></span><span class="leftMenu-text"><language key="help"></language></span></span></span></a>
+	                <a class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all ui-last-child" data-theme="c" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" data-role="button" rel="external" onclick="checkLanguage();"><span class="ui-btn-inner"><span class="ui-btn-text"><span class="leftMenu-icon-language"></span><span class="leftMenu-text"><language key="language"></language></span></span></span></a>
+            		</div>
+            	</div>
+            </div>
+            <div class="bottomLogo"><img src="images/anz-logo@2x.png" style="width:120px;"></div>
+        </div>
+        
+        <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+            <a title="Menu" data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showPanelKiri()" data-icon="bars" data-iconpos="notext" class="menuIcon ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-notext ui-btn-up-a" id="bars-button"><span class="ui-btn-inner"><span class="ui-btn-text">
+                Menu
+            </span><span class="ui-icon ui-icon-bars ui-icon-shadow">&nbsp;</span></span></a>
+            <h1 aria-level="1" role="heading" class="ui-title">
+                Mobile Banking
+            </h1>
+        </div>
+        
+        
+        
+        <div id="putihPutihPenutup" class="ui-body-c ui-panel-animate ui-panel-content-wrap-closed"><div role="main" data-role="content" class="productView ui-content">
+            <div class="content-primary">
+                <ul data-role="listview" class="listtype ui-listview">
+                    <li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-first-child ui-btn-up-c" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+                        <a class="ui-link-inherit" onclick="goToHTML({viewId: 'login.html'});" data-transition="slide" rel="external">
+                            <span class="loginIcon"></span> <span class="linkText">Login</span>
+                        </a>
+                    </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                    <li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-last-child ui-btn-up-c" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+                        <a class="ui-link-inherit" onclick="comingsoon();" data-transition="slide" rel="external">
+                            <span class="applyProducrIcon"></span> <span class="linkText">Apply for ANZ products</span>
+                        </a>
+                    </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                    
+                </ul>
+                
+                <div style="display: none;"><!-- placeholder for linkAlert --></div>
+                
+                <div style="display: none;"><!-- placeholder for mainAlert --></div>
+                
+            </div>
+        </div></div>
+        <div id="linkAlert-screen" class="ui-screen-hidden ui-popup-screen"></div><div id="linkAlert-popup" class="ui-popup-container ui-popup-hidden"><div data-dismissible="true" data-position-to="origin" data-transition="none" data-corners="true" data-shadow="true" data-disabled="false" aria-disabled="false" data-role="popup" id="linkAlert" class="ui-content ui-popup ui-overlay-shadow ui-corner-all">
+            <p>We're sorry, the selected flow is not available at this time. Only Help are functional.</p>
+        </div></div><div id="mainAlert-screen" class="ui-screen-hidden ui-popup-screen"></div><div id="mainAlert-popup" class="ui-popup-container ui-popup-hidden"><div data-dismissible="true" data-position-to="origin" data-transition="none" data-corners="true" data-shadow="true" data-disabled="false" aria-disabled="false" data-role="popup" id="mainAlert" class="ui-content ui-popup ui-overlay-shadow ui-corner-all">
+            <p>We're sorry, the selected flow is not available at this time. Only Login &amp; Register are functional.</p>
+        </div></div><div class="ui-panel-dismiss" data-panelid="navpanel"></div></div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <!------******************------>
+    <!--------- Help --------->
+    <!------******************------>
+    
+    <div data-url="help" data-role="page" id="help" data-add-back-btn="false">
+        <div id="header" data-position="fixed" data-role="header" class="header" data-tap-toggle="false">
+            <a href="#main" class="leftBtnTwo arrow" data-transition="slide" data-direction="reverse">Mobile Banking</a>
+            <h1> Help </h1>
+        </div>
+        <div data-role="content">
+            <div class="content-primary">
+                <h4>Contact ANZ</h4>
+                <p>Please contact our 24-hr call centre for any kind of banking queries like registration, getting registration code, forgot your PIN, lost card.</p>
+                
+                <div class="callBtn marginTopTwo"><a href="#popupcallcentre" data-role="button">Call ANZ</a></div>
+                <h4 class="marginTopTwo">Frequently asked questions?</h4>
+                <p>Find answers to your most common banking questions from the below FAQ's.</p>
+                
+                <div class="listWidth marginTopfour">
+                    <div data-role="collapsible-set">
+                        <div data-role="collapsible" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-iconpos="right" data-collapsed="false">
+                            <h2>Registration</h2>
+                            <ul data-role="listview" class="listtype faq">
+                                <li>
+                                    <a href="#faqdetail" data-transition="slide">
+                                        <p>I already have AN Internet banking account, do i need to create new</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#faqdetail" data-transition="slide">
+                                        <p>What  do i need to have to create ANZ Mobile banking account?</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#faqdetail" data-transition="slide">
+                                        <p>I have an ANZ Credit Card, can i register to ANZ Mobile Banking?</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#faqdetail" data-transition="slide">
+                                        <p>What is registration code?</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#faqdetail" data-transition="slide">
+                                        <p>Can i use my User ID in different mobile</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div data-role="collapsible" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-iconpos="right">
+                            <h2>Security</h2>
+                            <ul data-role="listview" class="listtype faq">
+                                <li>
+                                    <a href="#faqdetail" data-transition="slide">
+                                        <p>I already have AN Internet banking account, do i need to create new?</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#faqdetail" data-transition="slide">
+                                        <p>What  do i need to have to create ANZ Mobile banking account?</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#faqdetail" data-transition="slide">
+                                        <p>I have an ANZ Credit Card, can i register to ANZ Mobile Banking?</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#faqdetail" data-transition="slide">
+                                        <p>What is registration code?</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#faqdetail" data-transition="slide">
+                                        <p>Can i use my User ID in different mobile?</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <!------******************------>
+    <!--------- Help --------->
+    <!------******************------>
+    
+    <div data-url="faqdetail" data-role="page" id="faqdetail" data-add-back-btn="false">
+        <div id="header" data-position="fixed" data-role="header" class="header" data-tap-toggle="false"> 
+            <a href="#help" class="leftBtnTwo arrow" data-transition="slide" data-direction="reverse">Help</a>
+            <h1> FAQ's </h1>
+        </div>
+        <div data-role="content" class="noshadow whiteBg">
+            <div class="content-primary">
+                <h4>I already have an ANZ Internet banking account, do i need to create new ID mobile banking?</h4>
+                <p>You can use your existing ANZ Internet Banking User ID &amp; Password to log in to ANZ Mobile Banking. If you don't have any, you can create new user via Mobile Banking.</p>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="ui-loader ui-corner-all ui-body-a ui-loader-default"><span class="ui-icon ui-icon-loading"></span><h1>Loading...</h1></div></body></html>

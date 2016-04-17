@@ -1,0 +1,59 @@
+<div ng-include src="'views/loading/loading.html'"></div>
+<div ng-swipe-left="swipeHide($event)">
+    
+    <navigation-bar status="status"></navigation-bar>
+    <div class="overlay" ng-class="{show:showmenu}" ng-click="showmenu=false"></div>
+    <div id="menuleft" ng-class="{hideMenu:!showmenu,slideMenu:showmenu}" ng-show="showmenu">
+        <ul>
+            <li><a class="profile" ng-click="clickProfile()">{{'DASHBOARD_PROFILE' | translate }}</a></li>
+            <li><a class="promotions" ng-click="clickPromotions()">{{'DASHBOARD_PROMOTIONS' | translate }}</a></li>
+            <li><a class="productService" ng-click="clickProductAndServices()">{{'DASHBOARD_PRODUCTS_SERVICES' | translate }}</a></li>
+            <li><a class="atmlocator" ng-click="clickATMLocator()">{{'DASHBOARD_ATM_LOCATOR' | translate }}</a></li>
+            <li><a class="promoLocations" ng-click="clickPromotionAndLocation()">{{'DASHBOARD_PROMOTION_LOCATION' | translate }}</a></li>
+            <li><a class="help" ng-click="clickHelp()">{{'DASHBOARD_HELP' | translate }}</a></li>
+            <li><a class="contactus" ng-click="clickContactUs()">{{'DASHBOARD_CONTACT_US' | translate }}</a></li>
+            <li><a class="message" ng-click="clickMessage()">{{'DASHBOARD_MESSAGE' | translate }}</a></li>
+            <li><a class="settings" ng-click="clickSettings()">{{'DASHBOARD_SETTINGS' | translate }}</a></li>
+            <li class="disabled"><a class="more" ng-click="clickMore()">{{'DASHBOARD_MORE' | translate }}</a></li>
+        </ul>
+    </div>
+
+    <div id="all" ng-class="{hideMenu:showmenu,slideMenu:!showmenu}"></div>
+
+    <div class="profile-cover" style="background-image: url({{profile.background}})" ng-swipe-right="swipeShow($event)">
+
+        <div class="profile-image" id="profileImage" style="background-image:url({{profile.photo}})" ng-click="clickProfile()"></div>
+        <div class="profile-name" ng-click="clickProfile()"><h1 style="color:white">{{(profile.name.length>22)?profile.name.substr(0,22) + "...":profile.name}}</h1></div>
+
+
+        <div class="accountBalance" ng-click="swapAccountValue()">
+            <div id="eWalletAccount">
+                <div class="accountType">{{account.displayName}}<br>{{account.accountNumber}}</div>
+
+                <div class="accountArrow" > </div>
+                <div class="amount small">
+                    <span class="currency" >{{account.currency}}</span><span class="number">{{account.balance}} </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dashboardContainer" >
+        <div class="notice" ng-click="clickNotifications()">{{'DASHBOARD_YOU_HAVE' | translate }} {{notices}} {{'DASHBOARD_NOTICES' | translate }}</div>
+        <div owlcarousel my-id="social" class="owl-carousel" style="margin-top: -5px">
+            <div class="item dashboardGreyBox" ng-swipe-right="swipeShow($event)">
+                <div class="account" ng-click="clickAccounts()"><span>{{'DASHBOARD_ACCOUNTS_TITLE' | translate }}</span></div>
+                <div class="payment" ng-click="clickPayments()"><span>{{'DASHBOARD_PAYMENTS_TITLE' | translate }}</span></div>
+                <div class="transfer" ng-click="clickTransfer()"><span>{{'DASHBOARD_TRANSFER_TITLE' | translate }}</span></div>
+                <div class="social" ng-click="clickSocial()"><span>{{'DASHBOARD_SOCIAL_TITLE' | translate }}</span></div>
+                <div class="transaction" ng-click="clickTransactions()"><span>{{'DASHBOARD_TRANSACTIONS_TITLE' | translate }}</span></div>
+                <div class="creditCard" ng-click="clickCard()"><span>{{'DASHBOARD_CARD_TITLE' | translate }}</span></div>
+            </div>
+            <div class="item dashboardGreyBox column2">
+                <div class="cashout" ng-click="clickCashout()"><span>{{'DASHBOARD_CASHOUT_TITLE' | translate }}</span></div>
+                <div class="deposit" ng-click="clickDeposit()"><span>{{'DASHBOARD_DEPOSIT_TITLE' | translate }}</span></div>
+                <div class="credit" ng-click="clickCredit()"><span>{{'DASHBOARD_CREDIT_TITLE' | translate }}</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="socially grey-tcb" style="margin-top: -15px" ng-swipe-right="swipeShow($event)"></div>
+</div>

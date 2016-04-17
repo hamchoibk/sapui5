@@ -1,0 +1,33 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <div class="scrollBox-withFooter">
+        <div class="cashoutInfo" ng-show="noTransaction"> {{'BANK_TRANSACTION_SUMMARY_NO_RECORD' | translate}}</div>
+        <ul class="arrowlist">
+            <li ng-repeat="transaction in transactions" class="greyBorderBottom" ng-click="showTransactionDetails(transaction)">
+                <a class="transactionContainer">
+                    <div class="rowContainer banktransaction">
+                        <span class="name">{{transaction.txnDesc}}</span><br>
+                        <div class="banktransaction-amount"><b>VND {{transaction.txnAmount.formatMoney(0)}}</b></div>
+                        <div class="detailtable">
+                            <div class="row">
+                                <div class="labelKey">{{'BANK_TRANSACTION_SUMMARY_FROM_ACCT' | translate}}</div><div class="labelvalue"><b>{{transaction.payer.accountName}}</b></div>
+                            </div>
+                            <div class="row">
+                                <div class="labelKey">{{'BANK_TRANSACTION_SUMMARY_TO_ACCT' | translate}}</div><div class="labelvalue"><b>{{transaction.payee.accountName}}</b></div>
+                            </div>
+                            <div class="row">
+                                <div class="labelKey">{{'BANK_TRANSACTION_SUMMARY_DATE' | translate}}</div><div class="labelvalue"><b>{{transaction.date}}</b></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

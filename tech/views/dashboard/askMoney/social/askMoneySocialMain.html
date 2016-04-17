@@ -1,0 +1,52 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div class="formContainer flexible-Margin scrollBox-withFooter">
+        <div class="cashoutInfo greyBorderBottom">{{'ASK_MONEY_VIA_SOCIAL_MAIN_TIP' | translate}} </div>
+        <div>
+            <button class="askToWhom" ng-click="clickSendToWhom()">{{friend}} <br> {{friendNumber}}</button>
+        </div>
+        <div class="beneficiaryList askToWhom" ng-click="clickSendToWhom()" style="padding-top: 5px">
+            <i class="icon-value smallicon pull-right {{channelType}}" />
+            <div class="avatar"> <img src="{{friendPhoto}}"/></div>
+            <div class="rowContainer">
+                <div class="detailtable">
+                    <div class="row">
+                        <div class="friendLabel">{{friend}} <br> {{friendNumber}}</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="space" style="margin-top:0px;margin-bottom:0px;"></div>
+        <!--<input type="text" class="sendToWhom" placeholder="{{'ASK_MONEY_SOCIAL_MAIN_AMOUNT' | translate }}" numbers-only="numbers-only" numeric-check="ERROR_CODE_30016" ng-model="askMoneyUserInputs.amount" />
+        <div class="space"></div>-->
+        <div>
+            <input type="text" placeholder="VND" value="VND"  class="greyBorderBottom greyBorderRight currencycode" style="margin-bottom:10px" readonly="readonly" />
+            <!--<input type="number" pattern="[0-9]*" placeholder="{{ 'ASK_MONEY_SOCIAL_MAIN_AMOUNT' | translate }}"  name="smscode" class="greyBorderBottom amt" style="margin-bottom:10px" numbers-only="numbers-only" numeric-check="ERROR_CODE_30016" ng-model="askMoneyUserInputs.amount" required/>-->
+            <input type="text" id="amount" placeholder="{{ 'ASK_MONEY_SOCIAL_MAIN_AMOUNT' | translate }}"  onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="smscode" class="greyBorderBottom amt" style="margin-bottom:10px" ng-model="askMoneyUserInputs.parsedAmount" ng-change="change()" length-check="ERROR_CODE_30016" required pattern="[0-9]*"/>
+        </div>
+
+        <div>
+            <div ng-disabled="true">{{'ASK_MONEY_SOCIAL_MAIN_ADD_CONTENT' | translate }}</div>
+            <!--<input type="text" class="boldText" placeholder="{{'ASK_MONEY_SOCIAL_MAIN_ADD_CONTENT' | translate }}" ng-disabled="true"/>-->
+            <input class="messageBox" placeholder="{{'ASK_MONEY_SOCIAL_MAIN_ADD_MESSAGE' | translate }}" maxlength="80" ng-model="askMoneyUserInputs.message"></input>
+        </div>
+        <div class="metaBox">
+            <ul id="aspect">
+                <li ng-click="clickPhoto()"><a href=""><img id="photoImage" src=""/></a></li>
+                <li ng-click="clickVideo()"><a href=""><img id="videoImage" src=""/></a></li>
+                <li ng-click="clickAudio()"><a href=""><img id="audioImage" src=""/></a></li>
+            </ul>
+        </div>
+        <div>
+         <!--<button ng-class="{true: 'button base inactive buttonBox', false: 'button base active buttonBox'}[!(askMoneyUserInputs.amount && friendSelected && askMoneyUserInputs.amount>=50000)]" ng-click="clickSend()"  ng-disabled="(askMoneyUserInputs.amount && friendSelected && sendMoneyUserInputs.amount>=50000)">{{'ASK_MONEY_SOCIAL_MAIN_SEND' | translate }}</button>-->
+            <button ng-class="{true: 'button base active buttonBox', false: 'button base inactive buttonBox'}[(friendSelected && askMoneyUserInputs.amount>=50000)]" ng-click="clickSend()" ng-disabled="!(askMoneyUserInputs.parsedAmount && friendSelected && askMoneyUserInputs.amount>=50000)">{{'ASK_MONEY_SOCIAL_MAIN_SEND' | translate }}</button>
+        </div>
+    </div>
+
+
+    <div class="stickyBottom">
+        <div class="socially grey"></div>
+    </div>
+</div>

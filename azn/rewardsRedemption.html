@@ -1,0 +1,895 @@
+<!DOCTYPE html>        
+<html class="ui-mobile">
+    <head>
+        <script src="cordova.js" type="text/javascript">
+            </script>
+        <script src="native.js" type="text/javascript">
+            </script>
+        <script type="text/javascript">
+            app.initialize();
+            </script>
+        <title></title>  
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+            <meta name="apple-mobile-web-app-capable" content="yes">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+                    <meta content="telephone=no" name="format-detection">
+                        <link href="css/jquerycss.css" rel="stylesheet" type="text/css">
+                            <link href="css/style.css" rel="stylesheet" type="text/css">
+                                <script type="text/javascript" src="script/jq.mobi.js">
+                                    </script>
+                                <script type="text/javascript" src="plugins/jq.scroller.js">
+                                    </script>
+                                <script type="text/javascript" src="script/anzmobile.js">
+                                    </script>
+                                    
+                           	  <script type="text/javascript" src="GeneralJavascript/generalFunction.js"></script>
+	  <script type="text/javascript">
+      function fixScrollTop()
+	 {
+		document.body.scrollTop = 0;
+	 }
+
+	 function hidePopup(idPopup) {
+      $('#' + idPopup + "-popup").removeClass('ui-popup-active');
+           $('#' + idPopup + "-popup").addClass('ui-popup-hidden');
+           $('#' + idPopup + "-popup").removeAttr('style', 'height:90%;width:90%; top: 5%; left: 5%;');
+           
+           $('#' + idPopup + "-screen").removeClass('ui-popup-screen');
+           $('#' + idPopup + "-screen").removeClass('ui-overlay-b');
+           $('#' + idPopup + "-screen").removeClass('in');
+           $('#' + idPopup + "-screen").addClass('ui-screen-hidden');
+           $('#' + idPopup + "-screen").addClass('ui-popup-screen');
+           $('#' + idPopup + "-screen").addClass('ui-overlay-b');
+
+           $('#' + idPopup + "-screen").removeAttr('style','height : '+document.getElementsByClassName('ui-page-active')[0].scrollHeight+'px');
+       }
+  
+  	function showPopup(idPopup) {
+           $('#' + idPopup + "-popup").removeClass('ui-popup-hidden');
+           $('#' + idPopup + "-popup").addClass('ui-popup-active');
+           $('#' + idPopup + "-popup").attr('style', 'height:90%;width:90%; top: 5%; left: 5%;');
+           
+           $('#' + idPopup + "-screen").removeClass('ui-screen-hidden');
+           $('#' + idPopup + "-screen").removeClass('ui-popup-screen');
+           $('#' + idPopup + "-screen").removeClass('ui-overlay-b');
+           $('#' + idPopup + "-screen").addClass('ui-popup-screen');
+           $('#' + idPopup + "-screen").addClass('ui-overlay-b');
+           $('#' + idPopup + "-screen").addClass('in');
+
+           $('#' + idPopup + "-screen").attr('style','height : '+document.getElementsByClassName('ui-page-active')[0].scrollHeight+'px');
+  	}
+
+  	function getChallengeNo() {
+		setContentData([{
+               source: 'server',
+               service: 'GetChallengeNo',
+               dataIds: [{
+                    dataId: 'challengeNo',
+                    dataType: 'text',
+                    source: 'param'
+                    }]
+          }], 'getChallengeNoCallBack');
+	}
+
+	function getChallengeNoCallBack() {
+		var ok = getContentData('ok');
+		if (ok == 1) {
+			document.getElementById('anuniqueprefix_pinRewards').value = '';
+			showPopup('pinconfirmatiomRewards');
+			hidePopup('Rewardstermsandconditions');
+			app.backFunction=customBackMainFromPopupPIN;
+		} else {
+	          var message = getContentData('message');
+	          var res = message.substring(0,4);
+			if (res == 'err.') {
+		        	if (message == 'err.token.locked') {
+					loadMessageResourceAlertPlusCall(message);
+				} else {
+					loadMessageResourceAlert(getContentData('message'));
+				}
+	          } else {
+				alert(getContentData('message'));
+	          }
+		}
+	}
+	var ccNoReward = '';
+	var rewardCat = '';
+	var pointByCc = '';
+	function getCreditCardRewards() {
+		setContentData(
+		[{
+		 source: 'server',
+			 service:'GetListCreditCardRewards',
+	   	 dataIds: [
+	       {
+	       dataId: 'creditCardListRewards',
+	       dataType: 'list',
+	       source: 'param'
+	       }]
+		 }], 'getCreditCardRewardsCallback');
+	}
+
+	function getCreditCardRewardsCallback() {
+		var isOk = getContentData('ok');
+		if (isOk == '1') {
+			var cd = getContentData('creditCardListRewards');
+			document.getElementById('creditCardList').innerHTML = '';
+			for (var i = 0; i < cd.length; i++) {
+				var pointFormat = number_format(cd[i].points, 0, '.', ',');
+				document.getElementById('creditCardList').innerHTML += '<li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-first-child ui-btn-up-c" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a onclick="getCategoryListByCc(\''+cd[i].creditCardNo+'\',\''+cd[i].points+'\');" class="ui-link-inherit" data-transition="slide"><p class="ui-li-aside ui-li-desc">'+pointFormat+' points</p><h3 class="ui-li-heading">'+cd[i].cardType+'</h3><p class="ui-li-desc">'+cd[i].creditCardNo+'</p></a> </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>';
+               }
+               ccNoReward='';
+               rewardCat = '';
+               document.getElementById('forHiddenValueReward').innerHTML = '';
+		} else {
+			alert(getContentData('message'));
+		}
+	}
+	
+	function getCategoryListByCc(ccNo,point) {
+		ccNoReward = ccNo;
+		pointByCc = point;
+		setContentData(
+		[{
+		 source: 'server',
+		 service:'GetCategoryRewards',
+		 params: {
+	 		 ccNo: ccNo
+		 },
+	   	 dataIds: [{
+	       dataId: 'listCategoryRewards',
+	       dataType: 'list',
+	       source: 'param'
+	       }]
+		 }], 'getCategoryListByCcCallback');
+	}
+
+	function getCategoryListByCcCallback() {
+		var isOk = getContentData('ok');
+		if (isOk == '1') {
+			var cd = getContentData('listCategoryRewards');
+			document.getElementById('categoryList').innerHTML = '';
+			for (var i = 0; i < cd.length; i++) {
+               	document.getElementById('categoryList').innerHTML += '<li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-first-child ui-btn-up-c" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a onclick="getCatalogueList(\''+ccNoReward+'\',\''+cd[i].catCode+'\',\'\',\'\');document.getElementById(\'categorySelected\').innerHTML=\''+cd[i].catName+'\';" class="ui-link-inherit" data-transition="slide"><span class="linkText">'+cd[i].catName+'</span></a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>';
+               }
+               showHideLeft('categorySelection','rewardsRedemption');
+               app.backFunction=customBackRewardFromCategoryList;
+		} else {
+			alert(getContentData('message'));
+		}
+	}
+	
+	function getCatalogueList(ccNo, rewardsCategory, subRewardsCategory, pointsRange) {
+		rewardCat = rewardsCategory;
+		setContentData(
+		[{
+		 source: 'server',
+		 service:'GetCategoryRewards',
+		 params: {
+		      ccNo: ccNo,
+		      rewardsCategory: rewardsCategory,
+		      subRewardsCategory: subRewardsCategory,
+		      pointsRange: pointsRange
+		 },
+	   	 dataIds: [{
+	       dataId: 'listCategoryRewards',
+	       dataType: 'list',
+	       source: 'param'
+	       },{
+	       dataId: 'listRewards',
+	       dataType: 'list',
+	       source: 'param'
+	       },{
+	       dataId: 'listRangePoints',
+	       dataType: 'list',
+	       source: 'param'
+	       },{
+	       dataId: 'listSubCategoryRewards',
+	       dataType: 'list',
+	       source: 'param'
+	       }]
+		 }], 'getCatalogueListCallback');
+	}
+
+	function getCatalogueListCallback() {
+		var isOk = getContentData('ok');
+		if (isOk == '1') {
+			var ab = getContentData('listSubCategoryRewards');
+			var ac = getContentData('listRangePoints');
+			var ad = getContentData('listRewards');
+			
+			document.getElementById('select-sub-category').innerHTML = '';
+			document.getElementById('select-point-range').innerHTML = '';
+			document.getElementById('listRewards').innerHTML = '';
+			
+			document.getElementById('selected_sub_category').innerHTML = '<language key="subCategoryDash"></language>';
+			for (var a = 0; a < ab.length; a++) {
+				document.getElementById('select-sub-category').innerHTML += '<option value="'+ab[a].subCatCode+'">'+ab[a].subCatName+'</option>';
+			}
+			document.getElementById('selected_point_range').innerHTML = '<language key="pointRange"></language>';
+			for (var b = 0; b < ac.length; b++) {
+				document.getElementById('select-point-range').innerHTML += '<option value="'+ac[b].pointCode+'">'+ac[b].pointName+'</option>';
+			}
+			if (ad.length > 0) {
+				for (var c = 0; c < ad.length; c++) {
+					if (c%2==false) {
+						var pointFormat = number_format(ad[c].pointsReward, 0, '.', ',');
+						document.getElementById('listRewards').innerHTML += '<li class="ui-block-a ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-btn-up-c"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a onclick="getDetailCatalogue(\''+ad[c].idReward+'\',\''+ad[c].cashBackReward+'\',\''+ad[c].totalAmountTransactionReward+'\');" class="ui-link-inherit" data-transition="slide"><div class="ui-data-list"><p class="productImage ui-li-desc"><img src="'+ad[c].imageLinkReward+'"></p><p class="productName ui-li-desc">'+ad[c].descReward+'</p><p class="points ui-li-desc">'+pointFormat+' points</p></div></a></div></div></li>';
+					} else {
+						var pointFormat = number_format(ad[c].pointsReward, 0, '.', ',');
+						document.getElementById('listRewards').innerHTML += '<li class="ui-block-b ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-btn-up-c"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a onclick="getDetailCatalogue(\''+ad[c].idReward+'\',\''+ad[c].cashBackReward+'\',\''+ad[c].totalAmountTransactionReward+'\');" class="ui-link-inherit" data-transition="slide"><div class="ui-data-list"><p class="productImage ui-li-desc"><img src="'+ad[c].imageLinkReward+'"></p><p class="productName ui-li-desc">'+ad[c].descReward+'</p><p class="points ui-li-desc">'+pointFormat+' points</p></div></a></div></div></li>';
+					}
+				}
+			} else {
+				//document.getElementById('listRewards').innerHTML = '<li style="width:100%;background:linear-gradient(to bottom, #4B5A67 0%, #394A58 100%) repeat scroll 0% 0% transparent!important;" class="ui-li ui-li-divider ui-bar-b" role="heading" data-icon="false" data-role="list-divider">No Reward Found</li>';
+			}
+			processLanguagesDiv('selectedCategory');
+			showHideLeft('selectedCategory','categorySelection');
+			app.backFunction=customBackRewardFromCatalogueList;
+		} else {
+			alert(getContentData('message'));
+		}
+	}
+
+	function getCatalogueBySubAndPointRange() {
+		var subCat = document.getElementById("select-sub-category").options[document.getElementById("select-sub-category").selectedIndex].value;
+		var pointRange = document.getElementById("select-point-range").options[document.getElementById("select-point-range").selectedIndex].value
+		setContentData(
+		[{
+		 source: 'server',
+		 service:'GetCategoryRewards',
+		 params: {
+		      ccNo: ccNoReward,
+		      rewardsCategory: rewardCat,
+		      subRewardsCategory: subCat,
+		      pointsRange: pointRange
+		 },
+	   	 dataIds: [{
+	       dataId: 'listCategoryRewards',
+	       dataType: 'list',
+	       source: 'param'
+	       },{
+	       dataId: 'listRewards',
+	       dataType: 'list',
+	       source: 'param'
+	       },{
+	       dataId: 'listRangePoints',
+	       dataType: 'list',
+	       source: 'param'
+	       },{
+	       dataId: 'listSubCategoryRewards',
+	       dataType: 'list',
+	       source: 'param'
+	       }]
+		 }], 'getCatalogueBySubAndPointRangeCallback');
+	}
+
+	function getCatalogueBySubAndPointRangeCallback() {
+		var isOk = getContentData('ok');
+		if (isOk == '1') {
+			document.getElementById('listRewards').innerHTML = '';
+			var ad = getContentData('listRewards');
+			if (ad.length > 0) {
+				for (var c = 0; c < ad.length; c++) {
+					if (c%2==false) {
+						var pointFormat = number_format(ad[c].pointsReward, 0, '.', ',');
+						document.getElementById('listRewards').innerHTML += '<li class="ui-block-a ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-btn-up-c"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a onclick="getDetailCatalogue(\''+ad[c].idReward+'\',\''+ad[c].cashBackReward+'\',\''+ad[c].totalAmountTransactionReward+'\');" class="ui-link-inherit" data-transition="slide"><div class="ui-data-list"><p class="productImage ui-li-desc"><img src="'+ad[c].imageLinkReward+'"></p><p class="productName ui-li-desc">'+ad[c].descReward+'</p><p class="points ui-li-desc">'+pointFormat+' points</p></div></a></div></div></li>';
+					} else {
+						var pointFormat = number_format(ad[c].pointsReward, 0, '.', ',');
+						document.getElementById('listRewards').innerHTML += '<li class="ui-block-b ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-btn-up-c"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a onclick="getDetailCatalogue(\''+ad[c].idReward+'\',\''+ad[c].cashBackReward+'\',\''+ad[c].totalAmountTransactionReward+'\');" class="ui-link-inherit" data-transition="slide"><div class="ui-data-list"><p class="productImage ui-li-desc"><img src="'+ad[c].imageLinkReward+'"></p><p class="productName ui-li-desc">'+ad[c].descReward+'</p><p class="points ui-li-desc">'+pointFormat+' points</p></div></a></div></div></li>';
+					}
+				}
+				app.backFunction=customBackRewardFromCatalogueList;
+			} else {
+				//document.getElementById('listRewards').innerHTML = '<li class="ui-li ui-li-divider ui-bar-b ui-first-child" data-icon="false" data-role="list-divider"><language key="noRewards"></language></li>';
+			}
+			processLanguagesDiv('selectedCategory');
+		} else {
+			alert(getContentData('message'));
+		}
+	}
+
+	function getDetailCatalogue(idCatalogue,cashback,totalAmount) {
+		setContentData(
+		[{
+		 source: 'server',
+		 service:'GetDetailCatalogue',
+		 params: {
+		      idCatalogue: idCatalogue,
+		      cashback: cashback,
+		      totalAmount: totalAmount
+		 },
+	   	 dataIds: [{
+	       dataId: 'imageLinkCat',
+	       dataType: 'text',
+	       source: 'param'
+	       },{
+	       dataId: 'hotItemFlag',
+	       dataType: 'text',
+	       source: 'param'
+	       },{
+	       dataId: 'category',
+	       dataType: 'text',
+	       source: 'param'
+	       },{
+	       dataId: 'newPoints',
+	       dataType: 'text',
+	       source: 'param'
+	       },{
+	       dataId: 'detailCode',
+	       dataType: 'text',
+	       source: 'param'
+	       },{
+	       dataId: 'detailName',
+	       dataType: 'text',
+	       source: 'param'
+	       },{
+	       dataId: 'oldPoints',
+	       dataType: 'text',
+	       source: 'param'
+	       },{
+	       dataId: 'detailDescription',
+	       dataType: 'text',
+	       source: 'param'
+	       },{
+	       dataId: 'hotItemDescription',
+	       dataType: 'text',
+	       source: 'param'
+	       },{
+	       dataId: 'minQuantity',
+	       dataType: 'text',
+	       source: 'param'
+	       },{
+	       dataId: 'descriptionList',
+	       dataType: 'list',
+	       source: 'param'
+	       },{
+	       dataId: 'cashback',
+	       dataType: 'list',
+	       source: 'param'
+	       },{
+	       dataId: 'totalAmount',
+	       dataType: 'list',
+	       source: 'param'
+	       }]
+		 }], 'getDetailCatalogueCallback');
+	}
+
+	function getDetailCatalogueCallback() {
+		var isOk = getContentData('ok');
+		if (isOk == '1') {
+			document.getElementById('imageDetailCatalogue').innerHTML = '<img src="'+getContentData('imageLinkCat')+'">';
+			document.getElementById('catalogueName').innerHTML = getContentData('detailName');
+			document.getElementById('cataloguePoint').innerHTML = getContentData('newPoints');
+			document.getElementById('catalogueDescription').innerHTML = getContentData('detailDescription');
+			document.getElementById('quantityReward').value= getContentData('minQuantity');
+			document.getElementById('hiddenValuePointRewardDetail').value = number_format(getContentData('newPoints'), 0, '.', ',');
+			document.getElementById('hiddenCategoryRewardDetail').value = getContentData('category');
+			document.getElementById('idRewardDetailHidden').value = getContentData('detailCode');
+			document.getElementById('cashBackDetailHidden').value = getContentData('cashback');
+			document.getElementById('totalAmountDetailHidden').value = getContentData('totalAmount');
+			showHideLeft('itemDetails','selectedCategory');
+		} else {
+			alert(getContentData('message'));
+		}
+	}
+
+	function decreaseQuantityReward() {
+		var qua = parseInt(document.getElementById('quantityReward').value);
+		if (qua > 1) {
+			qua = qua-1;
+			document.getElementById('quantityReward').disabled = false;
+			document.getElementById('quantityReward').value = qua;
+			document.getElementById('quantityReward').disabled = true;
+		}
+	}
+
+	function increaseQuantityReward() {
+		var qua = parseInt(document.getElementById('quantityReward').value);
+		if (qua < 999) {
+			qua = qua+1;
+			document.getElementById('quantityReward').disabled = false;
+			document.getElementById('quantityReward').value = qua;
+			document.getElementById('quantityReward').disabled = true;
+		}
+	}
+	
+	var isMilage = '0';
+	function addToCart() {
+		var milageInCart = parseInt(document.getElementById('totalRewardMilageCart').value);
+		var nonMilageInCart = parseInt(document.getElementById('totalRewardNonMilageCart').value);
+		var totalPointCart = parseInt(document.getElementById('totalPointInCart').value);
+		var totalPointCc = parseInt(pointByCc);
+		var category = document.getElementById('hiddenCategoryRewardDetail').value;
+		var idReward = document.getElementById('idRewardDetailHidden').value;
+		var cashback = document.getElementById('cashBackDetailHidden').value;
+		var totalAmount = document.getElementById('totalAmountDetailHidden').value;
+		var listRewardInCart = document.getElementById('listHiddenIdRewardInCart').value;
+
+		//if (milageInCart > 1 && nonMilageInCart > 1){
+		//	loadMessageResourceAlert("gcm.businessexception.APR_1112228");
+		//	return;
+		//}
+			
+		if (totalPointCart > totalPointCc) {
+			loadMessageResourceAlert("gcm.businessexception.APR_1112227");
+			return;
+		}
+		if (category!= 'Redeem Mileage') {
+			var quantity = parseInt(document.getElementById('quantityReward').value);
+			var point = parseInt(document.getElementById('hiddenValuePointRewardDetail').value);
+			// calculate total quantity*point
+			var totalPoint = quantity*point;
+			totalPointCart = totalPointCart + totalPoint;
+			if (totalPointCart > totalPointCc) {
+				loadMessageResourceAlert("gcm.businessexception.APR_1112227");
+				return;
+			}
+			document.getElementById('totalPointInCart').value = totalPointCart;
+			var isAvai = false;
+			// set to hidden type create idReward as id and point as value
+			var strRewardSplit = listRewardInCart.split(';')
+			if (strRewardSplit.length == 0) {
+				isAvai = false;
+			} else {
+				for (var i=0; i < strRewardSplit.length; i++ ){
+					if (strRewardSplit[i] == idReward) {
+						isAvai = true;
+						i = strRewardSplit.length;
+					} else {
+						isAvai = false;
+					}
+				}
+			}
+
+			if (isAvai == true) {
+				var totalPointBefore = parseInt(document.getElementById('RPR'+idReward).value);
+				var totalPointNew = totalPointBefore + totalPoint;
+				document.getElementById('RPR'+idReward).value = totalPointNew;
+			} else {
+				listRewardInCart = listRewardInCart+idReward+';';
+				document.getElementById('listHiddenIdRewardInCart').value = listRewardInCart;
+				document.getElementById('forHiddenValueReward').innerHTML += '<input type="hidden" id="RPR'+ idReward +'" value="'+totalPoint+'">';
+				document.getElementById('forHiddenValueReward').innerHTML += '<input type="hidden" id="RPRCashback'+ idReward +'" value="'+cashback+'">';
+				document.getElementById('forHiddenValueReward').innerHTML += '<input type="hidden" id="RPRTotalAmount'+ idReward +'" value="'+totalAmount+'">';
+				document.getElementById('hiddenCategoryForCart').value = category;
+			}
+			
+			if (isMilage == '0' && milageInCart < 1) {
+				nonMilageInCart = nonMilageInCart+1;
+				document.getElementById('totalRewardNonMilageCart').value = nonMilageInCart;
+				alert('Successfull add to cart');
+			} else {
+				isMilage = '1';
+				loadMessageResourceAlert("gcm.businessexception.APR_1112228");
+				return;
+			}
+		} else {
+			var quantity = parseInt(document.getElementById('quantityReward').value);
+			var point = parseInt(document.getElementById('hiddenValuePointRewardDetail').value);
+			var totalPoint = quantity*point;
+			totalPointCart = totalPointCart + totalPoint;
+			if (totalPointCart > totalPointCc) {
+				loadMessageResourceAlert("gcm.businessexception.APR_1112227");
+				return;
+			}
+			
+			document.getElementById('totalPointInCart').value = totalPointCart;
+			var isAvai = false;
+			// set to hidden type create idReward as id and point as value
+			var strRewardSplit = listRewardInCart.split(';')
+			if (strRewardSplit.length == 0) {
+				isAvai = false;
+			} else {
+				for (var i=0; i < strRewardSplit.length; i++ ){
+					if (strRewardSplit[i] == idReward) {
+						isAvai = true;
+						i = strRewardSplit.length;
+					} else {
+						isAvai = false;
+					}
+				}
+			}
+
+			if (isAvai == true) {
+				var totalPointBefore = parseInt(document.getElementById('RPR'+idReward).value);
+				var totalPointNew = totalPointBefore + totalPoint;
+				document.getElementById('RPR'+idReward).value = totalPointNew;
+			} else {
+				listRewardInCart = listRewardInCart+idReward+';';
+				document.getElementById('listHiddenIdRewardInCart').value = listRewardInCart;
+				document.getElementById('forHiddenValueReward').innerHTML += '<input type="hidden" id="RPR'+ idReward +'" value="'+totalPoint+'">';
+				document.getElementById('forHiddenValueReward').innerHTML += '<input type="hidden" id="RPRCashback'+ idReward +'" value="'+cashback+'">';
+				document.getElementById('forHiddenValueReward').innerHTML += '<input type="hidden" id="RPRTotalAmount'+ idReward +'" value="'+totalAmount+'">';
+				document.getElementById('hiddenCategoryForCart').value = category;
+			}
+			
+			isMilage = '1';
+			if (isMilage == '1' && nonMilageInCart < 1) {
+				milageInCart = milageInCart+1;
+				document.getElementById('totalRewardMilageCart').value = milageInCart;
+				alert('Successfull add to cart');
+			} else {
+				isMilage = '0';
+				loadMessageResourceAlert("gcm.businessexception.APR_1112228");
+				return;
+			}
+		}
+	}
+
+	function goToCart() {
+		alert('test12');
+		var listId = document.getElementById('listHiddenIdRewardInCart').value;
+		alert(listId);
+		var strRewardSplit = listId.split(';');
+		var strRewardPoint = '';
+		for (var i=0; i < strRewardSplit.length; i++ ){
+			strRewardPoint = strRewardPoint+strRewardSplit[i]+'|'
+			+document.getElementById('RPR'+strRewardSplit[i]).value+'|'
+			+document.getElementById('RPRCashback'+strRewardSplit[i]).value+'|'
+			+document.getElementById('RPRTotalAmount'+strRewardSplit[i]).value+';';
+		}
+		alert(strRewardPoint);
+		var categoryCart = document.getElementById('hiddenCategoryForCart').value;
+		alert('test');
+		setContentData(
+		[{
+		 source: 'server',
+		 service:'GetCartRewards',
+		 params: {
+		      listIdReward: strRewardPoint,
+		      ccNo: ccNoReward,
+		      catalogueCategory: categoryCart
+		 },
+	   	 dataIds: [{
+	       dataId: 'cardPrdType',
+	       dataType: 'text',
+	       source: 'param'
+	       },{
+	       dataId: 'cardHolderName',
+	       dataType: 'text',
+	       source: 'param'
+	       },{
+	       dataId: 'cardType',
+	       dataType: 'text',
+	       source: 'param'
+	       },{
+	       dataId: 'catalogueCategory',
+	       dataType: 'text',
+	       source: 'param'
+	       },{
+	       dataId: 'pointRequired',
+	       dataType: 'text',
+	       source: 'param'
+	       },{
+	       dataId: 'shoppingListCart',
+	       dataType: 'list',
+	       source: 'param'
+	       }]
+		 }], 'getGoToCartCallback');
+	}
+
+	function getGoToCartCallback() {
+		var isOk = getContentData('ok');
+		if (isOk == '1') {
+			var ccNo = ccNoReward;
+			var cardType = getContentData('cardType');
+			var cardHolderName = getContentData('cardHolderName');
+			var totalPointCc = parseInt(pointByCc);
+			var pointRequired = parseInt(getContentData('pointRequired'));
+			var remainingPoint = totalPointCc-pointRequired;
+			var catalogueCategory = getContentData('catalogueCategory');
+			
+			document.getElementById('creditCardNoCart').innerHTML = ccNo;
+			document.getElementById('creditCardTypeCart').innerHTML = cardType;
+			document.getElementById('creditCardName').innerHTML = cardHolderName;
+			document.getElementById('creditCardPoint').innerHTML = totalPointCc;
+			document.getElementById('totalRedeemPoints').innerHTML = pointRequired;
+			document.getElementById('remainingPoints').innerHTML = remainingPoint;
+
+			var shopList = getContentData('shoppingListCart');
+			document.getElementById('listShoppingCart').innerHTML = '';
+			if (catalogueCategory != 'Redeem Mileage'){
+				for (var i = 0; i < shopList.length; i++) {
+					document.getElementById('listShoppingCart').innerHTML += '<div class="cart-content-list"><div class="ui-grid-a"><span class="productImage"><img src="'+shopList[i].imageCartList+'"></span><h5 class="ui-heading points"><span>Points :</span> <span class="totalPoints">'+shopList[i].point+'</span></h5></div><div class="ui-grid-b"><h3 class="ui-heading">'+shopList[i].catalogueName+'</h3><h4 class="ui-heading"><span>Total :</span>'+shopList[i].totalPoint+'</h4><p class="cartspinner"><div class="spinner"><div data-disabled="false" aria-disabled="false" class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all" data-theme="c" data-iconpos="null" data-icon="null" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true"><span class="ui-btn-inner"><span class="ui-btn-text">-</span></span><button data-disabled="false" class="decrease ui-btn-hidden">-</button></div><div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input maxlength="3" class="spinnerExample value passive ui-input-text ui-body-c" type="text"></div><div data-disabled="false" aria-disabled="false" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c" data-theme="c" data-iconpos="null" data-icon="null" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true"><span class="ui-btn-inner"><span class="ui-btn-text">+</span></span><button data-disabled="false" class="increase ui-btn-hidden">+</button></div></div></p></div><div class="closeIcon"><a href="#" class="ui-btn ui-icon-close ui-btn-up-undefined">Close</a></div></div>';
+				}
+			} else {
+				for (var i = 0; i < shopList.length; i++) {
+					document.getElementById('listShoppingCart').innerHTML += '<div class="cart-content-list"><div class="ui-grid-a"><span class="productImage"><img src="'+shopList[i].imageCartList+'"></span><h5 class="ui-heading points"><span>ANZ Mileage :</span><span class="totalPoints">'+shopList[i].point+'</span></h5></div><div class="ui-grid-b"><h3 class="ui-heading">'+shopList[i].catalogueName+'</h3><h4 class="ui-heading"><span>Total :</span> '+shopList[i].totalPoint+'</h4><p class="cartspinner"><div class="spinner"><div data-disabled="false" aria-disabled="false" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c" data-theme="c" data-iconpos="null" data-icon="null" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true"><span class="ui-btn-inner"><span class="ui-btn-text">-</span></span><button data-disabled="false" class="decrease ui-btn-hidden">-</button></div><div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input maxlength="3" class="spinnerExample value ui-input-text ui-body-c" type="text"></div><div data-disabled="false" aria-disabled="false" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c" data-theme="c" data-iconpos="null" data-icon="null" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true"><span class="ui-btn-inner"><span class="ui-btn-text">+</span></span><button data-disabled="false" class="increase ui-btn-hidden">+</button></div></div></p></div><div class="milageFormList"><div data-role="fieldcontain" class="formElements positionRelative ui-hide-label ui-field-contain ui-body ui-br"><label class="ui-input-text" for="firstName">First Name</label><div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input name="firstName" id="firstName" value="" class="textBox ui-input-text ui-body-c" placeholder="First Name" type="text"></div></div><div data-role="fieldcontain" class="formElements positionRelative ui-hide-label ui-field-contain ui-body ui-br"><label class="ui-input-text" for="lastName">Last Name</label><div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input name="lastName" id="lastName" value="" class="textBox ui-input-text ui-body-c" placeholder="Last Name" type="text"></div></div><div data-role="fieldcontain" class="formElements positionRelative ui-hide-label ui-field-contain ui-body ui-br"><label class="ui-input-text" for="membershipNumber">Membership number</label><div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input name="membershipNumber" id="membershipNumber" value="" class="textBox ui-input-text ui-body-c" placeholder="Membership number" type="text"></div></div><div data-role="fieldcontain" class="formElements positionRelative ui-hide-label ui-field-contain ui-body ui-br"><label class="ui-input-text" for="date">Date</label><div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input name="date" id="date" value="" class="textBox ui-input-text ui-body-c" placeholder="Date" type="text"></div></div></div><div class="closeIcon"><a href="#" class="ui-btn ui-icon-close">Close</a></div></div>';
+				}
+			}
+			showHideLeft('cartPage','itemDetails');
+		} else {
+			alert(getContentData('message'));
+		}
+	}
+	
+	function customBackMainFromRewardsRedemption() {
+		goToHTML({viewId: 'myaccount.html'});
+	}
+
+	function customBackRewardFromCategoryList() {
+		showHideRight('rewardsRedemption','categorySelection');
+		app.backFunction=customBackMainFromRewardsRedemption;
+	}
+
+	function customBackRewardFromCatalogueList() {
+		showHideRight('categorySelection','selectedCategory');
+		app.backFunction=customBackRewardFromCategoryList;
+	}
+
+	function customBackRewardFromDetailReward() {
+		showHideRight('selectedCategory', 'itemDetails');
+		app.backFunction=customBackRewardFromCatalogueList;
+	}
+
+
+	function number_format (number, decimals, dec_point, thousands_sep) {
+		number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
+		var n = !isFinite(+number) ? 0 : +number,
+		prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+		sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+		dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+		s = '',
+		toFixedFix = function (n, prec) {
+		  var k = Math.pow(10, prec);
+		  return '' + Math.round(n * k) / k;
+		};
+		// Fix for IE parseFloat(0.55).toFixed(0) = 0;
+		s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+		if (s[0].length > 3) {
+			s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+		}
+		if ((s[1] || '').length < prec) {
+			s[1] = s[1] || '';
+			s[1] += new Array(prec - s[1].length + 1).join('0');
+		}
+		return s.join(dec);
+	}
+	</script>
+</head>
+<body class="loginScreen innerPage ui-mobile-viewport ui-overlay-c" onload="processLanguages();getCreditCardRewards();app.backFunction=customBackMainFromRewardsRedemption;">
+   	<!------******************------> 
+	<!----- Rewards Redemption -----> 
+	<!------******************------>
+	<div style="padding-top: 43px; min-height: 389px;" tabindex="0" data-url="rewardsRedemption" data-role="page" id="rewardsRedemption" class="noPadding ui-page ui-body-c ui-page-header-fixed ui-page-active" data-add-back-btn="true">
+		<div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+			<a onclick="goToHTML({viewId: 'myaccount.html'});"  data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse" id="lotusMenu"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="back"></language></span></span></a>
+			<h1 aria-level="1" role="heading" class="ui-title"><language key="rewardCatalogue"></h1>
+		</div>
+		<div role="main" data-role="content" class="productView noshadow whiteBg ui-content">
+		    <div class="content-primary">
+		      <div style="position: relative;" class="primaryAccount content-one">
+		        <div class="rewardsPointsList">
+		          <div class="listTypeListformating">
+		            <ul data-role="listview" class="listtype ui-listview" id="creditCardList">
+		              
+		            </ul>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+  		</div>
+	</div>
+	<!------******************------> 
+	<!----- Category Selection -----> 
+	<!------******************------>
+	<div style="padding-top: 43px; min-height: 437px;" class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="categorySelection" data-role="page" id="categorySelection" data-add-back-btn="true">
+	  	<div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+	  		<a onclick="showHideRight('rewardsRedemption','categorySelection');app.backFunction=customBackMainFromRewardsRedemption;" data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" class="leftBtnTwo arrow ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-transition="slide" data-direction="reverse" data-rel="back" id="lotusMenu"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="back"></language></span></span></a>
+		    	<h1 aria-level="1" role="heading" class="ui-title"><language key="selectCategory"></language></h1>
+		    	<a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" href="#itemDetails" class="rightBtn ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-transition="slide"><span class="ui-btn-inner"><span class="ui-btn-text">Cart</span></span></a>
+		</div>
+	  	<div role="main" data-role="content" class="productView ui-content">
+	    		<div class="content-primary">
+		      	<ul data-role="listview" class="listtype ui-listview" id="categoryList">
+		      	</ul>
+	    		</div>
+		</div>
+	</div>
+	<!------******************------> 
+	<!----- Reward Catalogue  ------> 
+	<!------******************------>	
+	<div style="padding-top: 43px; min-height: 437px;" tabindex="0" data-url="selectedCategory" data-role="page" id="selectedCategory" data-add-back-btn="true" class="noPadding whiteBg ui-page ui-body-c ui-page-header-fixed">
+	  	<div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown ui-fixed-hidden" data-tap-toggle="false">
+	  		<a onclick="showHideRight('categorySelection','selectedCategory');app.backFunction=customBackRewardFromCategoryList;" data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse" id="lotusMenu"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="back"></language></span></span></a>
+		    	<h1 aria-level="1" role="heading" class="ui-title" id="categorySelected"></h1>
+		    	<a onclick="goToCart();" aria-haspopup="true" data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" class="rightBtn ui-btn-right ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-position-to="window" data-rel="popup"><span class="ui-btn-inner"><span class="ui-btn-text">Cart</span></span></a>
+		</div>
+	  	<div role="main" data-role="content" class="productView  ui-content">
+		    <fieldset class="ui-grid-a fixedPanel" style="position:absolute!important;">
+			      <div class="ui-block-a">
+			        	<div data-role="fieldcontain" class="noMargin ui-field-contain ui-body ui-br">
+			        		<label for="select-sub-category" class="ui-hidden-accessible ui-select">Product Sub category:</label>
+				        	<div class="ui-select">
+				        		<div class="ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-right ui-btn-up-c" data-theme="c" data-iconpos="right" data-icon="arrow-d" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true">
+				        			<span class="ui-btn-inner">
+				        				<span class="ui-btn-text">
+				        					<span id="selected_sub_category"></span>
+				        				</span>
+				        				<span class="ui-icon ui-icon-arrow-d ui-icon-shadow">&nbsp;</span>
+				        			</span>
+				        			<select name="select-sub-category" id="select-sub-category" onchange="document.getElementById('selected_sub_category').innerHTML = getSelectedOption(this);getCatalogueBySubAndPointRange();">
+						            
+				         	 		</select>
+				         	 	</div>
+				         	 </div>
+		         		</div>
+			      </div>
+			      <div class="ui-block-b">
+			        	<div data-role="fieldcontain" class="noMargin ui-field-contain ui-body ui-br">
+				        	<label for="select-point-range" class="ui-hidden-accessible ui-select">Points Range:</label>
+				        	<div class="ui-select">
+				        		<div class="ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-right ui-btn-up-c" data-theme="c" data-iconpos="right" data-icon="arrow-d" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true">
+				        			<span class="ui-btn-inner">
+				        				<span class="ui-btn-text">
+				        					<span id="selected_point_range"></span>
+				        				</span>
+				        				<span class="ui-icon ui-icon-arrow-d ui-icon-shadow">&nbsp;</span>
+				        			</span>
+				        			<select name="select-point-range" id="select-point-range" onchange="document.getElementById('selected_point_range').innerHTML = getSelectedOption(this);getCatalogueBySubAndPointRange();">
+			          			</select>
+			          		</div>
+			          	</div>
+			          </div>
+		      	</div>
+		    </fieldset>
+		    <div class="ui-grid-a paddingFixedPanel ui-product-listview">
+		        	<ul id="listRewards" data-role="listview" data-inset="true" data-icon="false" class="ui-grid-a ui-listview ui-listview-inset ui-corner-all ui-shadow">
+	       		</ul>
+		     </div>
+	    	</div>
+	</div>
+	<!------******************------> 
+	<!--- Reward Catalogue Detail --> 
+	<!------******************------>
+	<div style="padding-top: 43px; min-height: 437px;" tabindex="0" data-url="itemDetails" data-role="page" id="itemDetails" data-add-back-btn="true" class="noPadding whiteBg ui-page ui-body-c ui-page-header-fixed">
+	  	<div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+		  	<a onclick="showHideRight('selectedCategory','itemDetails');app.backFunction=customBackRewardFromDetailReward;" data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse" data-rel="back" id="lotusMenu"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="back"></language></span></span></a>
+		    	<h1 aria-level="1" role="heading" class="ui-title">Item Details</h1>
+		    	<a onclick="goToCart();" data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" class="rightBtn ui-btn-right ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide"><span class="ui-btn-inner"><span class="ui-btn-text">Cart</span></span></a>
+		</div>
+	  	<div role="main" data-role="content" class="selectedproductView  ui-content">
+			<div class=" padding selectedProduct">
+				<p class="productImage" id="imageDetailCatalogue"></p>
+				<p class="productName" id="catalogueName"></p>
+				<p class="points" id="cataloguePoint"></p>
+				<div class="spinner" style="text-align:center!important;">
+					<div class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all">
+						<span class="ui-btn-inner">
+							<span class="ui-btn-text">-</span>
+						</span>
+						<a onclick="decreaseQuantityReward();">
+							<button class="decrease ui-btn-hidden">-</button>
+						</a>
+					</div>
+					<div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c">
+						<input id="quantityReward" maxlength="3" size="3" class="spinnerExample value passive ui-input-text ui-body-c" type="text" disabled>
+					</div>
+					<div class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c">
+						<span class="ui-btn-inner">
+							<span class="ui-btn-text">+</span>
+						</span>
+						<a onclick="increaseQuantityReward();">
+							<button class="increase ui-btn-hidden">+</button>
+						</a>
+					</div>
+				</div>
+				<div class="pop-submitBtn">
+					<a onclick="addToCart();" class="ui-link" data-transition="slide">Add to cart</a>
+				</div>
+				<input type="hidden" id="totalRewardNonMilageCart" value="0">
+				<input type="hidden" id="totalRewardMilageCart" value="0">
+				<input type="hidden" id="hiddenValuePointRewardDetail">
+				<input type="hidden" id="hiddenCategoryRewardDetail">
+				<input type="hidden" id="totalPointInCart" value="0">
+				<input type="hidden" id="idRewardDetailHidden" value="">
+				<input type="hidden" id="listHiddenIdRewardInCart" value="">
+				<input type="hidden" id="cashBackDetailHidden" value="">
+				<input type="hidden" id="totalAmountDetailHidden" value="">
+				<input type="hidden" id="hiddenCategoryForCart">
+				<div id="forHiddenValueReward">
+				</div>
+			</div>
+	    		<div class="ui-collapsible-set ui-corner-all" data-role="collapsible-set">
+	      		<div class="ui-collapsible ui-collapsible-inset ui-first-child ui-last-child" data-role="collapsible" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-iconpos="right" data-collapsed="true">
+	      			<h2 class="ui-collapsible-heading">
+	      				<a data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="span" data-iconshadow="true" data-shadow="false" data-corners="false" href="#" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-right ui-btn-up-c">
+			      			<span class="ui-btn-inner">
+		      					<span class="ui-btn-text">Description<span class="ui-collapsible-heading-status"> click to collapse contents</span></span>
+		      					<span class="ui-icon ui-icon-shadow ui-icon-arrow-d">&nbsp;</span>
+		      				</span>
+      					</a>
+      				</h2>
+      				<div aria-hidden="false" style="display: block;" class="ui-collapsible-content">	        
+	        				<p id="catalogueDescription"> </p>
+	      			</div>
+	      		</div>
+	    		</div>
+	  	</div>
+	</div>
+	<!------******************------> 
+	<!--- Reward Catalogue Cart ----> 
+	<!------******************------>
+	<div style="padding-top: 43px; min-height: 437px;" tabindex="0" data-url="cartPage" data-role="page" id="cartPage" data-add-back-btn="true" class="noPadding whiteBg ui-page ui-body-c ui-page-header-fixed">
+  		<div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+  			<a onclick="showHideRight('selectedCategory','cartPage');" data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse" id="lotusMenu">
+  				<span class="ui-btn-inner"><span class="ui-btn-text"><language key="back"></language></span></span>
+  			</a>
+    			<h1 aria-level="1" role="heading" class="ui-title">Cart</h1>
+    			<a aria-owns="#termandconditions" aria-haspopup="true" data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" href="#termandconditions" class="rightBtn ui-btn-right ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-position-to="window" data-rel="popup">
+    				<span class="ui-btn-inner"><span class="ui-btn-text">Checkout</span></span>
+    			</a>
+    		</div>
+  		<div role="main" class="ui-content" data-role="content">
+    			<div class="savingAccount accountNumber paddingTwo">
+	      		<div class="ui-grid-a totalDesc dottedBorder">
+		        		<div class="ui-block-a">
+		          		<p class="amount">Credit Card Number</p>
+		          		<p class="title" id="creditCardNoCart"></p>
+		        		</div>
+					<div class="ui-block-b">
+						<p class="amount">Card Type</p>
+						<p class="title" id="creditCardTypeCart"></p>
+					</div>
+		      	</div>
+				<div class="ui-grid-a totalDesc">
+					<div class="ui-block-a">
+						<p class="amount">Cardholder Name</p>
+						<p class="title" id="creditCardName">Richard Mark</p>
+					</div>
+					<div class="ui-block-b">
+				 		<p class="amount">Reward Points</p>
+						<p class="title" id="creditCardPoint">70,000</p>
+					</div>
+				</div>
+    			</div> 
+    			<div class="cartItems noMargin">
+      			<h2 class="ui-heading ui-heading-background">List of items</h2>
+				<div id="listShoppingCart">
+				</div>
+				<div class="totalBalance">
+					<ul>
+						<li><span class="desc">Total Redeem Points</span><span class="totalAmount" id="totalRedeemPoints">1,298,98.12</span></li>
+						<li><span class="desc">Remaining Points</span><span class="totalAmount" id="remainingPoints">2,300.00</span></li>
+					</ul>
+				</div>
+      			<div class="ui-content changeAddress padding">
+        				<div data-role="fieldcontain" class="formElements marginBottom positionRelative ui-field-contain ui-body ui-br">
+        					<label class="ui-input-text" for="accountName">Delivery Address</label>
+        					<div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c">
+        						<input name="accountName" id="accountName" value="" class="textBox ui-input-text ui-body-c" type="text">
+        					</div>
+        					<span class="addButton">
+        						<a class="ui-link" href="#" data-transition="slide">Change</a>
+   						</span>
+					</div>
+      			</div>
+    			</div>
+     		<div style="display: none;"><!-- placeholder for termandconditions --></div>
+      		<div style="display: none;"><!-- placeholder for cartpinconfirmatiom --></div>
+  		</div>
+		<div style="height: 591px;" id="termandconditions-screen" class="ui-popup-screen ui-overlay-b ui-screen-hidden"></div>
+		<div id="termandconditions-popup" class="ui-popup-container ui-popup-hidden">
+			<div data-position-to="origin" data-transition="none" data-corners="true" data-shadow="true" data-disabled="false" aria-disabled="false" id="termandconditions" data-role="popup" class="popup popupTwo ui-popup ui-overlay-shadow ui-corner-all ui-body-c" data-overlay-theme="b" data-dismissible="false">
+        			<h3>Terms &amp; Conditions</h3>
+       	 		<p>Your request for Rewards Points Redemption will be processed within 1 business day, PT. Bank ANZ Indonesia ("ANZ") solely reserves the right to approve or decline or downgrade your request in accondance to ANZ internal policies. ANZ has provided you with adaqua to information on specific details in regards to the requested facility. By Clicking the "Approve" button above you are confirming that you are aware that you must ensure your credit card usage by the end of temporary increase period doesn't exceed your original Credit Card Limit and understand the respective consequence(i.e. benefit, risk, fee and changes).</p>
+        			<div class="pop-submitBtn marginTop"> <a class="ui-link" href="#cartpinconfirmatiom" data-position-to="window" data-rel="popup">Confirm</a> </div>
+        			<div class="pop-cancelBtn"><a class="ui-link" href="#cartPage">Cancel</a></div>
+      		</div>
+      	</div>
+      	<div id="cartpinconfirmatiom-screen" class="ui-screen-hidden ui-popup-screen ui-overlay-b"></div>
+      	<div id="cartpinconfirmatiom-popup" class="ui-popup-container ui-popup-hidden">
+      		<div data-position-to="origin" data-transition="none" data-corners="true" data-shadow="true" data-disabled="false" aria-disabled="false" id="cartpinconfirmatiom" data-role="popup" class="popup popupTwo ui-popup ui-overlay-shadow ui-corner-all" data-overlay-theme="b" data-dismissible="false">
+        		<h3>Your M-PIN</h3>
+        		<div data-role="fieldcontain" class="formElements ui-field-contain ui-body ui-br">
+        			<div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c">
+        				<input name="accountName" id="accountName" value="" class="textBox ui-input-text ui-body-c" placeholder="PIN Number" type="tel">
+        				</div></div>
+        <p class="forgetPin"><a class="ui-link" href="#forgetpin" data-transition="slide">Forgot PIN?</a></p>
+        <div class="pop-submitBtn"><a class="ui-link" href="#cartpaymentConfirmationreceipt" data-transition="slide">Transfer</a></div>
+        <div class="pop-cancelBtn"><a class="ui-link" href="#cartPage">Cancel</a></div>
+      </div></div></div>
+
+</body>
+</html> 

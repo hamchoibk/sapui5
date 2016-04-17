@@ -1,0 +1,66 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <div class="scrollBox-withFooter formContainer" id="scrollArea">
+        <form id="billPaymentForm" name="billPaymentForm">
+
+            <div class="greyBorderBottom">
+                <ul class="arrowlist">
+                    <li class="fromRow" ng-click="selectAccount()">
+                        <a class="labelKey"><b>{{ 'COMMON_FROM' | translate }}</b></span><br>
+                              <span class="detail">
+                                  {{sourceAccount.displayName}}<br>
+                                  {{sourceAccount.accountNumber}}<br>
+                                  {{currencyCode}} {{sourceAccount.availableBalance.formatMoney(0)}}<br>
+                              </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="greyBorderBottom" style="padding: 10px 0;">
+                <b>{{lable1}}</b><br/>
+                <div class="avatar-game"> <img src="{{billInfo.iconUrl}}"/></div>
+                <div class="rowContainer">
+                    <div class="detailtable" style="text-align: match-parent">
+                        <div class="row">
+                            <div class="friendLabel">{{billInfo.name}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="input-withIcon greyBorderBottom" style="padding-top:10px;"><b>{{lable2}}</b></br>
+                <input placeholder="{{'ENTER' | translate}}{{lable2}}" style="margin-top: -5px;" ng-model="billInfo.contractCode" required id="contractCode" bill-no-check="{{lable2}}" ng-change="changeNo()" capitalize/>
+                <i id="clearContractCode" class="clearContractCode clearText inputIcon glyphicon pull-right" ng-click="clearContractCode()" ng-show="showClearContractCode" />
+                <i id="selectAccount" class="selectAccount selectRecentOrder inputIcon glyphicon pull-right" ng-click="selectFromList()" ng-show="showSelectAccount"/>
+            </div>
+
+            <div class="greyBorderBottom" style="margin-top: 10px" ng-show="showContractDetail && showCustomerName"><b>{{lable3}}</b></br>
+                <input ng-model="billInfo.customerName" class="customerName" readonly="readonly"/>
+            </div>
+
+            <div class="greyBorderBottom" ng-show="showContractDetail && showCustomerAddress" style="margin-top: 10px"><b>{{lable5}}</b></br>
+                <input ng-model="billInfo.customerAddress" class="customerName" readonly="readonly"/>
+            </div>
+
+            <div ng-show="showContractDetail && showPaymentDate" style="margin-top: 10px"><b>{{lable4}}</b><br/>
+                <input style="margin-top: -5px" type="text" class="greyBorderBottom" ng-model="billInfo.paymentDate" readonly="readonly"/>
+            </div>
+
+            <div ng-show="showContractDetail">
+                <input type="text" placeholder="VND" value="VND"  class="greyBorderBottom greyBorderRight currencycode" readonly="readonly"/>
+                <input type="text" id="billAmount" class="greyBorderBottom amt" ng-model="billInfo.parsedAmount" readonly="readonly" required/>
+            </div>
+        </form>
+
+
+        <div>
+            <button ng-class="{true: 'button base inactive buttonBox', false: 'button base active buttonBox'}[billPaymentForm.$invalid]" ng-disabled="billPaymentForm.$invalid" ng-click="billPayment()">{{'BILL_PAYMENT_MAIN_SUBMIT' | translate}}</button>
+        </div>
+    </div>
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>
+

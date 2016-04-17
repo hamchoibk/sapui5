@@ -1,0 +1,54 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div class="scrollBox-withFooter resultContainer">
+            <div>
+                <p class="labelKey">{{'ASK_MONEY_E_WALLET_SUCCESS_E_WALLET_ACCOUNT' | translate }}</p>
+                <p class="labelValue">{{requestMoneyInfo.payerName}}</p>
+            </div>
+            <div style="display:none">
+                <p class="labelKey">{{'ASK_MONEY_E_WALLET_SUCCESS_REQUEST_MONEY_FEE' | translate }}</p>
+                <p class="labelValue">VND 3000</p>
+            </div>
+            <div>
+                <p class="labelKey">{{'ASK_MONEY_SOCIAL_SUCCESS_AMOUNT' | translate }}</p>
+                <p class="labelValue">VND {{requestMoneyInfo.parsedAmount}}</p>
+            </div>
+            <!--<div>-->
+                <!--<p class="labelKey">{{'ASK_MONEY_E_WALLET_SUCCESS_STATUS' | translate }}</p>-->
+                <!--<p class="labelValue">{{'ASK_MONEY_E_WALLET_SUCCESS_STATUS_PENDING' | translate }}</p>-->
+            <!--</div>-->
+            <div class="space"></div>
+        <!--<div class="metadata message" ng-show="requestMoneyInfo.message">-->
+            <!--<div class="speech">-->
+            <!--<div class="content" >{{requestMoneyInfo.message}}</div>-->
+            <!--<div class="left">-->
+            <!--</div>-->
+            <!--<div class="lt">-->
+            <!--</div>-->
+            <!--<div class="top">-->
+            <!--</div>-->
+            <!--<div class="rt">-->
+            <!--</div>-->
+            <!--<div class="rb">-->
+            <!--</div>-->
+            <!--<div class="bottom">-->
+            <!--</div>-->
+            <!--<div class="lb">-->
+            <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        
+        <div class="greyBorderBottom">
+            <ul class="notesText">{{'ASK_MONEY_VIA_EWALLET_SUCCESS_NOTES' | translate }}</ul>
+        </div>
+        
+        <div class="buttonBox success">
+            <button class="button base active" ng-click="clickTransactMore()">{{'ASK_MONEY_E_WALLET_SUCCESS_TRANSACT_MORE' | translate }}</button>
+            <button class="button base active" ng-click="clickDone()">{{'ASK_MONEY_E_WALLET_SUCCESS_DONE' | translate }}</button>
+        </div>
+    </div>
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+
+</div>

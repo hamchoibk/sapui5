@@ -1,0 +1,32 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div ng-include src="'views/loading/loading.html'"></div>
+
+    <div>
+        <input type="text" class="seachBar" id="searchAll" placeholder="{{'PAYMENT_INDEX_SEARCH_BAR_TEXT' | translate}}" ng-model="search.name" ng-change="filterByName()"/>
+    </div>
+
+    <div class="scrollBox-withSearchFooter" id="paymentList" style="margin-top: 5px">
+        <div>
+            <ul class="arrowlist fav-friendList">
+                <li ng-repeat="bill in payments|filter:search" class="greyBorderBottom" ng-click="selectBill(bill)">
+                    <a class="favouritesContainer friendsList">
+                        <div class="avatar-game"> <img style="background-color: transparent" src="{{bill.iconUrl}}"/></div>
+                        <div class="rowContainer">
+                            <div class="detailtable" style="text-align: match-parent">
+                                <div class="row">
+                                    <div class="friendLabel">{{bill.name}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

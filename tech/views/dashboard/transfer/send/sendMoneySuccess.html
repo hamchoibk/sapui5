@@ -1,0 +1,109 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div class="profile-cover noprofilephoto" style="background-image: url(images/fbcover.jpg)">
+        <div ng-show="{{showImage}}">
+            <div class="profile-image"><img src="{{friend.friendDetail.profile.photo}}"  /></div>
+            <!--<div class="profile-name"><h1 style="color:white">{{(friend.name.length>22)?friend.name.substr(0,22) + "...":friend.name}}</h1></div>-->
+            <div class="profile-name"><h1 style="color:white">{{friend.name}}</h1></div>
+        </div>
+        <div ng-show="{{!showImage}}">
+            <!--<div class="profile-name" style="margin-top:80px;"><h1 style="color:white">{{friend.name}}</h1><h1 style="color:white">{{friend.mobileNumber}}</h1></div>-->
+            <div class="profile-image"><img src="images/icon-sms.png" /></div>
+            <!--<div class="profile-name" style="margin-top:80px;"><h1 style="color:white">{{friend.name}}</h1></div>-->
+            <div class="profile-name"><h1 style="color:white">{{friend.name}}</h1></div>
+        </div>
+        <div class="accountBalance">
+            <div class="accountType success">{{'SEND_MONEY_SUCCESS_AMOUNT' | translate }}</div>
+            <div class="amount left"><span class="number"><span>{{currencyCode}}</span> <span>{{amount}}</span></span></div>
+        </div>
+    </div>
+        <div class="scrollBox-withCoverAndFooter resultContainer">
+            <div class="infolist greyBorderBottom">
+                <p class="labelKey">{{'SEND_MONEY_SUCCESS_FEES' | translate}} <span class="labelValue amount left" style="margin-top: 0px;font-size: 1.05em;">{{currencyCode}} {{transferFee}}</span></p>
+                <!--<p class="labelValue"><b>{{currencyCode}} {{transferFee}}</b></p>-->
+            </div>
+            <!--<div class="infolist">-->
+                <!--<p class="labelKey">{{'SEND_MONEY_SUCCESS_TOTAL' | translate}}</p>-->
+                <!--<p class="labelValue"><b>{{currencyCode}} {{totalAmount}}</b></p>-->
+            <!--</div>-->
+
+            <!--<div class="infolist greyBorderBottom">-->
+                <!--<p class="labelKey">{{'SEND_MONEY_TXN_REF' | translate}}</p>-->
+                <!--<p class="labelValue">{{txnRef}}</p>-->
+            <!--</div>-->
+
+            <div class="metadata link greyBorderBottom" style="margin: 5px 0px; padding-bottom: 5px;">
+                <div class="value">{{fastalink}}</div>
+                <div class="expire">{{'ACCOUNT_TRANSACTION_DETAIL_DATE' | translate}} {{date}}</div>
+                <div class="copylink" ng-click="clickCopyLink()">{{'SEND_MONEY_SUCCESS_COPY' | translate }}</div>
+            </div>
+            <!--<div class="space" ng-show="userInputs.message"></div>-->
+            <!--<div class="metadata message" ng-show="userInputs.message">-->
+                <!--<div class="speech">-->
+                    <!--<div class="content" >{{userInputs.message}}</div>-->
+                    <!--<div class="left">-->
+                    <!--</div>-->
+                    <!--<div class="lt">-->
+                    <!--</div>-->
+                    <!--<div class="top">-->
+                    <!--</div>-->
+                    <!--<div class="rt">-->
+                    <!--</div>-->
+                    <!--<div class="rb">-->
+                    <!--</div>-->
+                    <!--<div class="bottom">-->
+                    <!--</div>-->
+                    <!--<div class="lb">-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="space" ng-show="metadata.photo"></div>-->
+            <!--<div class="metadata photo" ng-show="metadata.photo">-->
+                <!--<img src="{{metadata.photo}}" />-->
+            <!--</div>-->
+            <!--<div class="space" ng-show="metadata.video"></div>-->
+            <!--<div class="metadata video" ng-show="metadata.video">-->
+                <!--<img src="{{metadata.video.preview}}" />-->
+                <!--<button class="video playButton" ng-click="clickVideo(metadata.video.url)"></button>-->
+            <!--</div>-->
+            <!--<div class="space" ng-show="metadata.audio"></div>-->
+            <!--<div class="metadata audio" ng-show="metadata.audio">-->
+                <!--<div class="audio_holder">-->
+                    <!--<div class="media">-->
+                        <!--<button class="audio playButton" ng-click="clickAudio(metadata.audio.url)"></button>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="metadata audio"  ng-show="metadata.audio">-->
+                <!--<div class="audio_holder">-->
+                    <!--<audio media-player="audioPlayer" data-playlist="audioPlaylist">-->
+                    <!--</audio>-->
+                    <!--<div class="media">-->
+                        <!--<a class="pull-left icon" href="" ng-click="togglePlayState($event)">-->
+                        <!--<span class="glyphicon" ng-class="{true: 'glyphicon-pause', false: 'glyphicon-play'}[audioInPlay]"></span>-->
+                    <!--</a>-->
+                        <!--<div class="progress" ng-click="seek($event)">-->
+                            <!--<div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" ng-style="{ width: audioPlayer.currentTime*100/audioPlayer.duration + '%' }"></div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <div class="greyBorderBottom">
+                <ul class="notes"><b>{{'SEND_MONEY_SUCCESS_NOTES_TITLE' | translate }}</b><br>
+                    <ul class="notesText">{{'SEND_MONEY_SUCCESS_NOTES_1' | translate }}</ul>
+                    <ul class="notesText">{{'SEND_MONEY_SUCCESS_NOTES_2' | translate}}</ul>
+                    <ul class="notesText">{{'SEND_MONEY_SUCCESS_NOTES_3' | translate}}</ul>
+                    <ul class="notesText">{{'SEND_MONEY_SUCCESS_NOTES_4' | translate}}</ul>
+                </ul>
+            </div>
+            <div class="buttonBox success">
+                <button class="button base active" ng-click="clickSpreadLove()">{{'SEND_MONEY_SUCCESS_SPREAD' | translate }}</button>
+                <button class="button base active" ng-click="transactMore()">{{'SEND_MONEY_SUCCESS_TRANSACT_MORE' | translate }}</button>
+                <button class="button base active" ng-click="clickDone()">{{'SEND_MONEY_SUCCESS_DONE' | translate }}</button>
+            </div>
+        </div>
+
+    <div class="stickyBottom">
+        <div class="socially grey"></div>
+    </div>
+</div>

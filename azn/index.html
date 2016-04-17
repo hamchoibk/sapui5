@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html class="ui-mobile"><head>
+         <script src="cordova.js"></script>
+        <script src="native.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+            </script>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+            <meta name="viewport" content="width=device-width ,height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
+            <title>:: ANZ Mobile Banking ::</title>
+            <link href="css/style.css" rel="stylesheet" type="text/css">
+                <link href="css/jquerycss.css" rel="stylesheet" type="text/css">
+                   <!-- <script type="text/javascript" src="script/jquery-1.10.2.min.js"></script>
+                    <script type="text/javascript" src="script/jquery.mobile-1.4.0.min.js"></script>
+                    <script type="text/javascript">
+//                        $(document).ready(function(){
+//                                          setTimeout(function() {
+//                                                     window.location.href = "main.html";
+//                                                     }, 5000);
+//                                          });
+//                                          
+//                                          $(document).ready(function(){
+//                                                            var $this = $( this ),
+//                                                            theme = $this.jqmData("theme") || $.mobile.loader.prototype.options.theme,
+//                                                            msgText = $this.jqmData("msgtext") || $.mobile.loader.prototype.options.text,
+//                                                            textVisible = $this.jqmData("textvisible") || $.mobile.loader.prototype.options.textVisible,
+//                                                            textonly = !!$this.jqmData("textonly");
+//                                                            html = $this.jqmData("html") || "";
+//                                                            $.mobile.loading( 'show', {
+//                                                                             text: msgText,
+//                                                                             textVisible: textVisible,
+//                                                                             theme: theme,
+//                                                                             textonly: textonly,
+//                                                                             html: html
+//                                                                             });
+//                                                            })
+//                                                            .on("click", ".hide-page-loading-msg", function() {
+//                                                                $.mobile.loading( 'hide' );
+//                                                                });
+                        </script>-->
+                        
+                        <script type="text/javascript">
+	                        function afterSMSIntercepted()
+	                        {
+	                        	//cek oke
+	                        	var oke = getContentData('interceptok');
+	                        	var message = getContentData('intercepttxt');
+	                        	alert(oke+ ' : '+message );
+	                        	//get 
+	                        	//mau diapain??
+	                        }
+                        </script>
+                        <script type="text/javascript">
+                        		function checkVersion() {
+							setContentData([{source: 'server',service:'CheckVersion',dataIds:[{dataId: 'isBlacklist',dataType:'text',source:'param'}, {dataId: 'urlUpdate',dataType:'text',source:'param'}]}], 'checkVersionCallBack');
+		                    }
+
+		                    function checkVersionCallBack() {
+							var isOk = getContentData('ok');
+                                	if(isOk == '1'){
+								var isBlacklist = getContentData('isBlacklist');
+                                	 	if(isBlacklist=='false'){
+									token();
+                                	 	} else {
+									var urlUpdate = getContentData('urlUpdate');
+	                                		updateURL(urlUpdate);
+                                	 	}
+                                	} else {
+                                		var errorMessage = getContentData('message');
+								alert(errorMessage);
+                                	}
+		                    }
+		                    
+		                    function token(){
+		                    	setContentData([{"source": "native", "service":"TokenStatus", "dataIds": [{"dataId": "tokenStatus", "dataType":"text", "source": "param"}]}],'callbackToken');
+		                    }
+		                    function callbackToken(){
+		                    	var tokenStatus = getContentData('tokenStatus');
+		                    	//invokeService({
+			                    //	action: [{
+				               //     	source: 'server', 
+				               //     	service: 'mobileBankingStatus',
+				               //     	params:{tokenStatus: tokenStatus}
+		                    	//	}]
+		                    	//});
+		                    	invokeService({
+                            			action: [{
+		                                source: 'server',
+		                                service: 'mobileBankingStatus',
+		                                params:{tokenStatus: tokenStatus}
+                      			 }]
+                        			},"",{callbackCancel:'callbackToken',text:"Retry"});
+		                    }
+                        </script>
+                    </head>
+    
+    <body class="landinPage ui-mobile-viewport ui-overlay-c" onload="checkVersion()"><div class="ui-page ui-body-c ui-page-active" tabindex="0"  data-role="page">
+        
+        <div class="landingBg">
+            <h2>       
+                ANZ Mobile Banking              
+            </h2>
+            <h1>
+            </h1>
+            <div class="landingFooter">
+                <div class="second-stripe">
+                    <div class="footerLogo"><img src="images/anz-logo@2x.png"></div>
+                </div>
+            </div>
+        </div>
+    
+
+</div><div class="ui-loader ui-corner-all ui-body-a ui-loader-default"><span class="ui-icon ui-icon-loading"></span><h1>Loading...</h1></div></body></html>

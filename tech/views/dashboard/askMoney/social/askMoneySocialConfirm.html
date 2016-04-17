@@ -1,0 +1,47 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <div class="formContainer scrollBox-withFooter">
+        <div style="padding-top:15px;">{{'COMMON_TO' | translate }}</div>
+		<div class="beneficiaryList">			
+            <i class="icon-value smallicon pull-right {{channelType}}" />
+            <div class="avatar"> <img src="{{friend.friendDetail.profile.photo}}"/></div>
+            <div class="rowContainer confirm">
+                <div class="detailtable">
+                    <div class="row">
+                        <div class="friendLabel"><b>{{friend.name}}<br>
+                            <span class="number" ng-show="{{showMobile}}">{{friend.mobileNumber}}</span></b>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="space"></div>		
+		<p class="labelKey">{{'ASK_MONEY_SOCIAL_SUCCESS_AMOUNT' | translate }}</p>
+        <div class=" iconField">
+            <i class="icon-value askSocial  glyphicon pull-left"/><p class="labelValue" >{{currencyCode}} {{askAmount}}</p>
+        </div>
+        <div class="space"></div>
+        <div>
+            <input class="messageBox-selected" placeholder="{{ 'TRANSFER_TCB_ADDMESSAGES' | translate }}" ng-model="userInputs.message" ng-disabled="true" ng-show="userInputs.message">
+            <!--<textarea class="messageBox-selected" ng-model="userInputs.message" ng-disabled="true"></textarea>-->
+        </div>
+        <div class="metaBox">
+            <ul id="aspect">
+                <li ng-show="{{imageCapture}}"><a href=""><img id="photoImage" src=""/></a></li>
+                <li ng-show="{{videoCapture}}"><a href=""><img id="videoImage" src=""/></a></li>
+                <li ng-show="{{audioCapture}}"><a href=""><img id="audioImage" src=""/></a></li>
+            </ul>
+        </div>
+
+        <div class="buttonBox" style="bottom: 0px;width: 90%;margin-bottom: 0px;position: absolute;">
+        <button class="button base active" ng-click="clickConfirm()">{{ 'TRANSFER_SEND_BUTTON' | translate }}</button>
+        </div>
+    </div>
+
+    <div class="stickyBottom">
+        <div class="socially grey"></div>
+    </div>
+</div>

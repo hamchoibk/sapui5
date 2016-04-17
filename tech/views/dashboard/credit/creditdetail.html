@@ -1,0 +1,71 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <div class="flexible-Margin formContainer ">
+        <div class="transactionDetail">
+            <div class="row">
+                <div class="labelKey column40">{{'LOAN_DETAIL_CONTRACT_NUMBER' | translate }} </div>
+                <div class="labelValue align-right column60"><b>{{loanInfo.contractNo}} </b></div>
+            </div>
+            <div class="row" ng-if="isOnlineLoan">
+                <div class="labelKey column40">{{'LOAN_DETAIL_DISBURSEMENT_DATE' | translate }} </div>
+                <div class="labelValue align-right column60"><b>{{loanInfo.disbursementDate}} </b></div>
+            </div>
+            <div class="row">
+                <div class="labelKey column40">{{isOnlineLoan? 'LOAN_DETAIL_PURPOSE':'LOAN_DETAIL_PRODUCT_TYPE' | translate }}</div>
+                <div class="labelValue align-right column60"><b>{{loanInfo.purpose}}</b></div>
+            </div>
+            <div class="row">
+                <div class="labelKey column40">{{'LOAN_DETAIL_CURRENCY' | translate }} </div>
+                <div class="labelValue align-right column60"><b>{{loanInfo.currency}} </b></div>
+            </div>
+            <div class="row" ng-if="isOnlineLoan">
+                <div class="labelKey column40">{{'LOAN_DETAIL_OUTSTANDING_BALANCE' | translate }} </div>
+                <div class="labelValue align-right column60"><b>{{loanInfo.outstandingBalanceFormated}} </b></div>
+            </div>
+            <div class="row">
+                <div class="labelKey column40">{{'LOAN_DETAIL_INTEREST' | translate }}</div>
+                <div class="labelValue align-right column60"><b>{{loanInfo.interestRate}}</b></div>
+            </div>
+            <div class="row" ng-if="isOnlineLoan">
+                <div class="labelKey column40">{{'LOAN_DETAIL_DISBURSEMENT_ACCOUNT' | translate }}</div>
+                <div class="labelValue align-right column60"><b>{{loanInfo.disbursementAccount}} </b></div>
+            </div>
+            <div class="row" ng-if="!isOnlineLoan">
+                <div class="labelKey column40">{{'LOAN_DETAIL_VALUE_DATE' | translate }}</div>
+                <div class="labelValue align-right column60"><b>{{loanInfo.valueDate}}</b></div>
+            </div>
+            <div class="row">
+                <div class="labelKey column40">{{'LOAN_DETAIL_MATURITY_DATE' | translate }} </div>
+                <div class="labelValue align-right column60"><b>{{loanInfo.maturityDate}} </b></div>
+            </div>
+            <div class="row" ng-if="isOnlineLoan">
+                <div class="labelKey column40">{{'LOAN_DETAIL_AUTO_DEBIT_ACCOUNT' | translate }}</div>
+                <div class="labelValue align-right column60"><b>{{loanInfo.autoDebitAccount}}</b></div>
+            </div>
+            <div class="row" ng-if="isOnlineLoan">
+                <div class="labelKey column40">{{'LOAN_DETAIL_ACCOUNT_NAME' | translate }}</div>
+                <div class="labelValue align-right column60"><b>{{loanInfo.accountName}}</b></div>
+            </div>
+            <div class="row" ng-if="!isOnlineLoan">
+                <div class="labelKey column40">{{'LOAN_DETAIL_PRINCIPAL_PERIOD_TEMP' | translate }}</div>
+                <div class="labelValue align-right column60"><b>{{loanInfo.principalPeriodTempFormated}}</b></div>
+            </div>
+            <div class="row" ng-if="!isOnlineLoan">
+                <div class="labelKey column40">{{'LOAN_DETAIL_INTEREST_AMOUNT_PERIOD_TEMP' | translate }}</div>
+                <div class="labelValue align-right column60"><b>{{loanInfo.interestAmountPeriodTempFormated}}</b></div>
+            </div>
+            <div class="row" ng-if="!isOnlineLoan">
+                <div class="labelKey column40">{{'LOAN_DETAIL_PRINCIPAL_DUE_DATE' | translate }}</div>
+                <div class="labelValue align-right column60"><b>{{loanInfo.principleDueDate}}</b></div>
+            </div>
+            <div class="row" ng-if="!isOnlineLoan">
+                <div class="labelKey column40">{{'LOAN_DETAIL_INTEREST_DUE_DATE' | translate }}</div>
+                <div class="labelValue align-right column60"><b>{{loanInfo.interestDueDate}}</b></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

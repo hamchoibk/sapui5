@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Capture Photo</title>
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script type="text/javascript" charset="utf-8" src="native.js"></script>
+    <script type="text/javascript">
+        app.initialize();
+    </script>
+    <script type="text/javascript">
+    function onPhotoSuccess(data, path){
+    	 // Get image handle        
+        var smallImage = document.getElementById('smallImage');
+
+        // Unhide image elements
+        //
+        smallImage.style.display = 'block';
+
+        // Show the captured photo
+        // The in-line CSS rules are used to resize the image
+        //
+        smallImage.src = data;
+        
+        
+     // Get image handle
+        //
+        var largeImage = document.getElementById('largeImage');
+
+        // Unhide image elements
+        //
+        largeImage.style.display = 'block';
+
+        // Show the captured photo
+        // The in-line CSS rules are used to resize the image
+        //
+        largeImage.src = path;
+        
+        alert('path : '+path);
+        
+    }
+
+    // A button will call this function
+    //
+    function capturePhoto() {
+      // Take picture using device camera and retrieve image as base64-encoded string
+    //  Camera.getPicture(onPhotoDataSuccess, onFail, {maxSize : 204800 });
+      openCamera({maxSize : 204800 }, onPhotoSuccess, onFail);
+    }
+    
+    // Called if something bad happens.
+    //
+    function onFail(message) {
+      alert('Failed because: ' + message);
+    }
+    
+    function showKeyboard(){
+    	document.getElementById("dipa").focus();
+        invokeKeyboard("show");
+    }
+    
+    function showKeyboardText(){
+    	document.getElementById("alala").focus();
+        invokeKeyboard("show");
+    }
+    
+    function hideKeyboard(){
+    	invokeKeyboard("close");
+    }
+
+    function doTrackingAnalytics(event) {
+    	invokeTrackingAnalytics(event);
+    }
+    </script>
+  </head>
+  <body onload="">
+    <button onclick="capturePhoto();">Capture Photo</button> <br>
+    <input type='text' placeholder="Diam lu dipa" id="alala"  maxlength='10'/> <br/><br/>
+    <input type='tel' placeholder="Diam lu dipa" id='dipa' maxlength='10'/> <br/><br/>
+    <button onclick="showKeyboard();">Show Keyboard tel</button> <br>
+    <button onclick="showKeyboardText();">Show Keyboard text</button> <br>
+    <button onclick="hideKeyboard();">Hide Keyboard</button> <br>
+    <img style="display:none;" id="smallImage" src="" />
+    <img style="display:none;" id="largeImage" src="" />
+    
+    <br />
+    <a href="tel:14000">CALL TEST</a>
+    <br />
+    <button onclick="doTrackingAnalytics('/Screen-ANZ')">Track</button>
+  </body>
+</html>

@@ -1,0 +1,681 @@
+<!DOCTYPE html>       
+<html class="ui-mobile">     
+	<head>              
+		<script src="cordova.js"></script>      
+		<script src="native.js"></script>
+		<script type="text/javascript">
+			app.initialize();
+            </script>    
+		<title></title>      
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+            <meta name=apple-mobile-web-app-capable content=yes>
+                <meta name=apple-mobile-web-app-status-bar-style content=black>
+                    <meta content="telephone=no" name="format-detection">
+                        <link href="css/jquerycss.css" rel="stylesheet" type="text/css">
+                            <link href="css/style.css" rel="stylesheet" type="text/css">
+                                <script type="text/javascript" src="script/jq.mobi.js"></script>
+                                <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
+                                
+                                <script src="script/infobox.js"></script>
+                                <script type="text/javascript"> 
+                                    
+//                                   google.maps.event.addDomListener(window, 'load', initialize);
+                                    var map,map2;
+                                    var demoCenter = new google.maps.LatLng(41,-87);
+                                    function initializeATM2() {
+                                        if(!map)map = new google.maps.Map(document.getElementById('map_canvas'), {
+                                                                         zoom: 7,
+                                                                         center: demoCenter,
+                                                                         mapTypeId: google.maps.MapTypeId.ROADMAP
+                                                                         });
+                                    }
+                                    function initializeATM() {
+                                        var listMap = getContentData('atmNearestList');
+                                        var cityList=[];
+                                        var temp;
+                                        for(var x=0;x<listMap.length;x++){
+                                            var temp2=[];
+                                            temp2.push(listMap[x].name);
+                                            temp2.push(listMap[x].address1);
+                                            temp2.push(listMap[x].latitude);
+                                            temp2.push(listMap[x].longitude);
+                                            temp2.push(listMap[x].code);
+                                            cityList.push(temp2);
+                                        }
+//                                                        var cityList = [
+//                                                                        ['ANZ Tower','Sudirman', 41.850033, -87.6500523],
+//                                                                        ['ANZ Branch','Kuningan', 40.797177,-89.406738]
+//                                                                        ];
+//                                                        nslog(demoCenter)
+
+                                        var latitude = getContentData("latitude");
+                                        var longitude = getContentData("longitude");
+                                        demoCenter = new google.maps.LatLng(latitude,longitude);
+                                        var boxList =[];
+                                        var optionList =[];
+                                        var temp;
+                                        
+                                        var mapcanvas = document.getElementById('map_canvas');
+                                        var header = document.getElementById('header');
+                                        var footer = document.getElementById('footer');
+                                        mapcanvas.style.height = window.innerHeight + 'px';
+                                        var zoom = getContentData("zoom") == null ? 12 : getContentData("zoom");
+                                        
+                                        if(!map){
+                                            map = new google.maps.Map(mapcanvas, {
+                                                  zoom:zoom,
+                                                  zoomControl:false,
+                                                  streetViewControl: false,
+                                                  center: demoCenter,
+                                                  mapTypeId: google.maps.MapTypeId.ROADMAP
+                                                  });
+                                        }
+                                        
+
+                                        for (var i = 0; i < cityList.length; i++)
+                                        {
+                                            
+                                            var posCity = new google.maps.LatLng(cityList[i][2], cityList[i][3]);
+                                            var marker = new google.maps.Marker({
+                                                                                position: posCity,
+                                                                                map: map,
+                                                                                id: i,
+                                                                                title: cityList[i][0],
+                                                                                icon: 'images/icon-mapviewatm.png'
+                                                                            });
+                                                                            
+                                            
+                                            var boxText = document.createElement("div");
+                                            boxText.id = i;
+                                            boxText.style.cssText = "border: 1px solid black;margin-top: 8px;background-image:url(images/tabSelectBg.png);padding:5px 10px 5px;border-radius:5px;";
+                                            boxText.innerHTML = "<font color='white'>" + cityList[i][0] + "<br/>" + cityList[i][1] + "</font>";
+                                            
+                                            var myOptions = {
+                                                content: boxText
+                                                ,disableAutoPan: false
+                                                ,maxWidth: 0
+                                                ,pixelOffset: new google.maps.Size(-156, 0)
+                                                ,zIndex: null
+                                                ,boxStyle: {
+                                                    background: "url('images/tipbox.png') no-repeat"
+                                                    ,opacity: 1
+                                                    ,width: "225px"
+                                                }
+                                                ,closeBoxMargin: "10px 2px 2px 2px"
+                                                ,closeBoxURL: ""
+                                                ,infoBoxClearance: new google.maps.Size(1, 1)
+                                                ,isHidden: false
+                                                ,pane: "floatPane"
+                                                ,enableEventPropagation: false
+                                            };
+                                            
+                                            optionList.push(myOptions);
+                                            ib = new InfoBox(myOptions);
+                                            boxList.push(ib);
+                                            
+                                            google.maps.event.addListener(marker,'click',(function(marker, i) {
+                                                                                          return function() {
+//                                                                                                                      for(var xx=0;xx<boxList.length;xx++)boxList[xx].close(map,this);
+//                                                                                                                      boxList[i].open(map, this);
+//                                                                                                                      for(var xx=0;xx<boxList.length;xx++){
+//                                                                                                                        if(xx==i)boxList[xx].open(map, this);
+//                                                                                                                        else boxList[xx].close(map,this);
+//                                                                                                                      }
+//                                                                                                                      ib.close();
+//                                                                                                                      ib.setOptions(myOptions);
+//                                                                                                                      ib.open(map, this);
+                                                                                          
+                                                                                          for(n = 0;n<boxList.length;n++){
+                                                                                            boxList[n].close();
+                                                                                          }
+                                                                                          //boxList[i].close();
+                                                                                          boxList[i].setOptions(optionList[i]);
+                                                                                          boxList[i].open(map, this);
+
+                                                                                          }
+                                                                                          })(marker, i));
+                                                                                          
+                                                                                          google.maps.event.addDomListener(boxList[i].content_,'click',(function(marker, i) {
+                                                                                            return function() {
+//                                                                                                                                        alert('clicked ' + cityList[i][0]);
+                                                                                                            getDetailATM(cityList[i][4]);
+                                                                                            }
+                                                                                            })(marker, i));
+                                    } //endfor
+                                } //end function
+                                function initializeBranch2(){
+                                    if(!map2)map2 = new google.maps.Map(document.getElementById('map_canvas2'), {
+                                                                        zoom: 7,
+                                                                        center: demoCenter,
+                                                                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                                                                        });
+                                }
+                                function initializeBranch() {
+                                    var listMap = getContentData('branchNearestList');
+                                    var cityList=[];
+                                    var temp;
+                                    for(var x=0;x<listMap.length;x++){
+                                        var temp2=[]
+                                        temp2.push(listMap[x].name);
+                                        temp2.push(listMap[x].address1);
+                                        temp2.push(listMap[x].latitude);
+                                        temp2.push(listMap[x].longitude);
+                                        temp2.push(listMap[x].code);
+                                        cityList.push(temp2);
+                                    }
+                                    //                                                        var cityList = [
+                                    //                                                                        ['ANZ Tower','Sudirman', 41.850033, -87.6500523],
+                                    //                                                                        ['ANZ Branch','Kuningan', 40.797177,-89.406738]
+                                    //                                                                        ];
+                                    
+                                    var mapcanvas2 = document.getElementById('map_canvas2');
+                                    mapcanvas2.style.height = window.innerHeight + 'px';
+                                    var latitude = getContentData("latitude");
+                                    var longitude = getContentData("longitude");
+                                    var demoCenter = new google.maps.LatLng(latitude,longitude);
+                                    var boxList =[];
+                                    var optionList =[];
+                                    var temp;
+                                     var zoom = getContentData("zoom") == null ? 12 : getContentData("zoom");
+                                    if(!map2)map2 = new google.maps.Map(mapcanvas2, {
+                                                              zoom: zoom,
+                                                              center: demoCenter,
+                                                              zoomControl:false,
+                                                              streetViewControl: false,
+                                                              mapTypeId: google.maps.MapTypeId.ROADMAP
+                                                              });
+                                                              for (var i = 0; i < cityList.length; i++)
+                                                              {
+                                                                  var marker = new google.maps.Marker({
+                                                                                                  position: new google.maps.LatLng(cityList[i][2], cityList[i][3]),
+                                                                                                  map: map2,
+                                                                                                  id: i,
+                                                                                                  title: cityList[i][0],
+                                                                                                  icon: 'images/icon-mapviewbranch.png'
+                                                                                                  });
+                                                                                                  
+                                                                                                  var boxText = document.createElement("div");
+                                                                                                  boxText.id = i;
+                                                                                                  boxText.style.cssText = "border: 1px solid black;margin-top: 8px;background-image:url(images/tabSelectBg.png);padding:5px 10px 5px;border-radius:5px;";
+                                                                                                  boxText.innerHTML = "<font color='white'>" + cityList[i][0] + "<br/>" + cityList[i][1] + "</font>";
+                                                                                                  
+                                                                                                  var myOptions = {
+                                                                                                      content: boxText
+                                                                                                      ,disableAutoPan: false
+                                                                                                      ,maxWidth: 0
+                                                                                                      ,pixelOffset: new google.maps.Size(-156, 0)
+                                                                                                      ,zIndex: null
+                                                                                                      ,boxStyle: {
+                                                                                                          background: "url('images/tipbox.png') no-repeat"
+                                                                                                          ,opacity: 1
+                                                                                                          ,width: "225px"
+                                                                                                      }
+                                                                                                      ,closeBoxMargin: "10px 2px 2px 2px"
+                                                                                                      ,closeBoxURL: ""
+                                                                                                      ,infoBoxClearance: new google.maps.Size(1, 1)
+                                                                                                      ,isHidden: false
+                                                                                                      ,pane: "floatPane"
+                                                                                                      ,enableEventPropagation: false
+                                                                                                  };
+                                                                                                  
+                                                                                                  optionList.push(myOptions);
+                                                                                                  var ib = new InfoBox(myOptions);
+                                                                                                  boxList.push(ib);
+                                                                                                  
+                                                                                                  google.maps.event.addListener(marker,'click',(function(marker, i) {
+                                                                                                                                                return function() {
+//                                                                                                                                                for(var xx=0;xx<boxList.length;xx++)boxList[xx].close(map,this);
+//                                                                                                                                                boxList[i].open(map2, this);
+//                                                                                                                                                for(var xx=0;xx<boxList.length;xx++){
+//                                                                                                                                                if(xx==i)boxList[xx].open(map2, this);
+//                                                                                                                                                else boxList[xx].close(map2,this);
+//                                                                                                                                                }
+                                                                                                                                                    for(n = 0;n<boxList.length;n++){
+                                                                                                                                                        boxList[n].close();
+                                                                                                                                                    }
+                                                                                                                                                    //boxList[i].close();
+                                                                                                                                                    boxList[i].setOptions(optionList[i]);
+                                                                                                                                                    boxList[i].open(map2, this);
+                                                                                                                                                }
+                                                                                                                                                })(marker, i));
+                                                                                                                                                
+                                                                                                                                                google.maps.event.addDomListener(boxList[i].content_,'click',(function(marker, i) {
+                                                                                                                                                                                                              return function() {
+                                                                                                                                                                                                              //                                                                                                                                        alert('clicked ' + cityList[i][0]);
+                                                                                                                                                                                                              getDetailBranch(cityList[i][4]);
+                                                                                                                                                                                                              }
+                                                                                                                                                                                                              })(marker, i));
+                                                              } //endfor
+                                } //end function
+                                </script>
+                                <script>
+                                   function checkLanguage1(){
+								setContentData([{source: 'server',service:'CheckLanguage',dataIds:[{dataId: 'locale',dataType:'text',source:'param'}]}], 'checkLanguageCallBack1');
+							}
+							
+							var locale = '';
+							
+							function checkLanguageCallBack1(){
+								locale = getContentData('locale');
+								getCurrentLocation();
+							}
+							
+                                    function getCurrentLocation(){
+                                        //                                        var var2 = '02/02/2000';
+                                        //                                        var2.match(/^\d{1,2}(\-|\/|\.)\d{1,2}\1\d{4}$/)?alert('OK'):alert('NOT OK');
+                                        
+                                        //                                        var test = 'kribo = h3h';
+                                        //                                        test.match(/^.*(\:|\=).*$/)?alert('ketemu'):alert('tidak ketetmu');
+                                        //                                        test.match(/[^\w^\s]/)?alert('ketemu'):alert('tidak ketetmu');
+                                        //                                        test.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/);
+                                        
+                                        setContentData([{"source": "native", "service":"GetCurrentLocation", "dataIds": [{"dataId": "latitude", "dataType":"text", "source": "param"},{"dataId": "longitude", "dataType":"text", "source": "param"}]}]);
+                                    }
+                                 
+                                function getNearestATM() {
+                                    var latitude = getContentData("latitude");
+                                    var longitude = getContentData("longitude");
+                                    
+                                    latitude = latitude.replace(".",",");
+                                    longitude = longitude.replace(".",",");
+                                    
+									if ((latitude > '180' && longitude > '180') || (latitude == '0,0' && longitude == '0,0') ) {
+										getListAllATMs();
+									} else {
+                                    setContentData([{source: 'server',service:'GetNearestATM',params:{latitude: latitude,longitude: longitude},dataIds:[{dataId: 'atmNearestList',dataType:'list',source:'param'}]}],'nearestATMRollBack');
+									}
+                                }
+                                
+								
+								function getListAllATMs() {
+									setContentData([{source: 'server',service:'GetListAllATM',dataIds:[{dataId: 'atmActiveList',dataType:'list',source:'param'}]}],'listAllATMRollBack');
+								}
+								
+								function listAllATMRollBack(){
+								   document.getElementById('tab-7').innerHTML = '';
+								   document.getElementById('tab-7').innerHTML += '<div id="boxATMSearch" style="display: none;"><div role="main" data-role="content" class="productView noshadow whiteBg ui-content"><div class="content-primary"><div class="whiteBgTwo"><div data-role="fieldcontain" class="formElements noMargin marginBottom ui-field-contain ui-body ui-br" style="height:80px"><div style="text-align:left;"><language key="searchATMName"></language></div><div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input name="searchATMName" id="searchATMName" value="" class="textBox ui-input-text ui-body-c" placeholderKey="atmName" type="text"></div></div></div></div></div></div>';
+								   var cd = getContentData('atmActiveList');
+								   for(var a=0;a<cd.length;a++){
+									   document.getElementById('tab-7').innerHTML += '<div class="listView atm"><a onclick="getDetailATM(\''+cd[a].code+'\');" class="ui-btn ui-shadow ui-btn-icon-right ui-btn-up-c" data-theme="c" data-wrapperels="span" data-iconshadow="true" data-shadow="true" href="#atmAddressDetails" data-icon="arrow-r" data-iconpos="right" data-role="button" data-corners="false" data-transition="slide"><span class="ui-btn-inner"><span class="ui-btn-text"><span class="locationIcon"></span><h3 class="ui-li-heading">'+cd[a].name+'</h3><p class="ui-li-desc">'+cd[a].address1+','+cd[a].city+'</p></span><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></span></a></div>';
+								   }
+								   hideBoxSearchATM();
+								   processLanguagesDiv('tab-7');
+								   showHideLeft('nearestATM','selectMenu');
+								   showHideTabBar('tab-7','tab-6');
+                                }
+                                
+                                function nearestATMRollBack(){
+                                    
+                                    document.getElementById('tab-7').innerHTML = '';
+                                    document.getElementById('tab-7').innerHTML += '<div id="boxATMSearch" style="display: none;"><div role="main" data-role="content" class="productView noshadow whiteBg ui-content"><div class="content-primary"><div class="whiteBgTwo"><div data-role="fieldcontain" class="formElements noMargin marginBottom ui-field-contain ui-body ui-br"><div style="text-align:left;"><language key="searchATMName"></language></div><div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input name="searchATMName" id="searchATMName" value="" class="textBox ui-input-text ui-body-c" placeholderKey="atmName" type="text"></div></div></div></div></div></div>';
+                                    var cd = getContentData('atmNearestList');
+                                    for(var a=0;a<cd.length;a++){
+                                        document.getElementById('tab-7').innerHTML += '<div class="listView atm"><a onclick="getDetailATM(\''+cd[a].code+'\');" class="ui-btn ui-shadow ui-btn-icon-right ui-btn-up-c" data-theme="c" data-wrapperels="span" data-iconshadow="true" data-shadow="true" href="#atmAddressDetails" data-icon="arrow-r" data-iconpos="right" data-role="button" data-corners="false" data-transition="slide"><span class="ui-btn-inner"><span class="ui-btn-text"><p class="ui-li-aside ui-li-desc">'+cd[a].distance+' KM</p><span class="locationIcon"></span><h3 class="ui-li-heading">'+cd[a].name+'</h3><p class="ui-li-desc">'+cd[a].address1+','+cd[a].city+'</p></span><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></span></a></div>';
+                                        //                                        <div class="listView atm"><a href="#addressDetails"  data-icon="arrow-r" data-iconpos="right" data-role="button" data-corners="false" data-transition="slide"><span class="locationIcon"></span><h3>ANZ Tower</h3><p>JL Jend Sudirman Kav 33A, Jakarta</p><p class="ui-li-aside">0.2 km</p></a></div>
+                                        //<div class="listView atm"><a class="ui-btn ui-shadow ui-btn-icon-right ui-btn-up-c" data-theme="c" data-wrapperels="span" data-iconshadow="true" data-shadow="true" href="#addressDetails" data-icon="arrow-r" data-iconpos="right" data-role="button" data-corners="false" data-transition="slide"><span class="ui-btn-inner"><span class="ui-btn-text"><p class="ui-li-aside ui-li-desc">0.2 km</p><span class="locationIcon"></span><h3 class="ui-li-heading">ANZ Tower</h3><p class="ui-li-desc">JL Jend Sudirman Kav 33A, Jakarta</p></span><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></span></a></div>
+                                        
+                                        //backup
+                                        //<div class="listView atm"><a href="#addressDetails"  data-icon="arrow-r" data-iconpos="right" data-role="button" data-corners="false" data-transition="slide" onclick="getDetailATM(\''+cd[a].code+'\');"><span class="locationIcon"></span><h3>'+cd[a].name+'</h3><p>'+cd[a].address1+','+cd[a].city+'</p><p class="ui-li-aside">'+cd[a].distance+'</p></a></div>
+                                    }
+                                    //                                    $.mobile.changePage('#nearestATM',{transition: "slide"});
+                                    prepareShowATMMap();
+                                    hideBoxSearchATM();
+                                    processLanguagesDiv('tab-7');
+							 showHideLeft('nearestATM','selectMenu');
+							 initializeATM();
+                                }
+                                
+                                function getDetailATM(data) {
+                                    var code = data;
+                                    setContentData([{source: 'server',service:'GetDetailATM',params:{code: code},dataIds:[{dataId: 'name',dataType:'text',source:'param'},{dataId: 'address1',dataType:'text',source:'param'},{dataId: 'address2',dataType:'text',source:'param'},{dataId: 'address3',dataType:'text',source:'param'},{dataId: 'openHour',dataType:'text',source:'param'},{dataId: 'closeHour',dataType:'text',source:'param'}]}],'detailATMRollBack');
+                                }
+                                
+                                function detailATMRollBack() {
+                                    //                                    alert(getContentData('name'));
+                                    document.getElementById('atmName').innerHTML = getContentData('name');
+                                    document.getElementById('atmAddress1').innerHTML = getContentData('address1');
+                                    document.getElementById('atmAddress2').innerHTML = getContentData('address2');
+                                    document.getElementById('atmAddress3').innerHTML = getContentData('address3');
+                                    //                                    $.mobile.changePage('#atmAddressDetails',{transition: "slide"});
+                                    showHideLeft('atmAddressDetails','nearestATM'); 
+                                }
+                                
+                                function getNearestBranch() {
+                                    var latitude = getContentData("latitude");
+                                    var longitude = getContentData("longitude");
+                                    
+                                    latitude = latitude.replace(".",",");
+                                    longitude = longitude.replace(".",",");
+                                    
+									if ((latitude > '180' && longitude > '180') || (latitude == '0,0' && longitude == '0,0') ) {
+										getListAllBranches();
+									} else {
+                                    setContentData([{source: 'server',service:'GetNearestBranch',params:{latitude: latitude,longitude: longitude},dataIds:[{dataId: 'branchNearestList',dataType:'list',source:'param'}]}],'nearestBranchRollBack');
+                                }
+                                }
+                                
+								function getListAllBranches() {
+									setContentData([{source: 'server',service:'GetListAllBranch',dataIds:[{dataId: 'branchActiveList',dataType:'list',source:'param'}]}],'listAllBranchRollBack');
+								}
+								
+								function listAllBranchRollBack(){
+								   document.getElementById('tab-9').innerHTML = '';
+								   document.getElementById('tab-9').innerHTML += '<div id="boxBranchSearch" style="display: none;"><div role="main" data-role="content" class="productView noshadow whiteBg ui-content"><div class="content-primary"><div class="whiteBgTwo"><div data-role="fieldcontain" class="formElements noMargin marginBottom ui-field-contain ui-body ui-br" style="height:80px"><div style="text-align:left;"><language key="searchBranchName"></language></div><div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input name="searchBranchName" id="searchBranchName" value="" class="textBox ui-input-text ui-body-c" placeholderKey="branchName" type="text"></div></div></div></div></div></div>';
+                                   	   var cd = getContentData('branchActiveList');
+								   for(var a=0;a<cd.length;a++){
+	                                       document.getElementById('tab-9').innerHTML += '<div class="listView branch"><a onclick="getDetailBranch(\''+cd[a].code+'\');" class="ui-btn ui-shadow ui-btn-icon-right ui-btn-up-c" data-theme="c" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-icon="arrow-r" data-iconpos="right" data-role="button" data-corners="false" data-transition="slide"><span class="ui-btn-inner"><span class="ui-btn-text"><span class="locationIcon"></span><h3 class="ui-li-heading">'+cd[a].name+'</h3><p class="ui-li-desc">'+cd[a].city+'</p></span><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></span></a></div>';
+	                                      }
+                                    		hideBoxSearchBranch();
+                                    		processLanguagesDiv('tab-9');
+									showHideLeft('nearestBranch','selectMenu');
+									showHideTabBar('tab-9','tab-8');
+								}
+                                
+                                function nearestBranchRollBack(){
+                                    document.getElementById('tab-9').innerHTML = '';
+                                    document.getElementById('tab-9').innerHTML += '<div id="boxBranchSearch" style="display: none;"><div role="main" data-role="content" class="productView noshadow whiteBg ui-content"><div class="content-primary"><div class="whiteBgTwo"><div data-role="fieldcontain" class="formElements noMargin marginBottom ui-field-contain ui-body ui-br"><div style="text-align:left;"><language key="searchBranchName"></language></div><div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input name="searchBranchName" id="searchBranchName" value="" class="textBox ui-input-text ui-body-c" placeholderKey="branchName" type="text"></div></div></div></div></div></div>';
+                                    var cd = getContentData('branchNearestList');
+                                    for(var a=0;a<cd.length;a++){
+                                        //                                        document.getElementById('tab-9').innerHTML += '<div class="listView branch"><a href="#addressDetails"  data-icon="arrow-r" data-iconpos="right" data-role="button" data-corners="false" data-transition="slide" onclick="getDetailBranch(\''+cd[b].code+'\');"><span class="locationIcon"></span><h3>'+cd[b].name+'</h3><p>'+cd[b].address1+','+cd[b].city+'</p><p class="ui-li-aside">'+cd[b].distance+'</p></a></div>';
+                                        document.getElementById('tab-9').innerHTML += '<div class="listView branch"><a onclick="getDetailBranch(\''+cd[a].code+'\');" class="ui-btn ui-shadow ui-btn-icon-right ui-btn-up-c" data-theme="c" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-icon="arrow-r" data-iconpos="right" data-role="button" data-corners="false" data-transition="slide"><span class="ui-btn-inner"><span class="ui-btn-text"><p class="ui-li-aside ui-li-desc">'+cd[a].distance+' KM</p><span class="locationIcon"></span><h3 class="ui-li-heading">'+cd[a].name+'</h3><p class="ui-li-desc">'+cd[a].address1+','+cd[a].city+'</p></span><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></span></a></div>';
+                                    }
+                                    //                                    $.mobile.changePage('#nearestBranch',{transition: "slide"});
+                                    prepareShowBranchMap();
+                                    hideBoxSearchBranch();
+                                    processLanguagesDiv('tab-9');
+							 showHideLeft('nearestBranch','selectMenu');
+                                    initializeBranch();
+                                }
+                                
+                                function getDetailBranch(data) {
+                                    var code = data;
+                                    setContentData([{source: 'server',service:'GetDetailBranch',params:{code: code},dataIds:[{dataId: 'name',dataType:'text',source:'param'},{dataId: 'address1',dataType:'text',source:'param'},{dataId: 'address2',dataType:'text',source:'param'},{dataId: 'address3',dataType:'text',source:'param'},{dataId: 'email',dataType:'text',source:'param'},{dataId: 'phoneNo',dataType:'text',source:'param'},{dataId: 'openHour',dataType:'text',source:'param'},{dataId: 'closeHour',dataType:'text',source:'param'}]}],'detailBranchRollBack');
+                                }
+                                
+                                function detailBranchRollBack() {
+                                    document.getElementById('branchName').innerHTML = getContentData('name');
+                                    document.getElementById('branchAddress1').innerHTML = getContentData('address1');
+                                    document.getElementById('branchAddress2').innerHTML = getContentData('address2');
+                                    document.getElementById('branchAddress3').innerHTML = getContentData('address3');
+                                    if (locale == 'en'){
+                                    	document.getElementById('branchOpenCloseHour').innerHTML = 'Mon - Fri: '+getContentData('openHour')+' am - '+getContentData('closeHour')+' pm';
+                                    } else {
+                                    	document.getElementById('branchOpenCloseHour').innerHTML = 'Senin - Jumat: '+getContentData('openHour')+' am - '+getContentData('closeHour')+' pm';
+                                    }
+                                    //                                    $.mobile.changePage('#branchAddressDetails',{transition: "slide"});
+                                    showHideLeft('branchAddressDetails','nearestBranch');
+                                }
+                                
+                                function showHideTabBar(tab1,tab2){
+                                    $('#'+tab1+'Tab').addClass('ui-tabs-active');
+                                    $('#'+tab1+'Tab').addClass('ui-state-active');
+                                    $('#'+tab2+'Tab').removeClass('ui-tabs-active');
+                                    $('#'+tab2+'Tab').removeClass('ui-state-active');
+                                    
+                                    document.getElementById(tab1).style.display = 'block';
+                                    document.getElementById(tab2).style.display = 'none';
+                                }
+
+                                function goToCurrentLocATM(){
+                                	getCurrentLocation();
+                                	var latitude = getContentData("latitude");
+                                   var longitude = getContentData("longitude");
+                                	demoCenter = new google.maps.LatLng(latitude,longitude);
+					   		map.setCenter(demoCenter); 
+                                 }
+
+                                 function showBoxSearchATM() {
+							document.getElementById('headerATM').style.display = 'none';
+							document.getElementById('headerATMSearch').style.display = 'block';
+							document.getElementById('searchATMButton').style.display = 'block';
+							document.getElementById('boxATMSearch').style.display = 'block';
+							document.getElementById('searchATMName').value = '';
+                                 }
+								 
+						 function hideBoxSearchATM() {
+							document.getElementById('headerATM').style.display = 'block';
+							document.getElementById('headerATMSearch').style.display = 'none';
+							document.getElementById('boxATMSearch').style.display = 'none';
+						 } 
+								 
+						 function showBoxSearchBranch() {
+							document.getElementById('headerBranch').style.display = 'none';
+							document.getElementById('headerBranchSearch').style.display = 'block';
+							document.getElementById('searchBranchButton').style.display = 'block';
+							document.getElementById('boxBranchSearch').style.display = 'block';
+							document.getElementById('searchBranchName').value = '';
+                               }
+						 
+						 function hideBoxSearchBranch() {
+							document.getElementById('headerBranch').style.display = 'block';
+							document.getElementById('headerBranchSearch').style.display = 'none';
+							document.getElementById('boxBranchSearch').style.display = 'none';
+						 }
+						 
+						 function searchATMByName(){
+							var atmName = document.getElementById('searchATMName').value;
+							setContentData([{source: 'server',service:'SearchATM',params:{atmName: atmName},dataIds:[{dataId: 'atmResultList',dataType:'list',source:'param'}]}],'fillSearchATMRollBack');
+						 }
+						   
+						 function fillSearchATMRollBack(){
+                                    document.getElementById('tab-7').innerHTML = '';
+                                    document.getElementById('tab-7').innerHTML += '<div id="boxATMSearch" style="display: block;"><div role="main" data-role="content" class="productView noshadow whiteBg ui-content"><div class="content-primary"><div class="whiteBgTwo"><div data-role="fieldcontain" class="formElements noMargin marginBottom ui-field-contain ui-body ui-br"><div style="text-align:left;"><language key="searchATMName"></language></div><div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input name="searchATMName" id="searchATMName" value="" class="textBox ui-input-text ui-body-c" placeholderKey="atmName" type="text"></div></div></div></div></div></div>';
+                                    var cd = getContentData('atmResultList');
+                                    if (cd.length < 1){
+					           	//document.getElementById('tab-7').innerHTML = '<p style="background: #4b5a67; /* Old browsers */background: -moz-linear-gradient(top, #4b5a67 0%, #394a58 100%); /* FF3.6+ */background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#4b5a67), color-stop(100%,#394a58)); /* Chrome,Safari4+ */background: -webkit-linear-gradient(top, #4b5a67 0%,#394a58 100%); /* Chrome10+,Safari5.1+ */background: -o-linear-gradient(top, #4b5a67 0%,#394a58 100%); /* Opera 11.10+ */background: -ms-linear-gradient(top, #4b5a67 0%,#394a58 100%); /* IE10+ */background: linear-gradient(to bottom, #4b5a67 0%,#394a58 100%); /* W3C */filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#4b5a67",endColorstr="#394a58",GradientType=0 ); /* IE6-9 */border:none;color:#fff;text-shadow:0px -1px #222a30;	font-size:14px;font-weight:500;border-bottom:1px solid #2e3b46;	border-top:none;margin-top:1px; margin-left:10px;margin-bottom:1px;">No Record Found</p>';
+					           	document.getElementById('tab-7').innerHTML += '<div class="listView atm"><a class="ui-btn" style="background: #4b5a67; /* Old browsers */background: -moz-linear-gradient(top, #4b5a67 0%, #394a58 100%); /* FF3.6+ */background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#4b5a67), color-stop(100%,#394a58)); /* Chrome,Safari4+ */background: -webkit-linear-gradient(top, #4b5a67 0%,#394a58 100%); /* Chrome10+,Safari5.1+ */background: -o-linear-gradient(top, #4b5a67 0%,#394a58 100%); /* Opera 11.10+ */background: -ms-linear-gradient(top, #4b5a67 0%,#394a58 100%); /* IE10+ */background: linear-gradient(to bottom, #4b5a67 0%,#394a58 100%); /* W3C */filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=`4b5a67`,endColorstr=`#394a58`,GradientType=0 ); /* IE6-9 */border:none;color:#fff;text-shadow:0px -1px #222a30;" data-wrapperels="span" data-iconshadow="true" data-shadow="true" href="#addressDetails" data-icon="arrow-r" data-iconpos="right" data-role="button" data-corners="false" data-transition="slide"><span class="ui-btn-inner"><span class="ui-btn-text"><p class="ui-li-desc" style="color:rgba(254, 254, 254, 1)!important;"><language key="noRecords"></language></p></span></span></a></div>';
+					           }
+                                    for(var a=0;a<cd.length;a++){
+                                        document.getElementById('tab-7').innerHTML += '<div class="listView atm"><a onclick="getDetailATM(\''+cd[a].code+'\');" class="ui-btn ui-shadow ui-btn-icon-right ui-btn-up-c" data-theme="c" data-wrapperels="span" data-iconshadow="true" data-shadow="true" href="#atmAddressDetails" data-icon="arrow-r" data-iconpos="right" data-role="button" data-corners="false" data-transition="slide"><span class="ui-btn-inner"><span class="ui-btn-text"><span class="locationIcon"></span><h3 class="ui-li-heading">'+cd[a].name+'</h3><p class="ui-li-desc">'+cd[a].address1+','+cd[a].city+'</p></span><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></span></a></div>';
+                                    }
+                                    processLanguagesDiv('tab-7');
+                               }
+						
+						 function searchBranchByName(){
+							var branchName = document.getElementById('searchBranchName').value;
+							setContentData([{source: 'server',service:'SearchBranch',params:{branchName: branchName},dataIds:[{dataId: 'branchResultList',dataType:'list',source:'param'}]}],'fillSearchBranchRollBack');
+						 }
+						 
+						 function fillSearchBranchRollBack(){
+                                    document.getElementById('tab-9').innerHTML = '';
+                                    document.getElementById('tab-9').innerHTML += '<div id="boxBranchSearch" style="display: block;"><div role="main" data-role="content" class="productView noshadow whiteBg ui-content"><div class="content-primary"><div class="whiteBgTwo"><div data-role="fieldcontain" class="formElements noMargin marginBottom ui-field-contain ui-body ui-br"><div style="text-align:left;"><language key="searchBranchName"></language></div><div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input name="searchBranchName" id="searchBranchName" value="" class="textBox ui-input-text ui-body-c" placeholderKey="branchName" type="text"></div></div></div></div></div></div>';
+                                    var cd = getContentData('branchResultList');
+                                    if (cd.length < 1){
+								document.getElementById('tab-9').innerHTML += '<div class="listView atm"><a class="ui-btn" style="background: #4b5a67; /* Old browsers */background: -moz-linear-gradient(top, #4b5a67 0%, #394a58 100%); /* FF3.6+ */background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#4b5a67), color-stop(100%,#394a58)); /* Chrome,Safari4+ */background: -webkit-linear-gradient(top, #4b5a67 0%,#394a58 100%); /* Chrome10+,Safari5.1+ */background: -o-linear-gradient(top, #4b5a67 0%,#394a58 100%); /* Opera 11.10+ */background: -ms-linear-gradient(top, #4b5a67 0%,#394a58 100%); /* IE10+ */background: linear-gradient(to bottom, #4b5a67 0%,#394a58 100%); /* W3C */filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=`4b5a67`,endColorstr=`#394a58`,GradientType=0 ); /* IE6-9 */border:none;color:#fff;text-shadow:0px -1px #222a30;" data-wrapperels="span" data-iconshadow="true" data-shadow="true" href="#addressDetails" data-icon="arrow-r" data-iconpos="right" data-role="button" data-corners="false" data-transition="slide"><span class="ui-btn-inner"><span class="ui-btn-text"><p class="ui-li-desc" style="color:rgba(254, 254, 254, 1)!important;"><language key="noRecords"></language></p></span></span></a></div>';
+					           }
+                                    for(var a=0;a<cd.length;a++){
+                                        document.getElementById('tab-9').innerHTML += '<div class="listView branch"><a onclick="getDetailBranch(\''+cd[a].code+'\');" class="ui-btn ui-shadow ui-btn-icon-right ui-btn-up-c" data-theme="c" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-icon="arrow-r" data-iconpos="right" data-role="button" data-corners="false" data-transition="slide"><span class="ui-btn-inner"><span class="ui-btn-text"><span class="locationIcon"></span><h3 class="ui-li-heading">'+cd[a].name+'</h3><p class="ui-li-desc">'+cd[a].address1+','+cd[a].city+'</p></span><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></span></a></div>';
+                                    }
+                                    processLanguagesDiv('tab-9');
+                                } 
+						 
+						 function prepareShowATMMap() {
+							 showHideTabBar('tab-6','tab-7');
+							 document.getElementById('headerATMSearch').style.display = 'none';
+							 document.getElementById('headerATM').style.display = 'block';
+							 document.getElementById('searchATMIcon').style.display = 'none';
+						 }
+						 function prepareShowATMList() { 
+							 showHideTabBar('tab-7','tab-6');
+							 document.getElementById('headerATM').style.display = 'none';
+							 document.getElementById('headerATMSearch').style.display = 'block';
+							 document.getElementById('searchATMButton').style.display = 'none';
+							 document.getElementById('boxATMSearch').style.display = 'none';
+							 document.getElementById('searchATMIcon').style.display = 'block';
+						 }
+						 function prepareShowBranchMap() {
+							 showHideTabBar('tab-8','tab-9');
+							 document.getElementById('headerBranchSearch').style.display = 'none';
+							 document.getElementById('headerBranch').style.display = 'block';
+							 document.getElementById('searchBranchIcon').style.display = 'none';
+						 }
+						 function prepareShowBranchList() {
+							 showHideTabBar('tab-9','tab-8');
+							 document.getElementById('headerBranch').style.display = 'none';
+							 document.getElementById('headerBranchSearch').style.display = 'block';
+							 document.getElementById('searchBranchButton').style.display = 'none';
+							 document.getElementById('boxBranchSearch').style.display = 'none';
+							 document.getElementById('searchBranchIcon').style.display = 'block';
+						 }
+                                </script>
+                                </head>
+	<body class="loginScreen innerPage ui-mobile-viewport ui-overlay-c" onload="processLanguages();checkLanguage1();">
+        
+        <!------******************------>
+        <!--------- Find ANZ--------->
+        <!------******************------>
+        <div class="ui-page ui-body-c ui-page-header-fixed ui-page-active" tabindex="0" data-url="selectMenu" data-role="page" id="selectMenu" data-add-back-btn="false">
+            <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+                <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="goToHTML({viewId:'login.html'})" class="leftBtnTwo arrow ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text">Home</span></span></a>
+                <h1 aria-level="1" role="heading" class="ui-title"><language key="findAnz"></language></h1>
+            </div>
+            <div role="main" data-role="content" class="productView ui-content">
+                <div class="content-primary">
+                    <ul data-role="listview" class="listtype ui-listview">
+                        <li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li ui-first-child" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a class="ui-link-inherit" data-transition="slide" onclick="getNearestATM();"><span class="linkText"><language key="nearestAtm"></language></span></a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                        <li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-last-child ui-btn-up-c" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a class="ui-link-inherit" data-transition="slide" onclick="getNearestBranch();"><span class="linkText"><language key="nearestBranch"></language></span></a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="ui-page ui-body-c ui-page-header-fixed ui-page-footer-fixed" tabindex="0" data-url="nearestATM" data-role="page" id="nearestATM" data-add-back-btn="true">
+            <div role="banner" id="headerATM" style="display:block;" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+                <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('selectMenu','nearestATM');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-role="button" rel="external"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="findAnz"></language></span></span></a>
+                <h1 aria-level="1" role="heading" class="ui-title"><language key="nearestAtm"></language></h1>
+            </div>
+            <div role="banner" id="headerATMSearch" style="display:none;" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+                <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('selectMenu','nearestATM');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-role="button" rel="external"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="findAnz"></language></span></span></a>
+                <h1 aria-level="1" role="heading" class="ui-title"><language key="nearestAtm"></language></h1>
+                <a onclick="searchATMByName();" data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" href="#" class="rightBtn beneficiaryAdd ui-btn-right ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" id="searchATMButton"><span class="ui-btn-inner"><span class="ui-btn-text">Search</span></span></a>
+            </div>
+            <div role="main" data-role="content" class="noshadow ui-content"> 
+                <div class="content-primary">
+                    <div class="ui-tabs ui-widget ui-widget-content ui-corner-all" data-role="inlinetabs" id="findtabs">
+                        <div aria-hidden="false" aria-expanded="true" style="display: block;" role="tabpanel" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-listview" aria-labelledby="ui-id-1" data-tab="6" id="tab-6" data-role="listview">
+                            <!--<div class="mapImage">
+                                <img src="images/map.png" class="map">
+                                    </div>-->
+                            <div id="map_canvas" style="width:100%;"></div>
+                        </div>
+                        <div aria-hidden="true" aria-expanded="false" style="display: none;" role="tabpanel" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-listview" aria-labelledby="ui-id-2" data-tab="7" id="tab-7" data-role="listview">
+                             
+                        </div>
+                        <div role="contentinfo" id="footer" data-position="fixed" data-role="footer" class="footer ui-footer ui-bar-a ui-footer-fixed slideup" data-tap-toggle="false">
+                            <a title="Menu"  onclick="goToCurrentLocATM();"  data-theme="a" data-wrapperels="span" data-shadow="true" href="#" data-icon="nearby" data-iconpos="notext" data-iconshadow="false" data-corners="false" class="ui-btn-left nearby ui-btn ui-btn-up-a ui-shadow ui-btn-icon-notext"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="menu"></language></span><span class="ui-icon ui-icon-nearby">&nbsp;</span></span></a>
+                            <div role="navigation" data-role="navbar" class="footertabMenu ui-navbar ui-mini">
+                                <ul role="tablist" class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all ui-grid-a">
+                                    <li id="tab-6Tab" aria-selected="true" aria-labelledby="ui-id-1" aria-controls="tab-6" tabindex="0" role="tab" class="ui-state-default ui-corner-top ui-tabs-active ui-state-active ui-block-a"><a onclick="prepareShowATMMap();" data-inline="true" data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="false" data-corners="false" id="ui-id-1" tabindex="-1" role="presentation" class="ui-tabs-anchor ui-btn ui-btn-up-a ui-btn-inline" data-tab="6"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="map"></language></span></span></a></li>
+                                    <li id="tab-7Tab" aria-selected="false" aria-labelledby="ui-id-2" aria-controls="tab-7" tabindex="-1" role="tab" class="ui-state-default ui-corner-top ui-block-b"><a onclick="prepareShowATMList();" data-inline="true" data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="false" data-corners="false" id="ui-id-2" tabindex="-1" role="presentation" class="ui-tabs-anchor ui-btn ui-btn-up-a ui-btn-inline" data-tab="7"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="list"></language></span></span></a></li>
+                                </ul>
+                            </div>
+                            <a id="searchATMIcon" onclick="showBoxSearchATM();" title="Menu" data-theme="a" data-wrapperels="span" data-shadow="true" href="#" data-iconpos="notext" data-corners="false" data-iconshadow="false" data-icon="search" class="ui-btn-right search ui-btn ui-btn-up-a ui-shadow ui-btn-icon-notext"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="menu"></language></span><span class="ui-icon ui-icon-search">&nbsp;</span></span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui-page ui-body-c ui-page-header-fixed ui-page-footer-fixed" tabindex="0" data-url="nearestBranch" data-role="page" id="nearestBranch" data-add-back-btn="true">
+            <div role="banner" id="headerBranch" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+                <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('selectMenu','nearestBranch');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-role="button" rel="external"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="findAnz"></language></span></span></a>
+                <h1 aria-level="1" role="heading" class="ui-title"><language key="nearestBranch"></language></h1>
+            </div>
+            <div role="banner" id="headerBranchSearch" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+                <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('selectMenu','nearestBranch');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-role="button" rel="external"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="findAnz"></language></span></span></a>
+                <h1 aria-level="1" role="heading" class="ui-title"><language key="nearestBranch"></language></h1>
+				<a onclick="searchBranchByName();" data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" href="#" class="rightBtn beneficiaryAdd ui-btn-right ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" id="searchBranchButton"><span class="ui-btn-inner"><span class="ui-btn-text">Search</span></span></a>
+            </div>
+            <div role="main" data-role="content" class="noshadow ui-content">
+                <div class="content-primary">
+                    <div class="ui-tabs ui-widget ui-widget-content ui-corner-all" data-role="inlinetabs" id="findtabs1">
+                        <div aria-hidden="false" aria-expanded="true" role="tabpanel" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-listview" aria-labelledby="ui-id-3" data-tab="8" id="tab-8" data-role="listview">
+                            <!--<div class="mapImage">
+                                <img src="images/map.png" class="map">
+                                    </div>-->
+                            <div id="map_canvas2" style="width:100%;"></div>
+                        </div>
+                        <div aria-hidden="true" aria-expanded="false" style="display: none;" role="tabpanel" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-listview" aria-labelledby="ui-id-4" data-tab="9" id="tab-9" data-role="listview">
+                            
+                        </div>
+                        <div role="contentinfo" id="footer" data-position="fixed" data-role="footer" class="footer ui-footer ui-bar-a ui-footer-fixed slideup" data-tap-toggle="false">
+                            <a title="Menu"  onclick="goToCurrentLocATM();" data-theme="a" data-wrapperels="span" data-shadow="true" href="#" data-icon="nearby" data-iconpos="notext" data-iconshadow="false" data-corners="false" class="ui-btn-left nearby ui-btn ui-btn-up-a ui-shadow ui-btn-icon-notext"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="menu"></language></span><span class="ui-icon ui-icon-nearby">&nbsp;</span></span></a>
+                            <div role="navigation" data-role="navbar" class="footertabMenu ui-navbar ui-mini">
+                                <ul role="tablist" class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all ui-grid-a">
+                                    <li id="tab-8Tab" aria-selected="true" aria-labelledby="ui-id-3" aria-controls="tab-8" tabindex="0" role="tab" class="ui-state-default ui-corner-top ui-tabs-active ui-state-active ui-block-a"><a onclick="prepareShowBranchMap();" data-inline="true" data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="false" data-corners="false" id="ui-id-3" tabindex="-1" role="presentation" class="ui-tabs-anchor ui-btn ui-btn-up-a ui-btn-inline" href="#tab-8" data-tab="8"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="map"></language></span></span></a></li>
+                                    <li id="tab-9Tab" aria-selected="false" aria-labelledby="ui-id-4" aria-controls="tab-9" tabindex="-1" role="tab" class="ui-state-default ui-corner-top ui-block-b"><a onclick="prepareShowBranchList();" data-inline="true" data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="false" data-corners="false" id="ui-id-4" tabindex="-1" role="presentation" class="ui-tabs-anchor ui-btn ui-btn-inline ui-btn-up-a" href="#tab-9" data-tab="9"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="list"></language></span></span></a></li>
+                                </ul>
+                            </div>
+                            <a id="searchBranchIcon" onclick="showBoxSearchBranch();" title="Menu" data-theme="a" data-wrapperels="span" data-shadow="true" href="#" data-iconpos="notext" data-corners="false" data-iconshadow="false" data-icon="search" class="ui-btn-right search ui-btn ui-btn-up-a ui-shadow ui-btn-icon-notext"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="menu"></language></span><span class="ui-icon ui-icon-search">&nbsp;</span></span></a>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <!------******************------>
+        <!--------- Adrress Details--------->
+        <!------******************------>
+        <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="atmAddressDetails" data-role="page" id="atmAddressDetails" data-add-back-btn="true">
+            <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+                <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('nearestATM','atmAddressDetails');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="back"></language></span></span></a>
+                <h1 aria-level="1" role="heading" class="ui-title"><language key="atmDetails"></language></h1>
+                <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('nearestATM','atmAddressDetails'); prepareShowATMMap();" class="rightBtn beneficiaryAdd ui-btn-right ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="map"></language></span></span></a>
+            </div>
+            <div role="main" data-role="content" class="noshadow whiteBg ui-content">
+                <div class="content-primary">
+                    <div class="backgroundTwo"> 
+                        <span class="addressLeft">
+                            <h3><span id="atmName">ANZ Tower Branch</span></h3>
+                            <p><span id="atmAddress1">JL Jend</span></p>
+                            <p><span id="atmAddress2">Sudirman Kav 33A,</span></p>
+                            <p><span id="atmAddress3">Jakarta Pusat, Jakarta</span></p>
+                        </span>
+				    <span class="callBtn" id="callUsBranch"><a onclick="goToHTML({viewId:'makePhoneCall'});"><span class="callus"></span><language key="callUs"></language></a></span>
+                    </div>
+                    <div class="bankTimings">
+                        <h4 class="timer"><language key="openingHours"></language></h4>
+                        <p><language key="everyDay"></language></p>
+                        <hr>
+                        <h4><language key="weCanHelpYouWith"></language></h4>
+                        <ul>
+                            <li><language key="everydayAccounts"></language></li>
+                            <li><language key="insurance"></language></li>
+                            <li><language key="loans"></language></li>
+                            <li><language key="financialAdvice"></language></li>
+                        </ul> 
+                    </div>
+                </div>
+            </div>   
+        </div>
+        <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="branchAddressDetails" data-role="page" id="branchAddressDetails" data-add-back-btn="true">
+            <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+                <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('nearestBranch','branchAddressDetails');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="back"></language></span></span></a>
+                <h1 aria-level="1" role="heading" class="ui-title"><language key="branchDetails"></language></h1>
+                <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('nearestBranch','branchAddressDetails'); prepareShowBranchMap();" class="rightBtn beneficiaryAdd ui-btn-right ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="map"></language></span></span></a>
+            </div>
+            <div role="main" data-role="content" class="noshadow whiteBg ui-content">
+                <div class="content-primary">
+                    <div class="backgroundTwo">
+                        <span class="addressLeft">
+                            <h3><span id="branchName">ANZ Tower Branch</span></h3>
+                            <p><span id="branchAddress1">JL Jend</span></p>
+                            <p><span id="branchAddress2">Sudirman Kav 33A,</span></p>
+                            <p><span id="branchAddress3">Jakarta Pusat, Jakarta</span></p>
+                        </span> 
+                        <span class="callBtn" id="callUsBranch"><a onclick="goToHTML({viewId:'makePhoneCall'});"><span class="callus"></span><language key="callUs"></language></a></span>
+                    </div>  
+                    <div class="bankTimings">
+                        <h4 class="timer"><language key="openingHours"></language></h4>
+                        <p id="branchOpenCloseHour"></p>
+                        <hr>
+                        <h4><language key="weCanHelpYouWith"></language></h4>
+                        <ul>
+                            <li><language key="everydayAccounts"></language></li>
+                            <li><language key="insurance"></language></li>
+                            <li><language key="loans"></language></li>
+                            <li><language key="financialAdvice"></language></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</body>  
+</html>

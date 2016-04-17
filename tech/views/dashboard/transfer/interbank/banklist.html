@@ -1,0 +1,24 @@
+<div>
+  <div class="overlay " ng-click="dimissPopUp()"></div>
+  <div ng-include src="'views/loading/loading.html'"></div>
+
+  <navigation-bar status="status"></navigation-bar>
+  <div>
+    <input type="text" class="seachBar" placeholder="{{'SEARCH_BANK' | translate }}" ng-model="searchText"/>
+  </div>
+  <div class="scrollBox-withSearchFooter">
+    <ul class="arrowlist">
+      <li ng-repeat="bank in banks | filter:searchText" ng-click="selectBank(bank)">
+        <a class="bankList greyBorderBottom">
+          {{bank.name}}
+        </a>
+      </li>
+    </ul>
+  </div>
+
+
+    <div class="stickyBottom">
+
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

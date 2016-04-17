@@ -1,0 +1,51 @@
+<div>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <navigation-bar status="status"></navigation-bar>
+    <div class="formContainer flexible-Margin scrollBox-withFooter">
+        <form name="signupform" id="signupform">
+            <div>
+                <p class="labelKeyBold">{{ 'SIGNUP_USERDETAILS_MOBILENUMBER' | translate }}</p>
+                <input type="text" placeholder="+84" ng-model="countryCode" class="greyBorderBottom greyBorderRight countrycode" readonly="readonly" />
+                <input type="tel" style="width: 80%;padding-left: 20px" pattern="[0-9]*" placeholder="{{ 'SIGNUP_USERDETAILS_MOBILENUMBER' | translate }}" ng-model="signup.mobileNumber" class="greyBorderBottom mobilenumber" mobile-check="ERROR_CODE_30003" required ng-disabled="disableMobileEdit"/>
+            </div>
+            <div>
+                <p class="labelKeyBold" style="clear:both; padding-top: 10px;">{{ 'SIGNUP_USERDETAILS_USERNAME' | translate }}</p>
+                <input type="text" placeholder= "{{ 'SIGNUP_USERDETAILS_USERNAME' | translate }}" ng-maxlength="40" ng-model="signup.userName" alphabet-check="ERROR_CODE_30014" maxlength-check="ERROR_CODE_30006 40" class="greyBorderBottom inputgap" required ng-disabled="signup.hasArcIB"/>
+            </div>
+            <div>
+                <p class="labelKeyBold" ng-show="!signup.hasArcIB">{{ 'SIGNUP_USERDETAILS_PASSWORD' | translate }}</p>
+                <input type="password" placeholder="{{ 'SIGNUP_USERDETAILS_PASSWORD' | translate }}" id="password" name="password" ng-model="signup.password" length-check="ERROR_CODE_30004" class="greyBorderBottom" ng-required="!signup.hasArcIB" ng-show="!signup.hasArcIB"/>
+                <input type="password" placeholder="{{ 'SIGNUP_USERDETAILS_CONFIRMPASSWORD' | translate }}"  id="confirmPassword" name="confirmPassword" pw-check="password" ng-model="signup.confirmPassword" class="greyBorderBottom inputgap" ng-required="!signup.hasArcIB" ng-show="!signup.hasArcIB"/>
+            </div>
+            <div>
+                <p class="labelKeyBold">{{ 'SIGNUP_USERDETAILS_IDENTITYNUMBER' | translate }}</p>
+                <input type="text" placeholder="{{ 'SIGNUP_USERDETAILS_IDENTITYNUMBER' | translate }}" ng-model="signup.identityNumber"  alphanumeric-check="ERROR_CODE_30008" class="greyBorderBottom" required ng-disabled="signup.hasArcIB"/>
+            </div>
+            <div>
+                <p class="labelKeyBold">{{ 'SIGNUP_USERDETAILS_ISSUEDATE' | translate }}</p>
+                <!--<div class="animate-switch-container" ng-switch on="isMobile">
+                    <input ng-switch-when="false" type="date" placeholder="{{ 'SIGNUP_USERDETAILS_ISSUEDATE' | translate }}" ng-model="signup.issueFormatedDate" class="inputDate greyBorderBottom" required ng-disabled="signup.hasArcIB"/>
+                    <input ng-switch-when="true" type="text" ng-click="focusDate($event)" readonly="readonly" placeholder="{{ 'SIGNUP_USERDETAILS_ISSUEDATE' | translate }}" ng-model="signup.issueFormatedDate" class="inputDate greyBorderBottom" required ng-disabled="signup.hasArcIB"/>
+                </div>-->
+                <input type="date" placeholder=" {{'SIGNUP_USERDETAILS_ISSUEDATE' | translate}}" class="inputDate" ng-model="signup.issueFormatedDate" id="issueDate" required  ng-disabled="signup.hasArcIB" ng-show="!signup.hasArcIB && isiOsDevice"/>
+                <input type="text" placeholder=" {{'SIGNUP_USERDETAILS_ISSUEDATE' | translate}}" class="inputDate" ng-model="signup.issueFormatedDate" id="issueDate" ng-click="focusDate($event)" required  ng-readonly="isAndroid" ng-disabled="signup.hasArcIB" ng-show="!isiOsDevice || signup.hasArcIB"/>
+               
+            </div>
+
+            <div class="tncBox">
+                <input type="checkbox" id="tnccheck" ng-checked="termsConditionsAgreedFlag" ng-click="changeTNCFlag()">
+                <label for="tnccheck">a label</label>
+                <button class="icon-i" ng-click="termsConditionsButtonClicked()">i</button>
+                <label class="terms" ng-click="termsConditionsButtonClicked()">{{ 'SIGNUP_CAPTCHA_TERMSCONDITIONS' | translate }}</label>
+            </div>
+
+            <button ng-class="{true: 'button base inactive buttonBox', false: 'button base active buttonBox'}[signupform.$invalid || !termsConditionsAgreedFlag]" ng-click="clickNext()" ng-disabled="signupform.$invalid || !termsConditionsAgreedFlag">{{ 'SIGNUP_USERDETAILS_NEXT_BUTTON' | translate }}</button>
+
+        </form>
+    </div>
+    <div class="stickyBottom">
+        <!--<button ng-class="{true: 'button base inactive', false: 'button base active'}[signupform.$invalid]" ng-click="clickNext()" ng-disabled=" signupform.$invalid">{{ 'SIGNUP_USERDETAILS_NEXT_BUTTON' | translate }}</button>-->
+
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

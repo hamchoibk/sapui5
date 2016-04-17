@@ -1,0 +1,732 @@
+<!DOCTYPE html>   
+<html class="ui-mobile"><head>
+    <script src="cordova.js"></script>
+	<script src="native.js"></script>
+	<script type="text/javascript">
+		app.initialize();
+        </script>
+    <title> Help </title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+            <meta name="apple-mobile-web-app-status-bar-style" content="black">
+                <meta content="telephone=no" name="format-detection">
+                    <link href="css/jquerycss.css" rel="stylesheet" type="text/css">
+                        <link href="css/style.css" rel="stylesheet" type="text/css">
+                            <script type="text/javascript" src="script/jq.mobi.js"></script>
+                            <!--<script type="text/javascript" src="script/jquery-1.10.2.min.js"></script>
+                             <script type="text/javascript" src="script/jquery.mobile-1.4.0.min.js"></script>
+                             <script type="text/javascript" src="script/anzmobile.js"></script>
+                             <script>
+                             $(function() {
+                             $('.flexslider').flexslider({
+                             animation: "slide"
+                             });
+                             });
+                             </script>
+                             
+                             <script type="text/javascript" src="script/jquery.flexslider-min.js"></script>
+                            <script>
+                                function moveAll(){
+                                    document.getElementById('faqdetail').style.left = -window.innerWidth+'px';
+                                }
+                            </script>-->
+                            <script>
+                                var tabActive = 'tabHelp1';
+                                
+//                                function collapseShow(divId){
+////                                    alert(divId +'~'+ tabActive)
+//                                    if(divId != tabActive){
+//                                        document.getElementById(divId).style.display = 'block';
+////                                        document.getElementById(divId+'icon').removeClass('ui-icon-arrow-r');
+////                                        document.getElementById(divId+'icon').addClass('ui-icon-arrow-d');
+//                                        $('#'+divId+'icon').removeClass('ui-icon-arrow-r');
+//                                        $('#'+divId+'icon').addClass('ui-icon-arrow-d');
+//                                        if(tabActive != ''){
+//                                            document.getElementById(tabActive).style.display = 'none';
+////                                            document.getElementById(tabActive+'icon').removeClass('ui-icon-arrow-r');
+////                                            document.getElementById(tabActive+'icon').addClass('ui-icon-arrow-d');
+//                                            $('#'+tabActive+'icon').removeClass('ui-icon-arrow-d');
+//                                            $('#'+tabActive+'icon').addClass('ui-icon-arrow-r');
+//                                        }
+//                                        tabActive = divId;
+//                                    }else{
+//                                        document.getElementById(divId).style.display = 'none';
+////                                        alert(divId+'icon');
+////                                        alert(document.getElementById(divId+'icon').className);
+//                                        $('#'+divId+'icon').removeClass('ui-icon-arrow-d');
+//                                        $('#'+divId+'icon').addClass('ui-icon-arrow-r');
+//                                        tabActive = '';
+//                                    }
+//                                }
+							function getBackFunction() {
+								app.backFunction=customBackFromHelp;
+						   	}
+
+						   	function customBackFromHelp(){
+						  		goToHTML({viewId: 'login.html'});
+						   	}
+                                </script>
+                            </head>
+<body class="loginScreen innerPage ui-mobile-viewport ui-overlay-c" onload="processLanguages();getBackFunction();">
+    
+    <!------******************------>
+    <!--------- Help --------->
+    <!------******************------>
+    
+    <div class="ui-page ui-body-c ui-page-header-fixed ui-page-active" tabindex="0" data-url="help" data-role="page" id="help" data-add-back-btn="false">
+        <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+            <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="goToHTML({viewId:'login.html'});" rel="external" class="leftBtnTwo arrow ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text">Home</span></span></a>
+            <h1 aria-level="1" role="heading" class="ui-title"><language key="help"></language></h1>
+        </div>
+        <div role="main" class="ui-content" data-role="content">
+            <div class="content-primary">
+                <h4><language key="helpContactAnz"></language></h4>
+                <p><language key="pleaseContact"></language></p>
+                <div class="callBtn marginTopTwo"><a onclick="goToHTML({viewId: 'makePhoneCall'});" class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all" data-theme="c" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" href="#popupcallcentre" data-role="button"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="helpCall"></language></span></span></a></div>
+                <h4 class="marginTopTwo"><language key="helpFrequently"></language></h4>
+                <p><language key="helpFindAnswer"></language></p>
+                
+                <div class="listWidth marginTopfour">
+                    <div class="ui-collapsible-set ui-corner-all" data-role="collapsible-set">
+                        <div class="ui-collapsible ui-collapsible-inset ui-first-child" data-role="collapsible" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-iconpos="right" data-collapsed="false"><h2 onclick="collapseShow('tabHelp1');" class="ui-collapsible-heading"><a data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="span" data-iconshadow="true" data-shadow="false" data-corners="false" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-right ui-btn-up-c"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="tabHelp1"></language><span class="ui-collapsible-heading-status"> click to collapse contents</span></span><span class="ui-icon ui-icon-shadow ui-icon-arrow-d" id="tabHelp1icon">&nbsp;</span></span></a></h2><div aria-hidden="false" style="display: block;" class="ui-collapsible-content" id="tabHelp1">
+                            
+                            <ul data-role="listview" class="listtype faq ui-listview">
+                                <li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-first-child ui-btn-up-c" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+                                    <a class="ui-link-inherit" onclick="showHideLeft('faqdetail1','help');" data-transition="slide">
+                                        <p class="ui-li-desc"><language key="q1"></language></p>
+                                    </a>
+                                </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                                <li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-btn-up-c" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+                                    <a class="ui-link-inherit" onclick="showHideLeft('faqdetail2','help');" data-transition="slide">
+                                        <p class="ui-li-desc"><language key="q2"></language></p>
+                                    </a>
+                                </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                                <li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-btn-up-c" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+                                    <a class="ui-link-inherit" onclick="showHideLeft('faqdetail3','help');" data-transition="slide">
+                                        <p class="ui-li-desc"><language key="q3"></language></p>
+                                    </a>
+                                </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                                <li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-btn-up-c" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+                                    <a class="ui-link-inherit" onclick="showHideLeft('faqdetail4','help');" data-transition="slide">
+                                        <p class="ui-li-desc"><language key="q4"></language></p>
+                                    </a>
+                                </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                                <li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-btn-up-c" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+                                    <a class="ui-link-inherit" onclick="showHideLeft('faqdetail5','help');" data-transition="slide">
+                                        <p class="ui-li-desc"><language key="q5"></language></p>
+                                    </a>
+                                </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                                <li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-btn-up-c" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+                                    <a class="ui-link-inherit" onclick="showHideLeft('faqdetail6','help');" data-transition="slide">
+                                        <p class="ui-li-desc"><language key="q6"></language></p>
+                                    </a>
+                                </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                                <li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-btn-up-c" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+                                    <a class="ui-link-inherit" onclick="showHideLeft('faqdetail7','help');" data-transition="slide">
+                                        <p class="ui-li-desc"><language key="q7"></language></p>
+                                    </a>
+                                </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                                <li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-last-child ui-btn-up-c" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+                                    <a class="ui-link-inherit" onclick="showHideLeft('faqdetail8','help');" data-transition="slide">
+                                        <p class="ui-li-desc"><language key="q8"></language></p>
+                                    </a>
+                                </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                            </ul>
+                        </div></div>
+                        <div class="ui-collapsible ui-collapsible-inset ui-last-child ui-collapsible-collapsed" data-role="collapsible" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-iconpos="right"><h2 onclick="collapseShow('tabHelp2');" class="ui-collapsible-heading ui-collapsible-heading-collapsed"><a data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="span" data-iconshadow="true" data-shadow="false" data-corners="false" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-right ui-btn-up-c"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="tabHelp2"></language><span class="ui-collapsible-heading-status"> click to expand contents</span></span><span class="ui-icon ui-icon-arrow-r ui-icon-shadow" id="tabHelp2icon">&nbsp;</span></span></a></h2><div aria-hidden="true" style="display: none;" class="ui-collapsible-content ui-collapsible-content-collapsed"id="tabHelp2">
+                            
+                            <ul data-role="listview" class="listtype faq ui-listview">
+                                <li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li ui-first-child" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+                                    <a class="ui-link-inherit" onclick="showHideLeft('faqdetail9','help');" data-transition="slide">
+                                        <p class="ui-li-desc"><language key="q9"></language></p>
+                                    </a>
+                                </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                                <li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+                                    <a class="ui-link-inherit" onclick="showHideLeft('faqdetail10','help');" data-transition="slide">
+                                        <p class="ui-li-desc"><language key="q10"></language></p>
+                                    </a>
+                                </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                                <li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+                                    <a class="ui-link-inherit" onclick="showHideLeft('faqdetail11','help');" data-transition="slide">
+                                        <p class="ui-li-desc"><language key="q11"></language></p>
+                                    </a>
+                                </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                                <li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+                                    <a class="ui-link-inherit" onclick="showHideLeft('faqdetail12','help');" data-transition="slide">
+                                        <p class="ui-li-desc"><language key="q12"></language></p>
+                                    </a>
+                                </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                                <li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+                                    <a class="ui-link-inherit" onclick="showHideLeft('faqdetail13','help');" data-transition="slide">
+                                        <p class="ui-li-desc"><language key="q13"></language></p>
+                                    </a>
+                                </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                                <li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li ui-last-child" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+                                    <a class="ui-link-inherit" onclick="showHideLeft('faqdetail14','help');"  data-transition="slide">
+                                        <p class="ui-li-desc"><language key="q14"></language></p>
+                                    </a>
+                                </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                            </ul>
+                        </div></div>
+                        <!-- 3s/d5 -->
+                        <div class="ui-collapsible ui-collapsible-inset ui-last-child ui-collapsible-collapsed" data-role="collapsible" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-iconpos="right"><h2 onclick="collapseShow('tabHelp3');" class="ui-collapsible-heading ui-collapsible-heading-collapsed"><a data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="span" data-iconshadow="true" data-shadow="false" data-corners="false" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-right ui-btn-up-c"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="tabHelp3"></language><span class="ui-collapsible-heading-status"> click to expand contents</span></span><span class="ui-icon ui-icon-arrow-r ui-icon-shadow" id="tabHelp3icon">&nbsp;</span></span></a></h2><div aria-hidden="true" style="display: none;" class="ui-collapsible-content ui-collapsible-content-collapsed"id="tabHelp3">
+                            
+                            <ul data-role="listview" class="listtype faq ui-listview">
+                                <li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li ui-first-child" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+                                    <a class="ui-link-inherit" onclick="showHideLeft('faqdetail15','help');" data-transition="slide">
+                                        <p class="ui-li-desc"><language key="q15"></language></p>
+                                    </a>
+                                </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                                <li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+                                    <a class="ui-link-inherit" onclick="showHideLeft('faqdetail16','help');" data-transition="slide">
+                                        <p class="ui-li-desc"><language key="q16"></language></p>
+                                    </a>
+                                </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                                <li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+                                    <a class="ui-link-inherit" onclick="showHideLeft('faqdetail17','help');" data-transition="slide">
+                                        <p class="ui-li-desc"><language key="q17"></language></p>
+                                    </a>
+                                </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                                <li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li ui-last-child" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+                                    <a class="ui-link-inherit" onclick="showHideLeft('faqdetail18','help');"  data-transition="slide">
+                                        <p class="ui-li-desc"><language key="q18"></language></p>
+                                    </a>
+                                </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                            </ul>
+                        </div></div>
+                        
+                        <div class="ui-collapsible ui-collapsible-inset ui-last-child ui-collapsible-collapsed" data-role="collapsible" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-iconpos="right"><h2 onclick="collapseShow('tabHelp4');" class="ui-collapsible-heading ui-collapsible-heading-collapsed"><a data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="span" data-iconshadow="true" data-shadow="false" data-corners="false" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-right ui-btn-up-c"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="tabHelp4"></language><span class="ui-collapsible-heading-status"> click to expand contents</span></span><span class="ui-icon ui-icon-arrow-r ui-icon-shadow" id="tabHelp4icon">&nbsp;</span></span></a></h2><div aria-hidden="true" style="display: none;" class="ui-collapsible-content ui-collapsible-content-collapsed"id="tabHelp4">
+                            
+                            <ul data-role="listview" class="listtype faq ui-listview">
+                                <li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li ui-first-child" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+                                    <a class="ui-link-inherit" onclick="showHideLeft('faqdetail19','help');" data-transition="slide">
+                                        <p class="ui-li-desc"><language key="q19"></language></p>
+                                    </a>
+                                </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                                <li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+                                    <a class="ui-link-inherit" onclick="showHideLeft('faqdetail20','help');" data-transition="slide">
+                                        <p class="ui-li-desc"><language key="q20"></language></p>
+                                    </a>
+                                </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                                <li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+                                    <a class="ui-link-inherit" onclick="showHideLeft('faqdetail21','help');" data-transition="slide">
+                                        <p class="ui-li-desc"><language key="q21"></language></p>
+                                    </a>
+                                </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                                <li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li ui-last-child" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+                                    <a class="ui-link-inherit" onclick="showHideLeft('faqdetail22','help');"  data-transition="slide">
+                                        <p class="ui-li-desc"><language key="q22"></language></p>
+                                    </a>
+                                </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                            </ul>
+                        </div></div>
+                        
+                        <div class="ui-collapsible ui-collapsible-inset ui-last-child ui-collapsible-collapsed" data-role="collapsible" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-iconpos="right"><h2 onclick="collapseShow('tabHelp5');" class="ui-collapsible-heading ui-collapsible-heading-collapsed"><a data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="span" data-iconshadow="true" data-shadow="false" data-corners="false" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-right ui-btn-up-c"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="tabHelp5"></language><span class="ui-collapsible-heading-status"> click to expand contents</span></span><span class="ui-icon ui-icon-arrow-r ui-icon-shadow" id="tabHelp5icon">&nbsp;</span></span></a></h2><div aria-hidden="true" style="display: none;" class="ui-collapsible-content ui-collapsible-content-collapsed"id="tabHelp5">
+                            
+                            <ul data-role="listview" class="listtype faq ui-listview">
+                                <li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li ui-first-child" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+                                    <a class="ui-link-inherit" onclick="showHideLeft('faqdetail23','help');" data-transition="slide">
+                                        <p class="ui-li-desc"><language key="q23"></language></p>
+                                    </a>
+                                </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                                <li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+                                    <a class="ui-link-inherit" onclick="showHideLeft('faqdetail24','help');" data-transition="slide">
+                                        <p class="ui-li-desc"><language key="q24"></language></p>
+                                    </a>
+                                </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                                <li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+                                    <a class="ui-link-inherit" onclick="showHideLeft('faqdetail25','help');" data-transition="slide">
+                                        <p class="ui-li-desc"><language key="q25"></language></p>
+                                    </a>
+                                </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                                <li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+                                    <a class="ui-link-inherit" onclick="showHideLeft('faqdetail26','help');" data-transition="slide">
+                                        <p class="ui-li-desc"><language key="q26"></language></p>
+                                    </a>
+                                </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                                <li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+                                    <a class="ui-link-inherit" onclick="showHideLeft('faqdetail27','help');" data-transition="slide">
+                                        <p class="ui-li-desc"><language key="q27"></language></p>
+                                    </a>
+                                </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                                <li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+                                    <a class="ui-link-inherit" onclick="showHideLeft('faqdetail28','help');" data-transition="slide">
+                                        <p class="ui-li-desc"><language key="q28"></language></p>
+                                    </a>
+                                </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                                <li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+                                    <a class="ui-link-inherit" onclick="showHideLeft('faqdetail29','help');" data-transition="slide">
+                                        <p class="ui-li-desc"><language key="q29"></language></p>
+                                    </a>
+                                </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                                <li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li ui-last-child" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+                                    <a class="ui-link-inherit" onclick="showHideLeft('faqdetail30','help');"  data-transition="slide">
+                                        <p class="ui-li-desc"><language key="q30"></language></p>
+                                    </a>
+                                </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                            </ul>
+                        </div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+    
+    <!------******************------>
+    <!--------- Help --------->
+    <!------******************------>
+    
+    <!-- qa -->
+    <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="faqdetail" data-role="page" id="faqdetail1" data-add-back-btn="false">
+        <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+            <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('help','faqdetail1');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="help"></language></span></span></a>
+            <h1 aria-level="1" role="heading" class="ui-title"> FAQ's </h1>
+        </div>
+        <div role="main" data-role="content" class="noshadow whiteBg ui-content">
+            <div class="content-primary">
+                <h4><language key="q1"></language></h4>
+                <p><language key="a1"></language></p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- qa -->
+    <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="faqdetail" data-role="page" id="faqdetail2" data-add-back-btn="false">
+        <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+            <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('help','faqdetail2');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="help"></language></span></span></a>
+            <h1 aria-level="1" role="heading" class="ui-title"> FAQ's </h1>
+        </div>
+        <div role="main" data-role="content" class="noshadow whiteBg ui-content">
+            <div class="content-primary">
+                <h4><language key="q2"></language></h4>
+                <p><language key="a2"></language></p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- qa -->
+    <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="faqdetail" data-role="page" id="faqdetail3" data-add-back-btn="false">
+        <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+            <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('help','faqdetail3');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="help"></language></span></span></a>
+            <h1 aria-level="1" role="heading" class="ui-title"> FAQ's </h1>
+        </div>
+        <div role="main" data-role="content" class="noshadow whiteBg ui-content">
+            <div class="content-primary">
+                <h4><language key="q3"></language></h4>
+                <p><language key="a3"></language></p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- qa -->
+    <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="faqdetail" data-role="page" id="faqdetail4" data-add-back-btn="false">
+        <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+            <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('help','faqdetail4');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="help"></language></span></span></a>
+            <h1 aria-level="1" role="heading" class="ui-title"> FAQ's </h1>
+        </div>
+        <div role="main" data-role="content" class="noshadow whiteBg ui-content">
+            <div class="content-primary">
+                <h4><language key="q4"></language></h4>
+                <p><language key="a4"></language></p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- qa -->
+    <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="faqdetail" data-role="page" id="faqdetail5" data-add-back-btn="false">
+        <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+            <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('help','faqdetail5');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="help"></language></span></span></a>
+            <h1 aria-level="1" role="heading" class="ui-title"> FAQ's </h1>
+        </div>
+        <div role="main" data-role="content" class="noshadow whiteBg ui-content">
+            <div class="content-primary">
+                <h4><language key="q5"></language></h4>
+                <p><language key="a5"></language></p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- qa -->
+    <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="faqdetail" data-role="page" id="faqdetail6" data-add-back-btn="false">
+        <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+            <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('help','faqdetail6');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="help"></language></span></span></a>
+            <h1 aria-level="1" role="heading" class="ui-title"> FAQ's </h1>
+        </div>
+        <div role="main" data-role="content" class="noshadow whiteBg ui-content">
+            <div class="content-primary">
+                <h4><language key="q6"></language></h4>
+                <p><language key="a6"></language></p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- qa -->
+    <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="faqdetail" data-role="page" id="faqdetail7" data-add-back-btn="false">
+        <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+            <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('help','faqdetail7');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="help"></language></span></span></a>
+            <h1 aria-level="1" role="heading" class="ui-title"> FAQ's </h1>
+        </div>
+        <div role="main" data-role="content" class="noshadow whiteBg ui-content">
+            <div class="content-primary">
+                <h4><language key="q7"></language></h4>
+                <p><language key="a7"></language></p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- qa -->
+    <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="faqdetail" data-role="page" id="faqdetail8" data-add-back-btn="false">
+        <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+            <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('help','faqdetail8');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="help"></language></span></span></a>
+            <h1 aria-level="1" role="heading" class="ui-title"> FAQ's </h1>
+        </div>
+        <div role="main" data-role="content" class="noshadow whiteBg ui-content">
+            <div class="content-primary">
+                <h4><language key="q8"></language></h4>
+                <p><language key="a8"></language></p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- qa -->
+    <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="faqdetail" data-role="page" id="faqdetail9" data-add-back-btn="false">
+        <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+            <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('help','faqdetail9');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="help"></language></span></span></a>
+            <h1 aria-level="1" role="heading" class="ui-title"> FAQ's </h1>
+        </div>
+        <div role="main" data-role="content" class="noshadow whiteBg ui-content">
+            <div class="content-primary">
+                <h4><language key="q9"></language></h4>
+                <p><language key="a9"></language></p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- qa -->
+    <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="faqdetail" data-role="page" id="faqdetail10" data-add-back-btn="false">
+        <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+            <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('help','faqdetail10');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="help"></language></span></span></a>
+            <h1 aria-level="1" role="heading" class="ui-title"> FAQ's </h1>
+        </div>
+        <div role="main" data-role="content" class="noshadow whiteBg ui-content">
+            <div class="content-primary">
+                <h4><language key="q10"></language></h4>
+                <p><language key="a10"></language></p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- qa -->
+    <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="faqdetail" data-role="page" id="faqdetail11" data-add-back-btn="false">
+        <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+            <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('help','faqdetail11');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="help"></language></span></span></a>
+            <h1 aria-level="1" role="heading" class="ui-title"> FAQ's </h1>
+        </div>
+        <div role="main" data-role="content" class="noshadow whiteBg ui-content">
+            <div class="content-primary">
+                <h4><language key="q11"></language></h4>
+                <p><language key="a11"></language></p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- qa -->
+    <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="faqdetail" data-role="page" id="faqdetail12" data-add-back-btn="false">
+        <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+            <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('help','faqdetail12');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="help"></language></span></span></a>
+            <h1 aria-level="1" role="heading" class="ui-title"> FAQ's </h1>
+        </div>
+        <div role="main" data-role="content" class="noshadow whiteBg ui-content">
+            <div class="content-primary">
+                <h4><language key="q12"></language></h4>
+                <p><language key="a12"></language></p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- qa -->
+    <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="faqdetail" data-role="page" id="faqdetail13" data-add-back-btn="false">
+        <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+            <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('help','faqdetail13');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="help"></language></span></span></a>
+            <h1 aria-level="1" role="heading" class="ui-title"> FAQ's </h1>
+        </div>
+        <div role="main" data-role="content" class="noshadow whiteBg ui-content">
+            <div class="content-primary">
+                <h4><language key="q13"></language></h4>
+                <p><language key="a13"></language></p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- qa -->
+    <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="faqdetail" data-role="page" id="faqdetail14" data-add-back-btn="false">
+        <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+            <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('help','faqdetail14');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="help"></language></span></span></a>
+            <h1 aria-level="1" role="heading" class="ui-title"> FAQ's </h1>
+        </div>
+        <div role="main" data-role="content" class="noshadow whiteBg ui-content">
+            <div class="content-primary">
+                <h4><language key="q14"></language></h4>
+                <p><language key="a14"></language></p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- qa -->
+    <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="faqdetail" data-role="page" id="faqdetail15" data-add-back-btn="false">
+        <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+            <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('help','faqdetail15');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="help"></language></span></span></a>
+            <h1 aria-level="1" role="heading" class="ui-title"> FAQ's </h1>
+        </div>
+        <div role="main" data-role="content" class="noshadow whiteBg ui-content">
+            <div class="content-primary">
+                <h4><language key="q15"></language></h4>
+                <p><language key="a15"></language></p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- qa -->
+    <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="faqdetail" data-role="page" id="faqdetail16" data-add-back-btn="false">
+        <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+            <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('help','faqdetail16');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="help"></language></span></span></a>
+            <h1 aria-level="1" role="heading" class="ui-title"> FAQ's </h1>
+        </div>
+        <div role="main" data-role="content" class="noshadow whiteBg ui-content">
+            <div class="content-primary">
+                <h4><language key="q16"></language></h4>
+                <p><language key="a16"></language></p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- qa -->
+    <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="faqdetail" data-role="page" id="faqdetail17" data-add-back-btn="false">
+        <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+            <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('help','faqdetail17');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="help"></language></span></span></a>
+            <h1 aria-level="1" role="heading" class="ui-title"> FAQ's </h1>
+        </div>
+        <div role="main" data-role="content" class="noshadow whiteBg ui-content">
+            <div class="content-primary">
+                <h4><language key="q17"></language></h4>
+                <p><language key="a17"></language></p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- qa -->
+    <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="faqdetail" data-role="page" id="faqdetail18" data-add-back-btn="false">
+        <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+            <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('help','faqdetail18');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="help"></language></span></span></a>
+            <h1 aria-level="1" role="heading" class="ui-title"> FAQ's </h1>
+        </div>
+        <div role="main" data-role="content" class="noshadow whiteBg ui-content">
+            <div class="content-primary">
+                <h4><language key="q18"></language></h4>
+                <p><language key="a18"></language></p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- qa -->
+    <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="faqdetail" data-role="page" id="faqdetail19" data-add-back-btn="false">
+        <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+            <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('help','faqdetail19');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="help"></language></span></span></a>
+            <h1 aria-level="1" role="heading" class="ui-title"> FAQ's </h1>
+        </div>
+        <div role="main" data-role="content" class="noshadow whiteBg ui-content">
+            <div class="content-primary">
+                <h4><language key="q19"></language></h4>
+                <p><language key="a19"></language></p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- qa -->
+    <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="faqdetail" data-role="page" id="faqdetail20" data-add-back-btn="false">
+        <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+            <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('help','faqdetail20');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="help"></language></span></span></a>
+            <h1 aria-level="1" role="heading" class="ui-title"> FAQ's </h1>
+        </div>
+        <div role="main" data-role="content" class="noshadow whiteBg ui-content">
+            <div class="content-primary">
+                <h4><language key="q20"></language></h4>
+                <p><language key="a20"></language></p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- qa -->
+    <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="faqdetail" data-role="page" id="faqdetail21" data-add-back-btn="false">
+        <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+            <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('help','faqdetail21');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="help"></language></span></span></a>
+            <h1 aria-level="1" role="heading" class="ui-title"> FAQ's </h1>
+        </div>
+        <div role="main" data-role="content" class="noshadow whiteBg ui-content">
+            <div class="content-primary">
+                <h4><language key="q21"></language></h4>
+                <p><language key="a21"></language></p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- qa -->
+    <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="faqdetail" data-role="page" id="faqdetail22" data-add-back-btn="false">
+        <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+            <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('help','faqdetail22');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="help"></language></span></span></a>
+            <h1 aria-level="1" role="heading" class="ui-title"> FAQ's </h1>
+        </div>
+        <div role="main" data-role="content" class="noshadow whiteBg ui-content">
+            <div class="content-primary">
+                <h4><language key="q22"></language></h4>
+                <p><language key="a22"></language></p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- qa -->
+    <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="faqdetail" data-role="page" id="faqdetail23" data-add-back-btn="false">
+        <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+            <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('help','faqdetail23');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="help"></language></span></span></a>
+            <h1 aria-level="1" role="heading" class="ui-title"> FAQ's </h1>
+        </div>
+        <div role="main" data-role="content" class="noshadow whiteBg ui-content">
+            <div class="content-primary">
+                <h4><language key="q23"></language></h4>
+                <p><language key="a23"></language></p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- qa -->
+    <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="faqdetail" data-role="page" id="faqdetail24" data-add-back-btn="false">
+        <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+            <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('help','faqdetail24');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="help"></language></span></span></a>
+            <h1 aria-level="1" role="heading" class="ui-title"> FAQ's </h1>
+        </div>
+        <div role="main" data-role="content" class="noshadow whiteBg ui-content">
+            <div class="content-primary">
+                <h4><language key="q24"></language></h4>
+                <p><language key="a24"></language></p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- qa -->
+    <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="faqdetail" data-role="page" id="faqdetail25" data-add-back-btn="false">
+        <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+            <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('help','faqdetail25');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="help"></language></span></span></a>
+            <h1 aria-level="1" role="heading" class="ui-title"> FAQ's </h1>
+        </div>
+        <div role="main" data-role="content" class="noshadow whiteBg ui-content">
+            <div class="content-primary">
+                <h4><language key="q25"></language></h4>
+                <p><language key="a25"></language></p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- qa -->
+    <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="faqdetail" data-role="page" id="faqdetail26" data-add-back-btn="false">
+        <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+            <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('help','faqdetail26');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="help"></language></span></span></a>
+            <h1 aria-level="1" role="heading" class="ui-title"> FAQ's </h1>
+        </div>
+        <div role="main" data-role="content" class="noshadow whiteBg ui-content">
+            <div class="content-primary">
+                <h4><language key="q26"></language></h4>
+                <p><language key="a26"></language></p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- qa -->
+    <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="faqdetail" data-role="page" id="faqdetail27" data-add-back-btn="false">
+        <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+            <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('help','faqdetail27');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="help"></language></span></span></a>
+            <h1 aria-level="1" role="heading" class="ui-title"> FAQ's </h1>
+        </div>
+        <div role="main" data-role="content" class="noshadow whiteBg ui-content">
+            <div class="content-primary">
+                <h4><language key="q27"></language></h4>
+                <p><language key="a27"></language></p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- qa -->
+    <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="faqdetail" data-role="page" id="faqdetail28" data-add-back-btn="false">
+        <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+            <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('help','faqdetail28');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="help"></language></span></span></a>
+            <h1 aria-level="1" role="heading" class="ui-title"> FAQ's </h1>
+        </div>
+        <div role="main" data-role="content" class="noshadow whiteBg ui-content">
+            <div class="content-primary">
+                <h4><language key="q28"></language></h4>
+                <p><language key="a28"></language></p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- qa -->
+    <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="faqdetail" data-role="page" id="faqdetail29" data-add-back-btn="false">
+        <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+            <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('help','faqdetail29');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="help"></language></span></span></a>
+            <h1 aria-level="1" role="heading" class="ui-title"> FAQ's </h1>
+        </div>
+        <div role="main" data-role="content" class="noshadow whiteBg ui-content">
+            <div class="content-primary">
+                <h4><language key="q29"></language></h4>
+                <p><language key="a29"></language></p>
+            </div>
+        </div> 
+        
+    </div>
+    
+    <!-- qa -->
+    <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="faqdetail" data-role="page" id="faqdetail30" data-add-back-btn="false">
+        <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+            <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('help','faqdetail30');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="help"></language></span></span></a>
+            <h1 aria-level="1" role="heading" class="ui-title"> FAQ's </h1>
+        </div>
+        <div role="main" data-role="content" class="noshadow whiteBg ui-content">
+            <div class="content-primary">
+                <h4><language key="q30"></language></h4>
+                <p><language key="a30"></language></p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <div class="ui-loader ui-corner-all ui-body-a ui-loader-default"><span class="ui-icon ui-icon-loading"></span><h1>Loading...</h1></div></body>
+</html>

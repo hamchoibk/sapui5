@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html class="ui-mobile">
+    <head>
+        <script src="cordova.js"></script>
+        <script src="native.js"></script>
+        <script type="text/javascript">
+            app.initialize(); 
+            </script>
+        <title> Login </title>
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+            <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+                    <link href="css/jquerycss.css" rel="stylesheet" type="text/css">
+                        <link href="css/style.css" rel="stylesheet" type="text/css">
+                            <script type="text/javascript" src="script/jq.mobi.js"></script>
+                            <script type="text/javascript" src="GeneralJavascript/generalFunction.js"></script>
+                            <script type="text/javascript" src="GeneralJavascript/security.js"></script>
+                            <script>
+ 
+                            function fixScrollTop()
+						{
+							if(document.body.scrollTop > 0)
+							{
+							document.body.scrollTop = 0;
+							}
+						}
+                            function hidePopup(idPopup){
+                                $('#'+idPopup).removeClass('ui-popup-active');
+                                $('#'+idPopup).addClass('ui-popup-hidden');
+                                $('#'+idPopup).removeAttr('style', 'height:90%;width:90%; top: 5%; left: 5%;');
+                            }
+                            function showPopup(idPopup){
+                                $('#'+idPopup).removeClass('ui-popup-hidden');
+                                $('#'+idPopup).addClass('ui-popup-active');
+                                $('#'+idPopup).attr('style', 'height:90%;width:90%; top: 5%; left: 5%;');
+                            }
+
+					   		//add by Sendhy 16Mei2014
+					   		function showPopupSendhy(idPopup) {
+                                    $('#' + idPopup + "-popup").removeClass('ui-popup-hidden');
+                                    $('#' + idPopup + "-popup").addClass('ui-popup-active');
+                                    $('#' + idPopup + "-popup").attr('style', 'height:90%;width:90%; top: 5%; left: 5%;');
+                                    
+                                    $('#' + idPopup + "-screen").removeClass('ui-screen-hidden');
+                                    $('#' + idPopup + "-screen").removeClass('ui-popup-screen');
+                                    $('#' + idPopup + "-screen").removeClass('ui-overlay-b');
+                                    $('#' + idPopup + "-screen").addClass('ui-popup-screen');
+                                    $('#' + idPopup + "-screen").addClass('ui-overlay-b');
+                                    $('#' + idPopup + "-screen").addClass('in');
+                            }
+
+                            function hidePopupSendhy(idPopup) {
+                                    $('#' + idPopup + "-popup").removeClass('ui-popup-active');
+                                    $('#' + idPopup + "-popup").addClass('ui-popup-hidden');
+                                    $('#' + idPopup + "-popup").removeAttr('style', 'height:90%;width:90%; top: 5%; left: 5%;');
+                                    
+                                    $('#' + idPopup + "-screen").removeClass('ui-popup-screen');
+                                    $('#' + idPopup + "-screen").removeClass('ui-overlay-b');
+                                    $('#' + idPopup + "-screen").removeClass('in');
+                                    $('#' + idPopup + "-screen").addClass('ui-screen-hidden');
+                                    $('#' + idPopup + "-screen").addClass('ui-popup-screen');
+                                    $('#' + idPopup + "-screen").addClass('ui-overlay-b');
+                            }
+                            //end add
+                            
+                            function hidePopup25(idPopup){
+                                $('#'+idPopup).removeClass('ui-popup-active');
+                                $('#'+idPopup).addClass('ui-popup-hidden');
+                                $('#'+idPopup).removeAttr('style', 'height:50%;width:90%; top: 25%; left: 5%;');
+                            }
+                            
+                            function showPopup25(idPopup){
+                                $('#'+idPopup).removeClass('ui-popup-hidden');
+                                $('#'+idPopup).addClass('ui-popup-active');
+                                $('#'+idPopup).attr('style', 'height:50%;width:90%; top: 25%; left: 5%;');
+                            }
+                            
+                            function hidePopupScreen(idPopupScreen){
+                                $('#'+idPopupScreen).removeClass('ui-popup-screen');
+                                $('#'+idPopupScreen).removeClass('ui-overlay-b');
+                                $('#'+idPopupScreen).removeClass('in');
+                                $('#'+idPopupScreen).addClass('ui-screen-hidden');
+                                $('#'+idPopupScreen).addClass('ui-popup-screen');
+                                $('#'+idPopupScreen).addClass('ui-overlay-b');
+
+                                $('#'+idPopupScreen).removeAttr('style','height : '+document.getElementsByClassName('ui-page-active')[0].scrollHeight+'px');
+                            }
+                            
+                            function showPopupScreen(idPopupScreen){
+                                $('#'+idPopupScreen).removeClass('ui-screen-hidden');
+                                $('#'+idPopupScreen).removeClass('ui-popup-screen');
+                                $('#'+idPopupScreen).removeClass('ui-overlay-b');
+                                $('#'+idPopupScreen).addClass('ui-popup-screen');
+                                $('#'+idPopupScreen).addClass('ui-overlay-b');
+                                $('#'+idPopupScreen).addClass('in');
+
+                                $('#'+idPopupScreen).attr('style','height : '+document.getElementsByClassName('ui-page-active')[0].scrollHeight+'px');
+                            }
+                            
+                            var tabBarActive = 'tabBar1';
+                            function showTabBar(divId){
+                                if(divId != tabBarActive){
+                                    document.getElementById(divId).style.display = 'block';
+                                    $('#'+divId+'Li').addClass('ui-tabs-active');
+                                    $('#'+divId+'Li').addClass('ui-state-active');
+                                    document.getElementById(divId+'Li').tabindex = 0;
+
+                                    document.getElementById(tabBarActive).style.display = 'none';
+                                    $('#'+tabBarActive+'Li').removeClass('ui-tabs-active');
+                                    $('#'+tabBarActive+'Li').removeClass('ui-state-active');
+                                     document.getElementById(tabBarActive+'Li').tabindex = -1;
+
+                                    tabBarActive = divId;
+                                }
+                            }
+
+                            var panelFlag = false;
+                            function showPanelKiri()
+                            {  
+                                
+                                if(panelFlag)
+                                {
+                                    //hide
+                                    $('#navpanel').removeClass('ui-panel-open');
+                                    $('#navpanel').addClass('ui-panel-closed');
+                                    $('#login').removeClass('ui-body-a');
+                                    $('#login').removeClass('ui-page-panel-open');
+                                    $('#login').addClass('ui-body-c');
+                                    $('#login').removeClass('ui-page-panel');
+
+                                    $('#ui-panel-dismiss-id').removeClass('ui-panel-dismiss-position-left ui-panel-dismiss-display-push ui-panel-dismiss-open');
+                                    panelFlag = false;
+                                	 document.getElementById('ui-panel-dismiss-id').removeEventListener('click', clickPutihPutihPenutup);
+                                }
+                                else
+                                {
+                                    //show
+							 $('#navpanel').removeClass('ui-panel-closed');
+                                    $('#navpanel').addClass('ui-panel-open'); 
+                                    $('#login').removeClass('ui-body-c');
+                                    $('#login').addClass('ui-body-a');
+                                    $('#login').addClass('ui-page-panel-open');
+                                    $('#login').addClass('ui-page-panel');    
+                                    
+                                    $('#ui-panel-dismiss-id').addClass('ui-panel-dismiss-position-left ui-panel-dismiss-display-push ui-panel-dismiss-open');
+                                    panelFlag = true;
+                                	 document.getElementById('ui-panel-dismiss-id').addEventListener('click', clickPutihPutihPenutup);
+                                }
+                            }
+
+					   function clickPutihPutihPenutup(event){
+                            	showPanelKiri();
+                            }
+                            
+                            function loginANZ(){
+//                                showHideLeft('activation','login');
+                                //anz
+                                var user = $('#loginusername').val();
+                                var pass = $('#loginpassword').val();
+                                if(user == ""){
+                                    loadMessageResourceAlert("username.mandatory");
+                                }else if(pass == ""){
+                                    loadMessageResourceAlert("password.mandatory");
+                                }else{
+                                	var passHash = hex_sha1(pass);
+                                    //setContentData([{source: 'server',service:'Login',params: {userId: user,password: pass},dataIds:[{dataId: 'isMobileTokenActive',dataType:'text',source:'param'}, {dataId: 'mobilePhone',dataType:'text',source:'param'}, {dataId: 'locale',dataType:'text',source:'param'}, {dataId: 'menuLogin',dataType:'text',source:'param'}, {dataId: 'isBlacklist',dataType:'text',source:'param'}, {dataId: 'urlUpdate',dataType:'text',source:'param'}]}], 'processLogin');
+                                    setContentData([{source: 'server',service:'Login',params: {userId: user,password: passHash},dataIds:[{dataId: 'isMobileTokenActive',dataType:'text',source:'param'}, {dataId: 'mobilePhone',dataType:'text',source:'param'}, {dataId: 'locale',dataType:'text',source:'param'}, {dataId: 'menuLogin',dataType:'text',source:'param'}, {dataId: 'isBlacklist',dataType:'text',source:'param'}, {dataId: 'urlUpdate',dataType:'text',source:'param'}, {dataId: 'SMSNumber',dataType:'text',source:'param'}, {dataId: 'regexActivate',dataType:'text',source:'param'}, {dataId: 'regexInitial',dataType:'text',source:'param'}, {dataId: 'regexEnd',dataType:'text',source:'param'}]}], 'processLogin');
+                                }
+                            }
+
+                            var errorMessage;
+                            function processLogin(){
+                            	  var isOk = getContentData('ok');
+							//alert("SIT");
+                                if(isOk == '1'){
+                                	 invokeService({action: [{source: 'native',service: 'SetDeviceIdleTime',params:{timeout: "300"}}]});
+                            	  	 invokeService({action: [{source: 'native',service: 'StartNativeIdleTimeout'}]});
+                                	 var isBlacklist = getContentData('isBlacklist');
+                                	 //if(isBlacklist=='false'){
+	                                    var tokenActivated = getContentData('isMobileTokenActive');
+	                                    if(tokenActivated == "true"){
+	                                        setContentData([{source: 'server',service:'AccountList',dataIds:[{dataId: 'accounts',dataType:'list',source:'param'},{dataId: 'ccAccounts',dataType:'list',source:'param'},{dataId:'depositBalance',dataType:'text',source:'param'},{dataId:'depositBalanceDisplay',dataType:'text',source:'param'},{dataId:'ccOutstanding',dataType:'text',source:'param'},{dataId:'ccOutstandingDisplay',dataType:'text',source:'param'},{dataId:'bankAccountSystemViolation',dataType:'text',source:'param'},{dataId:'ccAccountSystemViolation',dataType:'text',source:'param'},{dataId:'isActivationPopShow',dataType:'text',source:'param'},{dataId:'customerName',dataType:'text',source:'param'}]}], 'accountListPage');
+	                                    }
+	                                    else{
+	                                    	var mobilePhoneNumber = getContentData('mobilePhone');
+	                                    	var smsno = getContentData('SMSNumber');
+	                    				var regexActivate = getContentData('regexActivate');
+	                    				
+	                    				document.getElementById('mobilePhoneNumber').innerHTML = mobilePhoneNumber;
+	                    				
+	                                    	showHideLeft('activation','login');
+	                                    	startInterceptSMS(smsno,regexActivate,'afterSMSIntercepted');
+	                                    	app.backFunction=customBackFromActivation;
+	                                    }
+	                                //}else{
+	                                //	var urlUpdate = getContentData('urlUpdate');
+	                                //	updateURL(urlUpdate);
+	                                //}
+                                }else{
+                                	errorMessage = getContentData('message');
+                                	var errMsg = errorMessage.substring(0,11);
+                                	if(errorMessage == "resetPassword"){
+                                		setContentData([{source: 'server',service:'GetUserIdForceChange',dataIds:[{dataId: 'userIdForceChangePwd',dataType:'text',source:'param'}]}], 'forceChangePassword');
+                                	} else if (errMsg == 'APR-1110141' || errMsg == 'APR-1110153') {
+                                		invokeService({action: [{source: 'native', service: 'OpenCallAlert',params:{message: errorMessage}}]});
+                                	} else{
+                                    	alert(errorMessage);
+                                   }
+                                }
+                            }
+
+					   function forceChangePassword(){
+					   	if(getContentData('ok')==1){
+					   		loadMessageResourceAlert("login.alert.forcechangepassword");
+					   		showHideLeft('password','login');
+					   	}else{
+					   		alert(getContentData('message'));
+					   	}
+					   }
+                            
+                            function accountListPage(){
+						if(getContentData('ok') == 1){
+							goToHTML({viewId: 'myaccount.html'});
+						}else{
+							alert(getContentData('message'));
+						}	
+                            }
+                            function processFirstStepValidation(){
+                                var var1 = $('#usedID2').val();
+                                var var2 = $('#registrationcode2').val();
+                                //var spcChar = '/[^a-zA-Z0-9\-\/]/';
+                                if(var1 == ""){
+                                	 loadMessageResourceAlert("forgot.password.user.mandatory");
+                                }else if(var2 == ""){
+                                	 loadMessageResourceAlert("forgot.password.regcode.mandatory");
+                               // }else if(spcChar.test(var1)){
+                               // 	 loadMessageResourceAlert("special.character.warning");
+                                }else{
+                                    setContentData([{source: 'server',service:'FirstStepValidation', params: {userId: var1,regCode: var2}}], 'processFirstStepValidationCB');
+                                }
+                            }
+                            function processFirstStepValidationCB(){
+                            var ass = getContentData('ok');
+                            
+                                if(getContentData('ok') == 1){
+                                	 document.getElementById('atmnumber').value = '';
+                                	 document.getElementById('accountnumber').value = '';
+                                	 document.getElementById('atmhrmnnumber').value = '';
+                                	 document.getElementById('ccnumber').value = '';
+                                	 document.getElementById('cclimit').value = '';
+                                	 document.getElementById('cchrmnumber').value = '';
+                                    showHideLeft('registrationatmorcc','usingregistrationCode');
+                                }else{
+                                    alert(getContentData('message'));
+                                }
+                            }
+                            var tabATMCC = 0;
+                            function processSecondStepValidation(){
+//                                showHideLeft('newpassword','registrationatmorcc');
+                                //anz
+                                if(tabATMCC == 0){
+                                    var var1 = $('#atmnumber').val();
+                                    var var2 = $('#accountnumber').val();
+                                    var var3 = $('#atmhrmnnumber').val();
+                                    if(var1 == "" || var1.length != 16){
+                                        loadMessageResourceAlert("digit.atm.no.mandatory");
+                                    }else if(var2 == "" || var2.length != 4){
+                                        loadMessageResourceAlert("digit.banking.account.mandatory");
+                                    }else if(var3 == "" || var3.length != 4){
+                                        loadMessageResourceAlert("digit.mobile.phone.mandatory");
+                                    }else{
+                                        //setContentData({action:[{source: 'server',service:'SecondStepValidation',params:{userId:$('#usedID2').val(),registrationFlag:'ATM',atmNo:var1,accNo:var2,phoneNo:var3,regCode:$('#registrationcode2').val(),ccNo:'-',ccLimit:'-'}}]}, 'processSecondStepValidationCB');
+                                        setContentData([{source: 'server',service:'SecondStepValidation',params: {userId:$('#usedID2').val(),registrationFlag:'ATM',atmNo:var1,accNo:var2,phoneNo:var3,regCode:$('#registrationcode2').val(),ccNo:'-',ccLimit:'-'},dataIds:[{dataId: 'name',dataType:'text',source:'param'}]}], 'processSecondStepValidationCB');
+                                    }
+                                }else{
+                                    var var1 = $('#ccnumber').val();
+                                    var var2 = $('#cclimit').val();
+                                    var var3 = $('#cchrmnumber').val();
+                                    if(var1 == "" || var1.length != 16){
+                                        loadMessageResourceAlert("digit.cc.no.mandatory");
+                                    }else if(var2 == ""){
+                                        loadMessageResourceAlert("cc.limit.mandatory");
+                                    }else if(var3 == "" || var3.length != 4){
+                                        loadMessageResourceAlert("digit.mobile.phone.mandatory");
+                                    }else{
+                                       // setContentData({action:[{source: 'server',service:'SecondStepValidation',params:{userId:$('#usedID2').val(),registrationFlag:'CC',atmNo:'-',accNo:'-',phoneNo:var3,regCode:$('#registrationcode2').val(),ccNo:var1,ccLimit:var2}}]}, 'processSecondStepValidationCB');
+                                    	setContentData([{source: 'server',service:'SecondStepValidation',params: {userId:$('#usedID2').val(),registrationFlag:'CC',atmNo:'-',accNo:'-',phoneNo:var3,regCode:$('#registrationcode2').val(),ccNo:var1,ccLimit:var2},dataIds:[{dataId: 'name',dataType:'text',source:'param'}]}], 'processSecondStepValidationCB');
+                                    }
+                                }
+                            }
+                            
+                            function processSecondStepValidationCB(){
+                                if(getContentData('ok') == 1){
+                                	getPwdLength();
+                                }else{
+                                    alert(getContentData('message'));
+                                }
+                            }
+                            
+                            function getPwdLength(){
+                            	setContentData([{source: 'server',service:'GetPasswordLength',dataIds:[{dataId: 'minLenPass',dataType:'text',source:'param'},{dataId: 'maxLenPass',dataType:'text',source:'param'},{dataId: 'minLowerCase',dataType:'text',source:'param'},{dataId: 'minUpperCase',dataType:'text',source:'param'},{dataId: 'minNumeric',dataType:'text',source:'param'},{dataId: 'pwdAlphaNumeric',dataType:'text',source:'param'}]}], 'pwdLengthCB');
+                            }
+                            
+                            function pwdLengthCB(){
+                            	if(getContentData('ok')==1){
+                            		//var minLenUserId = getContentData('minLenUserId');
+							var minLenPass = getContentData('minLenPass');
+							var maxLenPass = getContentData('maxLenPass');
+							var minUpperCase = getContentData('minUpperCase');
+							var minLowerCase = getContentData('minLowerCase');
+							var minNumeric = getContentData('minNumeric');
+							var rangeLenPwd = minLenPass+"-"+maxLenPass;
+							
+							//document.getElementById('minLenUserId').innerHTML = minLenUserId;
+							document.getElementById('rangeLenPwd').innerHTML = rangeLenPwd;
+							document.getElementById('minUppercase').innerHTML = minUpperCase;
+							document.getElementById('minLowercase').innerHTML = minLowerCase;
+							document.getElementById('minNumeric').innerHTML = minNumeric;
+
+							document.getElementById('newpassword2').value = '';
+							document.getElementById('reenterpassword').value = '';
+								
+							showHideLeft('newpassword','registrationatmorcc');
+                            	}else{
+                            		alert(getContentData('message'));
+                            	}
+                            }
+
+                            var regcode;
+                            function processExecuteChangePassword(){
+                                var var1 = $('#newpassword2').val();
+                                var var2 = $('#reenterpassword').val();
+						  
+                                if(var1 == ""){
+                                	 loadMessageResourceAlert("new.password.mandatory");
+                                }else if(var2 == ""){
+                                	 loadMessageResourceAlert("reenter.password.mandatory");
+                                }else if(var1 != var2){
+                                	 loadMessageResourceAlert("password.confirm.not.match");
+                                }else{
+                                   // invokeService({action: [{source: 'server', service: 'ExecuteChangePassword', params: {userId:$('#usedID2').val(),password:var1,confirmPwd:var2,regCode:$('#registrationcode').val(),name:name}}]},'processExecuteChangePasswordCB');
+                                   var userIdFr = '';
+                                   var regCode = '';
+                                   var name = '';
+                                   
+                                   if (regcode == '0'){
+                                   	//userIdFr = $('#userID').val();
+                                   	userIdFr = userid;
+                                   } else {
+								userIdFr = $('#usedID2').val();
+								name = getContentData('name');
+								regCode = $('#registrationcode2').val();
+                                   }
+                                   
+                                   setContentData([{
+                                   source: 'server',
+                                   service:'ExecuteChangePassword',
+                                   params:{
+                                   userId: userIdFr,
+                                   password:var1,
+                                   confirmPwd:var2,
+                                   regCode:regCode,
+                                   name:name}}], 'processExecuteChangePasswordCB');
+                                }
+                            }
+                            function processExecuteChangePasswordCB(){
+                                if(getContentData('ok') == 1){
+                                    showPopupSendhy('savePasswordMsg');
+                                    showHideLeft('newpassword','login');
+                                }else{
+                                    alert(getContentData('message'));
+                                }
+                            }
+
+                           var initialPIN, mobilePIN, renewMobilePIN;
+                            
+                            function createToken(){
+                                initialPIN = $('#MPINnumber').val();
+                           	  mobilePIN = $('#newMPINnumber').val();
+                           	  renewMobilePIN = $('#confirmMPINnumber').val(); 
+                           
+                                var checkInitialPIN = isNaN(initialPIN);
+                                var checkMobilePIN = isNaN(mobilePIN);
+                                var checkRenewPIN = isNaN(renewMobilePIN);
+                                
+                                if(initialPIN == ""){
+                                    loadMessageResourceAlert("createToken.initialPIN.mandatory");
+                                }else if(checkInitialPIN == '1'){
+                                	loadMessageResourceAlert("createToken.checkInitialPIN.mandatory");
+                                }else if(mobilePIN == ""){
+                                    loadMessageResourceAlert("createToken.mobilePIN.mandatory");
+                                }else if(checkMobilePIN == '1'){
+                                	loadMessageResourceAlert("createToken.checkMobilePIN.numeric");
+                                }else if(renewMobilePIN == ""){
+                                    loadMessageResourceAlert("createToken.renewMobilePIN.mandatory");
+                                }else if(checkRenewPIN == '1'){
+                                	loadMessageResourceAlert("createToken.checkRenewPIN.numeric");
+                                }else if(mobilePIN != renewMobilePIN){
+                                    loadMessageResourceAlert("createToken.mobilePIN.mustmatch");
+                                }else if(initialPIN.length != 6 || mobilePIN.length !=6 || renewMobilePIN.length != 6){
+                                	 loadMessageResourceAlert("createToken.initialPIN.sixdigit");
+                                }else{
+                                //		var activationFile = getContentData("actFile");
+                                //    	activateToken2(mobilePIN, renewMobilePIN, activationFile, initialPIN, 'createTokenCB');
+                                	setContentData([{source: 'server',service:'cekInitialPIN',
+                                	 			params:{initialPIN: initialPIN},
+                                				dataIds:[{dataId: 'activateStatus',dataType:'text',source:'param'}]}], 
+                                				'cekInitialPINCB');
+                                }
+                            }
+
+                             function cekInitialPINCB(){
+                               	if(getContentData('ok')=='1'){
+                            			if(getContentData('activateStatus')=='1'){
+                            				var activationFile = getContentData("actFile");
+                                    		//createTokenCB();
+                                    		activateToken2(mobilePIN,renewMobilePIN,activationFile,initialPIN,'TokenSignatureReceiver', 'createTokenCB');//baru dari marchell 11 agustus 2014
+                                    	}else if(getContentData('activateStatus')=='2'){
+                                    	 	loadMessageResourceAlert("gcm.businessexception.APR_1114322");
+                                    	}else{
+									goToHTML({viewId: 'login.html'});
+                                    	}
+                                    }else{
+                                    	alert(getContentData('message'));
+                                    }
+                            }
+                            
+                            function createTokenCB(){
+                            	if(getContentData('tokenOk')=='1'){
+							invokeService({action: [{source: 'server', service: 'updateAuthentication'}]});
+                            		showPopupScreen('successmessage-screen');
+                                	showPopup25('successmessage-popup');
+                            	}else{
+                               	alert(getContentData('tokenError'));
+                              }
+                            }
+                            
+                            
+                            function processToken(){
+//                                showHideLeft('createpin','activation');
+                                //anz
+                                var var1 = $('#activationcode').val();
+
+						  var check = isNaN(var1);
+                                
+                                if(var1 == ""){
+      						loadMessageResourceAlert("processToken.var1.mandatory");
+                                }else if(var1.length != 6 ){
+							loadMessageResourceAlert("processToken.var1.length");
+                                }else{
+//                                    setContentData([{source: 'server',service:'generateToken',dataIds:[{dataId: 'actFile',dataType:'text',source:'param'}]}],'processTokenCB');
+                                    if(check == '0'){
+                                    	setContentData([{source: 'server',service:'EnterActivationCode',
+                                            params:{activationKey: var1},
+                                            dataIds:[{dataId: 'actFile',dataType:'text',source:'param'},{dataId: 'serialNo',dataType:'text',source:'param'}]}],
+                                           'processTokenCB');
+                                    }else{
+                                    	loadMessageResourceAlert("processToken.input.numeric");
+                                    }
+                                    
+                                }
+                            }
+                            
+                            function processTokenCB(){
+                                if(getContentData('ok') == 1){
+                                	 document.getElementById('mobilePhoneNumber2').innerHTML = getContentData('mobilePhone');
+                                    app.backFunction=customBackFromInitialPIN;
+                                    showHideLeft('createpin','activation');
+                                    var smsno = getContentData('SMSNumber');
+                                    var regexInitial = getContentData('regexInitial');
+                                    //startInterceptSMS(smsno,regexInitial,'afterSMSIntercepted2');
+                                }else{
+                                    alert(getContentData('message'));
+                                }
+                            }
+                            
+                            function loginUser(){
+                            	setContentData([{source: 'server',service:'AccountList',dataIds:[{dataId: 'accounts',dataType:'list',source:'param'},{dataId: 'ccAccounts',dataType:'list',source:'param'},{dataId:'depositBalance',dataType:'text',source:'param'},{dataId:'depositBalanceDisplay',dataType:'text',source:'param'},{dataId:'ccOutstanding',dataType:'text',source:'param'},{dataId:'ccOutstandingDisplay',dataType:'text',source:'param'},{dataId:'bankAccountSystemViolation',dataType:'text',source:'param'},{dataId:'ccAccountSystemViolation',dataType:'text',source:'param'},{dataId:'isActivationPopShow',dataType:'text',source:'param'},{dataId:'customerName',dataType:'text',source:'param'}]}], 'accountListPage');
+                            	//goToHTML({viewId: 'myaccount.html'});
+                            }
+
+					   function resendActivationCode(){
+                            	//setContentData([{source: 'server',service:'ResendActivationToken'}],'');
+                            	invokeService({action: [{source: 'server', service: 'ResendActivationToken'}]});
+                            	var smsno = getContentData('SMSNumber');
+                            	var regexActivate = getContentData('regexActivate');
+                            	startInterceptSMS(smsno,regexActivate,'afterSMSIntercepted');
+                            }
+                            
+                            function afterSMSIntercepted(){
+		                        	//cek oke
+		                        var oke = getContentData('interceptok');
+		                        var message = getContentData('intercepttxt');
+		                        var regexActivate = getContentData('regexActivate');
+		                        var regexEnd = getContentData('regexEnd');
+							if(oke == '1'){
+								overwriteType('activationcode');
+								var messageReplace = message.replace(regexActivate,'');
+								var messageReplace2 = messageReplace.replace(regexEnd,'');
+								document.getElementById('activationcode').value = messageReplace2;
+								processToken();
+							}
+
+							
+	           
+	                        }
+
+	                        function afterSMSIntercepted2(){
+		                        	//cek oke
+		                        var oke = getContentData('interceptok');
+		                        var message = getContentData('intercepttxt');
+		                        var regexInitial = getContentData('regexInitial');
+		                        var regexEnd = getContentData('regexEnd');
+							if(oke == '1'){
+								overwriteType('MPINnumber');//add by sendhy 18 juni 2014
+								var messagePinReplace = message.replace(regexInitial,'');
+								var messagePinReplace2 = messagePinReplace.replace(regexEnd,'');
+								document.getElementById('MPINnumber').value = messagePinReplace2;
+								
+							}
+	           
+	                        }
+
+	                        
+					   var userid;
+					   function getChallangeNoAndValidateUser(){
+					   		userid = $('#userID').val();
+					   		var pinno = $('#forgotpwdAnuniqueprefix_pin').val();
+					   		if(userid == ""){
+							 	loadMessageResourceAlert("forgot.password.user.mandatory");
+							 }else if(pinno == ""){
+							 	loadMessageResourceAlert("mobile.pin.mandatory"); 	
+							 }else{
+					   			setContentData([{source: 'server',service:'GetChallangeNo',params:{userId:userid},dataIds:[{dataId: 'challangeNoForgot',dataType:'text',source:'param'},{dataId: 'isMobileTokenActive',dataType:'text',source:'param'}]}],'getChallangeNoCB');
+					   		 }
+					   }
+
+					   function getChallangeNoCB(){
+					   	if(getContentData('ok')==1){
+					   		validateUserId();
+					   	}else{
+					   		var message = getContentData('message');
+					          var res = message.substring(0,4);
+							if (res == 'err.') {
+						        	loadMessageResourceAlert(getContentData('message'));
+					          } else {
+								alert(getContentData('message'));
+					          }
+					   	}
+					   }
+					   
+					   function enterPinForgotPwd(){
+							var challenge = getContentData('challangeNoForgot');// challenge dari server
+							var pinn = document.getElementById('forgotpwdAnuniqueprefix_pin').value;
+							if(pinn == '') {
+								alert('Mobile PIN is mandatory.');
+							}
+							responseChallenge(pinn, challenge, 'forgotpwdAnuniqueprefix_callback');
+					   }
+
+					   function forgotpwdAnuniqueprefix_callback(){
+							var awrait = getContentData('tokenOk');
+							var isMobileTokenActive = getContentData('isMobileTokenActive');
+							if(awrait == 1){
+								var challenge = getContentData('challangeNoForgot');
+								var response = getContentData('tokenResponse');
+								document.getElementById('forgotpwdAnuniqueprefix_pin').value='';
+								setContentData([
+								                {
+								                	source: 'server',
+								                	service:'Authentication',
+								                	params: {challangeNo:challenge,responseNo:response},
+								                	dataIds:[{dataId: 'authStatus',dataType:'text',source:'param'}
+								                	]}], 'AuthenticationCB');
+							}else{
+							  if(isMobileTokenActive != "true") {
+								var locale = getContentData('locale');
+								
+								if(locale == "id"){
+									alert("Anda belum memiliki Mobile PIN. Silakan reset password menggunakan kode registrasi");									
+								} else {
+									alert("You currently don't have Mobile PIN, please reset password using registration code");
+								}
+							  } else {
+								validasiMessageToken(awrait);
+							  }
+							}
+					   }
+					   
+					   function AuthenticationCB(){
+	                       	if(getContentData('authStatus')=='true'){
+	                       		checkUserId();
+	                       	}else{
+	                       		var message = getContentData('message');
+							var locale = getContentData('locale');
+	                       		
+	                       		if(message != "No Message") {
+								var res = message.substring(0,4);
+								if (res == 'err.') {
+							        	loadMessageResourceAlert(getContentData('message'));
+						          } else {
+									if(locale == "id"){
+										alert("Informasi tidak valid. Silakan coba lagi.");									
+									} else {
+										alert("Invalid Information. Please try again.");
+									}
+						          }
+	                       		} else {
+								if(locale == "id"){
+									alert("Informasi tidak valid. Silakan coba lagi.");									
+								} else {
+									alert("Invalid Information. Please try again.");
+								}
+	                       		}
+	                       	}
+	                       }
+	                        
+	                       function validateUserId(){
+							var pinno = $('#forgotpwdAnuniqueprefix_pin').val();
+							var check = isNaN(pinno);
+							if(check == '0'){
+								//invokeService({action: [{source: 'server', service: 'CheckUserId'}]});
+								enterPinForgotPwd();
+						       	
+							}else{
+								loadMessageResourceAlert("mobile.pin.numeric.only");
+							}
+	                        }
+
+	                        function checkUserId(){
+	                        		setContentData([{source: 'server',service:'CheckUserId',params:{userId:userid}}],'checkUserIdCB');
+	                        }
+
+	                        function checkUserIdCB(){
+	                        		var ok = getContentData('ok');
+							var message = getContentData('message');
+							
+							if(ok == 1){
+								setContentData([{source: 'server',service:'GetPasswordLength',dataIds:[{dataId: 'minLenPass',dataType:'text',source:'param'},{dataId: 'maxLenPass',dataType:'text',source:'param'},{dataId: 'minLowerCase',dataType:'text',source:'param'},{dataId: 'minUpperCase',dataType:'text',source:'param'},{dataId: 'minNumeric',dataType:'text',source:'param'},{dataId: 'pwdAlphaNumeric',dataType:'text',source:'param'}]}], 'pwdLengthCBPIN');							
+							}else{
+								alert(message);
+							}
+	                        }
+
+	                        function pwdLengthCBPIN(){
+		                        	if(getContentData('ok')==1){
+	                            		//var minLenUserId = getContentData('minLenUserId');
+								var minLenPass = getContentData('minLenPass');
+								var maxLenPass = getContentData('maxLenPass');
+								var minUpperCase = getContentData('minUpperCase');
+								var minLowerCase = getContentData('minLowerCase');
+								var minNumeric = getContentData('minNumeric');
+								var rangeLenPwd = minLenPass+"-"+maxLenPass;
+								
+								//document.getElementById('minLenUserId').innerHTML = minLenUserId;
+								document.getElementById('rangeLenPwd').innerHTML = rangeLenPwd;
+								document.getElementById('minUppercase').innerHTML = minUpperCase;
+								document.getElementById('minLowercase').innerHTML = minLowerCase;
+								document.getElementById('minNumeric').innerHTML = minNumeric;
+
+								document.getElementById('newpassword2').value = '';
+								document.getElementById('reenterpassword').value = '';
+								document.getElementById('userID').value = '';
+								document.getElementById('forgotpwdAnuniqueprefix_pin').value = '';
+								
+								showHideLeft('newpassword','usingmobilepin');
+	                            	}else{
+	                            		alert(getContentData('message'));
+	                            	}
+	                        		
+	                        }
+	                        
+						//add by Sendhy 16Mei2014
+	                        function customBackFromLogin(){
+	                        	//goToHTML({viewId: 'main.html'});
+	                        	invokeService({action: [{source: 'native', service: 'CloseApp'}]});
+	                        }
+
+	                        function customBackFromActivation(){
+	                        	showPopupSendhy('logoutConfirm');
+	                        }
+
+	                        function customBackFromInitialPIN() {
+						showPopupSendhy('logoutConfirm1');
+	                        }
+
+	                        function logoutMobile() {
+                            	invokeService({action: [{source: 'server', service: 'Logout'}]});
+                            	document.getElementById('activationcode').value = '';
+                       		goToHTML({viewId: 'login.html'});
+                             }
+	                        //end add
+
+	                        //add by Sendhy 20Mei2014
+	                        //function overwriteType(inputId){
+	                        //	document.getElementById(inputId).setAttribute("type","tel");
+	                        //	setTimeout(function(){document.getElementById(inputId).setAttribute("type","password");}, 750);
+	                        //}
+
+	                        //function keypressType(inputId){
+	                        //	 document.getElementById(inputId).setAttribute("type", "tel");
+	                        //}
+	                        //end add
+
+	                        //add by Sendhy 26Mei2014
+	                        function clearFieldForForgotPwd(){
+	                       	 document.getElementById('usedID2').value = '';
+	                       	 document.getElementById('registrationcode2').value = '';
+
+	                       	 document.getElementById('userID').value = '';
+	                       	 document.getElementById('forgotpwdAnuniqueprefix_pin').value = '';
+
+	                       	 var userIdForceChange = getContentData('userIdForceChangePwd');
+                        		 if(errorMessage == "resetPassword"){
+                        			document.getElementById('userID').value=userIdForceChange;
+                        			document.getElementById('usedID2').value=userIdForceChange;
+                        		 }
+
+                        		 errorMessage="";
+	                        }
+
+	                        function clearUsernamePassword(){
+	                        		document.getElementById('loginusername').value='';
+	                        		document.getElementById('loginpassword').value='';
+	                        		app.backFunction=customBackFromLogin;
+	                        }
+
+	                         function onClickChangeTextToTel(inputId){
+                                   document.getElementById(inputId).setAttribute("type", "tel");
+                                   setTimeout(function(){document.getElementById(inputId).setAttribute("type", "password")}, 1);
+                                       fn = window['sendMethodForExecute'];
+                                       fnExists = typeof fn === 'function';
+                                       if(fnExists){
+                                           sendMethodForExecute('onClickChangeTextToTel',inputId);
+                                       }
+                               }
+
+                               function callBackGetVersion(versionApp){
+                               	document.getElementById('versionApp').innerHTML = 'v. '+versionApp;
+                               	app.backFunction=customBackFromLogin;
+	                        	 }
+
+	                        	 function checkLanguage(){
+				    			setContentData([{source: 'server',service:'CheckLanguage',dataIds:[{dataId: 'locale',dataType:'text',source:'param'}]}], 'afterCheckLanguage');
+				    		 }
+	
+						 function afterCheckLanguage() {
+							goToHTML({viewId: 'languagePreLogin.html'});
+						 }
+
+						 function getCurrentLocation(){
+	                              setContentData([{"source": "native", "service":"GetCurrentLocation", "dataIds": [{"dataId": "latitude", "dataType":"text", "source": "param"},{"dataId": "longitude", "dataType":"text", "source": "param"}]}],'getCurrentLocRollBack');
+	                           }
+	
+	                           function getCurrentLocRollBack() {
+	                            	var latitude = getContentData("latitude");
+	                               var longitude = getContentData("longitude");
+	                               latitude = latitude.replace(".",",");
+	                               longitude = longitude.replace(".",",");
+	                               
+							if (latitude == '0,0' && longitude == '0,0') {
+								getListAllATMs();
+							} else {
+								getNearestATM(latitude, longitude);
+							}
+	                           }
+	                           
+						  function getNearestATM(latitude, longitude) {
+	                               setContentData([{source: 'server',service:'GetNearestATM',params:{latitude: latitude,longitude: longitude},dataIds:[{dataId: 'atmNearestList',dataType:'list',source:'param'}]}],'nearestATMRollBack');
+	                           }
+	                           
+	                           function nearestATMRollBack(){
+	                               document.getElementById('tab-7').innerHTML = '';
+	                               var cd = getContentData('atmNearestList');
+	                               for(var a=0;a<cd.length;a++){
+	                                   document.getElementById('tab-7').innerHTML += '<div class="listView atm"><a onclick="getDetailATM(\''+cd[a].code+'\');" class="ui-btn ui-shadow ui-btn-icon-right ui-btn-up-c" data-theme="c" data-wrapperels="span" data-iconshadow="true" data-shadow="true" href="#atmAddressDetails" data-icon="arrow-r" data-iconpos="right" data-role="button" data-corners="false" data-transition="slide"><span class="ui-btn-inner"><span class="ui-btn-text"><p class="ui-li-aside ui-li-desc" style="width:80px;">'+cd[a].distance+' KM</p><span class="locationIcon"></span><h3 class="ui-li-heading">'+cd[a].name+'</h3><p class="ui-li-desc">'+cd[a].address1+','+cd[a].city+'</p></span><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></span></a></div>';
+	                               }
+	                               document.getElementById('tab-7').style.display = 'block';
+	                               showHideLeft('nearestATM','usingregistrationCode');
+	                               app.backFunction=customBackFromFindAtmAnz;
+	                           }
+
+						  	function getListAllATMs() {
+								setContentData([{source: 'server',service:'GetListAllATM',dataIds:[{dataId: 'atmActiveList',dataType:'list',source:'param'}]}],'listAllATMRollBack');
+							}
+							
+							function listAllATMRollBack(){
+							   document.getElementById('tab-7').innerHTML = '';
+							   var cd = getContentData('atmActiveList');
+							   for(var a=0;a<cd.length;a++){
+								   document.getElementById('tab-7').innerHTML += '<div class="listView atm"><a onclick="getDetailATM(\''+cd[a].code+'\');" class="ui-btn ui-shadow ui-btn-icon-right ui-btn-up-c" data-theme="c" data-wrapperels="span" data-iconshadow="true" data-shadow="true" href="#atmAddressDetails" data-icon="arrow-r" data-iconpos="right" data-role="button" data-corners="false" data-transition="slide"><span class="ui-btn-inner"><span class="ui-btn-text"><span class="locationIcon"></span><h3 class="ui-li-heading">'+cd[a].name+'</h3><p class="ui-li-desc">'+cd[a].address1+','+cd[a].city+'</p></span><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></span></a></div>';
+							   }
+							   document.getElementById('tab-7').style.display = 'block';
+							   showHideLeft('nearestATM','usingregistrationCode');
+							   app.backFunction=customBackFromFindAtmAnz;
+							}
+							
+	                           function customBackFromFindAtmAnz(){
+		               		showHideLeft('usingregistrationCode','nearestATM');
+		               	  }
+	               	
+	                           function getDetailATM(data) {
+	                               var code = data;
+	                               setContentData([{source: 'server',service:'GetDetailATM',params:{code: code},dataIds:[{dataId: 'name',dataType:'text',source:'param'},{dataId: 'address1',dataType:'text',source:'param'},{dataId: 'address2',dataType:'text',source:'param'},{dataId: 'address3',dataType:'text',source:'param'},{dataId: 'openHour',dataType:'text',source:'param'},{dataId: 'closeHour',dataType:'text',source:'param'}]}],'detailATMRollBack');
+	                           }
+	                           
+	                           function detailATMRollBack() {
+	                               document.getElementById('atmName').innerHTML = getContentData('name');
+	                               document.getElementById('atmAddress1').innerHTML = getContentData('address1');
+	                               document.getElementById('atmAddress2').innerHTML = getContentData('address2');
+	                               document.getElementById('atmAddress3').innerHTML = getContentData('address3');
+	                               showHideLeft('atmAddressDetails','nearestATM');
+	                               app.backFunction=customBackFromDetailFindAtmAnz;
+	                           }
+
+	                           function customBackFromDetailFindAtmAnz(){
+		               		showHideLeft('nearestATM','atmAddressDetails');
+		               		app.backFunction=customBackFromFindAtmAnz;
+		               	  }
+
+	                           function customBackFromForgoPassword() {
+							document.getElementById('loginusername').value='';
+							document.getElementById('loginpassword').value='';
+							showHideLeft('login','password');
+							app.backFunction=customBackFromLogin;
+	                           }
+	                           
+                                </script>
+                            </head>
+    <body class="loginScreen innerPage  ui-mobile-viewport ui-overlay-c" onload="processLanguages();setLocale();clearUsernamePassword();getVersionApp('callBackGetVersion');app.backFunction=customBackFromLogin;">
+        <div class="ui-page ui-body-c ui-page-header-fixed ui-page-active" tabindex="0" data-url="login" data-role="page" id="login" data-add-back-btn="true">
+            <div class="ui-panel ui-panel-position-left ui-panel-display-push ui-body-a ui-panel-animate ui-panel-closed" data-role="panel" id="navpanel" data-theme="a" data-display="push" data-position="left">
+	            <div class="ui-panel-inner">
+	            	<div data-init-selector=":jqmData(role='controlgroup')" data-mini="false" data-type="vertical" data-exclude-invisible="true" data-shadow="false" data-disabled="false" aria-disabled="false" class="ui-controlgroup ui-controlgroup-vertical" data-role="controlgroup" data-corners="false">
+	            		<div class="ui-controlgroup-controls">
+		                <a class="ui-btn ui-shadow ui-btn-corner-all ui-first-child ui-btn-up-c" data-theme="c" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" href="products.html" data-role="button" rel="external"><span class="ui-btn-inner"><span class="ui-btn-text"><span class="leftMenu-icon-product"></span><span class="leftMenu-text"><language key="applyForAnzProduct"></language></span></span></span></a>
+		                <a class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c" data-theme="c" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="goToHTML({viewId: 'offers.html'});" data-role="button" rel="external" ><span class="ui-btn-inner"><span class="ui-btn-text"><span class="leftMenu-icon-offers"></span><span class="leftMenu-text">Offers</span></span></span></a>
+		                <a class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c" data-theme="c" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="goToHTML({viewId: 'findanzPreLogin.html'});" data-role="button" rel="external"><span class="ui-btn-inner"><span class="ui-btn-text"><span class="leftMenu-icon-find"></span><span class="leftMenu-text">Find ANZ</span></span></span></a>
+		                <a class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c" data-theme="c" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" href="contactusPreLogin.html" data-role="button" rel="external"><span class="ui-btn-inner"><span class="ui-btn-text"><span class="leftMenu-icon-contact"></span><span class="leftMenu-text"><language key="contactUs"></language></span></span></span></a>
+		                <a class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c" data-theme="c" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="fixScrollTop();goToHTML({viewId: 'helpPreLogin.html'});" data-role="button" rel="external"><span class="ui-btn-inner"><span class="ui-btn-text"><span class="leftMenu-icon-help"></span><span class="leftMenu-text"><language key="help"></language></span></span></span></a>
+		                <a class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all ui-last-child" data-theme="c" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" data-role="button" rel="external" onclick="fixScrollTop();checkLanguage();"><span class="ui-btn-inner"><span class="ui-btn-text"><span class="leftMenu-icon-language"></span><span class="leftMenu-text"><language key="language"></language></span></span></span></a>
+	            		</div>
+	            	</div>
+	            </div>
+	            <div class="bottomLogo"><img src="images/anz-logo@2x.png" style="width:120px;"></div>
+	       </div>
+        	  <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+                <!--a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="goToHTML({viewId: 'main.html'})" class="leftBtnTwo ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="cancel"></language></span></span></a-->
+                <a title="Menu" data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="fixScrollTop();showPanelKiri()" data-icon="bars" data-iconpos="notext" class="menuIcon ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-notext ui-btn-up-a" id="bars-button"><span class="ui-btn-inner"><span class="ui-btn-text">Menu</span><span class="ui-icon ui-icon-bars ui-icon-shadow">&nbsp;</span></span></a>
+                <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" class="rightBtn ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-transition="slide" rel="external" onclick="fixScrollTop();loginANZ();"><span class="ui-btn-inner"><span class="ui-btn-text">Login</span></span></a>
+                <h1 aria-level="1" role="heading" class="ui-title"> Login </h1>
+            </div>
+            <div role="main" id="loginForm" data-role="content" class="productView noshadow ui-content">
+                <p><language key = "entryDetails"></language></p>
+                <div data-role="fieldcontain" class="ui-hide-label loginPanel ui-field-contain ui-body ui-br"><label class="ui-input-text" for="loginusername">Username:</label><div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="loginusername" id="loginusername" value="" placeholderKey="userId" type="text"></div><label class="ui-input-text" for="loginpassword">Password:</label><div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="loginpassword" id="loginpassword" value="" placeholder="Password" type="password" maxlength="16"></div></div>
+                <p><a class="ui-link" onclick="fixScrollTop();showHideLeft('password','login');fixScrollTop();app.backFunction=customBackFromForgoPassword;" data-type="button" data-transition="slide"><language key = "forgotPwd"></language></a><!--<a onclick='setContentData([{"source": "native", "service":"GetCurrentLocation", "dataIds": [{"dataId": "latitude", "dataType":"text", "source": "param"},{"dataId": "longitude", "dataType":"text", "source": "param"}]}])'>Location</a>--></p>
+                <div style="display: none;"><!-- placeholder for passwordConfirmation --></div>
+            </div>
+            <div id="passwordConfirmation-screen" class="ui-screen-hidden ui-popup-screen ui-overlay-b"></div><div id="passwordConfirmation-popup" class="ui-popup-container ui-popup-hidden"><div data-position-to="origin" data-transition="none" data-corners="true" data-shadow="true" data-disabled="false" aria-disabled="false" id="passwordConfirmation" data-role="popup" class="popup popupTwo ui-popup ui-overlay-shadow ui-corner-all" data-overlay-theme="b" data-dismissible="false">
+                <h3><language key="pwdCreateMsg"></language></h3>
+                <p><language key="pwdCreateMsgDetail"></language></p>
+                <div class="pop-submitBtn">
+                    <a class="ui-link" onclick="fixScrollTop();hidePopup('passwordConfirmation-popup');hidePopupScreen('passwordConfirmation-screen');" data-transition="fade">OK</a>
+                </div>
+            </div></div>
+            <!--div class="bottomLogo">
+			<div style="float: left; width: 33%;margin-top:15px;text-align:left;">
+				<p id="versionApp"></p>
+			</div>
+			<div style="display: inline-block; width: 33%;">
+				<img style="width:120px;" src="images/anz-logo@2x.png">
+			</div>
+			<div style="float: right; width: 33%;">
+				<p>&nbsp;</p>
+			</div>
+		  </div-->
+		  <table class="bottomLogo">
+			<tr>
+				<td style="width:33%;text-align:left;padding-left:5px;" valign="bottom"><p id="versionApp"></p></td>
+				<td style="text-align:center;width:33%;"><img style="width:120px;" src="images/anz-logo@2x.png"></td>
+				<td style="width:33%;">&nbsp;</td>
+			</tr>
+		  </table>
+            <div id="ui-panel-dismiss-id" class="ui-panel-dismiss" data-panelid="navpanel"></div> </div>
+        
+        <!------  Password ------->
+        
+        <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="password" data-role="page" id="password" data-add-back-btn="true">
+            <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+                <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="fixScrollTop();document.getElementById('loginusername').value='';document.getElementById('loginpassword').value='';showHideRight('login','password');app.backFunction=customBackFromLogin;" class="leftBtnTwo ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="cancel"></language></span></span></a>
+                <h1 aria-level="1" role="heading" class="ui-title"><language key="forgotPassword"></language></h1>
+            </div>
+            <div role="main" data-role="content" class="productView ui-content">
+                <div class="content-primary">
+                    <ul data-role="listview" class="listtype ui-listview">
+                        <li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li ui-first-child" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a class="ui-link-inherit" onclick="fixScrollTop();showHideLeft('usingmobilepin','password');clearFieldForForgotPwd();regcode=0;" data-transition="slide"><span class="linkText"><language key="resetPin"></language></span></a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                        <li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li ui-last-child" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a class="ui-link-inherit" onclick="fixScrollTop();showHideLeft('usingregistrationCode','password');clearFieldForForgotPwd();regcode=1;" data-transition="slide"><span class="linkText"><language key="resetRegCode"></language></span></a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!------  Activation ------->
+        <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="activation" data-role="page" id="activation" data-add-back-btn="true">
+            <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+                <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="fixScrollTop();logoutMobile();" class="leftBtnTwo ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="cancel"></language></span></span></a>
+                <h1 aria-level="1" role="heading" class="ui-title"><language key="activation"></language></h1>
+                <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="fixScrollTop();processToken();" class="rightBtn ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-transition="slide"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="continue"></language></span></span></a> 
+			</div>
+            <div role="main" data-role="content" class="noshadow ui-content">
+                <div class="content-primary">
+                    <div class="noshadow">
+                       <p><language key="activation1Msg"></language> <b id="mobilePhoneNumber"></b><language key="activation2Msg"></language> </p>
+                       <div class="formField">
+                           <div data-role="fieldcontain" class="ui-hide-label smTextbox ui-field-contain ui-body ui-br"><label class="ui-input-text" for="activationcode"><language key="activationCodeEntry"></language></label><div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c masking" name="activationcode" id="activationcode" value="" placeholder="" placeholderKey="activationCodeEntry" type="tel" maxlength="6"></div></div>
+                       </div>
+                       <p style="font-weight:bold;"><language key="activation3MsgNew"></language></p><br/>
+				   <div class="greyBtn">
+					<a class="ui-link" onclick="fixScrollTop();resendActivationCode();" data-transition="slide"><language key="activationResend"></language></a>
+				   </div>
+  				   <p><language key="activation4Msg"></language></p>                
+                    </div>
+			  </div>
+	
+				<!-- add by Sendhy 16Mei2014 10:09 -->
+				<div style="display: none;">
+					<!-- placeholder for logoutConfirm -->
+				</div>
+				<!-- end add -->
+			</div>
+            	
+			<!-- add by Sendhy 16Mei2014 10:09 -->
+			<div id="logoutConfirm-screen" class="ui-screen-hidden ui-popup-screen"></div>
+			<div id="logoutConfirm-popup" class="ui-popup-container ui-popup-hidden">
+				<div id="logoutConfirm" class="popup popupTwo ui-popup ui-overlay-shadow ui-corner-all" >
+					<p><language key="logoutAskConfirm"></language></p>
+					<div class="pop-submitBtn marginTop">
+							<a class="ui-link" onclick="fixScrollTop();hidePopupSendhy('logoutConfirm');fixScrollTop();logoutMobile();"><language key="yes"></language></a>
+					</div>
+					<div class="pop-submitBtn">
+							<a class="ui-link" onclick="fixScrollTop();hidePopupSendhy('logoutConfirm');fixScrollTop();" href="#activation"><language key="cancel"></language></a>
+					</div>
+				</div>
+			</div>
+			<!-- end add -->
+            	
+		</div>
+        
+        <!------  Create PIN ------->
+        <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="createpin" data-role="page" id="createpin">
+            <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+                <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="fixScrollTop();document.getElementById('activationcode').value='';document.getElementById('MPINnumber').value='';document.getElementById('newMPINnumber').value='';document.getElementById('confirmMPINnumber').value='';showHideRight('activation','createpin');" class="leftBtnTwo ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="cancel"></language></span></span></a>
+                <a aria-owns="#successmessage" aria-haspopup="true" data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="fixScrollTop();createToken();" data-rel="popup" class="rightBtn ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-position-to="window"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="submit"></language></span></span></a>
+                <h1 aria-level="1" role="heading" class="ui-title">Update Mobile PIN</h1>
+                
+            </div>
+            <div role="main" data-role="content" class="productView noshadow ui-content">
+                <p><language key="EnterPIN1Msg"></language><b id="mobilePhoneNumber2"></b><language key="EnterPIN1MsgExt"></language></p>
+                
+                <div class="formField textboxMargin firstChild">
+                    <div data-role="fieldcontain" class="ui-hide-label smTextbox ui-field-contain ui-body ui-br"><label class="ui-input-text" for="PINnumber">M-PIN Number</label><div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c masking" name="PINnumber" id="MPINnumber" value="" placeholder="" placeholderKey="enterDefaultPin" type="tel" maxlength="6"></div></div>
+                </div>
+                
+                <br>
+                <p><language key="EnterPIN2Msg"></language></p>
+                
+                <div class="formField textboxMargin firstChild">
+                    <div data-role="fieldcontain" class="ui-hide-label smTextbox ui-field-contain ui-body ui-br"><label class="ui-input-text" for="PINnumber">M-PIN Number</label><div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c masking" name="PINnumber" id="newMPINnumber" value="" placeholder="" placeholderKey="enterNewPin" type="tel" maxlength="6"></div></div>
+                </div>
+                <div class="formField textboxMargin">
+                    <div data-role="fieldcontain" class="ui-hide-label smTextbox ui-field-contain ui-body ui-br"><label class="ui-input-text" for="confirmpin">Re-enter M-PIN</label><div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c masking" name="confirmpin" id="confirmMPINnumber" value="" placeholder="" placeholderKey="enterConfirmPin" type="tel" maxlength="6"></div></div>
+                </div>
+                <p><language key="EnterPIN3Msg"></language></p>
+                <div style="display: none;"><!-- placeholder for successmessage --></div>
+            </div>
+            <div id="successmessage-screen" class="ui-screen-hidden ui-popup-screen ui-overlay-b"></div>
+            <div id="successmessage-popup" class="ui-popup-container ui-popup-hidden">
+	            <div data-position-to="origin" data-transition="none" data-corners="true" data-shadow="true" data-disabled="false" aria-disabled="false" id="successmessage" data-role="popup" class="popup ui-popup ui-overlay-shadow ui-corner-all" data-overlay-theme="b" data-dismissible="false">
+	                <h3><language key="resultPIN1"></language></h3>
+	                <p><language key="resultPIN2"></language></p><a onclick="fixScrollTop();goToHTML({viewId:'mTokenLogin'});"></a>
+	                <div class="pop-submitBtn ">
+	                    <a class="ui-link" onclick="fixScrollTop();loginUser();" rel="external" data-transition="slide"><language key="resultPIN3"></language></a>
+	                </div>
+	            </div>
+            </div>
+
+            <!-- add by Sendhy 16Mei2014 10:09 -->
+			<div id="logoutConfirm1-screen" class="ui-screen-hidden ui-popup-screen"></div>
+			<div id="logoutConfirm1-popup" class="ui-popup-container ui-popup-hidden">
+				<div id="logoutConfirm1" class="popup popupTwo ui-popup ui-overlay-shadow ui-corner-all" >
+					<p><language key="logoutAskConfirm"></language></p>
+					<div class="pop-submitBtn marginTop">
+							<a class="ui-link" onclick="fixScrollTop();hidePopupSendhy('logoutConfirm1');fixScrollTop();logoutMobile();"><language key="yes"></language></a>
+					</div>
+					<div class="pop-cancelBtn">
+							<a class="ui-link" onclick="fixScrollTop();hidePopupSendhy('logoutConfirm1');fixScrollTop();" href="#activation"><language key="cancel"></language></a>
+					</div>
+				</div>
+			</div>
+			<!-- end add -->
+			
+        </div>
+        
+        <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="registrationatmorcc" data-role="page" id="registrationatmorcc">
+            <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+                <a aria-owns="#forgotcancel" aria-haspopup="true" data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="fixScrollTop();showPopup25('forgotcancel-popup');showPopupScreen('forgotcancel-screen');" class="leftBtnTwo ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-rel="popup" data-position-to="window"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="cancel"></language></span></span></a>
+                <h1 aria-level="1" role="heading" class="ui-title"> <language key="resetPassword"></language> </h1>
+                <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="fixScrollTop();processSecondStepValidation();" class="rightBtn ui-btn-right ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" data-transition="slide"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="continue"></language></span></span></a> </div>
+            <div role="main" data-role="content" class="noshadow ui-content">
+                <div class="content-primary">
+                    <div class="noshadow">
+                        <p><language key="resetInternetMobilePasswordUsing"></language></p>
+                        <div class="ui-tabs ui-widget ui-widget-content ui-corner-all" data-role="inlinetabs" id="tabs">
+                            <div role="navigation" data-role="navbar" class="tabMenu ui-navbar ui-mini">
+                                <ul role="tablist" class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all ui-grid-a">
+                                    <li id="tabBar1Li" onclick="fixScrollTop();showTabBar('tabBar1');" aria-selected="true" aria-labelledby="ui-id-1" aria-controls="tab-1" tabindex="0" role="tab" class="ui-state-default ui-corner-top ui-tabs-active ui-state-active ui-block-a"><a data-inline="true" data-theme="c" data-wrapperels="span" data-iconshadow="true" data-shadow="false" data-corners="false" id="ui-id-1" tabindex="-1" role="presentation" class="ui-tabs-anchor ui-btn ui-btn-up-c ui-btn-inline" onclick="fixScrollTop();tabATMCC = 0;" data-tab="1"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="atmCard"></language></span></span></a></li>
+                                    <li id="tabBar2Li" onclick="fixScrollTop();showTabBar('tabBar2');" aria-selected="false" aria-labelledby="ui-id-2" aria-controls="tab-2" tabindex="-1" role="tab" class="ui-state-default ui-corner-top ui-block-b"><a data-inline="true" data-theme="c" data-wrapperels="span" data-iconshadow="true" data-shadow="false" data-corners="false" id="ui-id-2" tabindex="-1" role="presentation" class="ui-tabs-anchor ui-btn ui-btn-inline ui-btn-up-c" onclick="fixScrollTop();tabATMCC = 1;" data-tab="2"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="creditCard"></language></span></span></a></li>
+                                </ul>
+                            </div>
+                            <!-- /navbar -->
+                            <div id="tabBar1" aria-hidden="false" aria-expanded="true" style="display: block;" role="tabpanel" class="ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-1" data-tab="1">
+                                <p><language key="entryYourDetails"></language></p>
+                                <div class="formField">
+                                    <div data-role="fieldcontain" class="ui-hide-label smTextbox ui-field-contain ui-body ui-br"><label class="ui-input-text" for="atmnumber"><language key="digitAtmCard"></language></label><div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="atmnumber" id="atmnumber" value="" placeholder="" placeholderKey="digitAtmCard" type="tel" maxlength="16"></div></div>
+                                    <div data-role="fieldcontain" class="ui-hide-label smTextbox ui-field-contain ui-body ui-br"><label class="ui-input-text" for="accountnumber"><language key="lastFourDigitAcctNo"></language></label><div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="accountnumber" id="accountnumber" value="" placeholder="" placeholderKey="lastFourDigitAcctNo" type="tel" maxlength="4"></div></div>
+                                    <div data-role="fieldcontain" class="ui-hide-label smTextbox ui-field-contain ui-body ui-br"><label class="ui-input-text" for="atmhrmnnumber"><language key="lastFourDigitPhoneNo"></language></label><div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="atmhrmnnumber" id="atmhrmnnumber" value="" placeholder="" placeholderKey="lastFourDigitPhoneNo" type="tel" maxlength="4"></div></div>
+                                </div>
+                            </div>
+                            <div id="tabBar2" aria-hidden="true" aria-expanded="false" style="display: none;" role="tabpanel" class="ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-2" data-tab="2">
+                                <p><language key="entryYourDetails"></language></p>
+                                <div class="formField">
+                                    <div data-role="fieldcontain" class="ui-hide-label smTextbox ui-field-contain ui-body ui-br"><label class="ui-input-text" for="ccnumber"><language key="digitCreditCard"></language></label><div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="ccnumber" id="ccnumber" value="" placeholder="" placeholderKey="digitCreditCard" type="tel" maxlength="16"></div></div>
+                                    <div data-role="fieldcontain" class="ui-hide-label smTextbox ui-field-contain ui-body ui-br"><label class="ui-input-text" for="cclimit"><language key="limitCreditCard"></language></label><div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="cclimit" id="cclimit" value="" placeholder="" placeholderKey="limitCreditCard" type="tel" ></div></div>
+                                    <div data-role="fieldcontain" class="ui-hide-label smTextbox ui-field-contain ui-body ui-br"><label class="ui-input-text" for="cchrmnumber"><language key="lastFourDigitPhoneNo"></language></label><div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="cchrmnumber" id="cchrmnumber" value="" placeholder="" placeholderKey="lastFourDigitPhoneNo" type="tel" maxlength="4"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="display: none;"><!-- placeholder for forgotcancel --></div>
+            <div id="forgotcancel-screen" class="ui-screen-hidden ui-popup-screen ui-overlay-b"></div><div id="forgotcancel-popup" class="ui-popup-container ui-popup-hidden"><div data-position-to="origin" data-transition="none" data-corners="true" data-shadow="true" data-disabled="false" aria-disabled="false" id="forgotcancel" data-role="popup" class="popup popupTwo ui-popup ui-overlay-shadow ui-corner-all" data-overlay-theme="b" data-dismissible="false">
+                
+                <p class="verMargin strong"><language key="cancelThisProcess"></language></p>
+                <div class="pop-submitBtn">
+                    <a class="ui-link" onclick="fixScrollTop();hidePopup25('forgotcancel-popup');hidePopupScreen('forgotcancel-screen');showHideRight('login','registrationatmorcc');" data-transition="fade">Yes</a>
+                </div>
+                <div class="pop-cancelBtn"><a class="ui-link" onclick="fixScrollTop();hidePopup25('forgotcancel-popup');hidePopupScreen('forgotcancel-screen');" data-transition="fade">No</a></div>
+            </div></div></div>
+        
+        <!------  Using Mobile PIN ------->
+        <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="usingmobilepin" data-role="page" id="usingmobilepin" data-add-back-btn="true">
+            <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+                <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="fixScrollTop();showHideRight('password','usingmobilepin');" class="leftBtnTwo ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="cancel"></language></span></span></a>
+                <h1 aria-level="1" role="heading" class="ui-title"> <language key="forgotPassword"></language> </h1>
+                <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="fixScrollTop();getChallangeNoAndValidateUser();" class="rightBtn ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-transition="slide"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="continue"></language></span></span></a> </div>
+            <div role="main" data-role="content" class="noshadow ui-content">
+                <div class="content-primary">
+                    <div class="noshadow">
+                        <p><language key="forgotEntryMessagePIN"></language></p>
+                        <div class="formField textboxMargin firstChild">
+                            <div data-role="fieldcontain" class="ui-hide-label smTextbox ui-field-contain ui-body ui-br"><label class="ui-input-text" for="userID"><language key="forgotUserID"></language></label><div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="userID" id="userID" value="" placeholder="" placeholderKey="forgotUserID" type="text"></div></div>
+                        </div>
+                        <div class="formField textboxMargin">
+                            <div data-role="fieldcontain" class="ui-hide-label smTextbox ui-field-contain ui-body ui-br"><label class="ui-input-text" for="pinnumber"><language key="forgotPIN"></language></label><div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c masking" name="pinnumber" id="forgotpwdAnuniqueprefix_pin" value="" placeholder="" placeholderKey="forgotPIN" type="tel" maxlength="6"></div></div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        <!------  Using Registration Code ------->
+        <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="usingregistrationCode" data-role="page" id="usingregistrationCode" data-add-back-btn="true">
+            <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+                <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="fixScrollTop();showHideRight('password','usingregistrationCode');" class="leftBtnTwo ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="cancel"></language></span></span></a>
+                <h1 aria-level="1" role="heading" class="ui-title"> <language key="forgotPassword"></language> </h1>
+                <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="fixScrollTop();processFirstStepValidation();" class="rightBtn ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-transition="slide"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="continue"></language></span></span></a> </div>
+            <div role="main" data-role="content" class="noshadow ui-content">
+                <div class="content-primary">
+                    <div class="noshadow">
+                        <p><language key="resetInternetMobilePasswordUsing"></language></p>
+                        <div class="formField textboxMargin firstChild">
+                            <div data-role="fieldcontain" class="ui-hide-label smTextbox ui-field-contain ui-body ui-br"><label class="ui-input-text" for="usedID"><language key="forgotUserID"></language></label><div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="usedID" id="usedID2" value="" placeholder="" placeholderKey="forgotUserID" type="text"></div></div>
+                        </div>
+                        <div class="formField">
+                            <div data-role="fieldcontain" class="ui-hide-label smTextbox ui-field-contain ui-body ui-br"><label class="ui-input-text" for="registrationcode"><language key="registrationCode"></language></label><div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="registrationcode" id="registrationcode2" value="" placeholder="" placeholderKey="registrationCode" type="text" maxlength="8" autocapitalize="off" autocorrect="off"></div></div>
+                        </div>
+                        <h5><language key="getRegistrationCode"></language></h5>
+                        <p><language key="acquiredRegistrationCode"></language></p>
+                        <div class="greyBtn marginTopTwo"><a class="ui-link" onclick="fixScrollTop();showPopup('popupcallcentre-popup');showPopupScreen('popupcallcentre-screen');" data-rel="popup" data-position-to="window"><language key="anzCallCentre"></language></a></div>
+                        <div class="greyBtn marginTop"><a class="ui-link" onclick="fixScrollTop();showPopup('popupatm-popup');showPopupScreen('popupatm-screen');" data-rel="popup" data-position-to="window"><language key="anzAtm"></language></a></div>
+                        
+                        <div style="display: none;"><!-- placeholder for popupcallcentre --></div>
+                        <div style="display: none;"><!-- placeholder for popupatm --></div>
+                    </div>
+                </div>
+            </div>
+            <div id="popupcallcentre-screen" class="ui-screen-hidden ui-popup-screen ui-overlay-a"></div><div id="popupcallcentre-popup" class="ui-popup-container ui-popup-hidden"><div data-position-to="origin" data-transition="none" data-corners="true" data-shadow="true" data-disabled="false" aria-disabled="false" id="popupcallcentre" data-role="popup" class="popup ui-popup ui-overlay-shadow ui-corner-all" data-overlay-theme="a" data-dismissible="false">
+                <h3><language key="getRegistrationCodeByCallCentre"></language></h3>
+                <div class="listContent">
+                    <ul>
+                        <li><language key="callCentreStepOne"></language></li>
+                        <li><language key="callCentreStepTwo"></language></li>
+                        <li><language key="callCentreStepThree"></language></li>
+                        <li><language key="callCentreStepFour"></language></li>
+                    </ul>
+                </div>
+                <div class="pop-submitBtn"><a class="ui-link" onclick="fixScrollTop();goToHTML({viewId: 'makePhoneCall'});"><language key="callAnz"></language></a></div>
+                <div class="pop-cancelBtn"><a class="ui-link" onclick="fixScrollTop();hidePopup('popupcallcentre-popup');hidePopupScreen('popupcallcentre-screen');"><language key="back"></language></a></div>
+            </div></div><div id="popupatm-screen" class="ui-screen-hidden ui-popup-screen ui-overlay-a"></div><div id="popupatm-popup" class="ui-popup-container ui-popup-hidden"><div data-position-to="origin" data-transition="none" data-corners="true" data-shadow="true" data-disabled="false" aria-disabled="false" id="popupatm" data-role="popup" class="popup ui-popup ui-overlay-shadow ui-corner-all" data-overlay-theme="a" data-dismissible="false">
+                <h3><language key="getRegistrationCodeFromAnzAtm"></language></h3>
+                <div class="listContent">
+                    <ul>
+                        <li><language key="getRegCodeFromAtmStepOne"></language></li>
+                        <li><language key="getRegCodeFromAtmStepTwo"></language></li>
+                        <li><language key="getRegCodeFromAtmStepThree"></language></li>
+                        <li><language key="getRegCodeFromAtmStepFour"></language></li>
+                    </ul>
+                </div>
+                <div class="pop-submitBtn"><a class="ui-link" onclick="fixScrollTop();getCurrentLocation();hidePopup('popupatm-popup');hidePopupScreen('popupatm-screen');"><language key="findAnzAtm"></language></a></div>
+                <div class="pop-cancelBtn"><a class="ui-link" onclick="fixScrollTop();hidePopup('popupatm-popup');hidePopupScreen('popupatm-screen');"><language key="back"></language></a></div>
+                
+            </div></div></div>
+        
+        
+        
+        <!------  New Password ------->
+        <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="newpassword" data-role="page" id="newpassword" data-add-back-btn="true">
+            <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+                <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="fixScrollTop();if(regcode==1)showHideRight('registrationatmorcc','newpassword');else showHideRight('usingmobilepin','newpassword')" class="leftBtnTwo ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="cancel"></language></span></span></a>
+                <h1 aria-level="1" role="heading" class="ui-title"><language key="newPassword"></language></h1>
+                <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" class="rightBtn testnew ui-btn-right ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" onclick="fixScrollTop();processExecuteChangePassword();"><span class="ui-btn-inner"><span class="ui-btn-text">Submit</span></span></a> </div>
+            <div role="main" data-role="content" class="noshadow ui-content">
+                <div class="content-primary">
+                    <div class="noshadow">
+                        <p><language key="forgotCreatePwdMsg"></language></p>
+                        <div class="formField textboxMargin firstChild">
+                            <div data-role="fieldcontain" class="ui-hide-label smTextbox ui-field-contain ui-body ui-br"><label class="ui-input-text" for="newpassword"><language key="entryNewPass"></language></label><div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="newpassword" id="newpassword2" value="" placeholder="" placeholderKey="entryNewPass" type="password"></div></div>
+                        </div>
+                        <div class="formField textboxMargin">
+                            <div data-role="fieldcontain" class="ui-hide-label smTextbox ui-field-contain ui-body ui-br"><label class="ui-input-text" for="reenterpassword"><language key="forgotReEnterPass"></language></label><div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input class="ui-input-text ui-body-c" name="reenterpassword" id="reenterpassword" value="" placeholder="" placeholderKey="forgotReEnterPass" type="password"></div></div>
+                        </div>
+                        <h5><language key="passwordRules"></language></h5>
+                        <p>
+							<a id="rangeLenPwd"></a>
+							<language key="pwdCharLimit"></language>
+							<a id="minUppercase"></a>
+							<language key="pwdUppercase"></language>
+							<a id="minLowercase"></a>
+							<language key="pwdLowercase"></language>
+							<a id="minNumeric"></a>
+							<language key="pwdNumerals"></language>
+						</p>
+                        
+                    </div>
+                    <!-- add by Sendhy 16Mei2014 10:09 -->
+             		<div style="display: none;">
+                 		<!-- placeholder for savePasswordMsg -->
+             		</div>
+             		<!-- end add -->                  
+                </div>
+            </div>
+            <div id="savePasswordMsg-screen" class="ui-screen-hidden ui-popup-screen ui-overlay-b"></div>
+            <div id="savePasswordMsg-popup" class="ui-popup-container ui-popup-hidden">
+                <div id="savePasswordMsg" class="popup popupTwo ui-popup ui-overlay-shadow ui-corner-all" >
+                    <h3><language key="passwordCreated"></language></h3>
+                    <p><language key="passwordCreatedMsg"></language></p>
+                    <div class="pop-submitBtn marginTop">
+                        <a class="ui-link" onclick="fixScrollTop();hidePopupSendhy('savePasswordMsg');showHideLeft('login','newpassword');">OK</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!------******************------>
+        <!--------- Find ANZ--------->
+        <!------******************------>
+        <div class="ui-page ui-body-c ui-page-header-fixed ui-page-footer-fixed" tabindex="0" data-url="nearestATM" data-role="page" id="nearestATM" data-add-back-btn="true">
+            <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+                <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="fixScrollTop();showHideRight('usingregistrationCode','nearestATM');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-role="button" rel="external"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="back"></language></span></span></a>
+                <h1 aria-level="1" role="heading" class="ui-title"><language key="findAnz"></language></h1>
+            </div>
+            <div role="main" data-role="content" class="noshadow ui-content">
+                <div class="content-primary">
+                    <div class="ui-tabs ui-widget ui-widget-content ui-corner-all" data-role="inlinetabs" id="findtabs">
+                        <div aria-hidden="true" aria-expanded="false" style="display: none;" role="tabpanel" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-listview" aria-labelledby="ui-id-2" data-tab="7" id="tab-7" data-role="listview">
+                            
+                        </div>
+                        <!--div role="contentinfo" id="footer" data-position="fixed" data-role="footer" class="footer ui-footer ui-bar-a ui-footer-fixed slideup" data-tap-toggle="false">
+                            <a title="Menu"  onclick="goToCurrentLocATM();"  data-theme="a" data-wrapperels="span" data-shadow="true" href="#" data-icon="nearby" data-iconpos="notext" data-iconshadow="false" data-corners="false" class="ui-btn-left nearby ui-btn ui-btn-up-a ui-shadow ui-btn-icon-notext"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="menu"></language></span><span class="ui-icon ui-icon-nearby">&nbsp;</span></span></a>
+                            <div role="navigation" data-role="navbar" class="footertabMenu ui-navbar ui-mini">
+                                <ul role="tablist" class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all ui-grid-a">
+                                    <li id="tab-7Tab" aria-selected="false" aria-labelledby="ui-id-2" aria-controls="tab-7" tabindex="-1" role="tab" class="ui-state-default ui-corner-top ui-block-b"><a data-inline="true" data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="false" data-corners="false" id="ui-id-2" tabindex="-1" role="presentation" class="ui-tabs-anchor ui-btn ui-btn-up-a ui-btn-inline" data-tab="7"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="list"></language></span></span></a></li>
+                                </ul>
+                            </div>
+                            <a title="Menu" data-theme="a" data-wrapperels="span" data-shadow="true" href="#" data-iconpos="notext" data-corners="false" data-iconshadow="false" data-icon="search" class="ui-btn-right search ui-btn ui-btn-up-a ui-shadow ui-btn-icon-notext"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="menu"></language></span><span class="ui-icon ui-icon-search">&nbsp;</span></span></a>
+                        </div-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!------******************------>
+        <!--------- Adrress Details--------->
+        <!------******************------>
+        <div class="ui-page ui-body-c ui-page-header-fixed" tabindex="0" data-url="atmAddressDetails" data-role="page" id="atmAddressDetails" data-add-back-btn="true">
+            <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+                <a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="fixScrollTop();showHideRight('nearestATM','atmAddressDetails');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" data-transition="slide" data-direction="reverse"><span class="ui-btn-inner"><span class="ui-btn-text"><language key="map"></language></span></span></a>
+                <h1 aria-level="1" role="heading" class="ui-title"><language key="atmDetails"></language></h1>
+            </div>
+            <div role="main" data-role="content" class="noshadow whiteBg ui-content">
+                <div class="content-primary">
+                    <div class="backgroundTwo">
+                        <span class="addressLeft">
+                            <h3><span id="atmName">ANZ Tower Branch</span></h3>
+                            <p><span id="atmAddress1">JL Jend</span></p>
+                            <p><span id="atmAddress2">Sudirman Kav 33A,</span></p>
+                            <p><span id="atmAddress3">Jakarta Pusat, Jakarta</span></p>
+                        </span>
+                    </div>
+                    <div class="bankTimings">
+                        <h4 class="timer"><language key="openingHours"></language></h4>
+                        <p><language key="everyDay"></language></p>
+                        <hr>
+                        <h4><language key="weCanHelpYouWith"></language></h4>
+                        <ul>
+                            <li><language key="everydayAccounts"></language></li>
+                            <li><language key="insurance"></language></li>
+                            <li><language key="loans"></language></li>
+                            <li><language key="financialAdvice"></language></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui-loader ui-corner-all ui-body-a ui-loader-default"><span class="ui-icon ui-icon-loading"></span><h1>Loading...</h1></div></body>
+</html>

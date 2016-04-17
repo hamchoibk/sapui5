@@ -1,0 +1,58 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <div class="flexible-Margin formContainer ">
+        <div class="transactionDetail">
+            <div class="row">
+                <div class="labelKey column40">{{'DEPOSIT_INDEX_ACCOUNT_NUMBER' | translate }} </div>
+                <div class="labelValue align-right column60"><b>{{depositInfo.accountNo}} </b></div>
+            </div>
+            <div class="row">
+                <div class="labelKey column40">{{'DEPOSIT_INDEX_ACCOUNT_NAME' | translate }}</div>
+                <div class="labelValue align-right column60"><b>{{depositInfo.productName}}</b></div>
+            </div>
+            <div class="row">
+                <div class="labelKey column40">{{'DEPOSIT_INDEX_VALUE_DATE' | translate }} </div>
+                <div class="labelValue align-right column60"><b>{{depositInfo.valDate}} </b></div>
+            </div>
+            <div class="row">
+                <div class="labelKey column40">{{'DEPOSIT_INDEX_MATURITY_DATE' | translate }} </div>
+                <div class="labelValue align-right column60"><b>{{depositInfo.matDate}} </b></div>
+            </div>
+            <div class="row">
+                <div class="labelKey column40">{{'DEPOSIT_INDEX_PERIOD' | translate }}</div>
+                <div class="labelValue align-right column60"><b>{{depositInfo.term | translate}}</b></div>
+            </div>
+            <div class="row" ng-show="hideForSuperkid">
+                <div class="labelKey column40">{{'DEPOSIT_INDEX_SOURCE_ACCOUNT' | translate }}</div>
+                <div class="labelValue align-right column60"><b>{{depositInfo.sourceAccount}} </b></div>
+            </div>
+            <div class="row">
+                <div class="labelKey column40">{{'DEPOSIT_INDEX_CURRENCY_CODE' | translate }} </div>
+                <div class="labelValue align-right column60"><b>{{depositInfo.currency}} </b></div>
+            </div>
+            <div class="row">
+                <div class="labelKey column40">{{lablePrincipleAmount | translate }} </div>
+                <div class="labelValue align-right column60"><b>{{depositInfo.principleAmountFormated}} </b></div>
+            </div>
+            <div class="row">
+                <div class="labelKey column40">{{'DEPOSIT_INDEX_INTEREST' | translate }}</div>
+                <div class="labelValue align-right column60"><b>{{depositInfo.intRate}}</b></div>
+            </div>
+            <div class="row" ng-show="hideForSuperkid">
+                <div class="labelKey column40">{{'DEPOSIT_INDEX_AMOUNT_INTEREST' | translate }}</div>
+                <div class="labelValue align-right column60"><b>{{depositInfo.amountInterestFormated}}</b></div>
+            </div>
+            <div class="row" ng-show="hideForSuperkid">
+                <div class="labelKey column40">{{'DEPOSIT_INDEX_MATURITY' | translate }}</div>
+                <div class="labelValue align-right column60"><b>{{depositInfo.maturity | translate}}</b></div>
+            </div>
+            <div class="row">
+                <div class="labelKey column40">{{'DEPOSIT_INDEX_SETTLEMENT_ACCOUNT' | translate }}</div>
+                <div class="labelValue align-right column60"><b>{{depositInfo.settleAccount}}</b></div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

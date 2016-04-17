@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html class="ui-mobile">
+<head>   
+	<script src="cordova.js" type="text/javascript"></script>
+   	<script src="native.js" type="text/javascript"></script>
+   	<script type="text/javascript">
+       	app.initialize();
+   	</script>
+	<title></title>
+	<meta content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+	<meta name=apple-mobile-web-app-capable content=yes>
+	<meta name=apple-mobile-web-app-status-bar-style content=black>
+	<meta content="telephone=no" name="format-detection">
+	<link href="css/jquerycss.css" rel="stylesheet" type="text/css">
+	<link href="css/style.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="script/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="script/jquery.mobile-1.4.0.min.js"></script>
+	<script type="text/javascript" src="script/anzmobile.js"></script>
+	<script type="text/javascript" src="script/jq.mobi.js"></script>
+	<script>
+		$(function() {
+			$('.flexslider').flexslider({
+				animation: "slide"
+			});
+		});	
+		$(document).on('pageshow', function(){ 
+			$('.flexslider').flexslider({
+				animation: "slide"
+			});  
+		});
+	</script>
+    	<script type="text/javascript" src="script/jquery.flexslider-min.js"></script>
+    	<script>
+		$(document).ready(function(){
+			$("#setuppin").popup("open");
+		});
+
+		function fixScrollTop()
+		 {
+			document.body.scrollTop = 0;
+		 }
+		 
+		function animateTouch(selector, className){
+	       var eleme = $(selector);
+	       for(var i = 0;i<eleme.length;i++ )
+	          {
+	              eleme[i].addEventListener('touchstart', function(e){
+	                    $(this).addClass(className);
+	                   }, false);
+	                   eleme[i].addEventListener('touchmove', function(e){
+	                    $(this).removeClass(className);
+	                   }, false); 
+	                   eleme[i].addEventListener('touchend', function(e){
+	                    $(this).removeClass(className);
+	                   }, false);       
+	          }
+	     }
+	     
+		var locale = '';
+
+		function checkLanguage1(){
+			setContentData([{source: 'server',service:'CheckLanguage',dataIds:[{dataId: 'locale',dataType:'text',source:'param'}]}], 'checkLanguageCallBack1');
+		}
+
+		function checkLanguageCallBack1(){
+			locale = getContentData('locale');
+			if (locale == 'en') {
+				document.getElementById('selectOfferEn').style.display = 'block';
+				document.getElementById('selectOfferId').style.display = 'none';
+			} else {
+				document.getElementById('selectOfferId').style.display = 'block';
+				document.getElementById('selectOfferEn').style.display = 'none';
+			}
+			getListPromoLastFive();
+		}
+		
+		function getCurrentLocation(){
+			setContentData([{"source": "native", "service":"GetCurrentLocation", "dataIds": [{"dataId": "latitude", "dataType":"text", "source": "param"},{"dataId": "longitude", "dataType":"text", "source": "param"}]}]);
+		}
+
+	     function getListPromoLastFive() {
+			setContentData([{source: 'server',service:'GetListPromotionActiveLastFive',dataIds:[{dataId: 'promoOfferList',dataType:'entity',source:'param'}]}], 'getListPromoLastFiveCallBack');
+	     }
+
+	     function getListPromoLastFiveCallBack() {
+	     	var promoOffers = getContentData('promoOfferList');
+			for (var i = 0; i < promoOffers.length; i++) {
+				document.getElementById('imageHighlight'+i).src = promoOffers[i].highlightImage;
+				document.getElementById('catNameList'+i).innerHTML = promoOffers[i].categoryName;
+				document.getElementById('nameList'+i).innerHTML  = promoOffers[i].name;
+				if(locale == "en") {
+					document.getElementById('nameDescriptionList'+i).innerHTML = promoOffers[i].nameDescriptionEng;
+				} else {
+					document.getElementById('nameDescriptionList'+i).innerHTML = promoOffers[i].nameDescriptionInd;
+	           	}
+	           	document.getElementById('codePromo'+i).value  = promoOffers[i].code;
+	           }
+	           
+	           getListPromotionCategory();
+	     }
+	     
+		function selectOfferBy(data){
+			var a = data.value;
+			if (a=="1") {
+				getListNearbyPromotions();
+			} else if (a=="2"){
+				document.getElementById('cityOption').style.display = 'block';
+				document.getElementById('listPromotionByLocation').style.display = 'none';
+			} else {
+				document.getElementById('cityOption').style.display = 'none';
+				document.getElementById('listPromotionByLocation').style.display = 'none';
+			}
+		}
+
+		function getListPromotionCategory(){
+			setContentData([{source: 'server',service:'GetListPromotionCategory',dataIds:[{dataId: 'offerPromotionByCategoryList',dataType:'entity',source:'param'}]}], 'getListPromotionCategoryCallBack');
+		}
+		function getListPromotionCategoryCallBack(){
+	 		var category = getContentData('offerPromotionByCategoryList');
+		 	document.getElementById('colCategoryList').innerHTML = '';
+			// todo load image
+			for (var i = 0; i < category.length; i++) {
+				if (category[i].name == 'Dining') {
+					document.getElementById('colCategoryList').innerHTML += '<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-first-child"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">	<a onclick="getListPromotionByCategoryCode(\''+ category[i].code +'\');"  rel="external" class="ui-link-inherit"><img src="images/Dining.png" class="ui-li-thumb"></img> <h3 class="ui-li-heading">'+category[i].name +'</h3></a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>';
+				} else if (category[i].name =='Electronic') {
+					document.getElementById('colCategoryList').innerHTML += '<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-first-child"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">	<a onclick="getListPromotionByCategoryCode(\''+ category[i].code +'\');"  rel="external" class="ui-link-inherit"><img src="images/Eletronics.png" class="ui-li-thumb"></img> <h3 class="ui-li-heading">'+category[i].name +'</h3></a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>';
+				} else if (category[i].name =='Shopping') {
+					document.getElementById('colCategoryList').innerHTML += '<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-first-child"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">	<a onclick="getListPromotionByCategoryCode(\''+ category[i].code +'\');"  rel="external" class="ui-link-inherit"><img src="images/Shopping.png" class="ui-li-thumb"></img> <h3 class="ui-li-heading">'+category[i].name +'</h3></a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>';
+				} else if (category[i].name =='Travelling') {
+					document.getElementById('colCategoryList').innerHTML += '<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-first-child"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">	<a onclick="getListPromotionByCategoryCode(\''+ category[i].code +'\');"  rel="external" class="ui-link-inherit"><img src="images/Travel.png" class="ui-li-thumb"></img> <h3 class="ui-li-heading">'+category[i].name +'</h3></a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>';
+				} else {
+					document.getElementById('colCategoryList').innerHTML += '<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-first-child"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">	<a onclick="getListPromotionByCategoryCode(\''+ category[i].code +'\');"  rel="external" class="ui-link-inherit"><img src="images/Others.png" class="ui-li-thumb"></img> <h3 class="ui-li-heading">'+category[i].name +'</h3></a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>';
+				}
+			}
+			animateTouch('.ui-btn-up-c','ui-focus');
+			getListCityOfPromotionActive();
+		}
+	
+		function getListCityOfPromotionActive() {
+			setContentData([{source: 'server',service:'GetListCityOfPromotionActive',dataIds:[{dataId: 'cityList',dataType:'entity',source:'param'}]}], 'fillCityRollBack');
+		}
+		
+		function fillCityRollBack(){
+			var cityList = getContentData('cityList');
+			document.getElementById('offersCityOption').innerHTML = '';
+			for(var a=0;a<cityList.length;a++){
+				if (a == 0) {
+	                   document.getElementById('offersCityOption').innerHTML += '<option selected="selected" value="' + cityList[a].code + '">' + cityList[a].name + '</option>';
+	               } else {
+	                   document.getElementById('offersCityOption').innerHTML += '<option value='+cityList[a].code+'>'+cityList[a].name+'</option>'
+	               }
+			}
+			document.getElementById("offersCityOption").selectedIndex = "0";
+			processLanguages();
+			getCurrentLocation();
+		}
+	
+		var fromCategory = 'false';
+	
+		function getListPromotionByCategoryCode(data) {
+			var catCode = data;
+			setContentData([{source: 'server',service:'GetListPromotionCategoryByCategoryCode', params: {categoryCode: catCode },dataIds:[{dataId: 'offerPromotionBycategoryCodeList',dataType:'entity',source:'param'},{dataId: 'categoryName',dataType:'text',source:'param'}]}], 'getListPromotionByCategoryCodeCallBack');
+		}
+	
+		function getListPromotionByCategoryCodeCallBack() {
+			var offerPromotionBycategoryCodeList = getContentData('offerPromotionBycategoryCodeList');
+			document.getElementById('catNameByCategoryCode').innerHTML = getContentData('categoryName');
+			document.getElementById('listOfferByCategoryCode').innerHTML = '';
+			if (offerPromotionBycategoryCodeList[0] == null){
+               	document.getElementById('listOfferByCategoryCode').innerHTML = '<li class="ui-li ui-li-divider ui-bar-b ui-first-child"><language key="noPromoFound"></language></li>';
+               }
+			for (var i = 0; i < offerPromotionBycategoryCodeList.length; i++) { 
+				document.getElementById('listOfferByCategoryCode').innerHTML += '<li class="deleteOption ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-btn-up-c" data-swipeurl="swiped.html?2"> <div class="ui-btn-inner ui-li"> <div class="ui-btn-text"> <a class="ui-link-inherit" onclick="getDetailPromotion(\''+ offerPromotionBycategoryCodeList[i].code +'\');fromCategory=\'true\';"><p class="accountDetails ui-li-desc">'+offerPromotionBycategoryCodeList[i].name+'</p> <p class="ui-li-desc">'+offerPromotionBycategoryCodeList[i].periodTo+'</p> </a></div> <span class="ui-icon ui-icon-arrow-r ui-icon-shadow"> </span> </div> </li>';
+			}
+			animateTouch('.ui-btn-up-c','ui-focus');
+			processLanguages();
+			fixScrollTop();
+			showHideLeft('listOffersByCategory','offers');
+			app.backFunction=customBackFromListCategoryCode;
+		}
+		
+		function getListNearbyPromotions() {
+			var latitude = getContentData('latitude');
+			var longitude = getContentData('longitude');
+			setContentData([{source: 'server',service:'GetNearestPromotion', params: {latitude:latitude, longitude:longitude },dataIds:[{dataId: 'offerPromotionByNearbyLocation',dataType:'entity',source:'param'}]}], 'getListNearbyPromotionsCallBack');
+		}
+	
+		function getListNearbyPromotionsCallBack(){
+			var offerPromotionByNearbyLocation = getContentData('offerPromotionByNearbyLocation');
+			document.getElementById('listPromoByLocation').innerHTML = '';
+			for (var i = 0; i < offerPromotionByNearbyLocation.length; i++) { 
+				document.getElementById('listPromoByLocation').innerHTML += '<li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-btn-up-c"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a onclick="getDetailPromotion(\''+ offerPromotionByNearbyLocation[i].code +'\');" class="ui-link-inherit" rel="external" style="padding-left:5px!important;"><p class="ui-li-aside ui-li-desc" style="width:20%;">'+offerPromotionByNearbyLocation[i].distance+'km</p><span class="linkText" style="margin-left:5px;width:80%;">'+offerPromotionByNearbyLocation[i].name+'</span><p class="ui-li-desc" style="margin-left:5px;width:80%;">'+offerPromotionByNearbyLocation[i].periodTo+'</p></a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>';
+			}
+			animateTouch('.ui-btn-up-c','ui-focus');
+			document.getElementById('listPromotionByLocation').style.display = 'block';
+			document.getElementById('cityOption').style.display = 'none';
+		}
+	
+		function getListPromotionByCityCode(data) {
+			var cityCode = data.value;
+			if (cityCode != '') {
+				setContentData([{source: 'server',service:'GetListPromotionCategoryByLocationCode', params: {cityCode: cityCode },dataIds:[{dataId: 'offerPromotionByLocationCityCodeList',dataType:'entity',source:'param'}]}], 'getListPromotionByCityCodeRollBack');
+			}
+		}
+	
+		function getListPromotionByCityCodeRollBack() {
+			var offerPromotionByLocationCityCodeList = getContentData('offerPromotionByLocationCityCodeList');
+			document.getElementById('listPromoByLocation').innerHTML = '';
+			for (var i = 0; i < offerPromotionByLocationCityCodeList.length; i++) { 
+				document.getElementById('listPromoByLocation').innerHTML += '<li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-btn-up-c"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a onclick="getDetailPromotion(\''+ offerPromotionByLocationCityCodeList[i].code +'\');" class="ui-link-inherit" rel="external" style="padding-left:5px!important;"><span class="linkText">'+offerPromotionByLocationCityCodeList[i].name+'</span><p class="ui-li-desc">'+offerPromotionByLocationCityCodeList[i].periodTo+'</p></a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>';
+			}
+			animateTouch('.ui-btn-up-c','ui-focus');
+			document.getElementById('listPromotionByLocation').style.display = 'block';
+		}
+	
+		function getDetailPromotion(data) {
+			var code = data;
+			if (code != '') {
+				setContentData([{source: 'server',service:'GetDetailPromotion', params: {code: code },dataIds:[{dataId: 'name',dataType:'text',source:'param'},{dataId: 'categoryName',dataType:'text',source:'param'},{dataId: 'nameDescription',dataType:'text',source:'param'},{dataId: 'contentHeader',dataType:'text',source:'param'},{dataId: 'contentDesciption',dataType:'text',source:'param'},{dataId: 'periodFrom',dataType:'text',source:'param'},{dataId: 'periodTo',dataType:'text',source:'param'},{dataId: 'catName',dataType:'text',source:'param'},{dataId: 'contentImage',dataType:'text',source:'param'}]}], 'getDetailPromotionCallBack');
+			}
+		}
+	
+		function getDetailPromotionCallBack() {
+		
+			if(fromCategory=='true') {
+			 	document.getElementById('categoryNameDetailCat').innerHTML = getContentData('catName');
+				document.getElementById('catNameDetailCat').innerHTML = getContentData('categoryName');
+				document.getElementById('nameOfferDetailCat').innerHTML = getContentData('name');
+				document.getElementById('periodToOfferDetailCat').innerHTML = getContentData('periodTo');
+				document.getElementById('nmDscpDetailCat').innerHTML = getContentData('contentHeader');
+				document.getElementById('contentDscpDetailCat').innerHTML = getContentData('contentDesciption');
+				document.getElementById('promotionContentImgCat').src = getContentData("contentImage");
+				fixScrollTop();
+				showHideLeft('traveloffersbycategory','listOffersByCategory');
+				fromCategory='false';
+				app.backFunction=customBackFromDetailPromotion2;
+			} else if (fromCategory == 'notif') {
+				var isOk = getContentData('ok');
+				if(isOk == '1'){
+					document.getElementById('categoryNameDetailNotif').innerHTML = getContentData('catName');
+					document.getElementById('catNameDetailNotif').innerHTML = getContentData('categoryName');
+					document.getElementById('nameOfferDetailNotif').innerHTML = getContentData('name');
+					document.getElementById('periodToOfferDetailNotif').innerHTML = getContentData('periodTo');
+					document.getElementById('nmDscpDetailNotif').innerHTML = getContentData('contentHeader');
+					document.getElementById('contentDscpDetailNotif').innerHTML = getContentData('contentDesciption');
+					document.getElementById('promotionContentImgNotif').src = getContentData("contentImage");
+					fixScrollTop();
+					showHideLeft('traveloffersbyNotif','offers');
+					fromCategory='false';
+					app.backFunction=customBackFromDetailPromotion3;
+				} else {
+					goToHTML({viewId: 'offers.html'});
+	  				app.backFunction=customBackFromPromotion;
+				}
+			} else {
+				document.getElementById('categoryNameDetail').innerHTML = getContentData('catName');
+				document.getElementById('catNameDetail').innerHTML = getContentData('categoryName');
+				document.getElementById('nameOfferDetail').innerHTML = getContentData('name');
+				document.getElementById('periodToOfferDetail').innerHTML = getContentData('periodTo');
+				document.getElementById('nmDscpDetail').innerHTML = getContentData('contentHeader');
+				document.getElementById('contentDscpDetail').innerHTML = getContentData('contentDesciption');
+				document.getElementById('promotionContentImg').src = getContentData("contentImage");
+				fixScrollTop();
+				showHideLeft('traveloffers','offers');
+				app.backFunction=customBackFromDetailPromotion1;
+			}
+		}
+
+		function customBackFromListCategoryCode(){
+	  		showHideLeft('offers','listOffersByCategory');
+	  		app.backFunction=customBackFromPromotion;
+	  	}
+
+		function customBackFromDetailPromotion1(){
+	  		showHideLeft('offers','traveloffers');
+	  		app.backFunction=customBackFromPromotion;
+	  	}
+
+	  	function customBackFromDetailPromotion2(){
+	  		showHideLeft('listOffersByCategory','traveloffersbycategory');
+	  		app.backFunction=customBackFromListCategoryCode;
+	  	}
+
+	  	function customBackFromDetailPromotion3(){
+	  		goToHTML({viewId: 'offers.html'});
+	  		app.backFunction=customBackFromPromotion;
+	  	}
+
+	  	function customBackFromPromotion() {
+			goToHTML({viewId: 'login.html'});
+	  	}
+
+	  	function getPromotionOnload(){
+			var hhh = getContentData('FROM_NOTIF');
+			if(typeof hhh == 'undefined' || hhh == null)
+			{
+				checkLanguage1();
+			}else{
+				var code = getContentData("idNotifnya");
+				fromCategory = 'notif';
+				getDetailPromotion(code);
+				Session.clear();
+			}
+	  	}
+
+	</script>
+</head>
+<body class="loginScreen innerPage" onload="getNotificationParams('getPromotionOnload');">
+<!------******************------> 
+<!--------- Offers ---------> 
+<!------******************------>
+	<div data-role="page" id="offers" class="ui-page ui-body-c ui-page-header-fixed ui-page-active" data-add-back-btn="false">
+		<div id="header" data-position="fixed" data-role="header" class="header"  data-tap-toggle="false">
+			<a href="login.html" class="leftBtnTwo arrow" rel="external"><language key="home"></language></a>
+			<h1><language key="offers"></language></h1>
+		</div>
+		<div data-role="content" class="noshadow">
+	    		<div class="content-primary">
+				<section class="slider">
+				<p><language key="featuredOffers"></language></p>
+				<div class="flexslider offersSlider">
+					<ul class="slides" id="promotionLastFive">
+						<li>
+							<div class="offersPanel">
+								<img id="imageHighlight0" src="" style="width: 100%;">
+								<p class="offersType" id="catNameList0"></p>
+								<h3 id="nameList0"></h3>
+								<p id="nameDescriptionList0"></p>
+								<div class="blueBtntwo"><a onclick="getDetailPromotion(document.getElementById('codePromo0').value);" href="#" rel="external"><language key="findOutMore"></language></a></div>
+								<input type="hidden" id="codePromo0" />
+							</div>
+						</li>
+						<li>
+							<div class="offersPanel">
+								<img id="imageHighlight1" src="" style="width: 100%;">
+								<p class="offersType" id="catNameList1"></p>
+								<h3 id="nameList1"></h3>
+								<p id="nameDescriptionList1"></p>
+								<div class="blueBtntwo"><a onclick="getDetailPromotion(document.getElementById('codePromo1').value);" href="#" rel="external"><language key="findOutMore"></language></a></div>
+								<input type="hidden" id="codePromo1" />
+							</div>
+						</li>
+						<li>
+							<div class="offersPanel">
+								<img id="imageHighlight2" src="" style="width: 100%;">
+								<p class="offersType" id="catNameList2"></p>
+								<h3 id="nameList2"></h3>
+								<p id="nameDescriptionList2"></p>
+								<div class="blueBtntwo"><a onclick="getDetailPromotion(document.getElementById('codePromo2').value);" href="#" rel="external"><language key="findOutMore"></language></a></div>
+								<input type="hidden" id="codePromo2" />
+							</div>
+						</li>
+						<li>
+							<div class="offersPanel">
+								<img id="imageHighlight3" src="" style="width: 100%;">
+								<p class="offersType" id="catNameList3"></p>
+								<h3 id="nameList3"></h3>
+								<p id="nameDescriptionList3"></p>
+								<div class="blueBtntwo"><a onclick="getDetailPromotion(document.getElementById('codePromo3').value);" href="#" rel="external"><language key="findOutMore"></language></a></div>
+								<input type="hidden" id="codePromo3" />
+							</div>
+						</li>
+						<li>
+							<div class="offersPanel">
+								<img id="imageHighlight4" src="" style="width: 100%;">
+								<p class="offersType" id="catNameList4"></p>
+								<h3 id="nameList4"></h3>
+								<p id="nameDescriptionList4"></p>
+								<div class="blueBtntwo"><a onclick="getDetailPromotion(document.getElementById('codePromo4').value);" href="#" rel="external"><language key="findOutMore"></language></a></div>
+								<input type="hidden" id="codePromo4" />
+							</div>
+						</li>
+					</ul>
+				</div>
+	      		</section>
+			</div>
+	        	<div class="minusmargintwo offers-collapsible paddingBottom">
+				<div data-role="collapsible-set">
+					<div data-role="collapsible" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-iconpos="right">
+						<h2><language key="browseOffersByCategory"></language></h2>
+						<ul data-role="listview" class="listtype ui-listview" id="colCategoryList">
+						  
+						</ul>
+					</div>
+					<div data-role="collapsible"  data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-iconpos="right" class="locationList">
+				          <h2><language key="browseOffersBy"></language></h2>
+			            	<div class="minusmargintwo whiteBgTwo" style="margin-top:-9px;margin-bottom:-5px;">
+							<div class="transgreyBackgrout padding">
+								<div data-role="fieldcontain" class="noMargin marginBottom ui-field-contain ui-body ui-br">
+									<div id="selectOfferEn" style="display:none;" data-role="fieldcontain" class="noMargin marginBottom">
+										<select name="offersListOption" id="offersListOption1" onchange="selectOfferBy(this);">
+											<option value="" selected="selected">Select By</option>
+											<option value="1">Promo Near Me</option>
+											<option value="2">City</option>
+										</select>
+									</div>
+									<div id="selectOfferId" style="display:none;" data-role="fieldcontain" class="noMargin marginBottom">
+										<select name="offersListOption" id="offersListOption2" onchange="selectOfferBy(this);">
+											<option value="" selected="selected">Pilih berdasarkan</option>
+											<option value="1">Promo Disekitar Saya</option>
+											<option value="2">Kota</option>
+										</select>
+									</div>
+									<div id="cityOption" class="noMargin marginBottom" style="display: none;">
+										<select name="offersCityOption" id="offersCityOption" onchange="getListPromotionByCityCode(this);">
+										</select> 
+									<!--<div class="formElements noMargin marginBottom ui-field-contain ui-body ui-br">
+										<div class="ui-select">
+					                            <div class="ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-right ui-btn-up-c">
+					                            	<span class="ui-btn-inner"><span class="ui-btn-text">
+					                            	<span id="offersCityOptionSelected"></span></span>
+					                            	<span class="ui-icon ui-icon-arrow-d ui-icon-shadow">&nbsp;</span></span>
+					                                <select name="offersCityOption" id="offersCityOption" onblur="getListPromotionByCityCode(this);"></select>
+					                            </div>
+					                        </div-->
+									</div>
+								</div>
+							</div>
+			            	</div>
+						<div id="listPromotionByLocation" style="display:none;">
+							<ul class="listtype ui-listview" id="listPromoByLocation">
+								
+							</ul>
+						</div>
+		          	</div>
+		        	</div>
+	        	</div>
+		</div>
+	</div>
+	<div class="ui-page ui-body-c ui-page-header-fixed" data-role="page" id="traveloffers" data-add-back-btn="false">
+	      <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+	      	<a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="fixScrollTop();getListPromoLastFive();showHideRight('offers','traveloffers');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" rel="external"><span class="ui-btn-inner"><span class="ui-btn-text">Offers</span></span></a>
+	    		<h1 aria-level="1" role="heading" class="ui-title" id="categoryNameDetail"></h1>
+	  	</div>
+	  	<div role="main" data-role="content" class="noshadow ui-content">
+	   		<div class="content-primary">
+	            	<div class="offersPanel">
+					<img id="promotionContentImg" src="" style="width: 100%;">
+					<p class="offersType" id="catNameDetail"></p>
+					<h3 id="nameOfferDetail"></h3>
+		    			<p id="periodToOfferDetail"></p>
+		    			<p>&nbsp;</p>
+	            		<p id="nmDscpDetail"></p>
+	            		<p>&nbsp;</p>
+	            		<p id="contentDscpDetail"></p>
+	            		<p>&nbsp;</p>
+	            	</div>
+	  		</div>
+	  	</div>
+	</div>
+	<div class="ui-page ui-body-c ui-page-header-fixed" data-role="page" id="traveloffersbycategory" data-add-back-btn="false">
+	      <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+	      	<a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="fixScrollTop();showHideRight('listOffersByCategory','traveloffersbycategory');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" rel="external"><span class="ui-btn-inner"><span class="ui-btn-text">Offers</span></span></a>
+	    		<h1 aria-level="1" role="heading" class="ui-title" id="categoryNameDetailCat"></h1>
+	  	</div>
+	  	<div role="main" data-role="content" class="noshadow ui-content">
+	   		<div class="content-primary">
+	            	<div class="offersPanel">
+					<img id="promotionContentImgCat" src="" style="width: 100%;">
+					<p class="offersType" id="catNameDetailCat"></p>
+					<h3 id="nameOfferDetailCat"></h3>
+		    			<p id="periodToOfferDetailCat"></p>
+		    			<p>&nbsp;</p>
+	            		<p id="nmDscpDetailCat"></p>
+	            		<p>&nbsp;</p>
+	            		<p id="contentDscpDetailCat"></p>
+	            		<p>&nbsp;</p>
+	            	</div>
+	  		</div>
+	  	</div>
+	</div>
+	<div class="ui-page ui-body-c ui-page-header-fixed" data-role="page" id="traveloffersbyNotif" data-add-back-btn="false">
+	      <div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+	      	<a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="showHideRight('offers','traveloffersbyNotif');checkLanguage1();" class="leftBtnTwo arrow ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" rel="external"><span class="ui-btn-inner"><span class="ui-btn-text">Offers</span></span></a>
+	    		<h1 aria-level="1" role="heading" class="ui-title" id="categoryNameDetailNotif"></h1>
+	  	</div>
+	  	<div role="main" data-role="content" class="noshadow ui-content">
+	   		<div class="content-primary">
+	            	<div class="offersPanel">
+					<img id="promotionContentImgNotif" src="">
+					<p class="offersType" id="catNameDetailNotif"></p>
+					<h3 id="nameOfferDetailNotif"></h3>
+		    			<p id="periodToOfferDetailNotif"></p>
+		    			<p>&nbsp;</p>
+	            		<p id="nmDscpDetailNotif"></p>
+	            		<p>&nbsp;</p>
+	            		<p id="contentDscpDetailNotif"></p>
+	            		<p>&nbsp;</p>
+	            	</div>
+	  		</div>
+	  	</div>
+	</div>  
+	<div class="ui-page ui-body-c ui-page-header-fixed" data-role="page" id="listOffersByCategory" data-add-back-btn="false">
+	 	<div role="banner" id="header" data-position="fixed" data-role="header" class="header ui-header ui-bar-a ui-header-fixed slidedown" data-tap-toggle="false">
+	      	<a data-theme="a" data-wrapperels="span" data-iconshadow="true" data-shadow="true" data-corners="true" onclick="fixScrollTop();showHideRight('offers','listOffersByCategory');" class="leftBtnTwo arrow ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all" rel="external"><span class="ui-btn-inner"><span class="ui-btn-text">Offers</span></span></a>
+	    		<h1 aria-level="1" role="heading" class="ui-title" id="catNameByCategoryCode"></h1>
+	  	</div>
+	 	<div class="productView whiteBgTwo ui-content content-primary">
+			<ul class="listtype listViewTwo deleteList ui-listview" id="listOfferByCategoryCode">
+	          
+	      	</ul>
+	  	</div>
+	</div>
+</body>
+</html>

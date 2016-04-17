@@ -1,0 +1,28 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div ng-include src="'views/loading/loading.html'"></div>
+
+    <div class="scrollBox-withSearchFooter" id="gameList">
+        <div>
+            <ul class="arrowlist fav-friendList">
+                <li ng-repeat="bill in billPaymentList" class="greyBorderBottom" ng-click="selectBill(bill)">
+                    <a class="favouritesContainer friendsList">
+                        <div class="avatar-game"> <img src="{{bill.iconUrl}}"/></div>
+                        <div class="rowContainer">
+                            <div class="detailtable" style="text-align: match-parent">
+                                <div class="row">
+                                    <div class="friendLabel">{{bill.name}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

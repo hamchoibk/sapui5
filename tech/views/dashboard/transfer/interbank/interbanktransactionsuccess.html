@@ -1,0 +1,35 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div class="profile-cover" style="background-image: url(images/fbcover.jpg)">
+        <div class="profile-name noprofilephoto"><h1 style="color:white">{{txnInfo.benName}}<br/>{{txnInfo.benAccountNumber}}<br/>{{txnInfo.destBranch.name}}</h1>
+        </div>
+
+        <div class="accountBalance">
+            <div class="accountType success">{{'TRANSFER_TCB_SUCCESSAMOUNT' | translate}}</div>
+            <div class="amount left">
+                <span class="currency">{{txnInfo.currency}}</span><span class="number">{{txnInfo.parsedAmount}}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="scrollBox-withCoverAndFooter resultContainer">
+        <div class="infolist">
+            <p class="labelKey">{{'TRANSFER_TCB_SUCCESSFEE' | translate}} <span class="labelValue amount left" style="margin-top: 0px;font-size: 1.05em;">{{txnInfo.currency}} {{txnInfo.fee.formatMoney(0)}}</span></p>
+        </div>
+
+        <div class="infolist" style="overflow: auto;">
+            <p class="labelKey">{{'TRANSFER_TCB_TRANSACTION_REFERENCE' | translate}} <span class="labelValue amount left" style="margin-top: 0px;font-size: 1.05em;width: 145px;word-break: break-word;text-align: right;">{{txnInfo.ftId}}</span></p>
+        </div>
+        <br/>
+        <div class="buttonBox success">
+            <button class="button base active" ng-click="clickTransactMore()">{{'TRANSFER_TCB_SUCCESSTRANSACTMORE_BUTTON' | translate}}</button>
+            <button class="button base active" ng-click="clickHome()">{{'TRANSFER_TCB_SUCCESSHOME_BUTTON' | translate}}</button>
+        </div>
+    </div>
+
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+
+
+</div>

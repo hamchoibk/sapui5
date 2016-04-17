@@ -1,0 +1,52 @@
+<div>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <navigation-bar status="status"></navigation-bar>
+
+    <div class="scrollBox-withFooter-card" style="margin-top: 3px">
+
+        <div class="cashoutInfo" ng-show="isPaymentForOther"> {{'HAVE_NO_CREDIT_CARD_MESSAGE' | translate}}</div>
+        <div class="cashoutInfo" ng-show="isPaymentForOther">{{'PAY_CREDIT_CARD_FOR_OTHER_MESSAGE' | translate}}</div>
+
+
+        <div ng-show="!isPaymentForOther">
+            <p class="labelKey">{{'CARD_PAYMENT_LIST_CARD_NUMBER' | translate}}</p>
+            <select class="form-control" ng-model="selectedCardNumber" style="font-size: 1.05em !important; margin-top: 5px; font-weight: bold" ng-options="cardInfo.cardNumber as cardInfo.cardNumber for cardInfo in cards" ng-change="changeCardNumber()">
+            </select>
+            <div class="space"></div>
+
+            <div class="greyBorderBottom">
+                <p class="labelKey">{{'CARD_PAYMENT_LIST_CARD_TYPE' | translate}}</p>
+                <p class="labelValue">{{cardInfo.cardType}}</p>
+            </div>
+
+            <div class="greyBorderBottom">
+                <p class="labelKey">{{'CARD_PAYMENT_LIST_CARD_ACCOUNT_NUMBER' | translate}}</p>
+                <p class="labelValue">{{cardInfo.cardAccountNumber}}</p>
+            </div>
+
+            <div class="greyBorderBottom">
+                <p class="labelKey">{{'CARD_PAYMENT_LIST_OUTSTANDING_BALANCE' | translate}}</p>
+                <p class="labelValue">{{cardInfo.balance.formatMoney(0)}}
+                    <b>{{currencyCode}}</b>
+                </p>
+            </div>
+
+            <div class="greyBorderBottom">
+                <p class="labelKey">{{'CARD_PAYMENT_LIST_CREDIT_LIMIT' | translate}}</p>
+                <p class="labelValue">{{cardInfo.creditLimit.formatMoney(0)}}
+                    <b>{{currencyCode}}</b>
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="stickyBottom">
+        <div class="item dashboardGreyBox column2">
+            <div class="cardPayment" ng-click="clickCardPayment()"><span>{{'CARD_PAYMENT_INDEX_PAYMENT_TITLE' | translate}}</span></div>
+            <div class="statement" ng-click="clickStatement()" ng-show="!isPaymentForOther"><span>{{'CARD_PAYMENT_INDEX_STATEMENT_TITLE' | translate }}</span></div>
+        </div>
+    </div>
+
+    <!--<div class="socially grey-tcb" style="margin-top: -20px"></div>-->
+</div>

@@ -1,0 +1,36 @@
+<div>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <navigation-bar status="status"></navigation-bar>
+    <div class="formContainer scrollBox-withFooter">
+        <div class="greyBorderBottom">
+            <p class="labelKey">{{'CASHOUT_MOBILE_CONFIRM_FROM' | translate}} </p>
+            <p class="labelValue">{{sourceAccount.displayName}}</p>
+            <p class="labelValue">{{sourceAccount.accountNumber}}</p>
+        </div>
+        <div class="greyBorderBottom">
+            <p class="labelKey">{{'CASHOUT_MOBILE_CONFIRM_ACCOUNT_BALANCE' | translate}}</p>
+            <p class="labelValue"><b>VND {{sourceAccount.availableBalance.formatMoney(0)}}</b></p>
+        </div>
+        <div class="greyBorderBottom">
+            <p class="labelKey" ng-show="isPrePaid">{{'CASHOUT_MOBILE_CONFIRM_TO_MOBILE' | translate}}</p>
+            <p class="labelKey" ng-show="!isPrePaid">{{'BILLING_FOR_CONFIRM' | translate}}</p>
+            <p class="labelValue"><b>{{contactName}}</b></p>
+            <p class="labelValue"><b>{{topupNumber}}</b></p>
+        </div>
+        <div class="greyBorderBottom">
+            <p class="labelKey">{{'CASHOUT_MOBILE_CONFIRM_AMOUNT' | translate}}</p>
+            <p class="labelValue"><b>{{sourceAccount.currency}} {{parsedAmount}}</b></p>
+        </div>
+        <div class="greyBorderBottom" ng-show="!isPrePaid">
+          <p class="labelKey">{{'POST_PAID_TOPUP_DATE' | translate}}</p>
+          <p class="labelValue"><b>{{topupDate}}</b></p>
+        </div>
+        <div class="buttonBox">
+            <button class="button base active" ng-click="confirm()">{{'CASHOUT_MOBILE_CONFIRM_CONFIRM' | translate}}</button>
+        </div>
+    </div>
+
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

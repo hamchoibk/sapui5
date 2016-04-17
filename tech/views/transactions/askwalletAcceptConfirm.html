@@ -1,0 +1,43 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <div class="formContainer scrollBox-withFooter ">
+        <div class="labelKey" style="margin-bottom: 5px"><span ><b>{{'COMMON_FROM' | translate }}</b></span></div>
+        <div>
+            <p class="number" style="margin-bottom: 0px"><b>{{accountName}}</b></p>
+            <p class="number" style="margin-bottom: 0px"><b>{{accountNumber}}</b></p>
+            <p class="number"><b>VND {{accountBalance}}</b></p>
+        </div>
+        <div class="space"></div>
+        <div class="labelKey" style="padding-bottom:10px;"><span ><b>{{'COMMON_TO' | translate }}</b></span></div>
+        <div>
+            <i class="icon-value smallicon pull-right {{transactionIcon}}" />
+            <div class="avatar"> <img src="{{transaction.photo}}" style="background-color: #ffffff"/></div>
+            <div class="rowContainer">
+                <div class="row">
+                    <div class="number"><b>{{transaction.name}}<br>
+                        <span class="number" ng-show="toEwallet">{{transaction.payee.accountNumber}}</span></b>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="space"></div>
+        <div class=" iconField">
+            <i class="icon-value askSocial  glyphicon pull-left"/>
+            <div class="rowContainer">
+                <p class="number"><b>{{transaction.debitCurrency}} {{transAmount.formatMoney(0)}}</b></p>
+                <p class="number"><b>{{'TRANSACTION_FEE' | translate}} {{transaction.debitCurrency}} {{fee.formatMoney(0)}}</b></p>
+            </div>
+        </div>
+        <div class="space"></div>
+
+        <div class="buttonBox" style="bottom: 0px;width: 90%;margin-bottom: 0px;position: absolute;">
+            <button class="button base active" ng-click="clickConfirm()">{{ 'TRANSFER_SEND_BUTTON' | translate }}</button>
+        </div>
+    </div>
+
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>
+

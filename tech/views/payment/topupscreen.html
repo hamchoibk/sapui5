@@ -1,0 +1,60 @@
+<div>
+  <navigation-bar status="status"></navigation-bar>
+  <div ng-include src="'views/loading/loading.html'"></div>
+  <div class="scrollBox-withFooter formContainer">
+    <form id="topupForm" name="topupForm">
+
+      <div class="greyBorderBottom">
+        <ul class="arrowlist">
+          <li class="fromRow" ng-click="selectAccount()">
+            <a class="labelKey"><b>{{ 'COMMON_FROM' | translate }}</b></span><br>
+                              <span class="detail">
+                                  {{sourceAccount.displayName}}<br>
+                                  {{sourceAccount.accountNumber}}<br>
+                                  {{currencyCode}} {{sourceAccount.availableBalance.formatMoney(0)}}<br>
+                              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="input-withIcon" style="padding-top:10px;"><b ng-show="isPrePaid">{{'TOPUP_FOR' | translate }}</b><b ng-show="!isPrePaid">{{'BILLING_FOR' | translate }}</b></br>
+        <div class="labelKey" style="margin-bottom: -10px;color: #666;margin-top: 8px;" ng-show="contactName!=undefined&&contactName!=''" >{{contactName}}</div>
+        <input id="phone-input" ng-change="changePhoneNumber()" type="tel" pattern="[0-9]*" placeholder="{{'KEY_IN_PHONE_NUMBER' | translate}}" ng-model="topupNumber" mobile-check="ERROR_CODE_30003" class="greyBorderBottom" required/>
+        <i id="selectContact" class="selectContact-topup inputIcon glyphicon pull-right" ng-click="selectContact()"></i>
+      </div>
+
+      <div style="padding-top:10px;" ng-show="isPrePaid">
+
+        <b>{{'TOPUP_AMOUNT'|translate}}</b><br/>
+
+        <select ng-model="topupAmount" class="greyborderbottom form-control" placeholder>
+          <option value="50000">VND 50,000</option>
+          <option value="100000">VND 100,000</option>
+          <option value="200000">VND 200,000</option>
+          <option value="300000">VND 300,000</option>
+          <option value="500000">VND 500,000</option>
+        </select>
+      </div>
+    </form>
+
+    <div class="postpaidInfo" ng-show="!isPrePaid">
+        <div class="greyBorderBottom" style="padding: 10px 0px;">
+          <p class="labelValue">{{'POST_PAID_AMOUNT' | translate}}</p>
+          <p class="labelKey">VND {{topupAmount.formatMoney(0)}}</p>
+        </div>
+
+        <div class="greyBorderBottom" style="padding: 10px 0px;">
+            <p class="labelValue">{{'POST_PAID_TOPUP_DATE' | translate}}</p>
+            <p class="labelKey">{{topupDate}}</p>
+        </div>
+    </div>
+    <div>
+      <button ng-class="{true: 'button base inactive buttonBox', false: 'button base active buttonBox'}[topupForm.$invalid]" ng-disabled="topupForm.$invalid" ng-click="topup()">{{'CASHOUT_MOBILE_SEND' | translate}}</button>
+    </div>
+  </div>
+  <div class="stickyBottom">
+    <div class="socially grey-tcb"></div>
+  </div>
+</div>
+

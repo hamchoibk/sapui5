@@ -1,0 +1,28 @@
+    <div>
+    <navigation-bar status="status"></navigation-bar>
+
+    <div class="flexible-Margin">
+        <div class="greyBorderBottom" style="padding-bottom: 6px">{{'SELECT_FRIEND_FAVOURITES' | translate}}</div>
+
+        <ul class="arrowlist fav-friendList ">
+            <li ng-repeat="friend in friends" class="greyBorderBottom" ng-click="contactDetail({{friend.id}})">
+                <a class="favouritesContainer friendsList">
+                    <div class="avatar"> <img src="{{friend.imgUrl}}"/></div>
+                    <div class="rowContainer">
+                        <p class="friendName">{{friend.name}}</p>
+                    </div>
+                    <i class="icon-value fb smallicon pull-right" />
+                </a>
+            </li>
+        </ul>
+        <div>{{'SELECT_FRIEND_VIA_SOCIAL' | translate}}</div>
+        <ul class="arrowlist favouritesContainer">
+            <li class="greyBorderBottom iconField"><i class="sms listicon pull-left"></i><a class="iconText" href="" ng-click="clickSMS()">{{'SELECT_FRIEND_VIA_CONTACT' | translate}}</a></li>
+            <li class="greyBorderBottom iconField"><i class="fb listicon pull-left"></i><a class="iconText" href="">Facebook</a></li>
+            <li class="greyBorderBottom iconField"><i class="gplus listicon pull-left"></i><a class="iconText" href="">Google +</a></li>
+        </ul>
+    </div>
+    <div class="stickyBottom">
+        <div class="socially grey"></div>
+    </div>
+</div>

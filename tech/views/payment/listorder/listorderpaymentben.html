@@ -1,0 +1,26 @@
+<div>
+    <div class="overlay"></div>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <navigation-bar status="status"></navigation-bar>
+    <div class="cashoutInfo labelKey topupGame-info">{{lableInfo | translate}} </div>
+    <div class="scrollBox-withSearchFooter">
+        <ul class="arrowlist fav-friendList">
+            <li ng-repeat="order in listOrders" class="greyBorderBottom" ng-click="payeeSelected(order)">
+                <a class="favouritesContainer friendsList" style="background-image: none">
+                    <div class="avatar-game"> <img src="{{order.paymentType.iconUrl}}"/></div>
+                    <div class="rowContainer">
+                        <div class="detailtable" style="text-align: match-parent">
+                            <div class="row">
+                                <div class="friendLabel">{{order.order}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="stickyBottom">
+        <div class="socially grey-tcb"></div>
+    </div>
+</div>

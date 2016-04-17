@@ -1,0 +1,65 @@
+<div>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <navigation-bar status="status"></navigation-bar>
+    <div class="formContainer flexible-Margin scrollBox-withFooter" id="scrollArea">
+        <div>
+            <p class="labelKey">{{ 'SIGNUP_CAPTCHA_USERNAME' | translate }}</p>
+            <p class="labelValue">{{username}}</p>
+        </div>
+        <div>
+            <p class="labelKey">{{ 'SIGNUP_CAPTCHA_MOBILENUMBER' | translate }}</p>
+            <p class="labelValue">{{mobileNumber}}</p>
+        </div>
+        <div>
+            <p class="labelKey">{{ 'SIGNUP_CAPTCHA_IDENTITYNUMBER' | translate }}</p>
+            <p class="labelValue">{{identityNumber}}</p>
+        </div>
+        <div>
+            <p class="labelKey">{{ 'SIGNUP_CAPTCHA_ISSUEDATE' | translate }}</p>
+            <p class="labelValue">{{issueDateFormated}}</p>
+        </div>
+        <div>
+            <p class="labelKey">{{ 'SIGNUP_USERDETAILS_DOB' | translate }}</p>
+            <p class="labelValue">{{dobFormated}}</p>
+        </div>
+        <div>
+            <p class="labelKey">{{ 'SIGNUP_USERDETAILS_ADDRESS' | translate }}</p>
+            <p class="labelValue">{{address}}</p>
+        </div>
+        <div>
+            <p class="labelKey">{{ 'SIGNUP_USERDETAILS_EMAIL' | translate }}</p>
+            <p class="labelValue">{{signupEmail}}</p>
+        </div>
+        <div class="metaBox">
+            <div class="signup-issueDate" style="padding-top: 15px; color: #000"> {{'SIGNUP_USERDETAILS_SCAN' | translate}} </div>
+            <div class="column60" style="padding-top: 5px">
+                <ul id="aspect">
+                    <li><a href="" style="background: none"><img id="photoImage1" src=""/></a></li>
+                    <li ng-show="isImgData2==true"><a href="" style="background: none"><img id="photoImage2" src=""/></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="tncBox" style="border: none;height: 60px;">
+            <input type="checkbox" id="tnccheck" ng-checked="termsConditionsAgreedFlag" ng-click="changeTNCFlag()" style="margin-top: 15px"/>
+            <label for="tnccheck" style="margin-top: 10px">a label</label>
+            <button class="icon-i" ng-click="termsConditionsButtonClicked()" style="margin-top: 17px">i</button>
+            <label class="terms" ng-click="termsConditionsButtonClicked()" style="margin-top: 16px; margin-left: 10px;">{{ 'SIGNUP_CAPTCHA_TERMSCONDITIONS' | translate }}</label>
+        </div>
+
+        <div class="floatingBox">
+            <button class="icon-refresh" ng-click="refreshButtonClicked()" ng-show="!hasArcIB">Refresh</button>
+            <img src="" id="captchaImg" width="200" height="50" ng-show="!hasArcIB">
+            <input class="greyBorderBottom InputfloatingGap"  type="text" placeholder="{{ 'SIGNUP_CAPTCHA_CAPTCHACODE' | translate }}" ng-model="capchaCode" id="capchaCode" ng-change="didChangeCapcheCode()" capitalize/>
+            <i class="clearText inputIcon glyphicon pull-right" ng-click="clearCapcha()" ng-show="showClearCapcha==true" style="margin-top: -40px;"/>
+        </div>
+
+        <button ng-class="{true: 'button base inactive', false: 'button base active'}[(!capchaCode) || !termsConditionsAgreedFlag]" ng-click="clickNext()"  ng-disabled="(!capchaCode) || !termsConditionsAgreedFlag">{{ 'SIGNUP_CAPTCHA_NEXT_BUTTON' | translate }}</button>
+    </div>
+
+    <div class="stickyBottom">
+        <!--<button class="button next" ng-click="clickNext()"  ng-disabled="!capchaCode || !termsConditionsAgreedFlag" class="button next">{{ 'SIGNUP_CAPTCHA_NEXT_BUTTON' | translate }}</button>-->
+        <div class="socially grey-tcb"></div>
+    </div>
+
+</div>

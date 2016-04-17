@@ -1,0 +1,25 @@
+<div>
+    <navigation-bar status="status"></navigation-bar>
+    <div ng-include src="'views/loading/loading.html'"></div>
+    <div class="scrollBox-withFooter" style="margin-top: 5px">
+        <div class="greyBorderBottom" style="padding-bottom: 10px;">
+            <p class="labelKey">{{'CARD_STATEMENT_CARD_NUMBER' | translate}} : <b>{{cardInfo.cardNumber}}</b></p>
+            <p class="labelKey">{{'CARD_STATEMENT_CARD_ACCOUNT_NUMBER' | translate}} : <b>{{cardInfo.cardAccountNumber}}</b></p>
+            <p class="labelKey" ng-show="cardInfo.isCycle">{{'CARD_STATEMENT_OUTSTANDING' | translate}} : <b>{{currencyCode}} {{cardInfo.endBalance.formatMoney(0)}}</b></p>
+            <p class="labelKey" ng-show="cardInfo.isCycle">{{'CARD_STATEMENT_CYCLE' | translate}} : <b>{{txnQuery.cycleDate}}</b></p>
+        </div>
+        <div class="cashoutInfo" style="margin-top: 0;padding-top: 10px;" ng-show="cardInfo.haveNoTransaction"> {{'HAVE_NO_TRANSACTION_MESSAGE' | translate}}</div>
+        <ul class="arrowlist">
+            <li ng-repeat="transaction in transactions" class="greyBorderBottom">
+                <div class="rowContainer banktransaction">
+                    <span ng-bind-html="transaction.desc" class="name"></span><br>
+                    <div class="banktransaction-amount" ng-show="cardInfo.isCycle"><b>{{currencyCode}} {{transaction.amount.formatMoney(0)}}</b></div>
+                    <div class="banktransaction-amount" ng-show="!cardInfo.isCycle"><b>{{transaction.currency}} {{transaction.originAmount.formatMoney(0)}}</b></div>
+                    <div class="row" ng-if="transaction.prettyDate != null">
+                        <div class="labelKey">{{'TRANSACTION_LATEST_SUMMARY_DATE' | translate}}: <b>{{transaction.prettyDate}}</b></div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

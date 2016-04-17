@@ -1,0 +1,42 @@
+    <div>
+        <div ng-include src="'views/loading/loading.html'"></div>
+        <navigation-bar status="status"></navigation-bar>
+
+        <div class="scrollBox-withFooter">
+            <div>
+                <p class="labelKey">{{'TCB_CONFIRMATION_FROM' | translate }}<br/> <b>{{txnInfo.sourceAccount.accountType | translate}}</b></p>
+                <p class="labelValue"><b>{{txnInfo.sourceAccount.accountNumber}}</b></p>
+            </div>
+            <div class="space"></div>
+            <div class="greyBorderBottom iconField">
+                <i class="icon-value glyphicon pull-left"/><p class="labelValue" ><b>{{txnInfo.currency}} {{txnInfo.parsedAmount}}</b></p>
+
+            </div>
+            <div class="greyBorderBottom">
+                <p class="labelKey">{{'TCB_CONFIRMATION_TRANSFER_MONEY_FEE' | translate }}</p>
+                <p class="labelValue">{{txnInfo.currency}} {{txnInfo.fee.formatMoney(0)}}</p>
+            </div>
+
+            <div>
+
+                <p class="labelKey">{{'TCB_CONFIRMATION_TO' | translate }}</p>
+
+            </div>
+
+
+            <div>
+                <p class="labelValue">{{txnInfo.benName}}</p>
+                <p class="labelValue">{{txnInfo.benAccountNumber}}</p>
+                <p class="labelValue">{{txnInfo.destBranch.name}}</p>
+            </div>
+
+            <div class="space"></div>
+            <div>
+                <input class="messageBox" placeholder="{{ 'TRANSFER_TCB_ADDMESSAGES' | translate }}" ng-model="txnInfo.messageContent" ng-disabled="true" ng-show="txnInfo.messageContent"/>
+            </div>
+            <button class="button base active" ng-click="confirm()">{{ 'TRANSFER_SEND_BUTTON' | translate }}</button>
+        </div>
+        <div class="stickyBottom">
+            <div class="socially grey-tcb"></div>
+        </div>
+    </div>
